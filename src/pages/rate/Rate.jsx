@@ -1,4 +1,4 @@
-import { Box, Container, Image, Menu, MenuButton, MenuItem, MenuList, Button, Switch, Avatar, Heading, Text } from "@chakra-ui/react";
+import { Box, Container, Menu, MenuButton, MenuItem, MenuList, Button, Switch, Avatar, Heading } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import ButtonPages from "../home/components/header/ButtonPages";
 import Calendar from "../home/components/header/Calendar";
@@ -8,7 +8,7 @@ export default function Avaliar() {
         <div style={{ backgroundColor: "#26272D", minHeight: "100vh" }}>
             <Box as="header" bgColor="#1c222b" padding="20px" display="flex" justifyContent="space-between" maxHeight="10vh" alignItems="center" width="100%">
                 <Container maxWidth="294px" maxHeight="65px" padding="0px" margin="0px">
-                    
+
                 </Container>
                 <Container display="flex" justifyContent="space-between" alignItems="center" padding="0px" margin="0px" maxW="300px">
                     <ButtonPages title="FEEDBACKS" navigate="/home/feedbacks" />
@@ -28,17 +28,31 @@ export default function Avaliar() {
                 </Container>
             </Box>
             <Box as="main" minHeight="83vh" display="flex" justifyContent="center" alignItems="center">
-                <Container bgColor="white">
-                    <Heading color="black">
-                        Essa página será a página de AVALIAR
-                    </Heading>
-                    <Text fontSize="22pt">
-                        Aqui, será onde o usuário criará avaliações e verá todas as avaliações já feitas por ele
-                    </Text>
-                    <br />
-                    <Text fontSize="16pt">
-                        Ao criar uma avaliação, ele verá um formulário onde ele pode colocar informações (como argumentos adicionais, rating(1,2,3,4,5)) e também marcar pessoas
-                    </Text>
+                <Container bgColor="white" minHeight="200px" borderRadius="15px" padding="0px" paddingTop="10px">
+                    <Container display="flex" alignItems="center" justifyContent="space-between">
+                        <Heading color="black">Nova Avaliação:</Heading>
+                        <Button
+                            bg="green"
+                            color="white"
+                            border="2px solid"
+                            borderColor="black"
+                            _hover={{}}
+                            _active={{ bg: "#2d6800" }}
+                        >
+                            Create
+                        </Button>
+                    </Container>
+
+
+                </Container>
+                <Container bgColor="white" minHeight="200px" borderRadius="15px" padding="0px" paddingTop="10px" paddingBottom="10px">
+                    <Container display="flex" alignItems="center" justifyContent="space-between" minHeight="60px">
+                        <Heading color="black">Avaliações criadas:</Heading>
+                    </Container>
+                    <Container display="flex" alignItems="center" justifyContent="center" minHeight="140px">
+                        <Heading color="#bebebe" fontFamily="'Inter', sans-serif" fontSize="40px">Empty</Heading>
+                    </Container>
+
                 </Container>
             </Box>
         </div>

@@ -1,4 +1,4 @@
-import { Box, Container, Image, Menu, MenuButton, MenuItem, MenuList, Button, Switch, Avatar, Heading, Text } from "@chakra-ui/react";
+import { Box, Container, Menu, MenuButton, MenuItem, MenuList, Button, Switch, Avatar, Heading, Text } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import ButtonPages from "../home/components/header/ButtonPages";
 import Calendar from "../home/components/header/Calendar";

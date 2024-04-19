@@ -31,18 +31,17 @@ export default function Home() {
             </Box>
 
             <Box as="main" minHeight="83vh" display="flex" justifyContent="center" alignItems="center">
-                <Container bgColor="white">
-                    <Heading color="black">
-                        Essa página será uma página de entrada, onde mostrará informações mais resumidas e das 2 páginas (AVALIAR e FEEDBACK)
-                    </Heading>
-                    <Text fontSize="22pt">
-                        Alguns exemplos são : <br/>-última avaliaçao que o usuário fez <br/>
-                                              -avaliações sobre o usuário listadas
-                    </Text>
-                    <br/>
-                    <Text fontSize="16pt">
-                        Também será onde o usuário irá entrar nas demais páginas
-                    </Text>
+                <Container bgColor="white" minH="300px" borderRadius="20px" padding="10px">
+                    <Heading color="black">Avaliações criadas:</Heading>
+                    <Container bgColor="black">
+                        <Text color="white">Nenhum</Text>
+                    </Container>
+                </Container>
+                <Container bgColor="white" minH="300px" borderRadius="20px" padding="10px">
+                    <Heading color="black">Avaliações recebidas:</Heading>
+                    <Container bgColor="black">
+                        <Text color="white">Nenhum</Text>
+                    </Container>
                 </Container>
             </Box>
             <Box as="footer" minHeight="7vh" display="flex" alignItems="center" paddingLeft="30px">
