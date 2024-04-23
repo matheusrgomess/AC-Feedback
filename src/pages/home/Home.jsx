@@ -1,8 +1,9 @@
 import React from "react";
-import { Image, Box, Container, Avatar, Menu, MenuButton, MenuItem, MenuList, Button, Link, Switch, Heading, Text } from "@chakra-ui/react";
-import { ChevronDownIcon, ExternalLinkIcon } from "@chakra-ui/icons";
-import ButtonPages from "./components/header/ButtonPages";
-import Calendar from "./components/header/Calendar";
+import { Image, Box, Container, Link, Heading, Text } from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+import ButtonPages from "../generalComponents/headerPages/ButtonPages";
+import Calendar from "../generalComponents/headerPages/Calendar";
+import User from "../generalComponents/headerPages/User";
 
 export default function Home() {
 
@@ -17,16 +18,8 @@ export default function Home() {
                     <ButtonPages title="FEEDBACKS" navigate="/home/feedbacks"/>
                 </Container>
                 <Container maxW="300px" padding="0px" margin="0px" display="flex">
-                    <Calendar/>
-                    <Menu>
-                        <MenuButton bg='#BA303B' as={Button} rightIcon={<ChevronDownIcon color="white" w={6} h={6} />} _hover={{}} _active={{}} padding="0px" minH="48px">
-                            <Avatar bg='#BA303B' />
-                        </MenuButton>
-                        <MenuList marginTop="6px">
-                            <Container paddingLeft="10px">Tema escuro <Switch/></Container>
-                            <MenuItem>Log out</MenuItem>
-                        </MenuList>
-                    </Menu>
+                    <Calendar />
+                    <User />
                 </Container>
             </Box>
 

@@ -1,7 +1,9 @@
-import { Box, Container, Menu, MenuButton, MenuItem, MenuList, Button, Switch, Avatar, Heading } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import ButtonPages from "../home/components/header/ButtonPages";
-import Calendar from "../home/components/header/Calendar";
+import { Box, Container } from "@chakra-ui/react";
+import ButtonPages from "../generalComponents/headerPages/ButtonPages";
+import Calendar from "../generalComponents/headerPages/Calendar";
+import NewAvaliation from "./components/NewAvaliation";
+import CreatedAvaliations from "./components/CreatedAvaliations";
+import User from "../generalComponents/headerPages/User";
 
 export default function Avaliar() {
     return (
@@ -16,44 +18,12 @@ export default function Avaliar() {
                 </Container>
                 <Container maxW="300px" padding="0px" margin="0px" display="flex">
                     <Calendar />
-                    <Menu>
-                        <MenuButton bg='#BA303B' as={Button} rightIcon={<ChevronDownIcon color="white" w={6} h={6} />} _hover={{}} _active={{}} padding="0px" minH="48px">
-                            <Avatar bg='#BA303B' />
-                        </MenuButton>
-                        <MenuList marginTop="6px">
-                            <Container paddingLeft="10px">Tema escuro <Switch /></Container>
-                            <MenuItem>Log out</MenuItem>
-                        </MenuList>
-                    </Menu>
+                    <User />
                 </Container>
             </Box>
             <Box as="main" minHeight="83vh" display="flex" justifyContent="center" alignItems="center">
-                <Container bgColor="white" minHeight="200px" borderRadius="15px" padding="0px" paddingTop="10px">
-                    <Container display="flex" alignItems="center" justifyContent="space-between">
-                        <Heading color="black">Nova Avaliação:</Heading>
-                        <Button
-                            bg="green"
-                            color="white"
-                            border="2px solid"
-                            borderColor="black"
-                            _hover={{}}
-                            _active={{ bg: "#2d6800" }}
-                        >
-                            Create
-                        </Button>
-                    </Container>
-
-
-                </Container>
-                <Container bgColor="white" minHeight="200px" borderRadius="15px" padding="0px" paddingTop="10px" paddingBottom="10px">
-                    <Container display="flex" alignItems="center" justifyContent="space-between" minHeight="60px">
-                        <Heading color="black">Avaliações criadas:</Heading>
-                    </Container>
-                    <Container display="flex" alignItems="center" justifyContent="center" minHeight="140px">
-                        <Heading color="#bebebe" fontFamily="'Inter', sans-serif" fontSize="40px">Empty</Heading>
-                    </Container>
-
-                </Container>
+                <CreatedAvaliations />
+                <NewAvaliation />
             </Box>
         </div>
     )

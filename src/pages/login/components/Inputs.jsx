@@ -1,6 +1,7 @@
 import { Text, Input } from "@chakra-ui/react"
 
 export default function Inputs(props) {
+    
     return (
         <>
             <Text>
@@ -25,7 +26,8 @@ export default function Inputs(props) {
                     borderLeftColor: "transparent",
                     borderRightColor: "transparent",
                     boxShadow: "none"
-                }}>
+                }}
+                >
 
             </Input >
         </>
