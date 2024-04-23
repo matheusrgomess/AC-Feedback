@@ -1,4 +1,4 @@
-import { Container, Heading, Button, useDisclosure, Modal, Text, ModalOverlay, Select, ModalContent, ModalHeader, IconButton, ModalBody, FormControl, FormLabel, Input } from "@chakra-ui/react"
+import { Container, Heading, Button, useDisclosure, Modal, Text, Textarea, ModalOverlay, Select, ModalContent, ModalHeader, IconButton, ModalBody, FormControl, FormLabel, Input } from "@chakra-ui/react"
 import { CloseIcon } from "@chakra-ui/icons";
 import { Form, Formik } from "formik";
 import '../rate.css'
@@ -6,7 +6,6 @@ import StarsList from "./StarsList";
 
 export default function NewAvaliation() {
     const { isOpen, onOpen, onClose } = useDisclosure();
-
 
     return (
         <>
@@ -27,10 +26,10 @@ export default function NewAvaliation() {
             </Container>
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay>
-                    <ModalContent bgColor="#26272D">
+                    <ModalContent bgColor="#26272D" minWidth="1200px" minHeight="550px" borderLeft="6px solid" borderLeftColor="#971520">
                         <ModalHeader padding="0px">
-                            <Container bgColor="white" display="flex" alignItems="center" justifyContent="space-between" paddingTop="10px" color="#000000" borderTopRadius="8px" borderBottom="3px solid">
-                                Criando Avaliação:
+                            <Container bgColor="white" minWidth="100%" display="flex" alignItems="center" justifyContent="space-between" color="#000000" borderTopRightRadius="8px" borderBottom="6px solid" borderBottomColor="#971520">
+                                Nova Avaliação:
                                 <IconButton onClick={onClose} bgColor="transparent" _hover={{}} _active={{}}>
                                     <CloseIcon />
                                 </IconButton>
@@ -40,8 +39,16 @@ export default function NewAvaliation() {
                             <Formik>
                                 <Form>
                                     <FormControl>
+                                        <FormLabel color="#FFFFFF">Título da Avaliação:</FormLabel>
+                                        <Input borderRadius="10px" color="#FFFFFF"></Input>
+                                    </FormControl>
+                                    <FormControl marginTop="20px">
+                                        <FormLabel color="#FFFFFF">Descrição:</FormLabel>
+                                        <Textarea borderRadius="10px" color="#FFFFFF" resize="none" minHeight="120px" maxHeight="200px" ></Textarea>
+                                    </FormControl>
+                                    <FormControl>
                                         <Container
-                                            w="100%"
+                                            W="100%"
                                             display="flex"
                                             alignItems="center"
                                             justifyContent="space-between"
@@ -88,10 +95,7 @@ export default function NewAvaliation() {
                                             </Select>
                                         </Container>
                                     </FormControl>
-                                    <FormControl>
-                                        <FormLabel color="#FFFFFF">Título da Avaliação:</FormLabel>
-                                        <Input borderRadius="20px" color="#FFFFFF"></Input>
-                                    </FormControl>
+                                    
                                     <FormControl>
                                         <Container display="flex" borderRadius="10px" padding="4px" justifyContent="space-between" alignItems="center" marginTop="10px" paddingRight="20px" backgroundColor="black">
                                             <Container padding="0px" maxWidth="210px" margin="0px">
@@ -114,10 +118,7 @@ export default function NewAvaliation() {
                                             <StarsList />
                                         </Container>
                                     </FormControl>
-                                    <FormControl>
-                                        <FormLabel color="#FFFFFF">Informações adicionais:</FormLabel>
-                                        <Input borderRadius="20px" color="#FFFFFF"></Input>
-                                    </FormControl>
+                                    
                                     <Button
                                         onClick={onClose}
                                         marginTop="20px"
