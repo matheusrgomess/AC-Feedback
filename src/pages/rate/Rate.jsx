@@ -1,8 +1,8 @@
 import { Box, Container } from "@chakra-ui/react";
 import ButtonPages from "../generalComponents/headerPages/ButtonPages";
 import Calendar from "../generalComponents/headerPages/Calendar";
-import NewAvaliation from "./components/NewAvaliation";
-import CreatedAvaliations from "./components/CreatedAvaliations";
+import NewAvaliation from "./components/newAvaliation";
+import CreatedAvaliations from "./components/createdAvaliations";
 import User from "../generalComponents/headerPages/User";
 
 export default function Avaliar() {
