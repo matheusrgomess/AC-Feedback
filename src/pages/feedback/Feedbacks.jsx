@@ -20,6 +20,11 @@ export default function Feedbacks() {
                     <User />
                 </Container>
             </Box>
+            <Container bgColor="#e6ded5" position="absolute" left="0px" padding="5px" maxWidth="210px">
+                <Heading fontSize="35px">
+                    FEEDBACKS
+                </Heading>
+            </Container>
             <Box as="main" minHeight="83vh" display="flex" justifyContent="center" alignItems="center">
                 <Container bgColor="white" minHeight="200px" borderRadius="15px" padding="0px" paddingTop="10px" paddingBottom="10px">
                     <Container display="flex" alignItems="center" justifyContent="space-between" minHeight="60px">

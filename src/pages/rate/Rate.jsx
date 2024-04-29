@@ -1,4 +1,4 @@
-import { Box, Container } from "@chakra-ui/react";
+import { Box, Container, Heading } from "@chakra-ui/react";
 import ButtonPages from "../generalComponents/headerPages/ButtonPages";
 import Calendar from "../generalComponents/headerPages/Calendar";
 import NewAvaliation from "./components/newAvaliation";
@@ -21,6 +21,11 @@ export default function Avaliar() {
                     <User />
                 </Container>
             </Box>
+            <Container bgColor="#e6ded5" position="absolute" left="0px" padding="5px" maxWidth="160px">
+                <Heading fontSize="35px">
+                    AVALIAR
+                </Heading>
+            </Container>
             <Box as="main" minHeight="83vh" display="flex" justifyContent="center" alignItems="center">
                 <CreatedAvaliations />
                 <NewAvaliation />

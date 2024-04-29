@@ -10,7 +10,7 @@ import * as Yup from "yup";
 export default function NewAvaliation() {
     const [open1stModal, setOpen1stModal] = useState(false);
     const [open2ndModal, setOpen2ndModal] = useState(false);
-    const [arrayForms, setArrayForms] = useState([]);
+    const [arrayForms, setArrayForms] = useState(JSON.parse(localStorage.getItem("valueForms")) || []);
 
     const validationSchema = Yup.object().shape({
         title: Yup.string().required("Required field"),
@@ -51,6 +51,9 @@ export default function NewAvaliation() {
             <Container bgColor="white" minH="100px" borderRadius="15px" padding="20px">
                 <Container display="flex" alignItems="center" justifyContent="space-between">
                     <Heading color="black">Nova Avaliação:</Heading>
+
+                </Container>
+                <Container marginTop="50px" display="flex" alignItems="center" justifyContent="space-between">
                     <Button
                         onClick={handleOpen1st}
                         bg="green"
@@ -63,8 +66,6 @@ export default function NewAvaliation() {
                     >
                         Criar
                     </Button>
-                </Container>
-                <Container marginTop="50px">
                     <ConfigAvaliations />
                 </Container>
             </Container>
@@ -72,7 +73,7 @@ export default function NewAvaliation() {
                 <ModalOverlay>
                     <ModalContent bgColor="#26272D" minWidth="1200px" minHeight="550px" borderLeft="6px solid" borderLeftColor="#971520">
                         <ModalHeader padding="0px">
-                            <Container bgColor="white" minWidth="100%" display="flex" alignItems="center" justifyContent="space-between" color="#000000" borderTopRightRadius="8px" borderBottom="6px solid" borderBottomColor="#971520">
+                            <Container bgColor="white" minWidth="100%" display="flex" alignItems="center" justifyContent="space-between" color="#000000" borderTopRightRadius="8px">
                                 Nova Avaliação:
                                 <IconButton onClick={handleClose1st} bgColor="transparent" _hover={{}} _active={{}}>
                                     <CloseIcon />
