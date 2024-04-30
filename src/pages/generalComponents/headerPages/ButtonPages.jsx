@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 export default function ButtonPages(props) {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     
     return (
         <Button bg="transparent" onClick={() => {navigate(props.navigate)}} _hover={{}} _active={{bg: "rgba(0, 0, 0, 0.473)"}} css={{
@@ -29,5 +29,5 @@ export default function ButtonPages(props) {
             },
         }}>
             {props.title}</Button>
-    )
-}
+    );
+};

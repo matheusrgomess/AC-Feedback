@@ -1,4 +1,4 @@
-import { Container, Text, Switch } from "@chakra-ui/react"
+import { Container, Text, Switch } from "@chakra-ui/react";
 
 export default function PartConfig(props) {
     return (
@@ -8,7 +8,7 @@ export default function PartConfig(props) {
             w="70%"
             h="40px"
             borderBottom="2px solid"
-            borderColor="grey"
+            borderColor="#808080"
             display="flex"
             alignItems="center"
             justifyContent="space-between"

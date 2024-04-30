@@ -8,8 +8,8 @@ import User from "../generalComponents/headerPages/User";
 export default function Avaliar() {
     return (
         <div style={{ backgroundColor: "#26272D", minHeight: "100vh" }}>
-            <Box as="header" bgColor="#1c222b" padding="20px" display="flex" justifyContent="space-between" maxHeight="10vh" alignItems="center" width="100%">
-                <Container maxWidth="294px" maxHeight="65px" padding="0px" margin="0px">
+            <Box as="header" bg="#1c222b" padding="20px" display="flex" justifyContent="space-between" maxH="10vh" alignItems="center" w="100%">
+                <Container maxW="294px" maxH="65px" padding="0px" margin="0px">
 
                 </Container>
                 <Container display="flex" justifyContent="space-between" alignItems="center" padding="0px" margin="0px" maxW="300px">
@@ -21,12 +21,12 @@ export default function Avaliar() {
                     <User />
                 </Container>
             </Box>
-            <Container bgColor="#e6ded5" position="absolute" left="0px" padding="5px" maxWidth="160px">
-                <Heading fontSize="35px">
+            <Container bg="#e6ded5" position="absolute" left="0px" padding="5px" maxW="160px">
+                <Heading fontSize="35px" fontFamily="'Inter', sans-serif">
                     AVALIAR
                 </Heading>
             </Container>
-            <Box as="main" minHeight="83vh" display="flex" justifyContent="center" alignItems="center">
+            <Box as="main" minH="83vh" display="flex" justifyContent="center" alignItems="center">
                 <CreatedAvaliations />
                 <NewAvaliation />
             </Box>

@@ -1,4 +1,15 @@
-import { Button, Modal, ModalContent, ModalHeader, ModalOverlay, useDisclosure, IconButton, ModalBody, Text, Container, Select, Switch } from "@chakra-ui/react"
+import { 
+    Button, 
+    Modal, 
+    ModalContent, 
+    ModalHeader, 
+    ModalOverlay, 
+    useDisclosure, 
+    IconButton, 
+    ModalBody, 
+    Text, 
+    Container, 
+} from "@chakra-ui/react"
 import { CloseIcon, EditIcon } from "@chakra-ui/icons";
 import PartConfig from "./partConfig";
 import StarsList from "./StarsList";
@@ -8,7 +19,7 @@ export default function ConfigAvaliations() {
 
     return (
         <>
-            <Button onClick={onOpen} color="white" bgColor="#971520" _hover={{}} _active={{ bgColor: "#5a0c12" }}>
+            <Button onClick={onOpen} color="#ffffff" bg="#971520" _hover={{}} _active={{ bgColor: "#5a0c12" }}>
                 Configurações
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -23,7 +34,7 @@ export default function ConfigAvaliations() {
                                 <CloseIcon />
                             </IconButton>
                         </ModalHeader>
-                        <Text fontSize="16px" color="grey">Edite o que você quer que apareça no formulário</Text>
+                        <Text fontSize="16px" color="#808080">Edite o que você quer que apareça no formulário</Text>
                         <ModalBody paddingLeft="0px" marginTop="10px">
                             <PartConfig title="Título:"/>
                             <PartConfig title="Descrição:"/>
@@ -31,11 +42,10 @@ export default function ConfigAvaliations() {
                                 <Button>Nova escala de avaliação</Button>
                                 <StarsList/>
                             </Container>
-                            
                         </ModalBody>
                     </ModalContent>
                 </ModalOverlay>
             </Modal>
         </>
-    )
-}
+    );
+};

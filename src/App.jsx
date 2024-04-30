@@ -1,9 +1,9 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { ChakraProvider } from "@chakra-ui/react";
 import Autentificacao from "./pages/login/Authentification";
 import Home from "./pages/home/Home";
 import Feedbacks from "./pages/feedback/Feedbacks";
 import Avaliar from "./pages/rate/Rate";
-import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 function App() {
   return (
@@ -21,6 +21,6 @@ function App() {
     </ChakraProvider>
 
   );
-}
+};
 
 export default App;

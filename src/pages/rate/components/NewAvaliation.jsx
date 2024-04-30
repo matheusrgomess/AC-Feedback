@@ -1,9 +1,34 @@
-import { Container, Heading, Button, Modal, Text, Textarea, ModalOverlay, Select, ModalContent, ModalHeader, IconButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, FormHelperText } from "@chakra-ui/react"
-import { CloseIcon, ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Form, Formik, Field, ErrorMessage } from "formik";
-import '../rate.css'
-import StarsList from "./StarsList";
 import { useState } from "react";
+import '../rate.css'
+import {
+    Container,
+    Heading,
+    Button,
+    Modal,
+    Text,
+    Textarea,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    IconButton,
+    ModalBody,
+    FormControl,
+    FormLabel,
+    Input,
+    ModalFooter,
+    FormHelperText
+} from "@chakra-ui/react"
+import { 
+    CloseIcon, 
+    ArrowLeftIcon, 
+    ArrowRightIcon
+} from "@chakra-ui/icons";
+import { 
+    Form, 
+    Formik, 
+    Field, 
+    ErrorMessage 
+} from "formik";
 import ConfigAvaliations from "./configAvaliations";
 import * as Yup from "yup";
 
@@ -15,7 +40,7 @@ export default function NewAvaliation() {
     const validationSchema = Yup.object().shape({
         title: Yup.string().required("Required field"),
         desc: Yup.string().required("Required field"),
-    })
+    });
 
     const handleSubmit = (values) => {
         const newForm = { ...values, id: Math.floor(Math.random() * 100) };
@@ -23,43 +48,43 @@ export default function NewAvaliation() {
         localStorage.setItem("valueForms", JSON.stringify(newArray));
         setArrayForms(newArray);
         setOpen1stModal(false);
-    }
+    };
 
     const handleOpen1st = () => {
         setOpen1stModal(true);
-    }
+    };
 
     const handleClose1st = () => {
         setOpen1stModal(false);
-    }
+    };
 
     const handleOpen2nd = () => {
         setOpen2ndModal(true);
-    }
+    };
 
     const handleClose2nd = () => {
         setOpen2ndModal(false);
-    }
+    };
 
     const handleCloseAll = () => {
         setOpen2ndModal(false);
         setOpen1stModal(false);
-    }
+    };
 
     return (
         <>
-            <Container bgColor="white" minH="100px" borderRadius="15px" padding="20px">
+            <Container bg="#ffffff" minH="100px" borderRadius="15px" padding="20px">
                 <Container display="flex" alignItems="center" justifyContent="space-between">
-                    <Heading color="black">Nova Avaliação:</Heading>
+                    <Heading color="#000000">Nova Avaliação:</Heading>
 
                 </Container>
                 <Container marginTop="50px" display="flex" alignItems="center" justifyContent="space-between">
                     <Button
                         onClick={handleOpen1st}
-                        bg="green"
-                        color="white"
+                        bg="#007700"
+                        color="#FFFFFF"
                         border="2px solid"
-                        borderColor="black"
+                        borderColor="#000000"
                         _hover={{}}
                         _active={{ bg: "#2d6800" }}
                         fontSize="20px"
@@ -71,11 +96,11 @@ export default function NewAvaliation() {
             </Container>
             <Modal isOpen={open1stModal} onClose={handleClose1st} isCentered>
                 <ModalOverlay>
-                    <ModalContent bgColor="#26272D" minWidth="1200px" minHeight="550px" borderLeft="6px solid" borderLeftColor="#971520">
+                    <ModalContent bg="#26272d" minW="1200px" minH="550px" borderLeft="6px solid" borderLeftColor="#971520">
                         <ModalHeader padding="0px">
-                            <Container bgColor="white" minWidth="100%" display="flex" alignItems="center" justifyContent="space-between" color="#000000" borderTopRightRadius="8px">
+                            <Container bg="#FFFFFF" minW="100%" display="flex" alignItems="center" justifyContent="space-between" color="#000000" borderTopRightRadius="8px">
                                 Nova Avaliação:
-                                <IconButton onClick={handleClose1st} bgColor="transparent" _hover={{}} _active={{}}>
+                                <IconButton onClick={handleClose1st} bg="transparent" _hover={{}} _active={{}}>
                                     <CloseIcon />
                                 </IconButton>
                             </Container>
@@ -91,8 +116,8 @@ export default function NewAvaliation() {
                                         <Field name="title">
                                             {({ field }) => (
                                                 <FormControl>
-                                                    <FormLabel color="#FFFFFF">Título da Avaliação:</FormLabel>
-                                                    <Input borderRadius="10px" color="#FFFFFF" {...field} id="title" />
+                                                    <FormLabel color="#ffffff">Título da Avaliação:</FormLabel>
+                                                    <Input borderRadius="10px" color="#ffffff" {...field} id="title" />
                                                     <ErrorMessage
                                                         name="title"
                                                         component={FormHelperText}
@@ -104,13 +129,13 @@ export default function NewAvaliation() {
                                         <Field name="desc">
                                             {({ field }) => (
                                                 <FormControl marginTop="20px">
-                                                    <FormLabel color="#FFFFFF">Descrição:</FormLabel>
+                                                    <FormLabel color="#ffffff">Descrição:</FormLabel>
                                                     <Textarea
                                                         borderRadius="10px"
-                                                        color="#FFFFFF"
+                                                        color="#ffffff"
                                                         resize="none"
-                                                        minHeight="120px"
-                                                        maxHeight="200px"
+                                                        minH="120px"
+                                                        maxH="200px"
                                                         {...field}
                                                         id="desc"
                                                     />
@@ -122,8 +147,6 @@ export default function NewAvaliation() {
                                                 </FormControl>
                                             )}
                                         </Field>
-
-
                                         {/*}<FormControl>
                                         <Container
                                             W="100%"
@@ -133,7 +156,7 @@ export default function NewAvaliation() {
                                             paddingRight="6px"
                                             paddingLeft="0px"
                                         >
-                                            <Text color="#FFFFFF">
+                                            <Text color="#ffffff">
                                                 <strong>Avaliação sobre o colega:</strong>
                                             </Text>
                                             <Select
@@ -173,7 +196,6 @@ export default function NewAvaliation() {
                                             </Select>
                                         </Container>
                                     </FormControl>{*/}
-
                                         <Button
                                             type="submit"
                                         >
@@ -181,27 +203,24 @@ export default function NewAvaliation() {
                                         </Button>
                                     </Form>
                                 )}
-
                             </Formik>
-
                         </ModalBody>
-                        <ModalFooter display="flex" alignItems="center" justifyContent="space-between" padding="5px" paddingLeft="20px" paddingRight="20px" minWidth="100%">
-                            <Container padding="0px" margin="0px" display="flex" alignItems="center" justifyContent="space-between" maxWidth="100px">
-                                <Button padding="0px" bgColor="transparent" _hover={{ border: "1px solid", borderColor: "white" }} _active={{ bgColor: "#00000057" }}><ArrowLeftIcon color="white" /></Button>
-                                <Button padding="0px" bgColor="transparent" _hover={{ border: "1px solid", borderColor: "white" }} _active={{ bgColor: "#00000057" }}><ArrowRightIcon color="white" /></Button>
+                        <ModalFooter display="flex" alignItems="center" justifyContent="space-between" padding="5px" paddingLeft="20px" paddingRight="20px" minW="100%">
+                            <Container padding="0px" margin="0px" display="flex" alignItems="center" justifyContent="space-between" maxW="100px">
+                                <Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }}><ArrowLeftIcon color="#ffffff" /></Button>
+                                <Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }}><ArrowRightIcon color="#ffffff" /></Button>
                             </Container>
                             <Button
                                 onClick={handleOpen2nd}
-                                bg="green"
-                                color="white"
+                                bg="##007700"
+                                color="#ffffff"
                                 border="2px solid"
-                                borderColor="#FFFFFF"
+                                borderColor="#ffffff"
                                 _hover={{}}
                                 _active={{ bg: "#2d6800" }}
                             >
                                 Enviar
                             </Button>
-
                         </ModalFooter>
                     </ModalContent>
                 </ModalOverlay>
@@ -213,7 +232,7 @@ export default function NewAvaliation() {
                             <Heading>
                                 Você tem certeza?
                             </Heading>
-                            <IconButton onClick={handleClose2nd} bgColor="transparent" _hover={{}} _active={{}}>
+                            <IconButton onClick={handleClose2nd} bg="transparent" _hover={{}} _active={{}}>
                                 <CloseIcon />
                             </IconButton>
                         </ModalHeader>
@@ -223,10 +242,10 @@ export default function NewAvaliation() {
                             </Text>
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="white" bgColor="#858585" _hover={{}} _active={{ bgColor: "#0000009c" }} onClick={handleClose2nd}>
+                            <Button color="#ffffff" bg="#858585" _hover={{}} _active={{ bgColor: "#0000009c" }} onClick={handleClose2nd}>
                                 Cancelar
                             </Button>
-                            <Button color="white" bgColor="#971520" _hover={{}} _active={{ bgColor: "#6f0f17" }} onClick={handleCloseAll} marginLeft="20px">
+                            <Button color="#ffffff" bg="#971520" _hover={{}} _active={{ bgColor: "#6f0f17" }} onClick={handleCloseAll} marginLeft="20px">
                                 Confirmar
                             </Button>
                         </ModalFooter>
@@ -234,6 +253,5 @@ export default function NewAvaliation() {
                 </ModalOverlay>
             </Modal>
         </>
-
-    )
-}
+    );
+};
