@@ -35,6 +35,7 @@ export default function ModalAvaliationsDone() {
     const handleOpen = (id) => {
         getFormsById(id);
         setOpen(true);
+        console.log(formsSelect)
     };
 
     const handleClose = () => {

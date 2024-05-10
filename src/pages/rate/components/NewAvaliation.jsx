@@ -1,5 +1,4 @@
 import { useState } from "react";
-import '../rate.css'
 import {
     Container,
     Heading,
@@ -16,26 +15,36 @@ import {
     FormLabel,
     Input,
     ModalFooter,
-    FormHelperText
+    FormHelperText,
+    Progress
 } from "@chakra-ui/react"
-import { 
-    CloseIcon, 
-    ArrowLeftIcon, 
+import {
+    CloseIcon,
+    ArrowLeftIcon,
     ArrowRightIcon
 } from "@chakra-ui/icons";
-import { 
-    Form, 
-    Formik, 
-    Field, 
-    ErrorMessage 
+import {
+    Form,
+    Formik,
+    Field,
+    ErrorMessage
 } from "formik";
 import ConfigAvaliations from "./configAvaliations";
 import * as Yup from "yup";
+import { TiStar } from "react-icons/ti";
+import '/Usuario/Matheus/Desktop/AC-Feedback/src/pages/rate/components/star/styleStar.css';
 
 export default function NewAvaliation() {
     const [open1stModal, setOpen1stModal] = useState(false);
     const [open2ndModal, setOpen2ndModal] = useState(false);
     const [arrayForms, setArrayForms] = useState(JSON.parse(localStorage.getItem("valueForms")) || []);
+    const [definingQuestions, setDefiningQuestions] = useState(0)
+    //useStates das Estrelas
+    const [rating, setRating] = useState(null);
+    const [hover, setHover] = useState(null);
+    const numberStars = JSON.parse(localStorage.getItem("numberStars"))
+
+    const questionsList = JSON.parse(localStorage.getItem("questionsList"));
 
     const validationSchema = Yup.object().shape({
         title: Yup.string().required("Required field"),
@@ -56,6 +65,7 @@ export default function NewAvaliation() {
 
     const handleClose1st = () => {
         setOpen1stModal(false);
+        setDefiningQuestions(0);
     };
 
     const handleOpen2nd = () => {
@@ -69,14 +79,28 @@ export default function NewAvaliation() {
     const handleCloseAll = () => {
         setOpen2ndModal(false);
         setOpen1stModal(false);
+        setDefiningQuestions(0);
     };
+
+    const nextQuestion = () => {
+        if (definingQuestions < questionsList.length - 1) {
+            setDefiningQuestions(definingQuestions + 1)
+            setRating(0)
+        }
+    }
+
+    const returnQuestion = () => {
+        if (definingQuestions > 0) {
+            setDefiningQuestions(definingQuestions - 1)
+            setRating(0)
+        }
+    }
 
     return (
         <>
             <Container bg="#ffffff" minH="100px" borderRadius="15px" padding="20px">
                 <Container display="flex" alignItems="center" justifyContent="space-between">
                     <Heading color="#000000">Nova Avaliação:</Heading>
-
                 </Container>
                 <Container marginTop="50px" display="flex" alignItems="center" justifyContent="space-between">
                     <Button
@@ -204,11 +228,87 @@ export default function NewAvaliation() {
                                     </Form>
                                 )}
                             </Formik>
+                            {questionsList &&
+                                <Container alignItems="center" justifyContent="center" border="2px solid" borderColor="black" borderRadius="8px" minHeight="200px" padding="0px">
+                                    
+                                    <Container
+                                        display="grid"
+                                        color="white"
+                                        bgColor="red"
+                                        borderBottom="2px solid"
+                                        borderColor="black"
+                                        minWidth="100%"
+                                        borderTopRadius="8px"
+                                        maxHeight="140px"
+                                        overflow="hidden"
+                                        overflowY="auto"
+                                        css={{
+                                            "&::-webkit-scrollbar": {
+                                                width: "5px",
+                                            },
+                                            "&::-webkit-scrollbar-thumb": {
+                                                backgroundColor: "#1f1f1f",
+                                                borderRadius: "5px",
+                                                transition: "background-color 0.5s ease",
+                                            },
+                                            "&::-webkit-scrollbar-thumb:hover": {
+                                                backgroundColor: "#2c2c2c",
+                                            }
+                                        }}>
+                                        <Heading overflow='hidden'>
+                                            {questionsList[definingQuestions]}
+                                        </Heading>
+                                        <Text>
+                                            *Avalie seu Colega de Trabalho
+                                        </Text>
+                                    </Container>
+                                    <Container display="flex" alignItems="center" justifyContent="center" bgColor="#ffffff" minHeight="131px" borderBottomRadius="8px">
+                                        <div style={{ display: "flex", flexDirection: "column", minWidth:"100%" }}>
+                                            <Text color="#000000" whiteSpace="nowrap" marginLeft="10px"><strong>A análise sobre a pergunta foi de: {rating ? rating : 0} ponto(s)</strong></Text>
+                                            <div style={{ display: "flex" }}>
+                                                {[...Array(numberStars)].map((star, i) => {
+                                                    const ratingValue = i + 1;
+
+                                                    return (
+                                                        <label key={ratingValue}>
+                                                            <input
+                                                                type="radio"
+                                                                name="rating"
+                                                                value={ratingValue}
+                                                                onClick={() => setRating(ratingValue)}
+                                                            />
+                                                            <TiStar
+                                                                className="star"
+                                                                color={ratingValue <= (hover || rating) ? "#cda90e" : "#000000"}
+                                                                size={50}
+                                                                onMouseEnter={() => setHover(ratingValue)}
+                                                                onMouseLeave={() => setHover(null)}
+                                                            />
+                                                            <Text
+                                                                textAlign="center"
+                                                                position="relative"
+                                                                bottom="10px"
+                                                                color={ratingValue <= (hover || rating) ? "#cda90e" : "#000000"}
+                                                            >
+                                                                <strong>{ratingValue}</strong>
+                                                            </Text>
+                                                        </label>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                        
+                                    </Container>
+                                </Container>
+                            }
                         </ModalBody>
                         <ModalFooter display="flex" alignItems="center" justifyContent="space-between" padding="5px" paddingLeft="20px" paddingRight="20px" minW="100%">
                             <Container padding="0px" margin="0px" display="flex" alignItems="center" justifyContent="space-between" maxW="100px">
-                                <Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }}><ArrowLeftIcon color="#ffffff" /></Button>
-                                <Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }}><ArrowRightIcon color="#ffffff" /></Button>
+                                {definingQuestions != null && (definingQuestions !== 0 && (<Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }} onClick={returnQuestion}><ArrowLeftIcon color="#ffffff" /></Button>))}
+                                {definingQuestions != null && questionsList && (definingQuestions !== questionsList.length - 1 && (<Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }} onClick={nextQuestion}><ArrowRightIcon color="#ffffff" /></Button>))}
+                            </Container>
+                            <Container padding="0px" margin="0px">
+                                {definingQuestions != null && questionsList && (<Progress value={definingQuestions} max={questionsList.length-1} borderRadius="20px" colorScheme='blue' size='xs'/>)}
                             </Container>
                             <Button
                                 onClick={handleOpen2nd}

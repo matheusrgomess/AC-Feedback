@@ -1,0 +1,7 @@
+.CheckIconAnime{
+    transition: color 0.3s ease;
+}
+
+.CheckIconAnime:hover {
+    color: green;
+}
