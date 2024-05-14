@@ -20,23 +20,26 @@ import {
     NumberIncrementStepper,
     NumberDecrementStepper
 } from "@chakra-ui/react"
-import { CloseIcon, EditIcon, CheckIcon } from "@chakra-ui/icons";
+import { CloseIcon, EditIcon, CheckIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import PartConfig from "./partConfig";
 import { useState } from "react";
 import "/Usuario/Matheus/Desktop/AC-Feedback/src/styles/animationbutton.css"
 
 export default function ConfigAvaliations() {
-    const [showInput, setShowInput] = useState(false);
+    const [showADDInput, setShowADDInput] = useState(false);
+    const [showDELButton, setShowDELButton] = useState(false)
     const [questionsInput, setQuestionsInput] = useState(JSON.parse(localStorage.getItem("questionsList")) || []);
     const [inputValue, setInputValue] = useState("")
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [open, setOpen] = useState(false)
     const [numStars, setNumStars] = useState()
+
+    const questionsList = JSON.parse(localStorage.getItem("questionsList"))
 
     const handleQuestionToList = () => {
         if (inputValue.trim() !== "") {
             setQuestionsInput([...questionsInput, inputValue]);
             setInputValue("");
-            setShowInput(false)
+            setShowADDInput(false)
             localStorage.setItem("questionsList", JSON.stringify([...questionsInput, inputValue]))
         } else {
             alert("Digite Algo no input para ser salvo!")
@@ -47,12 +50,29 @@ export default function ConfigAvaliations() {
         setNumStars(value)
         localStorage.setItem("numberStars", value)
     }
+
+    const handleRemoveQuestion = (item) => {
+        const updatedQuestions = questionsInput.filter((_, i) => i !== item);
+        setQuestionsInput(updatedQuestions);
+        localStorage.setItem("questionsList", JSON.stringify(updatedQuestions));
+        console.log(questionsList.length)
+        if (questionsList.length === 1) {
+            localStorage.removeItem("questionsList")
+        }
+    };
+
+    const handleClose = () => {
+        setOpen(false)
+        setShowDELButton(false)
+        setShowADDInput(false)
+    }
+
     return (
         <>
-            <Button onClick={onOpen} color="#ffffff" bg="#971520" _hover={{}} _active={{ bgColor: "#5a0c12" }}>
+            <Button onClick={() => {setOpen(!open)}} color="#ffffff" bg="#971520" _hover={{}} _active={{ bgColor: "#5a0c12" }}>
                 Configurações
             </Button>
-            <Modal isOpen={isOpen} onClose={onClose} isCentered>
+            <Modal isOpen={open} onClose={handleClose} isCentered>
                 <ModalOverlay>
                     <ModalContent padding="15px">
                         <ModalHeader borderBottom="2px solid" borderColor="#000000" paddingBottom="10px" paddingLeft="0px" paddingRight="0px" paddingTop="0px" display="flex" alignItems="center" justifyContent="space-between">
@@ -60,7 +80,7 @@ export default function ConfigAvaliations() {
                                 <EditIcon marginRight="5px" />
                                 Configurações do formulários
                             </Text>
-                            <IconButton onClick={onClose} bgColor="transparent" _hover={{}} _active={{}}>
+                            <IconButton onClick={handleClose} bgColor="transparent" _hover={{}} _active={{}}>
                                 <CloseIcon />
                             </IconButton>
                         </ModalHeader>
@@ -93,10 +113,15 @@ export default function ConfigAvaliations() {
                                 </NumberInput>
                             </Container>
                             <Container bgColor="#1c1c1c" padding="10px" borderRadius="6px">
-                                <Button _hover={{}} _active={{ bgColor: "#cccccc" }} bgColor="#ffffff" onClick={() => setShowInput(!showInput)}>
-                                    Nova escala de avaliação
-                                </Button>
-                                {showInput &&
+                                <Container padding="0px" width="100%" display="flex" alignItems="center" justifyContent="space-between">
+                                    <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor="#ffffff" onClick={() => setShowADDInput(!showADDInput)}>
+                                        Nova escala de avaliação
+                                    </Button>
+                                    <Button bgColor="#de4348" _hover={{}} _active={{ bgColor: "#771019" }} color="white" onClick={() => setShowDELButton(!showDELButton)}>
+                                        Excluir
+                                    </Button>
+                                </Container>
+                                {showADDInput &&
                                     <InputGroup size="sm" marginTop="15px">
                                         <Input
                                             marginBottom="10px"
@@ -129,21 +154,32 @@ export default function ConfigAvaliations() {
                                                 <CheckIcon
                                                     className={"CheckIconAnime"}
                                                     color="white"
-                                                ></CheckIcon>
+                                                />
                                             </IconButton>
                                         </InputRightAddon>
                                     </InputGroup>
                                 }
                                 <Container borderLeft="1px solid" borderLeftColor="white" marginTop="20px">
-                                    <UnorderedList>
+                                    <UnorderedList width="100%">
                                         {questionsInput.map((item, index) => (
                                             <ListItem key={index} id="tasks" color="#ffffff">
-                                                {item}
+                                                {showDELButton ? (
+                                                    <>
+                                                        <Text _hover={{ cursor:"pointer" }} onClick={() => handleRemoveQuestion(index)}>
+                                                            <strong>{item}</strong>
+                                                            <SmallCloseIcon color="red"/>
+                                                        </Text>
+                                                        <Container minWidth="100%" borderBottom="1px solid"></Container>
+                                                    </>
+                                                ) : (
+                                                    <Text>
+                                                        <strong>{item}</strong>
+                                                    </Text>
+                                                )}
                                             </ListItem>
                                         ))}
                                     </UnorderedList>
                                 </Container>
-
                             </Container>
                         </ModalBody>
                     </ModalContent>

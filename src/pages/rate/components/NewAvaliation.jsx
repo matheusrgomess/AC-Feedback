@@ -47,8 +47,8 @@ export default function NewAvaliation() {
     const questionsList = JSON.parse(localStorage.getItem("questionsList"));
 
     const validationSchema = Yup.object().shape({
-        title: Yup.string().required("Required field"),
-        desc: Yup.string().required("Required field"),
+        title: Yup.string().required("É obrigatório este campo"),
+        desc: Yup.string().required("É obrigatório este campo"),
     });
 
     const handleSubmit = (values) => {
