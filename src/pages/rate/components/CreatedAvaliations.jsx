@@ -1,11 +1,10 @@
-import { 
-    Container, 
+import {
+    Container,
     Heading
 } from "@chakra-ui/react";
 import ModalAvaliationsDone from "./modalAvaliationsDone";
 
 export default function CreatedAvaliations() {
-
     return (
         <Container bg="#ffffff" minH="200px" borderRadius="15px" padding="0px" paddingTop="10px" paddingBottom="10px">
             <Container display="flex" alignItems="center" justifyContent="space-between" minH="60px" borderBottom="2px solid">

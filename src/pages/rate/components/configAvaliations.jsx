@@ -23,7 +23,7 @@ import {
 import { CloseIcon, EditIcon, CheckIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import PartConfig from "./partConfig";
 import { useState } from "react";
-import "/Usuario/Matheus/Desktop/AC-Feedback/src/styles/animationbutton.css"
+import "../../../styles/animationbutton.css"
 
 export default function ConfigAvaliations() {
     const [showADDInput, setShowADDInput] = useState(false);
@@ -69,7 +69,7 @@ export default function ConfigAvaliations() {
 
     return (
         <>
-            <Button onClick={() => {setOpen(!open)}} color="#ffffff" bg="#971520" _hover={{}} _active={{ bgColor: "#5a0c12" }}>
+            <Button onClick={() => { setOpen(!open) }} color="#ffffff" bg="#971520" _hover={{}} _active={{ bgColor: "#5a0c12" }}>
                 Configurações
             </Button>
             <Modal isOpen={open} onClose={handleClose} isCentered>
@@ -165,9 +165,9 @@ export default function ConfigAvaliations() {
                                             <ListItem key={index} id="tasks" color="#ffffff">
                                                 {showDELButton ? (
                                                     <>
-                                                        <Text _hover={{ cursor:"pointer" }} onClick={() => handleRemoveQuestion(index)}>
+                                                        <Text _hover={{ cursor: "pointer" }} onClick={() => handleRemoveQuestion(index)}>
                                                             <strong>{item}</strong>
-                                                            <SmallCloseIcon color="red"/>
+                                                            <SmallCloseIcon color="red" />
                                                         </Text>
                                                         <Container minWidth="100%" borderBottom="1px solid"></Container>
                                                     </>

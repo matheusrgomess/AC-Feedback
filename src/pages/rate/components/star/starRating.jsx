@@ -1,12 +1,10 @@
-import React from "react";
-import { useState } from "react";
-import { TiStar } from "react-icons/ti";
+import React, { useState } from "react";
 import { Text } from "@chakra-ui/react";
-import '/Usuario/Matheus/Desktop/AC-Feedback/src/pages/rate/components/star/styleStar.css';
+import { TiStar } from "react-icons/ti";
+import './styleStar.css';
 
 export default function StarRating() {
     const [rating, setRating] = useState(null);
-    const [hover, setHover] = useState(null);
 
     return (
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -23,21 +21,21 @@ export default function StarRating() {
                                 value={ratingValue}
                                 onClick={() => setRating(ratingValue)}
                             />
-                            <TiStar
-                                className="star"
-                                color={ratingValue <= (hover || rating) ? "#cda90e" : "#000000"}
-                                size={50}
-                                onMouseEnter={() => setHover(ratingValue)}
-                                onMouseLeave={() => setHover(null)}
-                            />
-                            <Text
-                                textAlign="center"
-                                position="relative"
-                                bottom="10px"
-                                color={ratingValue <= (hover || rating) ? "#cda90e" : "#000000"}
-                            >
-                                <strong>{ratingValue}</strong>
-                            </Text>
+                            <div >
+                                <TiStar
+                                    className="star"
+                                    size={50}
+                                    as="button"
+                                    _hover={{ color: "#cba993" }}
+                                />
+                                <Text
+                                    textAlign="center"
+                                    position="relative"
+                                    bottom="10px"
+                                >
+                                    <strong>{ratingValue}</strong>
+                                </Text>
+                            </div>
                         </label>
                     );
                 })}

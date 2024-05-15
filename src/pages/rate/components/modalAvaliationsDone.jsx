@@ -20,7 +20,7 @@ import {
     ArrowRightIcon
 } from "@chakra-ui/icons";
 import { TiStar } from "react-icons/ti";
-import '/Usuario/Matheus/Desktop/AC-Feedback/src/pages/rate/components/star/styleStar.css';
+import './star/styleStar.css';
 
 export default function ModalAvaliationsDone() {
     const [definingQuestions, setDefiningQuestions] = useState(0);
@@ -127,7 +127,6 @@ export default function ModalAvaliationsDone() {
                                                         <div style={{ display: "flex" }}>
                                                             {[...Array(numberStars)].map((star, i) => {
                                                                 const ratingValue = i + 1;
-
                                                                 return (
                                                                     <label key={ratingValue}>
                                                                         <input

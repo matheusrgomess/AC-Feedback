@@ -1,36 +1,20 @@
 import React from "react";
-import { 
-    Image, 
-    Box, 
-    Container, 
-    Link, 
-    Heading, 
+import {
+    Box,
+    Container,
+    Link,
+    Heading,
     Text
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import ButtonPages from "../generalComponents/headerPages/ButtonPages";
-import Calendar from "../generalComponents/headerPages/Calendar";
-import User from "../generalComponents/headerPages/User";
 import ModalAvaliationsDone from "../rate/components/modalAvaliationsDone";
+
 
 export default function Home() {
     return (
-        <div style={{ backgroundColor: "#26272d", minHeight: "100vh" }}>
-            <Box as="header" bg="#1c222b" padding="20px" display="flex" justifyContent="space-between" maxH="10vh" alignItems="center" w="100%">
-                <Container maxW="294px" maxH="65px" padding="0px" margin="0px">
-                    <Image src="imgs/acdigital.png" w="100%" h="100%" />
-                </Container>
-                <Container display="flex" justifyContent="space-between" alignItems="center" padding="0px" margin="0px" maxW="300px">
-                    <ButtonPages title="AVALIAR" navigate="/home/rate" />
-                    <ButtonPages title="FEEDBACKS" navigate="/home/feedbacks" />
-                </Container>
-                <Container maxW="300px" padding="0px" margin="0px" display="flex">
-                    <Calendar />
-                    <User />
-                </Container>
-            </Box>
+        <div style={{ backgroundColor: "#26272d", maxHeight: "100vh" }}>
             <Container bg="#e6ded5" position="absolute" left="0px" padding="5px" maxW="120px">
-                <Heading fontSize="35px" fontFamily="'Inter', sans-serif">
+                <Heading fontSize="35px">
                     HOME
                 </Heading>
             </Container>

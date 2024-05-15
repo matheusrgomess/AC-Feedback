@@ -1,7 +1,7 @@
-.CheckIconAnime{
+.checkIconAnime {
     transition: color 0.3s ease;
 }
 
-.CheckIconAnime:hover {
+.checkIconAnime:hover {
     color: green;
 }

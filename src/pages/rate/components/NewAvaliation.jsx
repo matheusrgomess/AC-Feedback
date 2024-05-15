@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
     Container,
     Heading,
@@ -27,15 +27,16 @@ import {
     Form,
     Formik,
     Field,
-    ErrorMessage
+    ErrorMessage,
 } from "formik";
 import ConfigAvaliations from "./configAvaliations";
 import * as Yup from "yup";
 import { TiStar } from "react-icons/ti";
-import '/Usuario/Matheus/Desktop/AC-Feedback/src/pages/rate/components/star/styleStar.css';
+import './star/styleStar.css';
 
 export default function NewAvaliation() {
     const [open1stModal, setOpen1stModal] = useState(false);
+    const formRef = useRef(null)
     const [open2ndModal, setOpen2ndModal] = useState(false);
     const [arrayForms, setArrayForms] = useState(JSON.parse(localStorage.getItem("valueForms")) || []);
     const [definingQuestions, setDefiningQuestions] = useState(0)
@@ -57,6 +58,9 @@ export default function NewAvaliation() {
         localStorage.setItem("valueForms", JSON.stringify(newArray));
         setArrayForms(newArray);
         setOpen1stModal(false);
+        if (formRef.current) {
+            formRef.current.submit()
+        }
     };
 
     const handleOpen1st = () => {
@@ -94,6 +98,17 @@ export default function NewAvaliation() {
             setDefiningQuestions(definingQuestions - 1)
             setRating(0)
         }
+
+    }
+
+    const handleFormSubmit = () => {
+        handleCloseAll()
+        handleSubmit()
+    }
+
+    const setFunctions = (ratingValue) => {
+        setHover(ratingValue)
+        setRating(ratingValue)
     }
 
     return (
@@ -136,7 +151,7 @@ export default function NewAvaliation() {
                                 onSubmit={handleSubmit}
                             >
                                 {({ isSubmitting }) => (
-                                    <Form>
+                                    <Form ref={formRef}>
                                         <Field name="title">
                                             {({ field }) => (
                                                 <FormControl>
@@ -230,7 +245,7 @@ export default function NewAvaliation() {
                             </Formik>
                             {questionsList &&
                                 <Container alignItems="center" justifyContent="center" border="2px solid" borderColor="black" borderRadius="8px" minHeight="200px" padding="0px">
-                                    
+
                                     <Container
                                         display="grid"
                                         color="white"
@@ -263,7 +278,7 @@ export default function NewAvaliation() {
                                         </Text>
                                     </Container>
                                     <Container display="flex" alignItems="center" justifyContent="center" bgColor="#ffffff" minHeight="131px" borderBottomRadius="8px">
-                                        <div style={{ display: "flex", flexDirection: "column", minWidth:"100%" }}>
+                                        <div style={{ display: "flex", flexDirection: "column", minWidth: "100%" }}>
                                             <Text color="#000000" whiteSpace="nowrap" marginLeft="10px"><strong>A análise sobre a pergunta foi de: {rating ? rating : 0} ponto(s)</strong></Text>
                                             <div style={{ display: "flex" }}>
                                                 {[...Array(numberStars)].map((star, i) => {
@@ -297,7 +312,7 @@ export default function NewAvaliation() {
                                                 })}
                                             </div>
                                         </div>
-                                        
+
                                     </Container>
                                 </Container>
                             }
@@ -308,7 +323,7 @@ export default function NewAvaliation() {
                                 {definingQuestions != null && questionsList && (definingQuestions !== questionsList.length - 1 && (<Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }} onClick={nextQuestion}><ArrowRightIcon color="#ffffff" /></Button>))}
                             </Container>
                             <Container padding="0px" margin="0px">
-                                {definingQuestions != null && questionsList && (<Progress value={definingQuestions} max={questionsList.length-1} borderRadius="20px" colorScheme='blue' size='xs'/>)}
+                                {definingQuestions != null && questionsList && (<Progress value={definingQuestions} max={questionsList.length - 1} borderRadius="20px" colorScheme='blue' size='xs' />)}
                             </Container>
                             <Button
                                 onClick={handleOpen2nd}
@@ -345,7 +360,7 @@ export default function NewAvaliation() {
                             <Button color="#ffffff" bg="#858585" _hover={{}} _active={{ bgColor: "#0000009c" }} onClick={handleClose2nd}>
                                 Cancelar
                             </Button>
-                            <Button color="#ffffff" bg="#971520" _hover={{}} _active={{ bgColor: "#6f0f17" }} onClick={handleCloseAll} marginLeft="20px">
+                            <Button color="#ffffff" bg="#971520" _hover={{}} _active={{ bgColor: "#6f0f17" }} onClick={handleFormSubmit} marginLeft="20px">
                                 Confirmar
                             </Button>
                         </ModalFooter>
