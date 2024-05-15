@@ -23,7 +23,7 @@ export default function AvaliarNewComponent() {
 
   return <>
     <div style={{
-      height: '100%',
+      height: 'inherit',
       color: 'white',
       backgroundColor: '1c222b',
       display: 'flex',

@@ -13,21 +13,23 @@ function App() {
       overflow: 'hidden',
       fontFamily: 'Inter, sans-serif',
       backgroundColor: '#1c222b',
-      maxHeight: '100vh',
+      height: '100vh',
       color: 'white',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
       maxWidth: '100vw'
     }}>
       <Header />
-      <Routes>
-        <Route path="/" element={<Autentificacao />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/home/rate" element={<AvaliarNewComponent />} />
-        <Route path="/rate-participant/:participant" element={<RateParticipantScreen />} />
-        <Route path="/home/feedbacks" element={<Feedbacks />} />
-      </Routes>
+      <div style={{
+        height: '100%'
+      }}>
+        <Routes>
+          <Route path="/" element={<Autentificacao />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/home/rate" element={<AvaliarNewComponent />} />
+          <Route path="/rate-participant/:participant" element={<RateParticipantScreen />} />
+          <Route path="/home/feedbacks" element={<Feedbacks />} />
+        </Routes>
+      </div>
+
 
     </div>
 
