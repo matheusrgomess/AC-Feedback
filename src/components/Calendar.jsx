@@ -1,5 +1,5 @@
 import { Container, Image, Text } from "@chakra-ui/react";
-import CalendarImage from '../../../assets/calendar.png'
+import CalendarImage from '../assets/calendar.png'
 
 export default function Calendar() {
 
@@ -12,9 +12,9 @@ export default function Calendar() {
     }
 
     return (
-        <Container bg="#26272d" border="3px solid" borderColor="white" w="300px" borderRadius="10px" padding="0px" alignItems="center" display="flex" flexDirection="row">
+        <Container bg="#26272d" border="3px solid" borderColor="white" borderRadius="10px" padding="0px" paddingRight="3px" alignItems="center" display="flex" flexDirection="row">
             <Image src={CalendarImage} alt='Icon Calendar' maxWidth='37px' height='40px' />
-            <Text fontFamily="Montserrat, sans-serif" fontSize="18px" color="#ffffff">{getActualDate()}</Text>
+            <Text fontSize="18px" color="#ffffff">{getActualDate()}</Text>
         </Container>
     );
 };

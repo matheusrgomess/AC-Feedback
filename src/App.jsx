@@ -2,22 +2,19 @@ import { Route, Routes } from "react-router-dom"
 import Autentificacao from "./pages/login/Authentification";
 import Home from "./pages/home/Home";
 import Feedbacks from "./pages/feedback/Feedbacks";
-import Header from './components/Header'
 import AvaliarNewComponent from './pages/AvaliarNewComponent'
 import RateParticipantScreen from "./pages/rate-participant-screen";
 
 function App() {
   return (
-
     <div className="App" style={{
       overflow: 'hidden',
       fontFamily: 'Inter, sans-serif',
       backgroundColor: '#1c222b',
       height: '100vh',
-      color: 'white',
+      color: 'black',
       maxWidth: '100vw'
     }}>
-      <Header />
       <div style={{
         height: '100%'
       }}>

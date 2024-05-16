@@ -26,9 +26,16 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
           <Container>
             <Select placeholder="Escolha o participante" onChange={handleSelectChange}
               value={selectedOption}>
-              <option value='guilherme'>Guilherme</option>
+              <option value='arthur'>Arthur</option>
+              <option value='cilene'>Cilene</option>
               <option value='dunia'>Dúnia</option>
+              <option value='eduardo'>Eduardo</option>
+              <option value='guilherme'>Guilherme</option>
               <option value='juan'>Juan</option>
+              <option value='matheuseyng'>Matheus Eyng</option>
+              <option value='matheusgomes'>Matheus Gomes</option>
+              <option value='pablo'>Pablo</option>
+              <option value='tomas'>Tomás</option>
             </Select>
           </Container>
         </ModalBody>
@@ -36,7 +43,6 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
           <Button mr={3} onClick={handleClose}>
             Close
           </Button>
-
           <Button onClick={handleExecuteClick} colorScheme='red' isDisabled={(selectedOption === '')}>Go rating!!!</Button>
         </ModalFooter>
       </ModalContent>
