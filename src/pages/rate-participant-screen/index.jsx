@@ -1,4 +1,5 @@
 import { Heading, Container, Text, Progress, Button } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import Header from "../../components/Header";
 import { TiStar } from "react-icons/ti";
@@ -6,9 +7,12 @@ import { array } from "./array";
 import { useState } from "react";
 
 export default function RateParticipantScreen() {
+  const { participant } = useParams()
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+
+  console.log("participant ->", participant)
 
   const handleNextQuestion = () => {
     setCurrentQuestion((prev) => prev + 1);
@@ -25,10 +29,10 @@ export default function RateParticipantScreen() {
       alignItems: 'center',
       justifyContent: 'center',
     }}>
-      <Header namePage="AVALIAÇÃO DO: " /*colocar aqui o nome do avaliado*/ />
       <Container as='main' minH='85vh' display="flex" alignItems="center" justifyContent="center" minWidth="100%">
         <Container border="1px solid" borderColor="#971520" borderRadius="8px" minH="500px" minW="500px" padding="0px" paddingTop="180px" display="flex" alignItems="center" justifyContent="space-between" flexDirection="column">
           <Container textAlign="center">
+            <h1>{participant.toUpperCase()}</h1>
             <Heading>
               {array[currentQuestion].question}
             </Heading>

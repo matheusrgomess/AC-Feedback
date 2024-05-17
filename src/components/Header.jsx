@@ -9,22 +9,22 @@ function Header(...props) {
 
   const location = useLocation()
 
+  console.log("location ->", location.pathname)
+
   const routes = [
     {
       name: "HOME",
-      route: "/home"
+      path: "/home"
     },
     {
       name: "RATE",
-      route: "/home/rate"
+      path: "/home/rate"
     },
     {
       name: "FEEDBACKS",
-      route: "/home/feedbacks"
+      path: "/home/feedbacks"
     },
   ]
-
-  const filteredRoutes = routes && routes.filter((route) => route?.route !== location.pathname)
 
   return <div>
     <Box as="header" bg="#1c222b" padding="20px" display="flex" justifyContent="space-between" maxH="10vh" alignItems="center" w="100%" style={{
@@ -33,11 +33,11 @@ function Header(...props) {
       <Container padding="0px" margin="0px" maxH="65px" maxW="294px" bgColor="green">
         <Image src={AcDigitalLogo} w="100%" h="100%" objectFit="contain" />
       </Container>
-      {filteredRoutes.map((route, index) => (
-        <Container display="flex" justifyContent="space-between" alignItems="center" padding="0px" margin="0px" maxW="300px" >
-          <ButtonPages title={route.name} navigate={route.route} key={index} />
-        </Container>
-      ))}
+      <Container display="flex" justifyContent="space-between" alignItems="center" padding="0px" margin="0px" maxW="300px" >
+        {routes.map((route, index) => (
+          <ButtonPages title={route.name} navigate={route.path} key={index} isActualRoute={route.path === location.pathname} />
+        ))}
+      </Container>
       <Container padding="0px" margin="0px" display="flex" flexDirection='row' justifyContent="center" alignItems="center" gap="15px" maxW="360px">
         <div>
           <Calendar />
@@ -47,11 +47,6 @@ function Header(...props) {
         </div>
       </Container>
     </Box>
-    <Container bg="#e6ded5" position="absolute" left="0px" padding="5px" width="fit-content">
-      <Heading fontSize="35px" color="black">
-        {props.namePage}
-      </Heading>
-    </Container>
   </div>
 }
 

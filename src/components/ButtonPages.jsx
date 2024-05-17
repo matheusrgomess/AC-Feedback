@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function ButtonPages(props) {
+export default function ButtonPages(props, isActualRoute) {
     const navigate = useNavigate();
 
     return (
@@ -12,7 +12,6 @@ export default function ButtonPages(props) {
             fontSize: "14pt",
             fontFamily: "Montserrat",
             fontWeight: "700",
-
             "&:hover::after": {
                 width: "110%",
             },
@@ -28,6 +27,6 @@ export default function ButtonPages(props) {
                 transition: "0.4s ease-in-out",
             },
         }}>
-            {props.title}</Button>
+            {props.title}</Button >
     );
 };
