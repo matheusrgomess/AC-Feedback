@@ -8,13 +8,11 @@ import {
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import ModalAvaliationsDone from "../rate/components/modalAvaliationsDone";
-import Header from "../../components/Header";
-
 
 export default function Home() {
     return (
         <div style={{ backgroundColor: "#26272d", maxHeight: "100vh" }}>
-            <Header showHome={false} namePage='HOME'/>
+
             <Box as="main" minH="83vh" display="flex" justifyContent="center" alignItems="center">
                 <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="10px">
                     <Heading color="#000000">Avaliações criadas:</Heading>

@@ -22,7 +22,6 @@ export default function AvaliarNewComponent() {
 
 
   return <>
-    <Header showRate={false} namePage='AVALIAR'/>
     <div style={{
       height: 'inherit',
       color: 'white',
@@ -31,7 +30,7 @@ export default function AvaliarNewComponent() {
       justifyContent: 'center',
       alignItems: 'center',
     }}>
-      
+
       <RatingModal handleClose={handleClose} isOpen={openRatingModal} handleClick={handleChangeRoute} />
       <h1>
         <Button variant="outline" colorScheme="whiteAlpha" onClick={handleOpen}>Iniciar avaliação</Button>

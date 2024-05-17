@@ -1,10 +1,8 @@
 import { Box, Container, Heading } from "@chakra-ui/react";
-import Header from "../../components/Header";
 
 export default function Feedbacks() {
     return (
         <div style={{ backgroundColor: "#26272d", minHeight: "100vh" }}>
-            <Header showFeedbacks={false} namePage='FEEDBACKS'/>
             <Box as="main" minH="83vh" display="flex" justifyContent="center" alignItems="center">
                 <Container bgColor="#ffffff" minH="200px" borderRadius="15px" padding="0px" paddingTop="10px" paddingBottom="10px">
                     <Container display="flex" alignItems="center" justifyContent="space-between" minH="60px">

@@ -4,8 +4,10 @@ import Home from "./pages/home/Home";
 import Feedbacks from "./pages/feedback/Feedbacks";
 import AvaliarNewComponent from './pages/AvaliarNewComponent'
 import RateParticipantScreen from "./pages/rate-participant-screen";
+import Header from "./components/Header";
 
 function App() {
+
   return (
     <div className="App" style={{
       overflow: 'hidden',
@@ -18,6 +20,7 @@ function App() {
       <div style={{
         height: '100%'
       }}>
+        <Header />
         <Routes>
           <Route path="/" element={<Autentificacao />} />
           <Route path="/home" element={<Home />} />

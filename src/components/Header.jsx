@@ -1,10 +1,30 @@
 import { Box, Container, Image, Heading } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
 import ButtonPages from "./ButtonPages";
 import Calendar from "./Calendar";
 import User from "./User";
 import AcDigitalLogo from '../assets/acdigital.png'
 
-function Header({ showHome = true, showRate = true, showFeedbacks = true, ...props }) {
+function Header(...props) {
+
+  const location = useLocation()
+
+  const routes = [
+    {
+      name: "HOME",
+      route: "/home"
+    },
+    {
+      name: "RATE",
+      route: "/home/rate"
+    },
+    {
+      name: "FEEDBACKS",
+      route: "/home/feedbacks"
+    },
+  ]
+
+  const filteredRoutes = routes && routes.filter((route) => route?.route !== location.pathname)
 
   return <div>
     <Box as="header" bg="#1c222b" padding="20px" display="flex" justifyContent="space-between" maxH="10vh" alignItems="center" w="100%" style={{
@@ -13,11 +33,11 @@ function Header({ showHome = true, showRate = true, showFeedbacks = true, ...pro
       <Container padding="0px" margin="0px" maxH="65px" maxW="294px" bgColor="green">
         <Image src={AcDigitalLogo} w="100%" h="100%" objectFit="contain" />
       </Container>
-      <Container display="flex" justifyContent="space-between" alignItems="center" padding="0px" margin="0px" maxW="300px" >
-        {showHome && <ButtonPages title="HOME" navigate="/home" />}
-        {showRate && <ButtonPages title="AVALIAR" navigate="/home/rate" />}
-        {showFeedbacks && <ButtonPages title="FEEDBACKS" navigate="/home/feedbacks" />}
-      </Container>
+      {filteredRoutes.map((route, index) => (
+        <Container display="flex" justifyContent="space-between" alignItems="center" padding="0px" margin="0px" maxW="300px" >
+          <ButtonPages title={route.name} navigate={route.route} key={index} />
+        </Container>
+      ))}
       <Container padding="0px" margin="0px" display="flex" flexDirection='row' justifyContent="center" alignItems="center" gap="15px" maxW="360px">
         <div>
           <Calendar />
