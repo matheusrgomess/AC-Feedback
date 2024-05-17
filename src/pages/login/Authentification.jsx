@@ -6,8 +6,8 @@ import {
     Button
 } from "@chakra-ui/react";
 import Inputs from "./components/Inputs";
-import BackgroundImage from '../../assets/backgroundlogo.png'
-import Banner from '../../assets/bannerlogo.png'
+import BackgroundImage from '../../assets/backgroundlogo.png';
+import Banner from '../../assets/bannerlogo.png';
 
 export default function Autentificacao() {
     const navigate = useNavigate();

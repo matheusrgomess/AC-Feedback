@@ -1,18 +1,15 @@
 import { Heading, Container, Text, Progress, Button } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import Header from "../../components/Header";
 import { TiStar } from "react-icons/ti";
 import { array } from "./array";
 import { useState } from "react";
 
 export default function RateParticipantScreen() {
-  const { participant } = useParams()
+  const { participant } = useParams();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
-
-  console.log("participant ->", participant)
 
   const handleNextQuestion = () => {
     setCurrentQuestion((prev) => prev + 1);
@@ -32,7 +29,7 @@ export default function RateParticipantScreen() {
       <Container as='main' minH='85vh' display="flex" alignItems="center" justifyContent="center" minWidth="100%">
         <Container border="1px solid" borderColor="#971520" borderRadius="8px" minH="500px" minW="500px" padding="0px" paddingTop="180px" display="flex" alignItems="center" justifyContent="space-between" flexDirection="column">
           <Container textAlign="center">
-            <h1>{participant.toUpperCase()}</h1>
+
             <Heading>
               {array[currentQuestion].question}
             </Heading>
@@ -54,7 +51,7 @@ export default function RateParticipantScreen() {
                   />
                   <TiStar
                     className="star"
-                    color={ratingValue <= (hover || rating) ? "#cda90e" : "#000000"}
+                    color={ratingValue <= (hover || rating) ? "#971520" : "#ffffff2b"}
                     size={50}
                     onMouseEnter={() => setHover(ratingValue)}
                     onMouseLeave={() => setHover(null)}
@@ -63,7 +60,7 @@ export default function RateParticipantScreen() {
                     textAlign="center"
                     position="relative"
                     bottom="10px"
-                    color={ratingValue <= (hover || rating) ? "#cda90e" : "#000000"}
+                    color="white"
                   >
                     <strong>{ratingValue}</strong>
                   </Text>
@@ -71,19 +68,22 @@ export default function RateParticipantScreen() {
               );
             })}
           </div>
-          <Container minWidth="100%" padding="15px">
+          <Container minWidth="100%" padding="15px" display="flex" alignItems="center" justifyContent="space-between">
             <Container padding="0px" margin="0px" display="flex" alignItems="center" justifyContent="space-between" maxW="100px">
               {currentQuestion !== 0 && <Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }} onClick={handlePreviousQuestion}><ArrowLeftIcon color="#ffffff" /></Button>}
               {currentQuestion !== array.length - 1 && <Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }} onClick={handleNextQuestion}><ArrowRightIcon color="#ffffff" /></Button>}
             </Container>
+            <Text>
+              {participant.toUpperCase()}
+            </Text>
           </Container>
         </Container>
       </Container>
       <Container as="footer" minH='5vh' minWidth='100%' display='flex' alignItems='center' justifyContent='center'>
         <Container>
-          <Progress value={currentQuestion} max={array.length - 1} borderRadius="20px" colorScheme='blue' size='xs' />
+          <Progress value={currentQuestion} max={array.length - 1} borderRadius="20px" colorScheme='red' size='xs' />
         </Container>
       </Container>
     </div>
-  )
-}
+  );
+};

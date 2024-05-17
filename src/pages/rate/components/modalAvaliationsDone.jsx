@@ -31,6 +31,8 @@ export default function ModalAvaliationsDone() {
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
 
+    console.log(hover)
+
     const numberStars = JSON.parse(localStorage.getItem("numberStars"))
     const valueForms = JSON.parse(localStorage.getItem("valueForms"));
     const questionsList = JSON.parse(localStorage.getItem("questionsList"));
@@ -91,13 +93,12 @@ export default function ModalAvaliationsDone() {
                                             {desc}
                                         </Container>
                                         {questionsList &&
-                                            <Container alignItems="center" justifyContent="center" border="2px solid" borderColor="black" borderRadius="8px" minHeight="200px" padding="0px" marginTop="100px">
+                                            <Container alignItems="center" justifyContent="center" border="2px solid" borderRadius="8px" minHeight="200px" padding="0px" marginTop="100px">
                                                 <Container
                                                     display="grid"
                                                     color="white"
                                                     bgColor="red"
                                                     borderBottom="2px solid"
-                                                    borderColor="black"
                                                     minWidth="100%"
                                                     borderTopRadius="8px"
                                                     maxHeight="140px"
@@ -121,9 +122,9 @@ export default function ModalAvaliationsDone() {
                                                         {questionsList[definingQuestions]}
                                                     </Heading>
                                                 </Container>
-                                                <Container display="flex" alignItems="center" justifyContent="center" bgColor="#ffffff" minHeight="146px" borderBottomRadius="8px">
+                                                <Container display="flex" alignItems="center" justifyContent="center" minHeight="146px" borderBottomRadius="8px">
                                                     <div style={{ display: "flex", flexDirection: "column", minWidth: "100%" }}>
-                                                        <Text color="#000000" whiteSpace="nowrap" marginLeft="10px"><strong>A análise sobre a pergunta foi de: {rating ? rating : 0} ponto(s)</strong></Text>
+                                                        <Text color="white" whiteSpace="nowrap" marginLeft="10px"><strong>A análise sobre a pergunta foi de: {rating ? rating : 0} ponto(s)</strong></Text>
                                                         <div style={{ display: "flex" }}>
                                                             {[...Array(numberStars)].map((star, i) => {
                                                                 const ratingValue = i + 1;
@@ -137,7 +138,7 @@ export default function ModalAvaliationsDone() {
                                                                         />
                                                                         <TiStar
                                                                             className="star"
-                                                                            color="#000000"
+                                                                            color="#ffffff2b"
                                                                             size={50}
                                                                             onMouseEnter={() => setHover(ratingValue)}
                                                                             onMouseLeave={() => setHover(null)}
@@ -146,7 +147,7 @@ export default function ModalAvaliationsDone() {
                                                                             textAlign="center"
                                                                             position="relative"
                                                                             bottom="10px"
-                                                                            color="#000000"
+                                                                            color="white"
                                                                         >
                                                                             <strong>{ratingValue}</strong>
                                                                         </Text>
@@ -166,7 +167,7 @@ export default function ModalAvaliationsDone() {
                                             {definingQuestions != null && questionsList && (definingQuestions !== questionsList.length - 1 && (<Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }} onClick={nextQuestion}><ArrowRightIcon color="#ffffff" /></Button>))}
                                         </Container>
                                         <Container padding="0px" margin="0px">
-                                            {definingQuestions != null && questionsList && (<Progress value={definingQuestions} max={questionsList.length - 1} borderRadius="20px" colorScheme='blue' size='xs' />)}
+                                            {definingQuestions != null && questionsList && (<Progress value={definingQuestions} max={questionsList.length - 1} borderRadius="20px" colorScheme='red' size='xs' />)}
                                         </Container>
                                     </ModalFooter>
                                 </ModalContent>
