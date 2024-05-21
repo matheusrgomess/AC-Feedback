@@ -19,6 +19,14 @@ export default function RateParticipantScreen() {
     setCurrentQuestion((prev) => prev - 1);
   }
 
+  const userName = (name) => {
+    const formattedName = name
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+
+    return <Text color="#ffffff3d" fontSize="15px">{formattedName}</Text>
+  }
   return (
     <div style={{
       maxHeight: '100vh',
@@ -73,9 +81,7 @@ export default function RateParticipantScreen() {
               {currentQuestion !== 0 && <Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }} onClick={handlePreviousQuestion}><ArrowLeftIcon color="#ffffff" /></Button>}
               {currentQuestion !== array.length - 1 && <Button padding="0px" bg="transparent" _hover={{ border: "1px solid", borderColor: "#ffffff" }} _active={{ bgColor: "#00000057" }} onClick={handleNextQuestion}><ArrowRightIcon color="#ffffff" /></Button>}
             </Container>
-            <Text>
-              {participant.toUpperCase()}
-            </Text>
+            {userName(participant)}
           </Container>
         </Container>
       </Container>

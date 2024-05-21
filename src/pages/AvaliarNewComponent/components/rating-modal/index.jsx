@@ -31,8 +31,8 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
                 <option value='eduardo'>Eduardo</option>
                 <option value='guilherme'>Guilherme</option>
                 <option value='juan'>Juan</option>
-                <option value='matheuseyng'>Matheus Eyng</option>
-                <option value='matheusgomes'>Matheus Gomes</option>
+                <option value='matheus-eyng'>Matheus Eyng</option>
+                <option value='matheus-gomes'>Matheus Gomes</option>
                 <option value='pablo'>Pablo</option>
                 <option value='tomas'>Tomás</option>
               </Select>

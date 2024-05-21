@@ -23,11 +23,7 @@ function Header(...props) {
     },
   ]
 
-  if (location.pathname/*look to URL*/ === '/') {
-    return null
-  }
-
-  return <div>
+  return <div>{!(location.pathname === '/') &&
     <Box as="header" bg="#1c222b" padding="20px" display="flex" justifyContent="space-between" maxH="10vh" alignItems="center" w="100%" style={{
       fontFamily: "Montserrat, sans-serif",
     }}>
@@ -48,6 +44,8 @@ function Header(...props) {
         </div>
       </Container>
     </Box>
+  }
+
   </div>
 }
 
