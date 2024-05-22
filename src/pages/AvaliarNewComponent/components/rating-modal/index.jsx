@@ -29,7 +29,6 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
                 <option value='cilene'>Cilene</option>
                 <option value='dunia'>Dúnia</option>
                 <option value='eduardo'>Eduardo</option>
-                <option value='guilherme'>Guilherme</option>
                 <option value='juan'>Juan</option>
                 <option value='matheus-eyng'>Matheus Eyng</option>
                 <option value='matheus-gomes'>Matheus Gomes</option>
