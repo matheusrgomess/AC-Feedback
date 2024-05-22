@@ -1,8 +1,4 @@
-import {
-  Container,
-  Text,
-  Progress,
-} from "@chakra-ui/react";
+import { Container, Text, Progress } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { array } from "./array";
 import { useState } from "react";
@@ -11,18 +7,39 @@ import QuestionsPage from "./components/questionsPage";
 
 export default function RateParticipantScreen() {
   const { participant } = useParams();
-  const [currentQuestion, setCurrentQuestion] = useState(0);  // Initialize state with 0
-
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+  const [avaliation, setAvaliation] = useState({
+    reviewer: localStorage.getItem("user") || '',
+    reviewed: participant,
+    questions: []
+  });
 
   const handleNextQuestion = () => {
     setCurrentQuestion((prev) => prev + 1);
+    handleAvaliation(rating);
   };
 
   const handlePreviousQuestion = () => {
     setCurrentQuestion((prev) => prev - 1);
   };
+
+  const handleAvaliation = (rating) => {
+    console.log("avaliation", avaliation)
+    const newQuestion = {
+      question: array[currentQuestion].question,
+      rating: rating
+    }
+    console.log('newQuestion', newQuestion)
+  
+    setAvaliation(prevAvaliation => {
+      return {
+        ...prevAvaliation,
+        questions: [...prevAvaliation.questions, newQuestion]
+      };
+    });
+  }
 
   const userName = (name) => {
     const formattedName = name
@@ -73,6 +90,8 @@ export default function RateParticipantScreen() {
             handlePreviousQuestion={handlePreviousQuestion}
             userName={userName}
             participant={participant}
+            avaliation={avaliation}
+
           />
         )}
       </Container>

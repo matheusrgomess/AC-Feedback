@@ -2,7 +2,10 @@ import { Container, Text, Button, Heading, Textarea } from "@chakra-ui/react";
 import { array } from "../array";
 import ButtonRate from "./buttonRate";
 
-export default function ObservartionsPage({ currentQuestion, handleNextQuestion, handlePreviousQuestion, userName, participant }) {
+export default function ObservartionsPage({ currentQuestion, handleNextQuestion, handlePreviousQuestion, userName, participant, avaliation }) {
+   const handleClick = () => {
+    localStorage.setItem("avaliation", JSON.stringify(avaliation))
+   }
     return (
         <Container
             border="1px solid"
@@ -52,7 +55,7 @@ export default function ObservartionsPage({ currentQuestion, handleNextQuestion,
                     handleNextQuestion={handleNextQuestion}
                     handlePreviousQuestion={handlePreviousQuestion}
                 />
-                <Button colorScheme="red">Enviar</Button>
+                <Button colorScheme="red" onClick={handleClick}>Enviar</Button>
                 {userName(participant)}
             </Container>
         </Container>
