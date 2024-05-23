@@ -14,7 +14,6 @@ export default function Autentificacao() {
 
     const handleClick = () => {
         navigate("/home");
-        console.log();
     }
 
     return (

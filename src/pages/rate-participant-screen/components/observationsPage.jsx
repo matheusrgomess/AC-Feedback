@@ -1,11 +1,34 @@
 import { Container, Text, Button, Heading, Textarea } from "@chakra-ui/react";
 import { array } from "../array";
 import ButtonRate from "./buttonRate";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-export default function ObservartionsPage({ currentQuestion, handleNextQuestion, handlePreviousQuestion, userName, participant, avaliation }) {
-   const handleClick = () => {
-    localStorage.setItem("avaliation", JSON.stringify(avaliation))
-   }
+export default function ObservationsPage({ currentQuestion, handleNextQuestion, handlePreviousQuestion, userName, participant, avaliation, observation, setObservation }) {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        const updatedAvaliation = {
+            ...avaliation,
+            questions: [...avaliation.questions, { observations: observation }]
+        };
+
+        localStorage.setItem("avaliation", JSON.stringify(updatedAvaliation));
+        navigate("/home");
+        setTimeout(() => {
+            toast('Formulário enviado com sucesso!', {
+                position: "top-center",
+                pauseOnHover: false,
+                theme: "dark",
+            });
+        }, 100);
+    };
+
+    const modObservation = (event) => {
+        const newObservation = event.target.value;
+        setObservation(newObservation);
+    };
+
     return (
         <Container
             border="1px solid"
@@ -40,6 +63,8 @@ export default function ObservartionsPage({ currentQuestion, handleNextQuestion,
                         placeholder="Digite Aqui"
                         resize={"none"}
                         height="250px"
+                        value={observation}
+                        onChange={modObservation}
                     />
                 </div>
             </Container>
