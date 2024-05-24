@@ -13,11 +13,9 @@ export default function QuestionsPage({
   setHover,
   rating,
   setRating,
-  handleAvaliation
+  handleAvaliation,
+  questions,
 }) {
-
-
-
   return (
     <Container
       border="1px solid"
@@ -33,6 +31,11 @@ export default function QuestionsPage({
       flexDirection="column"
     >
       <Container textAlign="center">
+        {questions[currentQuestion] && (
+          <span>
+            Essa foi a sua pontução anterior:{questions[currentQuestion].rating}
+          </span>
+        )}
         <Heading>{array[currentQuestion].question}</Heading>
         <Text>{array[currentQuestion].questionDescription}</Text>
       </Container>
