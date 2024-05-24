@@ -42,6 +42,7 @@ function App() {
           pauseOnHover={false}
           theme="dark"
           progressStyle={{ background: "#ff0000" }}
+          limit={2}
         />
       </div>
     </div>

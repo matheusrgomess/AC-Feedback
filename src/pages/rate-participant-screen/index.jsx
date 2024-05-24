@@ -4,6 +4,7 @@ import { array } from "./array";
 import { useState } from "react";
 import ObservartionsPage from "./components/observationsPage";
 import QuestionsPage from "./components/questionsPage";
+import { toast } from "react-toastify";
 
 export default function RateParticipantScreen() {
   const { participant } = useParams();
@@ -22,11 +23,14 @@ export default function RateParticipantScreen() {
   const handleNextQuestion = () => {
     setCurrentQuestion((prev) => prev + 1);
     handleAvaliation(rating);
+    setRating(0);
+    toast.dismiss();
   };
 
   const handlePreviousQuestion = () => {
     setCurrentQuestion((prev) => prev - 1);
-    setRating(0)
+    setRating(0);
+    toast.dismiss();
   };
 
   const handleAvaliation = (rating) => {
@@ -45,8 +49,6 @@ export default function RateParticipantScreen() {
       const newArrayQuestions = [...copyQuestionArray];
       return [...newArrayQuestions];
     });
-
-    setRating(0);
   };
 
   const userName = (name) => {
@@ -90,6 +92,7 @@ export default function RateParticipantScreen() {
             setHover={setHover}
             rating={rating}
             setRating={setRating}
+            questions={questions}
           />
         ) : (
           <ObservartionsPage

@@ -1,9 +1,10 @@
-import { Container, Text, Button, Heading, Textarea } from "@chakra-ui/react";
+import { Container, Text, Button, Heading, Textarea, Image } from "@chakra-ui/react";
 import { array } from "../array";
 import ButtonRate from "./buttonRate";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import logoAC from "../../../assets/aclogo.png"
 
 export default function ObservationsPage({
   currentQuestion,
@@ -19,12 +20,24 @@ export default function ObservationsPage({
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log("question reviewed ->",questions)
+    console.log("question reviewed ->", questions)
     questions.push({ observation: observation });
     const updatedAvaliation = { ...avaliation, questions: questions };
     localStorage.setItem("avaliation", JSON.stringify(updatedAvaliation));
     navigate("/home");
-    toast("Formulário enviado com sucesso!");
+    toast(
+      <Container display="flex" padding="0px" alignItems="center" justifyContent="space-between" width="100%">
+        <Image src={logoAC} width="30px" paddingRight="5px" objectFit="contain" />
+        <Text whiteSpace="nowrap">
+          <strong>Formulário enviado com sucesso!</strong>
+        </Text>
+      </Container>, {
+      position: "top-center",
+      pauseOnHover: false,
+      theme: "dark",
+      closeOnClick: true,
+      closeButton: false
+    });
   };
 
   const modObservation = (event) => {
@@ -83,9 +96,10 @@ export default function ObservationsPage({
           handleNextQuestion={handleNextQuestion}
           handlePreviousQuestion={handlePreviousQuestion}
         />
-        <Button colorScheme="red" onClick={handleClick}>
-          Enviar
-        </Button>
+        {observation === '' ?
+                    <Button colorScheme="red" isDisabled>Enviar</Button> :
+                    <Button colorScheme="red" onClick={handleClick}>Enviar</Button>
+                }
         {userName(participant)}
       </Container>
     </Container>

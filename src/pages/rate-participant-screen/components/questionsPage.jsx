@@ -32,8 +32,8 @@ export default function QuestionsPage({
     >
       <Container textAlign="center">
         {questions[currentQuestion] && (
-          <span>
-            Essa foi a sua pontução anterior:{questions[currentQuestion].rating}
+          <span style={{ color:"#ffffff2b" }}>
+            Essa foi a sua pontução anterior: {questions[currentQuestion].rating}
           </span>
         )}
         <Heading>{array[currentQuestion].question}</Heading>

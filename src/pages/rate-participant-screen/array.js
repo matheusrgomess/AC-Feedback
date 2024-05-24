@@ -27,6 +27,6 @@ export const array = [
     {
         type: "observations",
         question: "Observações",
-        questionDescription: "Deixe aqui suas observações",
+        questionDescription: "Coloque uma observação para poder enviar o formulário",
     }
 ]
