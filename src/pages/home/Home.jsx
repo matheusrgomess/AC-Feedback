@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import ModalAvaliationsDone from "../rate/components/modalAvaliationsDone";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
@@ -60,12 +59,7 @@ export default function Home() {
                     Azure DevOps <ExternalLinkIcon mx="2px" w={6} h={6} />
                 </Link>
             </Box>
-            <ToastContainer
-                position="top-center"
-                pauseOnHover={false}
-                theme="dark"
-                progressStyle={{ background: "#ff0000" }}
-            />
+        
         </div>
     );
 };

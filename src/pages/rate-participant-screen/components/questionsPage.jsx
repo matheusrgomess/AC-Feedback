@@ -13,7 +13,11 @@ export default function QuestionsPage({
   setHover,
   rating,
   setRating,
+  handleAvaliation
 }) {
+
+
+
   return (
     <Container
       border="1px solid"
@@ -37,6 +41,8 @@ export default function QuestionsPage({
         setHover={setHover}
         rating={rating}
         setRating={setRating}
+        handleAvaliation={handleAvaliation}
+        handleNextQuestion={handleNextQuestion}
       />
       <Container
         minWidth="100%"
@@ -49,6 +55,7 @@ export default function QuestionsPage({
           currentQuestion={currentQuestion}
           handleNextQuestion={handleNextQuestion}
           handlePreviousQuestion={handlePreviousQuestion}
+          rating={rating}
         />
         {userName(participant)}
       </Container>

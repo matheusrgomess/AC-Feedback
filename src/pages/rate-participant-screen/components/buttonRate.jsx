@@ -2,7 +2,7 @@ import { Container, Button } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { array } from "../array";
 
-export default function ButtonRate({ currentQuestion, handleNextQuestion, handlePreviousQuestion }) {
+export default function ButtonRate({ currentQuestion, handleNextQuestion, handlePreviousQuestion, rating }) {
     return (
         <Container
             padding="0px"
@@ -19,6 +19,7 @@ export default function ButtonRate({ currentQuestion, handleNextQuestion, handle
                     _hover={{ border: "1px solid", borderColor: "#ffffff" }}
                     _active={{ bgColor: "#00000057" }}
                     onClick={handlePreviousQuestion}
+                  
                 >
                     <ArrowLeftIcon color="#ffffff" />
                 </Button>
@@ -30,6 +31,7 @@ export default function ButtonRate({ currentQuestion, handleNextQuestion, handle
                     _hover={{ border: "1px solid", borderColor: "#ffffff" }}
                     _active={{ bgColor: "#00000057" }}
                     onClick={handleNextQuestion}
+                    isDisabled={rating === 0} 
                 >
                     <ArrowRightIcon color="#ffffff" />
                 </Button>

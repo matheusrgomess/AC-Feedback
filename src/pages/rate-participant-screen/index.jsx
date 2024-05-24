@@ -2,7 +2,7 @@ import { Container, Text, Progress } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { array } from "./array";
 import { useState } from "react";
-import ObservationsPage from "./components/observationsPage";
+import ObservartionsPage from "./components/observationsPage";
 import QuestionsPage from "./components/questionsPage";
 
 export default function RateParticipantScreen() {
@@ -10,22 +10,23 @@ export default function RateParticipantScreen() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
-  const [observation, setObservation] = useState("");
-  const [avaliation, setAvaliation] = useState({
-    reviewer: localStorage.getItem("user") || '',
+
+  const avaliation = {
+    reviewer: localStorage.getItem("user") || "",
     reviewed: participant,
     questions: [],
-  });
+  };
+
+  const [questions, setQuestions] = useState([]);
 
   const handleNextQuestion = () => {
     setCurrentQuestion((prev) => prev + 1);
     handleAvaliation(rating);
-    setRating(0);
   };
 
   const handlePreviousQuestion = () => {
     setCurrentQuestion((prev) => prev - 1);
-    setRating(0);
+    setRating(0)
   };
 
   const handleAvaliation = (rating) => {
@@ -34,13 +35,19 @@ export default function RateParticipantScreen() {
       rating: rating,
     };
 
-    setAvaliation(prevAvaliation => {
-      return {
-        ...prevAvaliation,
-        questions: [...prevAvaliation.questions, newQuestion]
+    setQuestions((prev) => {
+      const copyQuestionArray = [...prev];
+      const updatedQuestions = {
+        ...newQuestion,
+        rating: rating,
       };
+      copyQuestionArray[currentQuestion] = updatedQuestions;
+      const newArrayQuestions = [...copyQuestionArray];
+      return [...newArrayQuestions];
     });
-  }
+
+    setRating(0);
+  };
 
   const userName = (name) => {
     const formattedName = name
@@ -83,19 +90,17 @@ export default function RateParticipantScreen() {
             setHover={setHover}
             rating={rating}
             setRating={setRating}
-            setCurrentQuestion={setCurrentQuestion}
-            handleAvaliation={handleAvaliation}
           />
         ) : (
-          <ObservationsPage
+          <ObservartionsPage
             currentQuestion={currentQuestion}
             handleNextQuestion={handleNextQuestion}
             handlePreviousQuestion={handlePreviousQuestion}
             userName={userName}
             participant={participant}
             avaliation={avaliation}
-            observation={observation}
-            setObservation={setObservation}
+            questions={questions}
+            handleAvaliation={handleAvaliation}
           />
         )}
       </Container>
