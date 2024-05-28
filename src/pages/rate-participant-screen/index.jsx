@@ -1,8 +1,8 @@
 import { Container, Text, Progress } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { array } from "./array";
-import { useState } from "react";
-import ObservartionsPage from "./components/observationsPage";
+import { useState, useEffect } from "react";
+import ObservationsPage from "./components/observationsPage";
 import QuestionsPage from "./components/questionsPage";
 import { toast } from "react-toastify";
 
@@ -11,14 +11,13 @@ export default function RateParticipantScreen() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
-
-  const avaliation = {
-    reviewer: localStorage.getItem("user") || "",
-    reviewed: participant,
-    questions: [],
-  };
-
   const [questions, setQuestions] = useState([]);
+  const savedAvaliations = JSON.parse(localStorage.getItem("avaliations")) || [];
+  const [avaliations, setAvaliations] = useState(savedAvaliations);
+
+  useEffect(() => {
+    localStorage.setItem("avaliations", JSON.stringify(avaliations));
+  }, [avaliations]);
 
   const handleNextQuestion = () => {
     setCurrentQuestion((prev) => prev + 1);
@@ -29,7 +28,7 @@ export default function RateParticipantScreen() {
 
   const handlePreviousQuestion = () => {
     setCurrentQuestion((prev) => prev - 1);
-    setRating(0);
+    setRating(questions[currentQuestion - 1]?.rating || 0);
     toast.dismiss();
   };
 
@@ -41,14 +40,21 @@ export default function RateParticipantScreen() {
 
     setQuestions((prev) => {
       const copyQuestionArray = [...prev];
-      const updatedQuestions = {
-        ...newQuestion,
-        rating: rating,
-      };
-      copyQuestionArray[currentQuestion] = updatedQuestions;
-      const newArrayQuestions = [...copyQuestionArray];
-      return [...newArrayQuestions];
+      copyQuestionArray[currentQuestion] = newQuestion;
+      return copyQuestionArray;
     });
+  };
+
+  const saveAvaliation = (finalAvaliation) => {
+    setAvaliations((prev) => {
+      const updatedAvaliations = [...prev, finalAvaliation];
+      localStorage.setItem("avaliations", JSON.stringify(updatedAvaliations));
+      return updatedAvaliations;
+    });
+    setCurrentQuestion(0);
+    setRating(null);
+    setHover(null);
+    setQuestions([]);
   };
 
   const userName = (name) => {
@@ -95,15 +101,20 @@ export default function RateParticipantScreen() {
             questions={questions}
           />
         ) : (
-          <ObservartionsPage
+          <ObservationsPage
             currentQuestion={currentQuestion}
             handleNextQuestion={handleNextQuestion}
             handlePreviousQuestion={handlePreviousQuestion}
             userName={userName}
             participant={participant}
-            avaliation={avaliation}
+            avaliation={{
+              reviewer: localStorage.getItem("user") || "",
+              reviewed: participant,
+              questions: questions,
+            }}
             questions={questions}
             handleAvaliation={handleAvaliation}
+            saveAvaliation={saveAvaliation}
           />
         )}
       </Container>

@@ -4,7 +4,7 @@ import ButtonRate from "./buttonRate";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import logoAC from "../../../assets/aclogo.png"
+import logoAC from "../../../assets/aclogo.png";
 
 export default function ObservationsPage({
   currentQuestion,
@@ -14,16 +14,15 @@ export default function ObservationsPage({
   participant,
   questions,
   avaliation,
+  saveAvaliation,
 }) {
+  const navigate = useNavigate();
   const [observation, setObservation] = useState("");
 
-  const navigate = useNavigate();
-
   const handleClick = () => {
-    console.log("question reviewed ->", questions)
-    questions.push({ observation: observation });
-    const updatedAvaliation = { ...avaliation, questions: questions };
-    localStorage.setItem("avaliation", JSON.stringify(updatedAvaliation));
+    const updatedQuestions = [...questions, { question: array[currentQuestion].question, rating: observation }];
+    const updatedAvaliation = { ...avaliation, questions: updatedQuestions };
+    saveAvaliation(updatedAvaliation);
     navigate("/home");
     toast(
       <Container display="flex" padding="0px" alignItems="center" justifyContent="space-between" width="100%">
@@ -97,9 +96,9 @@ export default function ObservationsPage({
           handlePreviousQuestion={handlePreviousQuestion}
         />
         {observation === '' ?
-                    <Button colorScheme="red" isDisabled>Enviar</Button> :
-                    <Button colorScheme="red" onClick={handleClick}>Enviar</Button>
-                }
+          <Button colorScheme="red" isDisabled>Enviar</Button> :
+          <Button colorScheme="red" onClick={handleClick}>Enviar</Button>
+        }
         {userName(participant)}
       </Container>
     </Container>
