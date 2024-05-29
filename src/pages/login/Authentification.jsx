@@ -20,9 +20,14 @@ export default function Autentificacao() {
         console.log(valueUser);
     };
 
+    const normalizeName = (str) => {
+        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
     const handleClick = () => {
         navigate("/home");
-        localStorage.setItem("user", valueUser);
+        const formattedName = normalizeName(valueUser.trim().toLowerCase().replace(/ /g, '-'));
+        localStorage.setItem("user", formattedName);
     }
 
     return (
