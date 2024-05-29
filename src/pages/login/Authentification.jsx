@@ -8,12 +8,21 @@ import {
 import Inputs from "./components/Inputs";
 import BackgroundImage from '../../assets/backgroundlogo.png';
 import Banner from '../../assets/bannerlogo.png';
+import { useState } from "react";
 
 export default function Autentificacao() {
     const navigate = useNavigate();
+    const [valueUser, setValueUser] = useState("");
+
+    const modValueUser = (event) => {
+        const newValueUser = event.target.value;
+        setValueUser(newValueUser);
+        console.log(valueUser);
+    };
 
     const handleClick = () => {
         navigate("/home");
+        localStorage.setItem("user", valueUser);
     }
 
     return (
@@ -24,7 +33,7 @@ export default function Autentificacao() {
                     <Text fontSize="1.2rem">Entrar em AC Feedbacks</Text>
                 </Container>
                 <Container padding="0px">
-                    <Inputs title="Email" placeholder="nome.sobrenome@acdigital.com.br" />
+                    <Inputs title="Email" placeholder="nome.sobrenome@acdigital.com.br" value={valueUser} onChange={modValueUser} />
                     <Inputs type="password" title="Senha" placeholder="Senha" />
                     <Button onClick={handleClick} marginBottom="20px" bg="transparent" _hover={{ bg: "#2758c0", color: "#ffffff" }}>Entrar</Button>
                 </Container>

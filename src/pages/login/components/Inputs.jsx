@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Text, Input, InputGroup, InputRightElement, Button } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
-export default function Inputs({ title, placeholder, type }) {
+export default function Inputs({ title, placeholder, type, value, onChange }) {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClick = () => setShowPassword(!showPassword);
@@ -34,6 +34,8 @@ export default function Inputs({ title, placeholder, type }) {
                         borderRightColor: "transparent",
                         boxShadow: "none"
                     }}
+                    value={value}
+                    onChange={onChange}
                 />
                 {type === "password" && (
                     <InputRightElement>
