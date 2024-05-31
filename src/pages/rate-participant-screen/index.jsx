@@ -1,10 +1,9 @@
 import { Container, Text, Progress } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { array } from "./array";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ObservationsPage from "./components/observationsPage";
 import QuestionsPage from "./components/questionsPage";
-import { toast } from "react-toastify";
 
 export default function RateParticipantScreen() {
   const { participant } = useParams();
@@ -12,24 +11,23 @@ export default function RateParticipantScreen() {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [questions, setQuestions] = useState([]);
-  const savedAvaliations = JSON.parse(localStorage.getItem("avaliations")) || [];
-  const [avaliations, setAvaliations] = useState(savedAvaliations);
-
-  useEffect(() => {
-    localStorage.setItem("avaliations", JSON.stringify(avaliations));
-  }, [avaliations]);
+  const savedAvaliations =
+    JSON.parse(localStorage.getItem("avaliations")) || [];
+  const avaliation = {
+    reviewer: localStorage.getItem("user") || "",
+    reviewed: participant,
+    questions: questions,
+  };
 
   const handleNextQuestion = () => {
     setCurrentQuestion((prev) => prev + 1);
     handleAvaliation(rating);
-    setRating(0);
-    toast.dismiss();
+    setRating(null);
   };
 
   const handlePreviousQuestion = () => {
     setCurrentQuestion((prev) => prev - 1);
     setRating(questions[currentQuestion - 1]?.rating || 0);
-    toast.dismiss();
   };
 
   const handleAvaliation = (rating) => {
@@ -46,17 +44,12 @@ export default function RateParticipantScreen() {
   };
 
   const saveAvaliation = (finalAvaliation) => {
-    setAvaliations((prev) => {
-      const updatedAvaliations = [...prev, finalAvaliation];
-      localStorage.setItem("avaliations", JSON.stringify(updatedAvaliations));
-      return updatedAvaliations;
-    });
-    setCurrentQuestion(0);
-    setRating(null);
-    setHover(null);
+    savedAvaliations.push(finalAvaliation);
+    localStorage.setItem("avaliations", JSON.stringify(savedAvaliations));
     setQuestions([]);
   };
 
+  //transformar em componente solitário
   const userName = (name) => {
     const formattedName = name
       .split("-")
@@ -70,6 +63,11 @@ export default function RateParticipantScreen() {
     );
   };
 
+
+
+  // a ideia da separação dos componentes é boa, mas pode ser melhorada, se percebermos no código, apenas o conteúdo dos cards fica diferente dependendo do tipo
+  // da pergunta, em vez de separar os dois componentes, poderia trazer toda a criação e estilização do card e os botões, assim, deixando apenas isolado o que realmente difere
+  // se não entender, pode me chamar 
   return (
     <div
       style={{
@@ -107,11 +105,7 @@ export default function RateParticipantScreen() {
             handlePreviousQuestion={handlePreviousQuestion}
             userName={userName}
             participant={participant}
-            avaliation={{
-              reviewer: localStorage.getItem("user") || "",
-              reviewed: participant,
-              questions: questions,
-            }}
+            avaliation={avaliation}
             questions={questions}
             handleAvaliation={handleAvaliation}
             saveAvaliation={saveAvaliation}

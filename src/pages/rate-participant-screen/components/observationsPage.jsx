@@ -1,4 +1,11 @@
-import { Container, Text, Button, Heading, Textarea, Image } from "@chakra-ui/react";
+import {
+  Container,
+  Text,
+  Button,
+  Heading,
+  Textarea,
+  Image,
+} from "@chakra-ui/react";
 import { array } from "../array";
 import ButtonRate from "./buttonRate";
 import { useNavigate } from "react-router-dom";
@@ -20,23 +27,39 @@ export default function ObservationsPage({
   const [observation, setObservation] = useState("");
 
   const handleClick = () => {
-    const updatedQuestions = [...questions, { question: array[currentQuestion].question, rating: observation }];
+    const updatedQuestions = [
+      ...questions,
+      { question: array[currentQuestion].question, rating: observation },
+    ];
     const updatedAvaliation = { ...avaliation, questions: updatedQuestions };
     saveAvaliation(updatedAvaliation);
     navigate("/home");
     toast(
-      <Container display="flex" padding="0px" alignItems="center" justifyContent="space-between" width="100%">
-        <Image src={logoAC} width="30px" paddingRight="5px" objectFit="contain" />
+      <Container
+        display="flex"
+        padding="0px"
+        alignItems="center"
+        justifyContent="space-between"
+        width="100%"
+      >
+        <Image
+          src={logoAC}
+          width="30px"
+          paddingRight="5px"
+          objectFit="contain"
+        />
         <Text whiteSpace="nowrap">
           <strong>Formulário enviado com sucesso!</strong>
         </Text>
-      </Container>, {
-      position: "top-center",
-      pauseOnHover: false,
-      theme: "dark",
-      closeOnClick: true,
-      closeButton: false
-    });
+      </Container>,
+      {
+        position: "top-center",
+        pauseOnHover: false,
+        theme: "dark",
+        closeOnClick: true,
+        closeButton: false,
+      }
+    );
   };
 
   const modObservation = (event) => {
@@ -95,10 +118,15 @@ export default function ObservationsPage({
           handleNextQuestion={handleNextQuestion}
           handlePreviousQuestion={handlePreviousQuestion}
         />
-        {observation === '' ?
-          <Button colorScheme="red" isDisabled>Enviar</Button> :
-          <Button colorScheme="red" onClick={handleClick}>Enviar</Button>
-        }
+        {observation === "" ? (
+          <Button colorScheme="red" isDisabled>
+            Enviar
+          </Button>
+        ) : (
+          <Button colorScheme="red" onClick={handleClick}>
+            Enviar
+          </Button>
+        )}
         {userName(participant)}
       </Container>
     </Container>
