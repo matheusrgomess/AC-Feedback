@@ -24,7 +24,7 @@ function Header(...props) {
   ]
 
   return <div>{!(location.pathname === '/') &&
-    <Box as="header" bg="#1c222b" padding="20px" display="flex" justifyContent="space-between" maxH="10vh" alignItems="center" w="100%" style={{
+    <Box as="header" bg="#1c222b" padding="20px" display="flex" justifyContent="space-between" maxH="10vh" borderBottom="1px" borderBottomColor="white" alignItems="center" w="100%" style={{
       fontFamily: "Montserrat, sans-serif",
     }}>
       <Container padding="0px" margin="0px" maxH="65px" maxW="294px" bgColor="green">

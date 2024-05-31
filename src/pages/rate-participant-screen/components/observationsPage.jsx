@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import logoAC from "../../../assets/aclogo.png";
+import { format } from "date-fns";
 
 export default function ObservationsPage({
   currentQuestion,
@@ -31,7 +32,7 @@ export default function ObservationsPage({
       ...questions,
       { question: array[currentQuestion].question, rating: observation },
     ];
-    const updatedAvaliation = { ...avaliation, questions: updatedQuestions };
+    const updatedAvaliation = { ...avaliation, questions: updatedQuestions, id: Math.floor(Math.random() * 100), date: format(new Date(), 'dd/MM/yyyy') };
     saveAvaliation(updatedAvaliation);
     navigate("/home");
     toast(

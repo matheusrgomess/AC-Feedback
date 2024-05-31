@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Home() {
 
     return (
-        <div style={{ backgroundColor: "#26272d", maxHeight: "100vh" }}>
+        <div style={{ maxHeight: "100vh" }}>
 
             <Box as="main" minH="83vh" display="flex" justifyContent="center" alignItems="center">
                 <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="10px">

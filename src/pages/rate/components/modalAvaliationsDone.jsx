@@ -206,7 +206,7 @@ export default function ModalAvaliationsDone() {
                         </Container>
                     </div>
                 );
-            })};
+            })}
         </>
     );
 };
