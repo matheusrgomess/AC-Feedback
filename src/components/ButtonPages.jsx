@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useNavigate, useLocation, matchPath } from "react-router-dom";
+import AlertExitPage from './AlertExitPage';
 
 export default function ButtonPages({ title, navigate, isActualRoute }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,17 +56,7 @@ export default function ButtonPages({ title, navigate, isActualRoute }) {
                 {title}
             </Button>
             {isModalOpen && (
-                <Modal isOpen={isModalOpen} onClose={handleModalClose} isCentered>
-                    <ModalOverlay />
-                    <ModalContent>
-                        <ModalHeader>Aviso!</ModalHeader>
-                        <ModalBody>
-                            <Button onClick={handleModalConfirm}>
-                                Sim
-                            </Button>
-                        </ModalBody>
-                    </ModalContent>
-                </Modal>
+                    <AlertExitPage isOpen={isModalOpen} onClose={handleModalClose} onClickConfirm={handleModalConfirm} onClickClose={handleModalClose}/> 
             )}
         </>
     );
