@@ -1,18 +1,72 @@
-import { Box, Container, Heading } from "@chakra-ui/react";
+import { Container, Heading, Button } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import SubmittedAvaliation from "../rate-participant-screen/components/submittedAvaliations";
 
 export default function Feedbacks() {
+    const user = localStorage.getItem("user");
+    const avaliations = JSON.parse(localStorage.getItem("avaliations"));
+    const [showFeedbacks, setShowFeedbacks] = useState(false);
+
+    useEffect(() => {
+        let hasFeedbacks = false;
+        avaliations.forEach(avaliation => {
+            if (avaliation.reviewed === user) {
+                hasFeedbacks = true;
+            }
+        });
+        setShowFeedbacks(hasFeedbacks);
+    }, [user, avaliations]);
+
     return (
-        <div style={{ minHeight: "100vh" }}>
-            <Box as="main" minH="83vh" display="flex" justifyContent="center" alignItems="center">
-                <Container bgColor="#ffffff" minH="200px" borderRadius="15px" padding="0px" paddingTop="10px" paddingBottom="10px">
-                    <Container display="flex" alignItems="center" justifyContent="space-between" minH="60px">
-                        <Heading color="#000000">Feedbacks Recebidos:</Heading>
+        <div style={{
+            height: 'inherit',
+            color: 'white',
+            backgroundColor: '1c222b',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
+            {showFeedbacks ?
+                <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="0px">
+                    <Container bgColor="red" padding="5px" minW="100%" borderTopRadius="20px" display="flex" alignItems="center" justifyContent="space-between">
+                        <Heading >Avaliações Recebidas:</Heading>
+                        <Button variant="outline" colorScheme="white">Filtrar</Button>
                     </Container>
-                    <Container display="flex" alignItems="center" justifyContent="center" minH="140px">
-                        <Heading color="#bebebe" fontFamily="'Inter', sans-serif" fontSize="40px">Nenhum</Heading>
+                    <Container padding="8px">
+                        <Container
+                            className="scrollbar"
+                            padding="10px"
+                            paddingTop="15px"
+                            maxW="100%"
+                            maxH="306px"
+                            overflow="hidden"
+                            overflowY="auto"
+                            css={{
+                                "&::-webkit-scrollbar": {
+                                    backgroundColor: "#ffffff",
+                                    borderRadius: "10px",
+                                    width: "8px",
+                                    direction: "rtl",
+                                },
+                                "&::-webkit-scrollbar-thumb": {
+                                    backgroundColor: "#1f1f1f",
+                                    borderRadius: "10px",
+                                    width: "8px",
+                                    transition: "background-color 0.5s ease",
+                                },
+                                "&::-webkit-scrollbar-thumb:hover": {
+                                    backgroundColor: "#2c2c2c",
+                                }
+                            }}
+                        >
+                            <SubmittedAvaliation />
+                        </Container>
                     </Container>
+
                 </Container>
-            </Box>
+                :
+                <Heading color="grey">Nenhum Feedback Recebido</Heading>
+            }
         </div>
     );
 };

@@ -14,6 +14,19 @@ import {
 
 export default function RatingModal({ isOpen, handleClose, handleClick }) {
   const [selectedOption, setSelectedOption] = useState("");
+  const user = localStorage.getItem("user")
+
+  const reviewers = [
+    { value: "arthur", label: "Arthur" },
+    { value: "cilene", label: "Cilene" },
+    { value: "dunia", label: "Dúnia" },
+    { value: "eduardo", label: "Eduardo" },
+    { value: "juan", label: "Juan" },
+    { value: "matheus-eyng", label: "Matheus Eyng" },
+    { value: "matheus-gomes", label: "Matheus Gomes" },
+    { value: "pablo", label: "Pablo" },
+    { value: "tomas", label: "Tomás" },
+  ]
 
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
@@ -43,15 +56,13 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
                 onChange={handleSelectChange}
                 value={selectedOption}
               >
-                <option value="arthur">Arthur</option>
-                <option value="cilene">Cilene</option>
-                <option value="dunia">Dúnia</option>
-                <option value="eduardo">Eduardo</option>
-                <option value="juan">Juan</option>
-                <option value="matheus-eyng">Matheus Eyng</option>
-                <option value="matheus-gomes">Matheus Gomes</option>
-                <option value="pablo">Pablo</option>
-                <option value="tomas">Tomás</option>
+                {reviewers
+                  .filter(reviewer => reviewer.value !== user)
+                  .map(reviewer => (
+                    <option key={reviewer.value} value={reviewer.value}>
+                      {reviewer.label}
+                    </option>
+                  ))}
               </Select>
             </Container>
           </ModalBody>
