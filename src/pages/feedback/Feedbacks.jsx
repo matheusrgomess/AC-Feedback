@@ -5,16 +5,13 @@ import SubmittedAvaliation from "../rate-participant-screen/components/submitted
 export default function Feedbacks() {
     const user = localStorage.getItem("user");
     const avaliations = JSON.parse(localStorage.getItem("avaliations"));
+    const [filteredAvaliations, setFilteredAvaliations] = useState([]);
     const [showFeedbacks, setShowFeedbacks] = useState(false);
 
     useEffect(() => {
-        let hasFeedbacks = false;
-        avaliations.forEach(avaliation => {
-            if (avaliation.reviewed === user) {
-                hasFeedbacks = true;
-            }
-        });
-        setShowFeedbacks(hasFeedbacks);
+        const userAvaliations = avaliations.filter(avaliation => avaliation.reviewed === user);
+        setFilteredAvaliations(userAvaliations);
+        setShowFeedbacks(userAvaliations.length > 0);
     }, [user, avaliations]);
 
     return (
@@ -29,7 +26,7 @@ export default function Feedbacks() {
             {showFeedbacks ?
                 <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="0px">
                     <Container bgColor="red" padding="5px" minW="100%" borderTopRadius="20px" display="flex" alignItems="center" justifyContent="space-between">
-                        <Heading >Avaliações Recebidas:</Heading>
+                        <Heading>Avaliações Recebidas:</Heading>
                         <Button variant="outline" colorScheme="white">Filtrar</Button>
                     </Container>
                     <Container padding="8px">
@@ -59,14 +56,13 @@ export default function Feedbacks() {
                                 }
                             }}
                         >
-                            <SubmittedAvaliation />
+                            <SubmittedAvaliation filteredAvaliations={filteredAvaliations} />
                         </Container>
                     </Container>
-
                 </Container>
                 :
                 <Heading color="grey">Nenhum Feedback Recebido</Heading>
             }
         </div>
     );
-};
+}

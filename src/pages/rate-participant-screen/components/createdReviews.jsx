@@ -1,23 +1,7 @@
 import { Container, Heading, Button, Text } from "@chakra-ui/react";
 import { ViewIcon, CalendarIcon } from "@chakra-ui/icons";
-import { useState, useEffect } from "react";
-import { matchPath, useLocation } from "react-router-dom";
 
-export default function SubmittedAvaliation({ filteredAvaliations }) {
-    const location = useLocation();
-    const [pageHome, setPageHome] = useState(false);
-
-    useEffect(() => {
-        checkingPage();
-    }, []);
-
-    const checkingPage = () => {
-        if (matchPath("/home", location.pathname)) {
-            setPageHome(true);
-        } else {
-            setPageHome(false);
-        }
-    };
+export default function CreatedReviews({ avaliationsCreated }) {
 
     const renderAvaliation = (avaliation, index) => {
         const questions = avaliation.questions;
@@ -89,11 +73,7 @@ export default function SubmittedAvaliation({ filteredAvaliations }) {
 
     return (
         <>
-            {pageHome ? (
-                filteredAvaliations && filteredAvaliations.length > 0 && renderAvaliation(filteredAvaliations[filteredAvaliations.length - 1], filteredAvaliations.length - 1)
-            ) : (
-                filteredAvaliations && filteredAvaliations.map((avaliation, index) => renderAvaliation(avaliation, index))
-            )}
+            {avaliationsCreated && avaliationsCreated.map((avaliation, index) => renderAvaliation(avaliation, index))}
         </>
     )
 }
