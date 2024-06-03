@@ -13,12 +13,12 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import logoAC from "../../../assets/aclogo.png";
 import { format } from "date-fns";
+import formatiingText from "../../../utils/formattingText";
 
 export default function ObservationsPage({
   currentQuestion,
   handleNextQuestion,
   handlePreviousQuestion,
-  userName,
   participant,
   questions,
   avaliation,
@@ -128,7 +128,9 @@ export default function ObservationsPage({
             Enviar
           </Button>
         )}
-        {userName(participant)}
+        <Text color="#ffffff3d" fontSize="15px" as="span">
+          {formatiingText(participant)}
+        </Text>
       </Container>
     </Container>
   );

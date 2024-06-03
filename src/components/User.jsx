@@ -13,25 +13,13 @@ import {
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useNavigate, useLocation, matchPath } from "react-router-dom";
 import AlertExitPage from "./AlertExitPage";
+import formatiingText from "../utils/formattingText";
 
 export default function User() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const nav = useNavigate();
     const user = localStorage.getItem("user");
     const location = useLocation();
-
-    const userName = (name) => {
-        const formattedName = name
-            .split("-")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(" ");
-
-        return (
-            <Text color="#ffffff" fontSize="15px" as="span">
-                {formattedName}
-            </Text>
-        );
-    };
 
     const navLogout = () => {
         if (matchPath("/rate-participant/:participant", location.pathname)) {
@@ -60,7 +48,7 @@ export default function User() {
                     <Container bgColor="#971520" borderTopRadius="6px" padding="5px">
                         <Text color="white">
                             <strong>
-                                {userName(user)}
+                                {formatiingText(user)}
                             </strong>
                         </Text>
                     </Container>

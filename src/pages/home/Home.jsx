@@ -4,13 +4,11 @@ import {
     Container,
     Link,
     Heading,
-    Text
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import "react-toastify/dist/ReactToastify.css";
-import SubmittedAvaliation from "../rate-participant-screen/components/submittedAvaliations";
+import SubmittedAvaliation from "../rate-participant-screen/components/printingAvaliations";
 import { useState, useEffect } from "react";
-import CreatedReviews from "../rate-participant-screen/components/createdReviews";
 
 export default function Home() {
     const user = localStorage.getItem("user");
@@ -44,42 +42,26 @@ export default function Home() {
         <div style={{ maxHeight: "100vh" }}>
 
             <Box as="main" minH="83vh" display="flex" justifyContent="center" alignItems="center">
-                <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="10px">
-                    <Heading color="#000000">Avaliações criadas:</Heading>
-                    <Container
-                        className="scrollbar"
-                        padding="10px"
-                        paddingTop="15px"
-                        maxW="100%"
-                        maxH="306px"
-                        overflow="hidden"
-                        overflowY="auto"
-                        css={{
-                            "&::-webkit-scrollbar": {
-                                backgroundColor: "#ffffff",
-                                borderRadius: "10px",
-                                width: "8px",
-                                direction: "rtl",
-                            },
-                            "&::-webkit-scrollbar-thumb": {
-                                backgroundColor: "#1f1f1f",
-                                borderRadius: "10px",
-                                width: "8px",
-                                transition: "background-color 0.5s ease",
-                            },
-                            "&::-webkit-scrollbar-thumb:hover": {
-                                backgroundColor: "#2c2c2c",
-                            }
-                        }}
-                    >
-                        {showFeedbacksCreated ? <CreatedReviews avaliationsCreated={avaliationsCreated} /> : <Text>Nenhuma avaliacao criada</Text>}
+                {showFeedbacksCreated ?
+                    <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="10px">
+                        <Heading color="#000000">Últimas avaliações criadas:</Heading>
+                        <SubmittedAvaliation avaliations={avaliationsCreated} />
                     </Container>
-
-                </Container>
-                <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="10px">
-                    <Heading color="#000000">Últimas avaliações recebidas:</Heading>
-                    {showFeedbacks ? <SubmittedAvaliation filteredAvaliations={filteredAvaliations} /> : <Text>Nenhuma avaliacao recebida por enquanto</Text>}
-                </Container>
+                    :
+                    <Container>
+                        <Heading color="grey">Nenhuma avaliacao criada</Heading>
+                    </Container>
+                }
+                {showFeedbacks ?
+                    <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="10px">
+                        <Heading color="#000000">Últimas avaliações recebidas:</Heading>
+                        <SubmittedAvaliation avaliations={filteredAvaliations} />
+                    </Container>
+                    :
+                    <Container>
+                        <Heading color="grey">Nenhuma avaliacao recebida por enquanto</Heading>
+                    </Container>
+                }
             </Box>
             <Box as="footer" minH="7vh" display="flex" alignItems="center" paddingLeft="30px">
                 <Link href="https://dev.azure.com/acertsisdesenvolvimento" bgColor="#1c222b" color="#ffffff" padding="5px" borderRadius="15px" fontSize="15pt" isExternal >

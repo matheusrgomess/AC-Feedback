@@ -1,4 +1,4 @@
-import { Container, Text, Progress } from "@chakra-ui/react";
+import { Container, Progress } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { array } from "./array";
 import { useState } from "react";
@@ -49,22 +49,6 @@ export default function RateParticipantScreen() {
     setQuestions([]);
   };
 
-  //transformar em componente solitário
-  const userName = (name) => {
-    const formattedName = name
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(" ");
-
-    return (
-      <Text color="#ffffff3d" fontSize="15px" as="span">
-        {formattedName}
-      </Text>
-    );
-  };
-
-
-
   // a ideia da separação dos componentes é boa, mas pode ser melhorada, se percebermos no código, apenas o conteúdo dos cards fica diferente dependendo do tipo
   // da pergunta, em vez de separar os dois componentes, poderia trazer toda a criação e estilização do card e os botões, assim, deixando apenas isolado o que realmente difere
   // se não entender, pode me chamar 
@@ -90,7 +74,6 @@ export default function RateParticipantScreen() {
             currentQuestion={currentQuestion}
             handleNextQuestion={handleNextQuestion}
             handlePreviousQuestion={handlePreviousQuestion}
-            userName={userName}
             participant={participant}
             hover={hover}
             setHover={setHover}
@@ -103,7 +86,6 @@ export default function RateParticipantScreen() {
             currentQuestion={currentQuestion}
             handleNextQuestion={handleNextQuestion}
             handlePreviousQuestion={handlePreviousQuestion}
-            userName={userName}
             participant={participant}
             avaliation={avaliation}
             questions={questions}

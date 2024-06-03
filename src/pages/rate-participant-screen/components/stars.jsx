@@ -11,6 +11,7 @@ export default function Stars({ hover, setHover, rating, setRating }) {
           <label key={ratingValue}>
             <input
               type="radio"
+              style={{ opacity:"0" }}
               name="rating"
               value={ratingValue}
               onClick={() => setRating(ratingValue)}

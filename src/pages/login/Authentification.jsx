@@ -70,14 +70,25 @@ export default function Autentificacao() {
             onChange={modValueUser}
           />
           <Inputs type="password" title="Senha" placeholder="Senha" />
-          <Button
-            onClick={handleClick}
-            marginBottom="20px"
-            bg="transparent"
-            _hover={{ bg: "#2758c0", color: "#ffffff" }}
-          >
-            Entrar
-          </Button>
+          {valueUser === '' ?
+            <Button
+              isDisabled
+              marginBottom="20px"
+              bg="transparent"
+            >
+              Entrar
+            </Button>
+            :
+            <Button
+              onClick={handleClick}
+              marginBottom="20px"
+              bg="transparent"
+              _hover={{ bg: "#2758c0", color: "#ffffff" }}
+            >
+              Entrar
+            </Button>
+          }
+
         </Container>
         <Container padding="0px">
           <Text>#euACredito</Text>

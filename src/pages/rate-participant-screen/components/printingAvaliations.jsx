@@ -1,7 +1,24 @@
 import { Container, Heading, Button, Text } from "@chakra-ui/react";
 import { ViewIcon, CalendarIcon } from "@chakra-ui/icons";
+import { useState, useEffect } from "react";
+import { matchPath, useLocation } from "react-router-dom";
+import formatiingText from "../../../utils/formattingText";
 
-export default function CreatedReviews({ avaliationsCreated }) {
+export default function SubmittedAvaliation({ avaliations }) {
+    const location = useLocation();
+    const [pageHome, setPageHome] = useState(false);
+
+    useEffect(() => {
+        checkingPage();
+    }, []);
+
+    const checkingPage = () => {
+        if (matchPath("/home", location.pathname)) {
+            setPageHome(true);
+        } else {
+            setPageHome(false);
+        }
+    };
 
     const renderAvaliation = (avaliation, index) => {
         const questions = avaliation.questions;
@@ -42,7 +59,7 @@ export default function CreatedReviews({ avaliationsCreated }) {
                     overflow="hidden"
                     color="#000000"
                 >
-                    <Heading>{avaliation.reviewer}:</Heading>
+                    <Heading>{formatiingText(avaliation.reviewer)}:</Heading>
                     <Container
                         display="flex"
                         width="auto"
@@ -73,7 +90,11 @@ export default function CreatedReviews({ avaliationsCreated }) {
 
     return (
         <>
-            {avaliationsCreated && avaliationsCreated.map((avaliation, index) => renderAvaliation(avaliation, index))}
+            {pageHome ? (
+                avaliations && avaliations.length > 0 && renderAvaliation(avaliations[avaliations.length - 1], avaliations.length - 1)
+            ) : (
+                avaliations && avaliations.map((avaliation, index) => renderAvaliation(avaliation, index))
+            )}
         </>
     )
 }

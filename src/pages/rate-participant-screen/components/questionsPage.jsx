@@ -2,12 +2,12 @@ import { Text, Container, Heading } from "@chakra-ui/react";
 import { array } from "../array";
 import Stars from "./stars";
 import ButtonRate from "./buttonRate";
+import formatiingText from "../../../utils/formattingText";
 
 export default function QuestionsPage({
   currentQuestion,
   handleNextQuestion,
   handlePreviousQuestion,
-  userName,
   participant,
   hover,
   setHover,
@@ -60,7 +60,9 @@ export default function QuestionsPage({
           handlePreviousQuestion={handlePreviousQuestion}
           rating={rating}
         />
-        {userName(participant)}
+        <Text color="#ffffff3d" fontSize="15px" as="span">
+          {formatiingText(participant)}
+        </Text>
       </Container>
     </Container>
   );
