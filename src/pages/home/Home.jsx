@@ -4,11 +4,13 @@ import {
     Container,
     Link,
     Heading,
+    Button
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import "react-toastify/dist/ReactToastify.css";
 import SubmittedAvaliation from "../rate-participant-screen/components/printingAvaliations";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
     const user = localStorage.getItem("user");
@@ -16,7 +18,8 @@ export default function Home() {
     const [filteredAvaliations, setFilteredAvaliations] = useState([]);
     const [showFeedbacks, setShowFeedbacks] = useState(false);
     const [avaliationsCreated, setAvaliationsCreated] = useState([]);
-    const [showFeedbacksCreated, setShowFeedbacksCreated] = useState(false)
+    const [showFeedbacksCreated, setShowFeedbacksCreated] = useState(false);
+    const nav = useNavigate();
 
     useEffect(() => {
         const userAvaliations = avaliations.filter(avaliation => avaliation.reviewed === user);
@@ -46,6 +49,7 @@ export default function Home() {
                     <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="10px">
                         <Heading color="#000000">Últimas avaliações criadas:</Heading>
                         <SubmittedAvaliation avaliations={avaliationsCreated} />
+                        <Button colorScheme="red" onClick={() => {nav('/home/feedbacks')}}>Ver mais</Button>
                     </Container>
                     :
                     <Container>
@@ -56,6 +60,7 @@ export default function Home() {
                     <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="10px">
                         <Heading color="#000000">Últimas avaliações recebidas:</Heading>
                         <SubmittedAvaliation avaliations={filteredAvaliations} />
+                        <Button colorScheme="red" onClick={() => {nav('/home/feedbacks')}}>Ver mais</Button>
                     </Container>
                     :
                     <Container>

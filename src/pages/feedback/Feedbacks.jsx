@@ -36,7 +36,7 @@ export default function Feedbacks() {
             alignItems: 'center',
         }}>
             {showFeedbacksCreated ?
-                <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="0px">
+                <Container bg="#26272d" minH="300px" borderRadius="20px" padding="0px">
                     <Container bgColor="red" padding="5px" minW="100%" borderTopRadius="20px" display="flex" alignItems="center" justifyContent="space-between">
                         <Heading>Avaliações Criadas:</Heading>
                         <Button variant="outline" colorScheme="white">Filtrar</Button>
@@ -78,7 +78,7 @@ export default function Feedbacks() {
                 </Container>
             }
             {showFeedbacks ?
-                <Container bg="#ffffff" minH="300px" borderRadius="20px" padding="0px">
+                <Container bg="#26272d" minH="300px" borderRadius="20px" padding="0px">
                     <Container bgColor="red" padding="5px" minW="100%" borderTopRadius="20px" display="flex" alignItems="center" justifyContent="space-between">
                         <Heading>Avaliações Recebidas:</Heading>
                         <Button variant="outline" colorScheme="white">Filtrar</Button>

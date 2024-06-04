@@ -43,10 +43,11 @@ export default function SubmittedAvaliation({ avaliations }) {
                 w="95%"
                 minH="200px"
                 border="2px solid"
-                borderColor="#000000"
+                borderColor="#971520"
                 padding="10px"
                 borderRadius="12px"
                 marginBottom="15px"
+                bgColor="#1c222b"
             >
                 <Container
                     display="flex"
@@ -55,9 +56,9 @@ export default function SubmittedAvaliation({ avaliations }) {
                     padding="0px"
                     marginBottom="5px"
                     borderBottom="2px solid"
-                    borderColor="#000000"
+                    borderColor="#ffffff"
                     overflow="hidden"
-                    color="#000000"
+                    color="#ffffff"
                 >
                     <Heading>{formatiingText(avaliation.reviewer)}:</Heading>
                     <Container
@@ -67,19 +68,19 @@ export default function SubmittedAvaliation({ avaliations }) {
                         padding="0px"
                         margin="0px"
                     >
-                        <CalendarIcon color="black" />
-                        <Text paddingInline="8px" color="black">
+                        <CalendarIcon color="white" />
+                        <Text paddingInline="8px" color="white">
                             {avaliation.date}
                         </Text>
-                        <Button bg="#971520" _hover={{}} _active={{ bgColor: "#5a0c12" }} color="#FFFFFF" padding="0px"><ViewIcon /></Button>
+                        <Button bg="#971520" _hover={{}} _active={{ bgColor: "#5a0c12" }} color="#ffffff" padding="0px" size="sm" margin="5px" marginLeft="10px"><ViewIcon /></Button>
                     </Container>
                 </Container>
                 <Container padding="0px">
-                    <Text color="black">
+                    <Text color="white">
                         <strong>Observação:</strong> {observation}
                     </Text>
                     <br />
-                    <Text color="black">
+                    <Text color="white">
                         <strong>Média dos Ratings:</strong> {averageRating}
                     </Text>
                     <br />
