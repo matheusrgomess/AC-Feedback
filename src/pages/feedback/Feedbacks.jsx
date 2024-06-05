@@ -1,15 +1,12 @@
 import { Container, Heading, Button } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate-participant-screen/components/printingAvaliations";
+import { formatUserFeedbacks, formatUserFeedbacksCreated } from "../../utils/format-avaliations";
 
 export default function Feedbacks() {
   const user = localStorage.getItem("user");
-  const avaliations = JSON.parse(localStorage.getItem("avaliations"));
-  const userAvaliations = avaliations.filter(
-    (avaliation) => avaliation.reviewed === user
-  );
-  const userAvaliationsCreated = avaliations.filter(
-    (avaliations) => avaliations.reviewer === user
-  );
+  const avaliations = JSON.parse(localStorage.getItem("avaliations") || "[]");
+  const userAvaliations = formatUserFeedbacks(avaliations, user);
+  const userAvaliationsCreated = formatUserFeedbacksCreated(avaliations, user);
 
   return (
     <div

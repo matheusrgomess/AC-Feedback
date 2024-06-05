@@ -25,7 +25,7 @@ export default function SubmittedAvaliation({ avaliations }) {
     const questions = avaliation.questions;
     const filteredValidRatings = questions
       .filter((question) => !isNaN(question.rating))
-      .map((question) => question.rating);
+      .map((question) => parseFloat(question.rating));
 
     const observationRating = questions.find((question) =>
       isNaN(question.rating)
@@ -107,7 +107,7 @@ export default function SubmittedAvaliation({ avaliations }) {
     <>
       {avaliations && checkIfIsHomeScreen
         ? renderAvaliation(getLastRating())
-        : avaliations.map((avaliation, _) => renderAvaliation(avaliation))}
+        : avaliations.map((avaliation) => renderAvaliation(avaliation))}
     </>
   );
 }
