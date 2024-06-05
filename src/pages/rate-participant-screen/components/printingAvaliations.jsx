@@ -1,11 +1,17 @@
+import { useState } from "react";
 import { Container, Heading, Button, Text } from "@chakra-ui/react";
 import { ViewIcon, CalendarIcon } from "@chakra-ui/icons";
-import { useState, useEffect } from "react";
 import { matchPath, useLocation } from "react-router-dom";
 import formatiingText from "../../../utils/formattingText";
+import SeeMoreAvaliation from "./seeMoreAvaliation";
 
 export default function SubmittedAvaliation({ avaliations }) {
   const location = useLocation();
+  const [selectedAvaliation, setSelectedAvaliation] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [observation, setObservation] = useState("");
+  const [averageRating, setAverageRating] = useState("");
+  const [arrayRatings, setArrayRatings] = useState([]);
 
   const checkIfIsHomeScreen = () => {
     return matchPath("/home", location.pathname) ? true : false;
@@ -19,6 +25,27 @@ export default function SubmittedAvaliation({ avaliations }) {
     return (
       numbersArray.reduce((acc, val) => acc + val, 0) / numbersArray.length
     );
+  };
+
+  const createArrayRatings = (avaliation) => {
+    const questions = avaliation.questions;
+    const ratings = questions
+      .filter((question) => !isNaN(question.rating))
+      .map((question) => parseFloat(question.rating))
+    setArrayRatings(ratings);
+  }
+
+  const handleOpenModal = (avaliation, observationRating, averageRating) => {
+    setSelectedAvaliation(avaliation);
+    setObservation(observationRating);
+    setAverageRating(averageRating);
+    setIsModalOpen(true);
+    createArrayRatings(avaliation);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedAvaliation(null);
   };
 
   const renderAvaliation = (avaliation) => {
@@ -79,6 +106,7 @@ export default function SubmittedAvaliation({ avaliations }) {
               size="sm"
               margin="5px"
               marginLeft="10px"
+              onClick={() => handleOpenModal(avaliation, observationRating.rating, averageRating)}
             >
               <ViewIcon />
             </Button>
@@ -94,7 +122,6 @@ export default function SubmittedAvaliation({ avaliations }) {
           </Text>
           <br />
           <Text color="white">
-            {}
             <strong>Média dos Ratings:</strong> {averageRating}
           </Text>
           <br />
@@ -105,9 +132,21 @@ export default function SubmittedAvaliation({ avaliations }) {
 
   return (
     <>
-      {avaliations && checkIfIsHomeScreen
-        ? renderAvaliation(getLastRating())
-        : avaliations.map((avaliation) => renderAvaliation(avaliation))}
+      {avaliations && checkIfIsHomeScreen ?
+        renderAvaliation(getLastRating())
+        :
+        avaliations.map((avaliation) => renderAvaliation(avaliation))
+      }
+      {selectedAvaliation && (
+        <SeeMoreAvaliation
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          avaliation={selectedAvaliation}
+          observation={observation}
+          averageRating={averageRating}
+          arrayRatings={arrayRatings}
+        />
+      )}
     </>
   );
 }
