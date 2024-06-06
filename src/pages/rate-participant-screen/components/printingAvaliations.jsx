@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { Container, Heading, Button, Text } from "@chakra-ui/react";
 import { ViewIcon, CalendarIcon } from "@chakra-ui/icons";
-import { matchPath, useLocation } from "react-router-dom";
-import formatiingText from "../../../utils/formattingText";
+import formattingText from "utils/formattingText";
+import { useLocation } from "react-router-dom";
 import SeeMoreAvaliation from "./seeMoreAvaliation";
 
 export default function SubmittedAvaliation({ avaliations }) {
-  const location = useLocation();
   const [selectedAvaliation, setSelectedAvaliation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [observation, setObservation] = useState("");
   const [averageRating, setAverageRating] = useState("");
   const [arrayRatings, setArrayRatings] = useState([]);
+  const location = useLocation();
 
   const checkIfIsHomeScreen = () => {
-    return matchPath("/home", location.pathname) ? true : false;
+    return location.pathname === "/home";
   };
 
   const getLastRating = () => {
@@ -31,9 +31,9 @@ export default function SubmittedAvaliation({ avaliations }) {
     const questions = avaliation.questions;
     const ratings = questions
       .filter((question) => !isNaN(question.rating))
-      .map((question) => parseFloat(question.rating))
+      .map((question) => parseFloat(question.rating));
     setArrayRatings(ratings);
-  }
+  };
 
   const handleOpenModal = (avaliation, observationRating, averageRating) => {
     setSelectedAvaliation(avaliation);
@@ -51,11 +51,11 @@ export default function SubmittedAvaliation({ avaliations }) {
   const renderAvaliation = (avaliation) => {
     const questions = avaliation.questions;
     const filteredValidRatings = questions
-      .filter((question) => !isNaN(question.rating))
+      .filter((question) => typeof question.rating === "number")
       .map((question) => parseFloat(question.rating));
 
-    const observationRating = questions.find((question) =>
-      isNaN(question.rating)
+    const observationRating = questions.find(
+      (question) => typeof question.rating === "string"
     );
 
     const averageRating = getAverageRating(filteredValidRatings);
@@ -85,7 +85,7 @@ export default function SubmittedAvaliation({ avaliations }) {
           overflow="hidden"
           color="#ffffff"
         >
-          <Heading>{formatiingText(avaliation.reviewer)}:</Heading>
+          <Heading>{formattingText(avaliation.reviewer)}:</Heading>
           <Container
             display="flex"
             width="auto"
@@ -106,7 +106,13 @@ export default function SubmittedAvaliation({ avaliations }) {
               size="sm"
               margin="5px"
               marginLeft="10px"
-              onClick={() => handleOpenModal(avaliation, observationRating.rating, averageRating)}
+              onClick={() =>
+                handleOpenModal(
+                  avaliation,
+                  observationRating.rating,
+                  averageRating
+                )
+              }
             >
               <ViewIcon />
             </Button>
@@ -132,11 +138,9 @@ export default function SubmittedAvaliation({ avaliations }) {
 
   return (
     <>
-      {avaliations && checkIfIsHomeScreen ?
-        renderAvaliation(getLastRating())
-        :
-        avaliations.map((avaliation) => renderAvaliation(avaliation))
-      }
+      {avaliations && checkIfIsHomeScreen()
+        ? renderAvaliation(getLastRating())
+        : avaliations.map((avaliation) => renderAvaliation(avaliation))}
       {selectedAvaliation && (
         <SeeMoreAvaliation
           isOpen={isModalOpen}
