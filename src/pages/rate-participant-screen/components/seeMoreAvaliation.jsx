@@ -101,12 +101,36 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
                                 </Container>
                                 :
                                 <Container width="100%" minHeight="300px" display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-                                    <Heading fontSize="40px">
+                                    <Heading fontSize="40px" marginTop="60px">
                                         Observação
                                     </Heading>
-                                        <Textarea resize="none" readOnly fontSize="20px" _hover={{}}>
-                                            {observation}
-                                        </Textarea>
+                                    <Textarea
+                                        resize="none"
+                                        readOnly
+                                        fontSize="20px"
+                                        height="200px"
+                                        marginTop="15px"
+                                        focusBorderColor="#ffffff"
+                                        overflow="hidden"
+                                        overflowY="auto"
+                                        css={{
+                                            "&::-webkit-scrollbar": {
+                                                borderRadius: "10px",
+                                                width: "6px",
+                                                direction: "rtl",
+                                            },
+                                            "&::-webkit-scrollbar-thumb": {
+                                                backgroundColor: "#700e17",
+                                                borderRadius: "10px",
+                                                width: "6px",
+                                            },
+                                            "&::-webkit-scrollbar-thumb:hover": {
+                                                backgroundColor: "#86111c",
+                                            },
+                                        }}
+                                    >
+                                        {observation}
+                                    </Textarea>
                                 </Container>
                             }
                         </ModalBody>

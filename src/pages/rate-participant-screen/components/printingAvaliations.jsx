@@ -66,7 +66,7 @@ export default function SubmittedAvaliation({ avaliations }) {
         as="div"
         bg="white"
         w="95%"
-        minH="200px"
+        maxH="200px"
         border="2px solid"
         borderColor="#971520"
         padding="10px"
@@ -119,7 +119,7 @@ export default function SubmittedAvaliation({ avaliations }) {
           </Container>
         </Container>
         <Container padding="0px">
-          <Text color="white">
+          <Text color="white" style={{ display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden', WebkitLineClamp: 2 }}>
             {observationRating && (
               <>
                 <strong>Observação:</strong> {observationRating.rating}
