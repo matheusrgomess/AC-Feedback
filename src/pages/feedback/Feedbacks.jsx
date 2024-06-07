@@ -20,12 +20,26 @@ export default function Feedbacks() {
       }}
     >
       {userAvaliationsCreated && userAvaliationsCreated.length > 0 ? (
-        <Container bg="#26272d" minH="300px" borderRadius="20px" padding="0px">
+        <Container bg="#1c222b" minH="300px" borderRadius="20px" padding="0px" position="relative"
+          _after={{
+            content: '""',
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            width: "95%",
+            height: "125px",
+            background: "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
+            borderBottomRadius: "20px",
+            pointerEvents: "none"
+          }}
+        >
           <Container
-            bgColor="red"
+            bgColor="#700e17"
             padding="5px"
             minW="100%"
-            borderTopRadius="20px"
+            borderTopRadius="10px"
+            borderBottomRadius="4px"
             display="flex"
             alignItems="center"
             justifyContent="space-between"
@@ -52,13 +66,12 @@ export default function Feedbacks() {
                   direction: "rtl",
                 },
                 "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "#1f1f1f",
+                  backgroundColor: "#700e17",
                   borderRadius: "10px",
                   width: "8px",
-                  transition: "background-color 0.5s ease",
                 },
                 "&::-webkit-scrollbar-thumb:hover": {
-                  backgroundColor: "#2c2c2c",
+                  backgroundColor: "#86111c",
                 },
               }}
             >
@@ -72,12 +85,26 @@ export default function Feedbacks() {
         </Container>
       )}
       {userAvaliations && userAvaliations.length > 0 ? (
-        <Container bg="#26272d" minH="300px" borderRadius="20px" padding="0px">
+        <Container bg="#1c222b" minH="300px" borderRadius="20px" padding="0px" position="relative"
+          _after={{
+            content: '""',
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            width: "95%",
+            height: "125px",
+            background: "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
+            borderBottomRadius: "20px",
+            pointerEvents: "none"
+          }}
+        >
           <Container
-            bgColor="red"
+            bgColor="#700e17"
             padding="5px"
             minW="100%"
-            borderTopRadius="20px"
+            borderTopRadius="10px"
+            borderBottomRadius="4px"
             display="flex"
             alignItems="center"
             justifyContent="space-between"
@@ -104,13 +131,12 @@ export default function Feedbacks() {
                   direction: "rtl",
                 },
                 "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "#1f1f1f",
+                  backgroundColor: "#700e17",
                   borderRadius: "10px",
                   width: "8px",
-                  transition: "background-color 0.5s ease",
                 },
                 "&::-webkit-scrollbar-thumb:hover": {
-                  backgroundColor: "#2c2c2c",
+                  backgroundColor: "#86111c",
                 },
               }}
             >
