@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Heading, Button, Text } from "@chakra-ui/react";
+import { Container, Heading, Button, Text, Tooltip } from "@chakra-ui/react";
 import { ViewIcon, CalendarIcon } from "@chakra-ui/icons";
 import formattingText from "utils/formattingText";
 import { useLocation } from "react-router-dom";
@@ -97,29 +97,32 @@ export default function SubmittedAvaliation({ avaliations }) {
             <Text paddingInline="8px" color="white">
               {avaliation.date}
             </Text>
-            <Button
-              bg="#971520"
-              _hover={{}}
-              _active={{ bgColor: "#5a0c12" }}
-              color="#ffffff"
-              padding="0px"
-              size="sm"
-              margin="5px"
-              marginLeft="10px"
-              onClick={() =>
-                handleOpenModal(
-                  avaliation,
-                  observationRating.rating,
-                  averageRating
-                )
-              }
-            >
-              <ViewIcon />
-            </Button>
+            <Tooltip label="Ver avaliação completa" aria-label="tooltip para botão de visualizar">
+              <Button
+                bg="#971520"
+                _hover={{}}
+                _active={{ bgColor: "#5a0c12" }}
+                color="#ffffff"
+                padding="0px"
+                size="sm"
+                margin="5px"
+                marginLeft="10px"
+                onClick={() =>
+                  handleOpenModal(
+                    avaliation,
+                    observationRating.rating,
+                    averageRating
+                  )
+                }
+              >
+                <ViewIcon />
+              </Button>
+            </Tooltip>
+
           </Container>
         </Container>
         <Container padding="0px">
-          <Text color="white" style={{ display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden', WebkitLineClamp: 2 }}>
+          <Text color="white" style={{ display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden', WebkitLineClamp: 3 }}>
             {observationRating && (
               <>
                 <strong>Observação:</strong> {observationRating.rating}

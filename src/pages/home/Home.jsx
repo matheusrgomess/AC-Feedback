@@ -18,82 +18,121 @@ export default function Home() {
   const nav = useNavigate();
 
   return (
-    <div style={{ maxHeight: "100vh" }}>
-      <Box
-        as="main"
-        minH="83vh"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        {userAvaliationsCreated && userAvaliationsCreated.length > 0 ? (
-          <Container
-            bg="#ffffff"
-            minH="300px"
-            borderRadius="20px"
-            padding="10px"
-          >
-            <Heading color="#000000">Últimas avaliações criadas:</Heading>
-            <SubmittedAvaliation avaliations={userAvaliationsCreated} />
-            <Button
-              colorScheme="red"
-              onClick={() => {
-                nav("/home/feedbacks");
-              }}
-            >
-              Ver mais
-            </Button>
-          </Container>
-        ) : (
-          <Container>
-            <Heading color="grey">Nenhuma avaliacao criada</Heading>
-          </Container>
-        )}
-        {userAvaliations && userAvaliations.length > 0 ? (
-          <Container
-            bg="#ffffff"
-            minH="300px"
-            borderRadius="20px"
-            padding="10px"
-          >
-            <Heading color="#000000">Últimas avaliações recebidas:</Heading>
-            <SubmittedAvaliation avaliations={userAvaliations} />
-            <Button
-              colorScheme="red"
-              onClick={() => {
-                nav("/home/feedbacks");
-              }}
-            >
-              Ver mais
-            </Button>
-          </Container>
-        ) : (
-          <Container>
-            <Heading color="grey">
-              Nenhuma avaliacao recebida por enquanto
-            </Heading>
-          </Container>
-        )}
-      </Box>
-      <Box
-        as="footer"
-        minH="7vh"
-        display="flex"
-        alignItems="center"
-        paddingLeft="30px"
-      >
-        <Link
-          href="https://dev.azure.com/acertsisdesenvolvimento"
-          bgColor="#1c222b"
-          color="#ffffff"
-          padding="5px"
-          borderRadius="15px"
-          fontSize="15pt"
-          isExternal
+    <div style={{
+      height: "inherit",
+      color: "white",
+      backgroundColor: "1c222b",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}>
+
+      {userAvaliationsCreated && userAvaliationsCreated.length > 0 ? (
+        <Container
+          bg="#1c222b"
+          maxH="300px"
+          borderRadius="20px"
+          padding="0px"
+          pos="relative"
+          bottom="50"
         >
-          Azure DevOps <ExternalLinkIcon mx="2px" w={6} h={6} />
-        </Link>
-      </Box>
-    </div>
+          <Container
+            bgColor="#700e17"
+            padding="5px"
+            minW="100%"
+            borderTopRadius="10px"
+            borderBottomRadius="4px"
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Heading color="white">Últimas avaliações criadas:</Heading>
+
+
+          </Container>
+          <Container padding="8px">
+            <Container
+              className="scrollbar"
+              padding="10px"
+              paddingTop="15px"
+              maxW="100%"
+              maxH="306px"
+              overflow="hidden"
+              overflowY="auto"
+            >
+              <SubmittedAvaliation avaliations={userAvaliationsCreated} />
+              <Button
+                marginLeft="14px"
+                bgColor="#700e17"
+                color="white"
+                _active={{ bgColor: "#520a11" }}
+                _hover={{}}
+                onClick={() => {
+                  nav("/home/feedbacks");
+                }}>
+                Ver mais
+              </Button>
+            </Container>
+          </Container>
+        </Container>
+      ) : (
+        <Container>
+          <Heading color="grey">Nenhuma avaliação criada</Heading>
+        </Container>
+      )}
+      {userAvaliations && userAvaliations.length > 0 ? (
+        <Container
+          bg="#1c222b"
+          maxH="300px"
+          borderRadius="20px"
+          padding="0px"
+          pos="relative"
+          bottom="50"
+        >
+          <Container
+            bgColor="#700e17"
+            padding="5px"
+            minW="100%"
+            borderTopRadius="10px"
+            borderBottomRadius="4px"
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Heading color="white">Últimas avaliações recebidas:</Heading>
+          </Container>
+          <Container padding="8px">
+            <Container
+              className="scrollbar"
+              padding="10px"
+              paddingTop="15px"
+              maxW="100%"
+              maxH="306px"
+              overflow="hidden"
+              overflowY="auto"
+            >
+              <SubmittedAvaliation avaliations={userAvaliations} />
+              <Button
+                marginLeft="14px"
+                bgColor="#700e17"
+                color="white"
+                _hover={{}}
+                _active={{ bgColor: "#520a11" }}
+                onClick={() => {
+                  nav("/home/feedbacks");
+                }}>
+                Ver mais
+              </Button>
+            </Container>
+          </Container>
+        </Container>
+      ) : (
+        <Container>
+          <Heading color="grey">
+            Nenhuma avaliação recebida por enquanto
+          </Heading>
+        </Container>
+      )}
+    </div >
   );
 }
