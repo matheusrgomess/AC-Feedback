@@ -3,6 +3,7 @@ import { array } from "../array";
 import Stars from "./stars";
 import ButtonRate from "./buttonRate";
 import formatiingText from "../../../utils/formattingText";
+import InputJustification from "./inputJustification";
 
 export default function QuestionsPage({
   currentQuestion,
@@ -14,7 +15,7 @@ export default function QuestionsPage({
   rating,
   setRating,
   handleAvaliation,
-  questions,
+  questions
 }) {
   return (
     <Container
@@ -30,23 +31,26 @@ export default function QuestionsPage({
       justifyContent="space-between"
       flexDirection="column"
     >
-      <Container textAlign="center">
-        {questions[currentQuestion] && (
-          <span style={{ color:"#ffffff2b" }}>
-            Essa foi a sua pontução anterior: {questions[currentQuestion].rating}
-          </span>
-        )}
-        <Heading>{array[currentQuestion].question}</Heading>
-        <Text>{array[currentQuestion].questionDescription}</Text>
+      <Container display="flex" alignItems="center" justifyContent="space-between" flexDirection="column" position="relative" bottom="20px" >
+        <Container textAlign="center" >
+          {questions[currentQuestion] && (
+            <span style={{ color: "#ffffff2b" }}>
+              Essa foi a sua pontução anterior: {questions[currentQuestion].rating}
+            </span>
+          )}
+          <Heading>{array[currentQuestion].question}</Heading>
+          <Text>{array[currentQuestion].questionDescription}</Text>
+        </Container>
+        <Stars
+          hover={hover}
+          setHover={setHover}
+          rating={rating}
+          setRating={setRating}
+          handleAvaliation={handleAvaliation}
+          handleNextQuestion={handleNextQuestion}
+        />
       </Container>
-      <Stars
-        hover={hover}
-        setHover={setHover}
-        rating={rating}
-        setRating={setRating}
-        handleAvaliation={handleAvaliation}
-        handleNextQuestion={handleNextQuestion}
-      />
+          <InputJustification rating={rating}/>
       <Container
         minWidth="100%"
         padding="15px"

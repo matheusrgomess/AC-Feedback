@@ -47,7 +47,7 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
                                         </strong>
                                         {formatiingText(avaliation.reviewed)}
                                     </Flex>
-                                    <Button colorScheme="red" marginTop="10px" onClick={showObservations}>
+                                    <Button bgColor="#700e17" color="white" marginTop="10px" onClick={showObservations} _hover={{}} _active={{ bgColor: "#520a11" }}>
                                         {alternanceObservationandQuestions === false ? "Mostrar Observação" : "Mostrar Perguntas"}
                                     </Button>
                                 </Container>

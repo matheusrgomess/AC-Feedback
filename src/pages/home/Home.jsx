@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Container, Link, Heading, Button } from "@chakra-ui/react";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { Container, Heading, Button } from "@chakra-ui/react";
 import "react-toastify/dist/ReactToastify.css";
 import {
   formatUserFeedbacks,
