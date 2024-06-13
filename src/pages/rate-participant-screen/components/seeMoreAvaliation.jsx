@@ -5,25 +5,25 @@ import { array } from "../array";
 import { useState } from "react";
 import { TiStar } from "react-icons/ti";
 
-export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observation, averageRating, arrayRatings }) {
+export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observation, averageRating, arrayRatings, arrayJustification }) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const filteredQuestions = array.filter(item => item.type === "rate");
-    const [rating, setRating] = useState(arrayRatings[0]);
-    const [alternanceObservationandQuestions, setAlternanceObservationandQuestions] = useState(false)
+    const [alternanceObservationandQuestions, setAlternanceObservationandQuestions] = useState(false);
+    const rating = arrayRatings[currentQuestion]
+    const justifications = arrayJustification[currentQuestion];
 
+    console.log(arrayJustification)
     const clickNext = () => {
         setCurrentQuestion((prev) => prev + 1);
-        setRating(arrayRatings[currentQuestion + 1]);
     };
 
     const clickPrevious = () => {
         setCurrentQuestion((prev) => prev - 1);
-        setRating(arrayRatings[currentQuestion - 1]);
     };
 
     const showObservations = () => {
-        setAlternanceObservationandQuestions(!alternanceObservationandQuestions)
-    }
+        setAlternanceObservationandQuestions(!alternanceObservationandQuestions);
+    };
 
     return (
         <div>
@@ -39,7 +39,7 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
                             </Container>
                         </ModalHeader>
                         <ModalBody color="#ffffff">
-                            <Container display="flex" padding="0px" margin="0px">
+                            <Container display="flex" padding="0px" margin="0px" marginBottom="20px">
                                 <Container padding="0px" fontSize="18px">
                                     <Flex>
                                         <strong>
@@ -64,44 +64,77 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
                                 </Container>
                             </Container>
                             {alternanceObservationandQuestions === false ?
-                                <Container width="100%" minHeight="300px" display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-                                    <Container textAlign="center">
-                                        <Heading fontSize="40px">{filteredQuestions[currentQuestion].question}</Heading>
-                                        <Text fontSize="22px">{filteredQuestions[currentQuestion].questionDescription}</Text>
-                                    </Container>
-                                    <div style={{ display: "flex" }}>
-                                        {[...Array(5)].map((star, i) => {
-                                            const ratingValue = i + 1;
+                                <Container width="100%" minHeight="300px" display="flex" alignItems="center" justifyContent="center" flexDirection="column" position="absolute">
+                                    <Container display="flex" alignItems="center" justifyContent="space-between" flexDirection="column" position="absolute" top="0px">
+                                        <Container textAlign="center">
+                                            <Heading fontSize="40px">{filteredQuestions[currentQuestion].question}</Heading>
+                                            <Text fontSize="22px">{filteredQuestions[currentQuestion].questionDescription}</Text>
+                                        </Container>
+                                        <div style={{ display: "flex" }}>
+                                            {[...Array(5)].map((star, i) => {
+                                                const ratingValue = i + 1;
 
-                                            return (
-                                                <label key={ratingValue}>
-                                                    <input
-                                                        type="radio"
-                                                        style={{ opacity: "0" }}
-                                                        name="rating"
-                                                        value={ratingValue}
-                                                    />
-                                                    <TiStar
-                                                        className="star"
-                                                        color={ratingValue <= (rating) ? "#971520" : "#ffffff2b"}
-                                                        size={50}
-                                                    />
-                                                    <Text
-                                                        textAlign="center"
-                                                        position="relative"
-                                                        bottom="10px"
-                                                        color="white"
-                                                    >
-                                                        <strong>{ratingValue}</strong>
-                                                    </Text>
-                                                </label>
-                                            );
-                                        })}
-                                    </div>
+                                                return (
+                                                    <label key={ratingValue}>
+                                                        <input
+                                                            type="radio"
+                                                            style={{ opacity: "0" }}
+                                                            name="rating"
+                                                            value={ratingValue}
+                                                        />
+                                                        <TiStar
+                                                            className="star"
+                                                            color={ratingValue <= (rating) ? "#971520" : "#ffffff2b"}
+                                                            size={50}
+                                                        />
+                                                        <Text
+                                                            textAlign="center"
+                                                            position="relative"
+                                                            bottom="10px"
+                                                            color="white"
+                                                        >
+                                                            <strong>{ratingValue}</strong>
+                                                        </Text>
+                                                    </label>
+                                                );
+                                            })}
+                                        </div>
+                                    </Container>
+
+                                    <Container padding="0px" display="flex" justifyContent="center" width="100%" flexDirection="column" position="absolute" bottom="20px">
+                                        <div style={{
+                                            background: "#971520",
+                                            width: "100px",
+                                            paddingRight: "4px",
+                                            paddingLeft: "4px",
+                                            borderTopLeftRadius: "2px",
+                                            borderTopRightRadius: "2px",
+                                        }}
+                                        >
+                                            <strong>Justificativa</strong>
+                                        </div>
+                                        <textarea
+                                            style=
+                                            {{
+                                                width: "100%",
+                                                height: "70px",
+                                                padding: "0px",
+                                                resize: "none",
+                                                background: "transparent",
+                                                border: "2px solid #971520",
+                                                borderRadius: "4px",
+                                                borderTopLeftRadius: "0px",
+                                                padding: "2px",
+                                                outline: "none",
+                                                overflowY: "scroll"
+                                            }}
+                                            value={justifications || "Esta questão não foi justificada"}
+                                        />
+                                    </Container>
                                 </Container>
                                 :
-                                <Container width="100%" minHeight="300px" display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-                                    <Heading fontSize="40px" marginTop="60px">
+                                <Container width="100%" minHeight="300px" display="flex" alignItems="center" justifyContent="center" flexDirection="column" position="absolute" top="128px">
+                                    <Heading fontSize="40px">
                                         Observação
                                     </Heading>
                                     <Textarea
@@ -109,7 +142,7 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
                                         readOnly
                                         fontSize="20px"
                                         height="200px"
-                                        marginTop="15px"
+                                        marginTop="25px"
                                         focusBorderColor="#ffffff"
                                         overflow="hidden"
                                         overflowY="auto"
@@ -133,6 +166,7 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
                                     </Textarea>
                                 </Container>
                             }
+
                         </ModalBody>
                         <ModalFooter display="flex" alignItems="center" justifyContent="space-between" padding="5px" paddingLeft="20px" minW="100%">
                             {alternanceObservationandQuestions === false &&
@@ -185,6 +219,6 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
                     </ModalContent>
                 </ModalOverlay>
             </Modal>
-        </div>
+        </div >
     );
 }
