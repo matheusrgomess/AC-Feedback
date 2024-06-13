@@ -15,7 +15,9 @@ export default function QuestionsPage({
   rating,
   setRating,
   handleAvaliation,
-  questions
+  questions,
+  justification,
+  setJustification
 }) {
   return (
     <Container
@@ -50,7 +52,11 @@ export default function QuestionsPage({
           handleNextQuestion={handleNextQuestion}
         />
       </Container>
-          <InputJustification rating={rating}/>
+      <InputJustification
+        rating={rating}
+        justification={justification}
+        setJustification={setJustification}
+      />
       <Container
         minWidth="100%"
         padding="15px"

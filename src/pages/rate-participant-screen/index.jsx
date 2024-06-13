@@ -9,6 +9,7 @@ export default function RateParticipantScreen() {
   const { participant } = useParams();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [rating, setRating] = useState(null);
+  const [justification, setJustification] = useState('');
   const [hover, setHover] = useState(null);
   const [questions, setQuestions] = useState([]);
   const savedAvaliations =
@@ -23,17 +24,20 @@ export default function RateParticipantScreen() {
     setCurrentQuestion((prev) => prev + 1);
     handleAvaliation(rating);
     setRating(null);
+    setJustification('');
   };
 
   const handlePreviousQuestion = () => {
     setCurrentQuestion((prev) => prev - 1);
     setRating(questions[currentQuestion - 1]?.rating || 0);
+    setJustification(questions[currentQuestion - 1]?.justification || '')
   };
 
   const handleAvaliation = (rating) => {
     const newQuestion = {
       question: array[currentQuestion].question,
       rating: rating,
+      justification: justification,
     };
 
     setQuestions((prev) => {
@@ -80,6 +84,8 @@ export default function RateParticipantScreen() {
             rating={rating}
             setRating={setRating}
             questions={questions}
+            justification={justification}
+            setJustification={setJustification}
           />
         ) : (
           <ObservationsPage

@@ -1,7 +1,7 @@
 import { Input } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 
-export default function InputJustification({ rating }) {
+export default function InputJustification({ rating, justification, setJustification }) {
 
     const clickInDisabled = () => {
         toast.error('Primeiro, avalie selecionando uma das notas para poder justificar sobre', {
@@ -22,11 +22,12 @@ export default function InputJustification({ rating }) {
                         }}
                         _hover={{}}
                         readOnly
+                        value=''
                         _focus={{ borderColor: 'red' }}
                         onClick={clickInDisabled}
                     />
                     :
-                    <Input width="80%" placeholder="Justifique sua avaliação se desejar" />
+                    <Input width="80%" placeholder="Justifique sua avaliação se desejar" onChange={(event) => {setJustification(event.target.value)}} value={justification}/>
             }
         </>
 
