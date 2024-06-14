@@ -4,6 +4,7 @@ import formatiingText from "../../../utils/formattingText";
 import { array } from "../array";
 import { useState } from "react";
 import { TiStar } from "react-icons/ti";
+import styled from '@emotion/styled';
 
 export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observation, averageRating, arrayRatings, arrayJustification }) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -24,6 +25,36 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
     const showObservations = () => {
         setAlternanceObservationandQuestions(!alternanceObservationandQuestions);
     };
+
+    const StyledTextarea = styled.textarea`
+  font-size: 1em;
+  width: 100%;
+  height: 70px;
+  padding: 2px;
+  resize: none;
+  background: transparent;
+  border: 2px solid #971520;
+  border-radius: 4px;
+  border-top-left-radius: 0px;
+  outline: none;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #700e17;
+    border-radius: 10px;
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #86111c;
+  }
+`;
 
     return (
         <div>
@@ -113,21 +144,9 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
                                         >
                                             <strong>Justificativa</strong>
                                         </div>
-                                        <textarea
-                                            style=
-                                            {{
-                                                width: "100%",
-                                                height: "70px",
-                                                padding: "0px",
-                                                resize: "none",
-                                                background: "transparent",
-                                                border: "2px solid #971520",
-                                                borderRadius: "4px",
-                                                borderTopLeftRadius: "0px",
-                                                padding: "2px",
-                                                outline: "none",
-                                                overflowY: "scroll"
-                                            }}
+                                        <StyledTextarea
+                                            required
+                                            readOnly
                                             value={justifications || "Esta questão não foi justificada"}
                                         />
                                     </Container>
