@@ -5,8 +5,13 @@ import Calendar from "./Calendar";
 import User from "./User";
 import AcDigitalLogo from '../assets/acdigital.png'
 
-function Header(...props) {
+function Header() {
   const location = useLocation()
+  const verifyAdm = localStorage.getItem("isAdmin") === "true";
+
+  const getMaxWidth = () => {
+    return verifyAdm ? "600px" : "400px";
+  };
 
   const routes = [
     {
@@ -21,6 +26,10 @@ function Header(...props) {
       name: "FEEDBACKS",
       path: "/home/feedbacks"
     },
+    {
+      name: "CONFIGURAÇÕES",
+      path: "/home/settings"
+    },
   ]
 
   return <div>{!(location.pathname === '/') &&
@@ -30,9 +39,11 @@ function Header(...props) {
       <Container padding="0px" margin="0px" maxH="65px" maxW="294px" bgColor="green">
         <Image src={AcDigitalLogo} w="100%" h="100%" objectFit="contain" />
       </Container>
-      <Container display="flex" justifyContent="space-between" alignItems="center" padding="0px" margin="0px" maxW="400px" >
+      <Container display="flex" justifyContent="space-between" alignItems="center" padding="0px" margin="0px" maxW={getMaxWidth()} >
         {routes.map((route, index) => (
-          <ButtonPages title={route.name} navigate={route.path} key={index} isActualRoute={route.path === location.pathname} />
+          (route.name === "CONFIGURAÇÕES" && !verifyAdm) ? null : (
+            <ButtonPages title={route.name} navigate={route.path} key={index} isActualRoute={route.path === location.pathname} />
+          )
         ))}
       </Container>
       <Container padding="0px" margin="0px" display="flex" flexDirection='row' justifyContent="center" alignItems="center" gap="15px" maxW="360px">

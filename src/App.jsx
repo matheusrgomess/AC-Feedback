@@ -6,6 +6,7 @@ import AvaliarNewComponent from "./pages/AvaliarNewComponent";
 import RateParticipantScreen from "./pages/rate-participant-screen";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
+import Settings from "pages/settings/settings";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             element={<RateParticipantScreen />}
           />
           <Route path="/home/feedbacks" element={<Feedbacks />} />
+          <Route path="/home/settings" element={<Settings />} />
         </Routes>
         <ToastContainer
           position="top-center"

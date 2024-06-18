@@ -28,7 +28,15 @@ export default function Autentificacao() {
   const handleClick = () => {
     navigate("/home");
     const formattedName = normalizeName(valueUser);
+    const verifyAdministrator = (user) => {
+      if (user === 'admin'){
+        return true
+      } else {
+        return false
+      }
+    }
     localStorage.setItem("user", formattedName);
+    localStorage.setItem("isAdmin", verifyAdministrator(formattedName))
   };
 
   return (
