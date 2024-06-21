@@ -15,7 +15,7 @@ export default function PartConfig(props) {
             paddingRight="6px"
             marginBottom="15px"
         >
-            <Text color="#000000">
+            <Text>
                 <strong>{props.title}</strong>
             </Text>
             <Switch isDisabled defaultChecked />

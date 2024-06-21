@@ -8,18 +8,23 @@ import {
     MenuItem,
     Switch,
     Button,
-    Text
+    Text,
+    UnorderedList,
+    Divider
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useNavigate, useLocation, matchPath } from "react-router-dom";
 import AlertExitPage from "./AlertExitPage";
 import formatiingText from "../utils/formattingText";
+import { MdLogout } from "react-icons/md";
+import ListPagesUser from "./ListPagesUser";
 
 export default function User() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const nav = useNavigate();
     const user = localStorage.getItem("user");
     const location = useLocation();
+    const verifyAdm = localStorage.getItem("isAdmin") === "true";
 
     const navLogout = () => {
         if (matchPath("/rate-participant/:participant", location.pathname)) {
@@ -38,6 +43,25 @@ export default function User() {
         nav("/");
     }
 
+    const routes = [
+        {
+            name: "Home",
+            path: "/home"
+        },
+        {
+            name: "Avaliar",
+            path: "/home/rate"
+        },
+        {
+            name: "Feedbacks",
+            path: "/home/feedbacks"
+        },
+        {
+            name: "Configurações",
+            path: "/home/settings"
+        },
+    ]
+
     return (
         <>
             <Menu>
@@ -48,18 +72,34 @@ export default function User() {
                     <Container bgColor="#971520" borderTopRadius="6px" padding="5px">
                         <Text color="white">
                             <strong>
-                                {formatiingText(user)}
+                                Olá,
+                                {formatiingText(user)}!
                             </strong>
                         </Text>
                     </Container>
                     <Container border="2px solid" borderColor="#971520" borderBottomRadius="6px" paddingTop="10px" minH="84px" paddingLeft="0px">
+                        <Container borderLeft="1px solid" paddingLeft="5px" marginLeft="7px">
+                            <Text>
+                                <strong>PAGES</strong>
+                            </Text>
+                            <UnorderedList styleType="'- '" position="relative" right="5px">
+                                {routes.map((route, index) => (
+                                    (route.name === "Configurações" && !verifyAdm) ? null : (
+                                        <ListPagesUser title={route.name} navigate={route.path} key={index} isActualRoute={route.path === location.pathname} />
+                                    )
+                                ))}
+                            </UnorderedList>
+                        </Container>
+                        <Container minWidth="100%" padding="0px" paddingLeft="15px">
+                            <Divider my={4} borderColor="#000000" />
+                        </Container>
                         <Container paddingLeft="10px"><Switch /> Tema escuro </Container>
-                        <MenuItem onClick={navLogout}>Log out</MenuItem>
+                        <MenuItem onClick={navLogout}><MdLogout /><Text paddingLeft="5px">Sair</Text></MenuItem>
                     </Container>
                 </MenuList>
             </Menu>
             {isModalOpen && (
-                <AlertExitPage isOpen={isModalOpen} onClose={handleModalClose} onClickConfirm={handleModalConfirm} onClickClose={handleModalClose}/>
+                <AlertExitPage isOpen={isModalOpen} onClose={handleModalClose} onClickConfirm={handleModalConfirm} onClickClose={handleModalClose} />
             )}
         </>
 

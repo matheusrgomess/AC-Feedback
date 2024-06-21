@@ -12,6 +12,7 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
     const [alternanceObservationandQuestions, setAlternanceObservationandQuestions] = useState(false);
     const rating = arrayRatings[currentQuestion]
     const justifications = arrayJustification[currentQuestion];
+    const numberStars = JSON.parse(localStorage.getItem("numberStars"));
 
     console.log(arrayJustification)
     const clickNext = () => {
@@ -102,7 +103,7 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
                                             <Text fontSize="22px">{filteredQuestions[currentQuestion].questionDescription}</Text>
                                         </Container>
                                         <div style={{ display: "flex" }}>
-                                            {[...Array(5)].map((star, i) => {
+                                            {[...Array(numberStars)].map((star, i) => {
                                                 const ratingValue = i + 1;
 
                                                 return (

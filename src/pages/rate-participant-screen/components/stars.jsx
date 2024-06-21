@@ -2,9 +2,11 @@ import { Text } from "@chakra-ui/react";
 import { TiStar } from "react-icons/ti";
 
 export default function Stars({ hover, setHover, rating, setRating }) {
+  const numberStars = JSON.parse(localStorage.getItem("numberStars"));
+
   return (
     <div style={{ display: "flex" }}>
-      {[...Array(5)].map((star, i) => {
+      {[...Array(numberStars)].map((star, i) => {
         const ratingValue = i + 1;
 
         return (

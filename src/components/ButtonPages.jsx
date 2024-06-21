@@ -50,7 +50,7 @@ export default function ButtonPages({ title, navigate, isActualRoute }) {
                         position: "absolute",
                         bottom: "4px",
                         left: "0px",
-                        transition: "0.4s ease-in-out",
+                        transition: "0.3s ease-in-out",
                     },
                 }}>
                 {title}
