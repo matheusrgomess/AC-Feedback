@@ -1,5 +1,5 @@
 import { Container, Heading, Button } from "@chakra-ui/react";
-import SubmittedAvaliation from "../rate-participant-screen/components/printingAvaliations";
+import SubmittedAvaliation from "../rate/components/printingAvaliations";
 import { formatUserFeedbacks, formatUserFeedbacksCreated } from "../../utils/format-avaliations";
 import { useState } from "react";
 import ModalFilter from "./components/modalFilter";

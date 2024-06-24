@@ -5,7 +5,7 @@ import {
   formatUserFeedbacks,
   formatUserFeedbacksCreated,
 } from "../../utils/format-avaliations";
-import SubmittedAvaliation from "../rate-participant-screen/components/printingAvaliations";
+import SubmittedAvaliation from "../rate/components/printingAvaliations";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {

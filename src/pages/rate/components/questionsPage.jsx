@@ -19,6 +19,7 @@ export default function QuestionsPage({
   justification,
   setJustification
 }) {
+  console.log(array)
   return (
     <Container
       border="1px solid"

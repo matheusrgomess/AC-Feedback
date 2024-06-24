@@ -3,7 +3,7 @@ import Autentificacao from "./pages/login/Authentification";
 import Home from "./pages/home/Home";
 import Feedbacks from "./pages/feedback/Feedbacks";
 import AvaliarNewComponent from "./pages/AvaliarNewComponent";
-import RateParticipantScreen from "./pages/rate-participant-screen";
+import RateParticipantScreen from "./pages/rate";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
 import Settings from "pages/settings/settings";

@@ -26,7 +26,7 @@ import {
     Textarea
 } from "@chakra-ui/react";
 import { EditIcon, CheckIcon } from "@chakra-ui/icons";
-import PartConfig from "../rate/components/partConfig";
+import PartConfig from "./components/partConfig";
 import { useState } from "react";
 import "../../styles/animationbutton.css";
 
@@ -45,7 +45,7 @@ export default function Settings() {
     const handleQuestionToList = () => {
         if (inputValue.trim() !== "") {
             const newQuestion = {
-                type: "rate", // Ou o tipo que você deseja adicionar
+                type: "rate",
                 question: inputValue,
                 questionDescription: ""
             };
@@ -70,7 +70,7 @@ export default function Settings() {
         if (updatedQuestions.length === 0) {
             localStorage.removeItem("questionsList");
         }
-        onClose(); // Fecha o modal após remover a pergunta
+        onClose();
     };
 
     const handleEditQuestion = (index) => {
