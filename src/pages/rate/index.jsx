@@ -18,6 +18,7 @@ export default function RateParticipantScreen() {
     reviewer: localStorage.getItem("user") || "",
     reviewed: participant,
     questions: questions,
+    stars: localStorage.getItem("numberStars"),
   };
 
   const handleNextQuestion = () => {

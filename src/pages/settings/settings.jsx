@@ -36,7 +36,7 @@ export default function Settings() {
     const [inputValue, setInputValue] = useState("");
     const [numStars, setNumStars] = useState();
     const numberStars = JSON.parse(localStorage.getItem("numberStars"));
-
+    const questionsList = JSON.parse(localStorage.getItem("questionsList"))
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [selectedQuestion, setSelectedQuestion] = useState(null);
     const [editTitle, setEditTitle] = useState("");
@@ -64,14 +64,15 @@ export default function Settings() {
     };
 
     const handleRemoveQuestion = (index) => {
-        const updatedQuestions = questionsInput.filter((_, i) => i !== index);
-        setQuestionsInput(updatedQuestions);
-        localStorage.setItem("questionsList", JSON.stringify(updatedQuestions));
-        if (updatedQuestions.length === 0) {
-            localStorage.removeItem("questionsList");
+        if (questionsList.length === 1) {
+            alert("é necessário haver no minímo 1 avaliacao")
+        } else {
+            const updatedQuestions = questionsInput.filter((_, i) => i !== index);
+            setQuestionsInput(updatedQuestions);
+            localStorage.setItem("questionsList", JSON.stringify(updatedQuestions));
         }
         onClose();
-    };
+    }
 
     const handleEditQuestion = (index) => {
         setSelectedQuestion(index);
@@ -135,8 +136,8 @@ export default function Settings() {
                     <NumberInput size='sm' maxWidth="65px" defaultValue={numberStars} min={1} max={10} value={numStars} onChange={handleNumStars}>
                         <NumberInputField />
                         <NumberInputStepper>
-                            <NumberIncrementStepper color="white"/>
-                            <NumberDecrementStepper color="white"/>
+                            <NumberIncrementStepper color="white" />
+                            <NumberDecrementStepper color="white" />
                         </NumberInputStepper>
                     </NumberInput>
                 </Container>

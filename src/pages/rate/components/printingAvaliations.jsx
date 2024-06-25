@@ -12,6 +12,7 @@ export default function SubmittedAvaliation({ avaliations }) {
   const [averageRating, setAverageRating] = useState("");
   const [arrayRatings, setArrayRatings] = useState([]);
   const [arrayJustification, setArrayJustification] = useState([]);
+  const [stars, setStars] = useState();
   const location = useLocation();
 
   const checkIfIsHomeScreen = () => {
@@ -43,13 +44,14 @@ export default function SubmittedAvaliation({ avaliations }) {
     setArrayJustification(justifications);
   }
 
-  const handleOpenModal = (avaliation, observationRating, averageRating) => {
+  const handleOpenModal = (avaliation, observationRating, averageRating, numStars) => {
     setSelectedAvaliation(avaliation);
     setObservation(observationRating);
     setAverageRating(averageRating);
     setIsModalOpen(true);
     createArrayRatings(avaliation);
     createArrayJustification(avaliation);
+    setStars(numStars)
   };
 
   const handleCloseModal = () => {
@@ -59,6 +61,7 @@ export default function SubmittedAvaliation({ avaliations }) {
 
   const renderAvaliation = (avaliation) => {
     const questions = avaliation.questions;
+    const numStars  = avaliation.stars
     const filteredValidRatings = questions
       .filter((question) => typeof question.rating === "number")
       .map((question) => parseFloat(question.rating));
@@ -120,7 +123,8 @@ export default function SubmittedAvaliation({ avaliations }) {
                   handleOpenModal(
                     avaliation,
                     observationRating.rating,
-                    averageRating
+                    averageRating,
+                    numStars
                   )
                 }
               >
@@ -162,6 +166,7 @@ export default function SubmittedAvaliation({ avaliations }) {
           averageRating={averageRating}
           arrayRatings={arrayRatings}
           arrayJustification={arrayJustification}
+          stars={stars}
         />
       )}
     </>

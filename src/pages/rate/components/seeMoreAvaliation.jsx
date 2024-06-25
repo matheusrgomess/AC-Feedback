@@ -6,7 +6,7 @@ import { useState } from "react";
 import { TiStar } from "react-icons/ti";
 import styled from '@emotion/styled';
 
-export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observation, averageRating, arrayRatings, arrayJustification }) {
+export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observation, averageRating, arrayRatings, arrayJustification, stars }) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const filteredQuestions = array.filter(item => item.type === "rate");
     const [alternanceObservationandQuestions, setAlternanceObservationandQuestions] = useState(false);
@@ -103,7 +103,7 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
                                             <Text fontSize="22px">{filteredQuestions[currentQuestion].questionDescription}</Text>
                                         </Container>
                                         <div style={{ display: "flex" }}>
-                                            {[...Array(numberStars)].map((star, i) => {
+                                            {[...Array(parseInt(stars))].map((star, i) => {
                                                 const ratingValue = i + 1;
 
                                                 return (
