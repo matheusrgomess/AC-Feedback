@@ -1,13 +1,6 @@
-import {
-  Container,
-  Text,
-  Button,
-  Heading,
-  Textarea,
-  Image,
-} from "@chakra-ui/react";
+import React from "react";
+import { Container, Text, Button, Textarea, Image } from "@chakra-ui/react";
 import { array } from "../array";
-import ButtonRate from "./buttonRate";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -17,8 +10,6 @@ import formatiingText from "../../../utils/formattingText";
 
 export default function ObservationsPage({
   currentQuestion,
-  handleNextQuestion,
-  handlePreviousQuestion,
   participant,
   questions,
   avaliation,
@@ -32,7 +23,12 @@ export default function ObservationsPage({
       ...questions,
       { question: array[currentQuestion].question, rating: observation },
     ];
-    const updatedAvaliation = { ...avaliation, questions: updatedQuestions, id: Math.floor(Math.random() * 100), date: format(new Date(), 'dd/MM/yyyy') };
+    const updatedAvaliation = {
+      ...avaliation,
+      questions: updatedQuestions,
+      id: Math.floor(Math.random() * 100),
+      date: format(new Date(), "dd/MM/yyyy"),
+    };
     saveAvaliation(updatedAvaliation);
     navigate("/home");
     toast(
@@ -70,67 +66,31 @@ export default function ObservationsPage({
 
   return (
     <Container
-      border="1px solid"
-      borderColor="#971520"
-      borderRadius="8px"
-      minH="500px"
-      minW="500px"
-      padding="0px"
       display="flex"
+      flexDir="column"
       alignItems="center"
       justifyContent="space-between"
-      flexDirection="column"
+      paddingTop={"50px"}
+      gap="20px"
     >
-      <Container
-        textAlign="center"
-        w="max-content"
-        h="max-content"
-        paddingTop="50px"
-      >
-        <Heading>{array[currentQuestion].question}</Heading>
-        <Text color="#ffffff3d">
-          {array[currentQuestion].questionDescription}
-        </Text>
+      <Container textAlign="center">
+        <Textarea
+          placeholder="Digite Aqui"
+          resize={"none"}
+          height="250px"
+          value={observation}
+          onChange={modObservation}
+        />
       </Container>
       <Container textAlign="center">
-        <div
-          style={{
-            maxHeight: "225px",
-          }}
+        <Button
+          colorScheme="red"
+          size="lg"
+          onClick={handleClick}
+          isDisabled={!observation}
         >
-          <Textarea
-            placeholder="Digite Aqui"
-            resize={"none"}
-            height="250px"
-            value={observation}
-            onChange={modObservation}
-          />
-        </div>
-      </Container>
-      <Container
-        minWidth="100%"
-        padding="15px"
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <ButtonRate
-          currentQuestion={currentQuestion}
-          handleNextQuestion={handleNextQuestion}
-          handlePreviousQuestion={handlePreviousQuestion}
-        />
-        {observation === "" ? (
-          <Button colorScheme="red" isDisabled>
-            Enviar
-          </Button>
-        ) : (
-          <Button colorScheme="red" onClick={handleClick}>
-            Enviar
-          </Button>
-        )}
-        <Text color="#ffffff3d" fontSize="15px" as="span">
-          {formatiingText(participant)}
-        </Text>
+          Enviar
+        </Button>
       </Container>
     </Container>
   );

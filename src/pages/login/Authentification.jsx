@@ -28,15 +28,9 @@ export default function Autentificacao() {
   const handleClick = () => {
     navigate("/home");
     const formattedName = normalizeName(valueUser);
-    const verifyAdministrator = (user) => {
-      if (user === 'admin'){
-        return true
-      } else {
-        return false
-      }
-    }
+
     localStorage.setItem("user", formattedName);
-    localStorage.setItem("isAdmin", verifyAdministrator(formattedName))
+    localStorage.setItem("isAdmin", formattedName === "admin");
   };
 
   return (
@@ -78,15 +72,11 @@ export default function Autentificacao() {
             onChange={modValueUser}
           />
           <Inputs type="password" title="Senha" placeholder="Senha" />
-          {valueUser === '' ?
-            <Button
-              isDisabled
-              marginBottom="20px"
-              bg="transparent"
-            >
+          {valueUser === "" ? (
+            <Button isDisabled marginBottom="20px" bg="transparent">
               Entrar
             </Button>
-            :
+          ) : (
             <Button
               onClick={handleClick}
               marginBottom="20px"
@@ -95,8 +85,7 @@ export default function Autentificacao() {
             >
               Entrar
             </Button>
-          }
-
+          )}
         </Container>
         <Container padding="0px">
           <Text>#euACredito</Text>

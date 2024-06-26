@@ -1,6 +1,9 @@
 import { Container, Heading, Button } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/printingAvaliations";
-import { formatUserFeedbacks, formatUserFeedbacksCreated } from "../../utils/format-avaliations";
+import {
+  formatUserFeedbacks,
+  formatUserFeedbacksCreated,
+} from "../../utils/format-avaliations";
 import { useState } from "react";
 import ModalFilter from "./components/modalFilter";
 
@@ -9,15 +12,15 @@ export default function Feedbacks() {
   const avaliations = JSON.parse(localStorage.getItem("avaliations") || "[]");
   const userAvaliations = formatUserFeedbacks(avaliations, user);
   const userAvaliationsCreated = formatUserFeedbacksCreated(avaliations, user);
-  const [openFilters, setOpenFilters] = useState(false)
+  const [openFilters, setOpenFilters] = useState(false);
 
   const handleOpenFilters = () => {
-    setOpenFilters(true)
-  }
+    setOpenFilters(true);
+  };
 
   const handleCloseFilters = () => {
-    setOpenFilters(false)
-  }
+    setOpenFilters(false);
+  };
 
   return (
     <div
@@ -49,9 +52,10 @@ export default function Feedbacks() {
             right: 0,
             width: "95%",
             height: "75px",
-            background: "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
+            background:
+              "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
             borderBottomRadius: "20px",
-            pointerEvents: "none"
+            pointerEvents: "none",
           }}
         >
           <Container
@@ -65,7 +69,11 @@ export default function Feedbacks() {
             justifyContent="space-between"
           >
             <Heading>Avaliações criadas:</Heading>
-            <Button variant="outline" colorScheme="white" onClick={handleOpenFilters}>
+            <Button
+              variant="outline"
+              colorScheme="white"
+              onClick={handleOpenFilters}
+            >
               Filtrar
             </Button>
           </Container>
@@ -123,9 +131,10 @@ export default function Feedbacks() {
             right: 0,
             width: "95%",
             height: "75px",
-            background: "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
+            background:
+              "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
             borderBottomRadius: "20px",
-            pointerEvents: "none"
+            pointerEvents: "none",
           }}
         >
           <Container
