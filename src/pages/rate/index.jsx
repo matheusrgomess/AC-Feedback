@@ -61,7 +61,7 @@ export default function RateParticipantScreen() {
   return (
     <div
       style={{
-        maxHeight: "100vh",
+        height: "100vh",
         color: "white",
         alignItems: "center",
         justifyContent: "center",
@@ -70,7 +70,6 @@ export default function RateParticipantScreen() {
       <Container
         as="main"
         minH="85vh"
-        h="100%"
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -81,9 +80,9 @@ export default function RateParticipantScreen() {
           border="1px solid"
           borderColor="#971520"
           borderRadius="8px"
-          h="500px"
+          h="525px"
           maxH="550px"
-          minW="500px"
+          width="700px"
           padding="0px"
           pt="30px"
           display="flex"
@@ -157,24 +156,24 @@ export default function RateParticipantScreen() {
             </Text>
           </Container>
         </Container>
-        <Container
-          as="footer"
-          minH="100%"
-          minWidth="100%"
-          display="flex"
-          alignItems="center"
-          justifyContent="flex-end"
-          flexGrow={0.5}
-        >
-          <Container>
-            <Progress
-              value={currentQuestion}
-              max={array.length - 1}
-              borderRadius="20px"
-              colorScheme="red"
-              size="xs"
-            />
-          </Container>
+      </Container>
+      <Container
+        as="footer"
+        h="100%"
+        minWidth="100%"
+        display="flex"
+        alignItems="center"
+        justifyContent="flex-end"
+        flexGrow={0.5}
+      >
+        <Container>
+          <Progress
+            value={currentQuestion}
+            max={array.length - 1}
+            borderRadius="20px"
+            colorScheme="red"
+            size="xs"
+          />
         </Container>
       </Container>
     </div>
