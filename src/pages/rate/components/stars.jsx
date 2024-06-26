@@ -6,7 +6,7 @@ export default function Stars({ hover, setHover, rating, setRating }) {
 
   return (
     <div style={{ display: "flex" }}>
-      {[...Array(numberStars)].map((star, i) => {
+      {[...Array(numberStars)].map((_, i) => {
         const ratingValue = i + 1;
 
         return (

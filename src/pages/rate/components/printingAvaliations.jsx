@@ -8,11 +8,6 @@ import SeeMoreAvaliation from "./seeMoreAvaliation";
 export default function SubmittedAvaliation({ avaliations }) {
   const [selectedAvaliation, setSelectedAvaliation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [observation, setObservation] = useState("");
-  const [averageRating, setAverageRating] = useState("");
-  const [arrayRatings, setArrayRatings] = useState([]);
-  const [arrayJustification, setArrayJustification] = useState([]);
-  const [stars, setStars] = useState();
   const location = useLocation();
 
   const checkIfIsHomeScreen = () => {
@@ -29,46 +24,30 @@ export default function SubmittedAvaliation({ avaliations }) {
     );
   };
 
-  const createArrayRatings = (avaliation) => {
-    const questions = avaliation.questions;
-    const ratings = questions
-      .filter((question) => !isNaN(question.rating))
+  const filterValidRatings = (questions) => {
+    return questions
+      .filter((question) => typeof question.rating === "number")
       .map((question) => parseFloat(question.rating));
-    setArrayRatings(ratings);
   };
 
-  const createArrayJustification = (avaliation) => {
-    const questions = avaliation.questions;
-    const justifications = questions
-      .map((question) => question.justification)
-    setArrayJustification(justifications);
-  }
+  const findObservation = (questions) => {
+    return questions.find((question) => typeof question.rating === "string");
+  };
 
-  const handleOpenModal = (avaliation, observationRating, averageRating, numStars) => {
-    setSelectedAvaliation(avaliation);
-    setObservation(observationRating);
-    setAverageRating(averageRating);
+  const handleOpenModal = (avaliation) => {
     setIsModalOpen(true);
-    createArrayRatings(avaliation);
-    createArrayJustification(avaliation);
-    setStars(numStars)
+    setSelectedAvaliation(avaliation);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setSelectedAvaliation(null);
   };
 
   const renderAvaliation = (avaliation) => {
     const questions = avaliation.questions;
-    const numStars  = avaliation.stars
-    const filteredValidRatings = questions
-      .filter((question) => typeof question.rating === "number")
-      .map((question) => parseFloat(question.rating));
+    const filteredValidRatings = filterValidRatings(questions);
 
-    const observationRating = questions.find(
-      (question) => typeof question.rating === "string"
-    );
+    const observationRating = findObservation(questions);
 
     const averageRating = getAverageRating(filteredValidRatings);
 
@@ -109,7 +88,10 @@ export default function SubmittedAvaliation({ avaliations }) {
             <Text paddingInline="8px" color="white">
               {avaliation.date}
             </Text>
-            <Tooltip label="Ver avaliação completa" aria-label="tooltip para botão de visualizar">
+            <Tooltip
+              label="Ver avaliação completa"
+              aria-label="tooltip para botão de visualizar"
+            >
               <Button
                 bg="#971520"
                 _hover={{}}
@@ -119,23 +101,23 @@ export default function SubmittedAvaliation({ avaliations }) {
                 size="sm"
                 margin="5px"
                 marginLeft="10px"
-                onClick={() =>
-                  handleOpenModal(
-                    avaliation,
-                    observationRating.rating,
-                    averageRating,
-                    numStars
-                  )
-                }
+                onClick={() => handleOpenModal(avaliation)}
               >
                 <ViewIcon />
               </Button>
             </Tooltip>
-
           </Container>
         </Container>
         <Container padding="0px">
-          <Text color="white" style={{ display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden', WebkitLineClamp: 3 }}>
+          <Text
+            color="white"
+            style={{
+              display: "-webkit-box",
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              WebkitLineClamp: 3,
+            }}
+          >
             {observationRating && (
               <>
                 <strong>Observação:</strong> {observationRating.rating}
@@ -162,11 +144,9 @@ export default function SubmittedAvaliation({ avaliations }) {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           avaliation={selectedAvaliation}
-          observation={observation}
-          averageRating={averageRating}
-          arrayRatings={arrayRatings}
-          arrayJustification={arrayJustification}
-          stars={stars}
+          getAverageRating={getAverageRating}
+          getObservation={findObservation}
+          filterValidRatings={filterValidRatings}
         />
       )}
     </>

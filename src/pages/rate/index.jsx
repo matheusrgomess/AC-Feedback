@@ -9,29 +9,30 @@ export default function RateParticipantScreen() {
   const { participant } = useParams();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [rating, setRating] = useState(null);
-  const [justification, setJustification] = useState('');
+  const [justification, setJustification] = useState("");
   const [hover, setHover] = useState(null);
   const [questions, setQuestions] = useState([]);
   const savedAvaliations =
     JSON.parse(localStorage.getItem("avaliations")) || [];
+
   const avaliation = {
     reviewer: localStorage.getItem("user") || "",
     reviewed: participant,
     questions: questions,
-    stars: localStorage.getItem("numberStars"),
+    stars: 5,
   };
 
   const handleNextQuestion = () => {
     setCurrentQuestion((prev) => prev + 1);
     handleAvaliation(rating);
     setRating(null);
-    setJustification('');
+    setJustification("");
   };
 
   const handlePreviousQuestion = () => {
     setCurrentQuestion((prev) => prev - 1);
     setRating(questions[currentQuestion - 1]?.rating || 0);
-    setJustification(questions[currentQuestion - 1]?.justification || '')
+    setJustification(questions[currentQuestion - 1]?.justification || "");
   };
 
   const handleAvaliation = (rating) => {
@@ -54,9 +55,6 @@ export default function RateParticipantScreen() {
     setQuestions([]);
   };
 
-  // a ideia da separação dos componentes é boa, mas pode ser melhorada, se percebermos no código, apenas o conteúdo dos cards fica diferente dependendo do tipo
-  // da pergunta, em vez de separar os dois componentes, poderia trazer toda a criação e estilização do card e os botões, assim, deixando apenas isolado o que realmente difere
-  // se não entender, pode me chamar 
   return (
     <div
       style={{
