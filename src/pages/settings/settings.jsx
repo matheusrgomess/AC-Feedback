@@ -25,10 +25,10 @@ import {
     FormLabel,
     Textarea
 } from "@chakra-ui/react";
-import { EditIcon, CheckIcon } from "@chakra-ui/icons";
+import { EditIcon, CheckIcon, SettingsIcon } from "@chakra-ui/icons";
 import PartConfig from "./components/partConfig";
 import { useState } from "react";
-import "../../styles/animationbutton.css";
+import { toast } from "react-toastify";
 
 export default function Settings() {
     const [showADDInput, setShowADDInput] = useState(false);
@@ -36,11 +36,25 @@ export default function Settings() {
     const [inputValue, setInputValue] = useState("");
     const [numStars, setNumStars] = useState();
     const numberStars = JSON.parse(localStorage.getItem("numberStars"));
-    const questionsList = JSON.parse(localStorage.getItem("questionsList"))
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [selectedQuestion, setSelectedQuestion] = useState(null);
     const [editTitle, setEditTitle] = useState("");
     const [editDescription, setEditDescription] = useState("");
+
+    const addObservationsQuestion = (questions) => {
+        const lastQuestion = questions[questions.length - 1];
+        if (!lastQuestion || lastQuestion.type !== "observations") {
+            return [
+                ...questions.filter(q => q.type !== "observations"),
+                {
+                    type: "observations",
+                    question: "Observações",
+                    questionDescription: "Coloque uma observação para poder enviar o formulário"
+                }
+            ];
+        }
+        return questions;
+    };
 
     const handleQuestionToList = () => {
         if (inputValue.trim() !== "") {
@@ -49,12 +63,15 @@ export default function Settings() {
                 question: inputValue,
                 questionDescription: ""
             };
-            setQuestionsInput([...questionsInput, newQuestion]);
+            const updatedQuestions = addObservationsQuestion([...questionsInput, newQuestion]);
+            setQuestionsInput(updatedQuestions);
             setInputValue("");
             setShowADDInput(false);
-            localStorage.setItem("questionsList", JSON.stringify([...questionsInput, newQuestion]));
+            localStorage.setItem("questionsList", JSON.stringify(updatedQuestions));
         } else {
-            alert("Digite Algo no input para ser salvo!");
+            toast.error('Digite Algo no input para ser salvo!', {
+                autoClose: 2500
+            });
         }
     };
 
@@ -64,10 +81,12 @@ export default function Settings() {
     };
 
     const handleRemoveQuestion = (index) => {
-        if (questionsList.length === 1) {
-            alert("é necessário haver no minímo 1 avaliacao")
+        if (questionsInput.length === 2) {
+            toast.error('É necessário haver no mínimo 1 avaliação', {
+                autoClose: 2500
+            });
         } else {
-            const updatedQuestions = questionsInput.filter((_, i) => i !== index);
+            const updatedQuestions = addObservationsQuestion(questionsInput.filter((_, i) => i !== index));
             setQuestionsInput(updatedQuestions);
             localStorage.setItem("questionsList", JSON.stringify(updatedQuestions));
         }
@@ -82,15 +101,22 @@ export default function Settings() {
     };
 
     const handleSaveEdit = () => {
-        const updatedQuestions = [...questionsInput];
-        updatedQuestions[selectedQuestion] = {
-            ...updatedQuestions[selectedQuestion],
-            question: editTitle,
-            questionDescription: editDescription
-        };
-        setQuestionsInput(updatedQuestions);
-        localStorage.setItem("questionsList", JSON.stringify(updatedQuestions));
-        onClose();
+        if (editTitle !== '') {
+            const updatedQuestions = [...questionsInput];
+            updatedQuestions[selectedQuestion] = {
+                ...updatedQuestions[selectedQuestion],
+                question: editTitle,
+                questionDescription: editDescription
+            };
+            const ensuredQuestions = addObservationsQuestion(updatedQuestions);
+            setQuestionsInput(ensuredQuestions);
+            localStorage.setItem("questionsList", JSON.stringify(ensuredQuestions));
+            onClose();
+        } else {
+            toast.error('É necessário um título para a pergunta', {
+                autoClose: 2500
+            });
+        }
     };
 
     return (
@@ -98,7 +124,7 @@ export default function Settings() {
             style={{
                 height: "inherit",
                 color: "white",
-                backgroundColor: "1c222b",
+                backgroundColor: "#1c222b",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -111,7 +137,7 @@ export default function Settings() {
                 borderRadius="12px"
             >
                 <Text fontSize="23px">
-                    <EditIcon marginRight="5px" />
+                    <SettingsIcon marginRight="5px" />
                     Configurações do formulários
                 </Text>
                 <Text fontSize="16px" color="#808080">Edite o que você quer que apareça no formulário</Text>
@@ -134,7 +160,7 @@ export default function Settings() {
                         <strong>Quantidade de notas:</strong>
                     </Text>
                     <NumberInput size='sm' maxWidth="65px" defaultValue={numberStars} min={1} max={10} value={numStars} onChange={handleNumStars}>
-                        <NumberInputField />
+                        <NumberInputField readOnly cursor="default" />
                         <NumberInputStepper>
                             <NumberIncrementStepper color="white" />
                             <NumberDecrementStepper color="white" />
@@ -169,6 +195,7 @@ export default function Settings() {
                                 border="none"
                                 borderBottom="1px solid"
                                 borderColor="white"
+                                borderRadius="none"
                             >
                                 <IconButton
                                     bg="none"
@@ -178,8 +205,12 @@ export default function Settings() {
                                     onClick={handleQuestionToList}
                                 >
                                     <CheckIcon
-                                        className={"CheckIconAnime"}
-                                        color="white"
+                                        style={{
+                                            transition: "color 0.3s ease",
+                                            color: "white",
+                                        }}
+                                        onMouseOver={(e) => e.currentTarget.style.color = "green"}
+                                        onMouseOut={(e) => e.currentTarget.style.color = "white"}
                                     />
                                 </IconButton>
                             </InputRightAddon>
@@ -187,39 +218,61 @@ export default function Settings() {
                     }
                     <Container borderLeft="1px solid" borderLeftColor="white" marginTop="20px">
                         <UnorderedList width="100%">
-                            {questionsInput.map((item, index) => (
-                                <ListItem key={index} id="tasks" color="#ffffff">
-                                    <Text _hover={{ cursor: "pointer" }} onClick={() => handleEditQuestion(index)}>
-                                        <strong>{item.question}</strong>
-                                        <EditIcon marginLeft="5px" />
-                                    </Text>
-                                </ListItem>
-                            ))}
+                            {questionsInput
+                                .filter(item => item.type !== "observations")
+                                .map((item, index) => (
+                                    <ListItem key={index} id="tasks" color="#ffffff">
+                                        <Text _hover={{ cursor: "pointer" }} onClick={() => handleEditQuestion(index)}>
+                                            <strong>{item.question}</strong>
+                                            <EditIcon marginLeft="5px" />
+                                        </Text>
+                                    </ListItem>
+                                ))}
                         </UnorderedList>
                     </Container>
                 </Container>
             </Container>
 
-            <Modal isOpen={isOpen} onClose={onClose}>
+            <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent bg="#1c222b" color="white">
                     <ModalHeader>Editar Pergunta</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <FormControl>
-                            <FormLabel>Título</FormLabel>
+                            <FormLabel>Título:</FormLabel>
                             <Input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
                         </FormControl>
                         <FormControl mt={4}>
-                            <FormLabel>Descrição</FormLabel>
-                            <Textarea value={editDescription} onChange={(e) => setEditDescription(e.target.value)} />
+                            <FormLabel>Descrição:</FormLabel>
+                            <Textarea
+                                value={editDescription}
+                                height="150px"
+                                resize="none"
+                                onChange={(e) => setEditDescription(e.target.value)}
+                                placeholder="Digite aqui"
+                                css={{
+                                    "&::-webkit-scrollbar": {
+                                        borderRadius: "10px",
+                                        width: "6px",
+                                        direction: "rtl",
+                                    },
+                                    "&::-webkit-scrollbar-thumb": {
+                                        backgroundColor: "#700e17",
+                                        borderRadius: "10px",
+                                        width: "6px",
+                                    },
+                                    "&::-webkit-scrollbar-thumb:hover": {
+                                        backgroundColor: "#86111c",
+                                    },
+                                }}
+                            />
                         </FormControl>
                     </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={handleSaveEdit}>
+                        <Button bgColor="white" color="black" mr={3} onClick={handleSaveEdit}>
                             Salvar
                         </Button>
-                        <Button onClick={onClose} mr={3}>Cancelar</Button>
                         <Button colorScheme="red" onClick={() => handleRemoveQuestion(selectedQuestion)}>Excluir</Button>
                     </ModalFooter>
                 </ModalContent>

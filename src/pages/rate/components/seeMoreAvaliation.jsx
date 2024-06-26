@@ -12,7 +12,6 @@ export default function SeeMoreAvaliation({ isOpen, onClose, avaliation, observa
     const [alternanceObservationandQuestions, setAlternanceObservationandQuestions] = useState(false);
     const rating = arrayRatings[currentQuestion]
     const justifications = arrayJustification[currentQuestion];
-    const numberStars = JSON.parse(localStorage.getItem("numberStars"));
 
     console.log(arrayJustification)
     const clickNext = () => {
