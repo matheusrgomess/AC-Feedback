@@ -7,6 +7,7 @@ import RateParticipantScreen from "./pages/rate";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
 import Settings from "pages/settings/settings";
+import './index.css'
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       className="App"
       style={{
         overflow: "hidden",
-        fontFamily: "Inter, sans-serif",
+        fontFamily: "Montserrat, sans-serif",
         backgroundColor: "#1c222b",
         height: "100vh",
         color: "black",
