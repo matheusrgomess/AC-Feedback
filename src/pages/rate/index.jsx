@@ -158,12 +158,10 @@ export default function RateParticipantScreen() {
       </Container>
       <Container
         as="footer"
-        h="100%"
         minWidth="100%"
         display="flex"
         alignItems="center"
         justifyContent="flex-end"
-        flexGrow={0.5}
       >
         <Container>
           <Progress
