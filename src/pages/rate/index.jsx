@@ -143,7 +143,6 @@ export default function RateParticipantScreen() {
             display="flex"
             alignItems="center"
             justifyContent="space-between"
-            pt="1px"
           >
             <ButtonRate
               currentQuestion={currentQuestion}
