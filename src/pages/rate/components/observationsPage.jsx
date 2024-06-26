@@ -70,18 +70,18 @@ export default function ObservationsPage({
       flexDir="column"
       alignItems="center"
       justifyContent="space-between"
-      paddingTop={"50px"}
       gap="20px"
     >
-      <Container textAlign="center">
-        <Textarea
-          placeholder="Digite Aqui"
-          resize={"none"}
-          height="250px"
-          value={observation}
-          onChange={modObservation}
-        />
-      </Container>
+      <Textarea
+        placeholder="Digite Aqui"
+        resize={"none"}
+        height="250px" 
+        w="550px"
+        value={observation}
+        onChange={modObservation}
+        flexGrow={1}
+      />
+
       <Container textAlign="center">
         <Button
           colorScheme="red"

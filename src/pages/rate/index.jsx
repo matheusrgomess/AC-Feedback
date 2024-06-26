@@ -70,6 +70,7 @@ export default function RateParticipantScreen() {
       <Container
         as="main"
         minH="85vh"
+        h="100%"
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -80,49 +81,70 @@ export default function RateParticipantScreen() {
           border="1px solid"
           borderColor="#971520"
           borderRadius="8px"
-          maxH="500px"
+          h="500px"
+          maxH="550px"
           minW="500px"
           padding="0px"
+          pt="30px"
           display="flex"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="space-between"
           flexDirection="column"
         >
-          <Container textAlign="center">
-            {questions[currentQuestion] && (
-              <span style={{ color: "#ffffff2b" }}>
-                Essa foi a sua pontução anterior:{" "}
-                {questions[currentQuestion].rating}
-              </span>
-            )}
-            <Heading>{array[currentQuestion].question}</Heading>
-            <Text>{array[currentQuestion].questionDescription}</Text>
+          <Container
+            textAlign="center"
+            display="flex"
+            flexDir="column"
+            flexGrow={1}
+          >
+            <Container
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              flexDir="column"
+              flexGrow={1}
+              gap="6"
+            >
+              <Container>
+                {questions[currentQuestion] && (
+                  <span style={{ color: "#ffffff2b" }}>
+                    Essa foi a sua pontução anterior:{" "}
+                    {questions[currentQuestion].rating}
+                  </span>
+                )}
+                <Heading>{array[currentQuestion].question}</Heading>
+                <Text>{array[currentQuestion].questionDescription}</Text>
+              </Container>
+              <Container>
+                {array[currentQuestion].type === "rate" ? (
+                  <QuestionsPage
+                    participant={participant}
+                    hover={hover}
+                    setHover={setHover}
+                    rating={rating}
+                    setRating={setRating}
+                    justification={justification}
+                    setJustification={setJustification}
+                  />
+                ) : (
+                  <ObservationsPage
+                    currentQuestion={currentQuestion}
+                    participant={participant}
+                    avaliation={avaliation}
+                    questions={questions}
+                    saveAvaliation={saveAvaliation}
+                  />
+                )}
+              </Container>
+            </Container>
           </Container>
-          {array[currentQuestion].type === "rate" ? (
-            <QuestionsPage
-              participant={participant}
-              hover={hover}
-              setHover={setHover}
-              rating={rating}
-              setRating={setRating}
-              justification={justification}
-              setJustification={setJustification}
-            />
-          ) : (
-            <ObservationsPage
-              currentQuestion={currentQuestion}
-              participant={participant}
-              avaliation={avaliation}
-              questions={questions}
-              saveAvaliation={saveAvaliation}
-            />
-          )}
           <Container
             minWidth="100%"
             padding="15px"
             display="flex"
             alignItems="center"
             justifyContent="space-between"
+            pt="1px"
           >
             <ButtonRate
               currentQuestion={currentQuestion}

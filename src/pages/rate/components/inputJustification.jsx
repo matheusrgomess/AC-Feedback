@@ -10,7 +10,7 @@ export default function InputJustification({
   return (
     <>
       <Input
-        width="80%"
+        width="100%"
         placeholder="Justifique sua avaliação se desejar"
         onChange={(event) => {
           setJustification(event.target.value);
