@@ -8,6 +8,7 @@ import SeeMoreAvaliation from "./seeMoreAvaliation";
 export default function SubmittedAvaliation({ avaliations }) {
   const [selectedAvaliation, setSelectedAvaliation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [stars, setStars] = useState();
   const location = useLocation();
 
   const checkIfIsHomeScreen = () => {
@@ -34,9 +35,10 @@ export default function SubmittedAvaliation({ avaliations }) {
     return questions.find((question) => typeof question.rating === "string");
   };
 
-  const handleOpenModal = (avaliation) => {
+  const handleOpenModal = (avaliation, numStars) => {
     setIsModalOpen(true);
     setSelectedAvaliation(avaliation);
+    setStars(numStars)
   };
 
   const handleCloseModal = () => {
@@ -45,6 +47,7 @@ export default function SubmittedAvaliation({ avaliations }) {
 
   const renderAvaliation = (avaliation) => {
     const questions = avaliation.questions;
+    const numStars = avaliation.stars
     const filteredValidRatings = filterValidRatings(questions);
 
     const observationRating = findObservation(questions);
@@ -101,7 +104,7 @@ export default function SubmittedAvaliation({ avaliations }) {
                 size="sm"
                 margin="5px"
                 marginLeft="10px"
-                onClick={() => handleOpenModal(avaliation)}
+                onClick={() => handleOpenModal(avaliation, numStars)}
               >
                 <ViewIcon />
               </Button>
@@ -147,6 +150,7 @@ export default function SubmittedAvaliation({ avaliations }) {
           getAverageRating={getAverageRating}
           getObservation={findObservation}
           filterValidRatings={filterValidRatings}
+          stars={stars}
         />
       )}
     </>

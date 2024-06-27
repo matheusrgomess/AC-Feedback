@@ -12,7 +12,7 @@ export default function QuestionsPage({
   setJustification,
 }) {
   return (
-    <>
+    <div style={{ position:"relative" }}>
       <Container
         display="flex"
         alignItems="center"
@@ -33,6 +33,6 @@ export default function QuestionsPage({
         justification={justification}
         setJustification={setJustification}
       />
-    </>
+    </div>
   );
 }

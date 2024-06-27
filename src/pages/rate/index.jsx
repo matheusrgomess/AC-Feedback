@@ -22,7 +22,7 @@ export default function RateParticipantScreen() {
     reviewer: localStorage.getItem("user") || "",
     reviewed: participant,
     questions: questions,
-    stars: 5,
+    stars: localStorage.getItem("numberStars"),
   };
 
   const handleNextQuestion = () => {
@@ -103,6 +103,8 @@ export default function RateParticipantScreen() {
               flexDir="column"
               flexGrow={1}
               gap="6"
+              pos="relative"
+              top="30px"
             >
               <Container>
                 {questions[currentQuestion] && (
@@ -128,7 +130,6 @@ export default function RateParticipantScreen() {
                 ) : (
                   <ObservationsPage
                     currentQuestion={currentQuestion}
-                    participant={participant}
                     avaliation={avaliation}
                     questions={questions}
                     saveAvaliation={saveAvaliation}

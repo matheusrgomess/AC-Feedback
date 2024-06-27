@@ -6,11 +6,9 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import logoAC from "../../../assets/aclogo.png";
 import { format } from "date-fns";
-import formatiingText from "../../../utils/formattingText";
 
 export default function ObservationsPage({
   currentQuestion,
-  participant,
   questions,
   avaliation,
   saveAvaliation,

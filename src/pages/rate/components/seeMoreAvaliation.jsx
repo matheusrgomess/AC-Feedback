@@ -33,6 +33,7 @@ export default function SeeMoreAvaliation({
   getAverageRating,
   getObservation,
   filterValidRatings,
+  stars
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const filteredQuestions = array.filter((item) => item.type === "rate");
@@ -54,6 +55,11 @@ export default function SeeMoreAvaliation({
   const showObservations = () => {
     setAlternanceObservationandQuestions(!alternanceObservationandQuestions);
   };
+
+  const handleClose = () => {
+    onClose()
+    setCurrentQuestion(0)
+  }
 
   const StyledTextarea = styled.textarea`
     font-size: 1em;
@@ -81,7 +87,7 @@ export default function SeeMoreAvaliation({
 
   return (
     <div>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal isOpen={isOpen} onClose={handleClose} isCentered>
         <ModalOverlay>
           <ModalContent
             bg="#1c222b"
@@ -92,7 +98,7 @@ export default function SeeMoreAvaliation({
           >
             <ModalHeader paddingBottom="10px">
               <Container
-                bg="#1c222b"
+                padding="0px"
                 minW="100%"
                 display="flex"
                 alignItems="center"
@@ -107,7 +113,7 @@ export default function SeeMoreAvaliation({
                   </Heading>
                 </Text>
                 <IconButton
-                  onClick={onClose}
+                  onClick={handleClose}
                   bg="transparent"
                   _hover={{}}
                   _active={{}}
@@ -116,7 +122,7 @@ export default function SeeMoreAvaliation({
                 </IconButton>
               </Container>
             </ModalHeader>
-            <ModalBody color="#ffffff">
+            <ModalBody color="#ffffff" padding="5px">
               <Container
                 display="flex"
                 padding="0px"
@@ -172,7 +178,7 @@ export default function SeeMoreAvaliation({
                     alignItems="center"
                     justifyContent="center"
                     flexDirection="column"
-                    paddingLeft="0px"
+                    padding="0px"
                   >
                     <Container
                       display="flex"
@@ -193,7 +199,7 @@ export default function SeeMoreAvaliation({
                         </Text>
                       </Container>
                       <div style={{ display: "flex" }}>
-                        {[...Array(parseInt(5))].map((_, i) => {
+                        {[...Array(parseInt(stars))].map((_, i) => {
                           const ratingValue = i + 1;
 
                           return (
@@ -230,10 +236,9 @@ export default function SeeMoreAvaliation({
                       padding="0px"
                       display="flex"
                       justifyContent="start"
-                      width="100%"
+                      width="96%"
                       flexDirection="column"
                       bottom="20px"
-                      paddingBottom="20px"
                     >
                       <div>
                         <strong>Justificativa</strong>
@@ -250,16 +255,15 @@ export default function SeeMoreAvaliation({
                 ) : (
                   <Container
                     width="100%"
-                    minHeight="300px"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
                     flexDirection="column"
-                    position="absolute"
-                    top="128px"
+                    padding="0px"
                   >
                     <Heading fontSize="40px">Observação</Heading>
                     <Textarea
+                      maxWidth="96%"
                       resize="none"
                       readOnly
                       fontSize="20px"
@@ -296,6 +300,7 @@ export default function SeeMoreAvaliation({
               padding="5px"
               paddingLeft="20px"
               minW="100%"
+              minH="60px"
             >
               {!alternanceObservationandQuestions && (
                 <>
