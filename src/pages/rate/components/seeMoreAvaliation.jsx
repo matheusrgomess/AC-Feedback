@@ -33,7 +33,7 @@ export default function SeeMoreAvaliation({
   getAverageRating,
   getObservation,
   filterValidRatings,
-  stars
+  stars,
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const filteredQuestions = array.filter((item) => item.type === "rate");
@@ -42,7 +42,7 @@ export default function SeeMoreAvaliation({
     setAlternanceObservationandQuestions,
   ] = useState(false);
   const rating = avaliation.questions[currentQuestion].rating;
-  const justifications = avaliation.questions[currentQuestion].justifications;
+  const justification = avaliation.questions[currentQuestion].justification;
 
   const clickNext = () => {
     setCurrentQuestion((prev) => prev + 1);
@@ -57,9 +57,9 @@ export default function SeeMoreAvaliation({
   };
 
   const handleClose = () => {
-    onClose()
-    setCurrentQuestion(0)
-  }
+    onClose();
+    setCurrentQuestion(0);
+  };
 
   const StyledTextarea = styled.textarea`
     font-size: 1em;
@@ -74,10 +74,15 @@ export default function SeeMoreAvaliation({
     outline: none;
     overflow-y: scroll;
 
+    &::-webkit-scrollbar {
+     background-color: white;
+     width: 6px;
+    }
+
     &::-webkit-scrollbar-thumb {
-      background-color: #700e17;
+      background-color: #70011c;
       border-radius: 10px;
-      width: 8px;
+      width: 4px;
     }
 
     &::-webkit-scrollbar-thumb:hover {
@@ -199,7 +204,7 @@ export default function SeeMoreAvaliation({
                         </Text>
                       </Container>
                       <div style={{ display: "flex" }}>
-                        {[...Array(parseInt(stars))].map((_, i) => {
+                        {[...Array(parseInt(5))].map((_, i) => {
                           const ratingValue = i + 1;
 
                           return (
@@ -247,7 +252,7 @@ export default function SeeMoreAvaliation({
                         required
                         readOnly
                         defaultValue={
-                          justifications || "Esta questão não foi justificada"
+                          justification || "Esta questão não foi justificada"
                         }
                       />
                     </Container>
