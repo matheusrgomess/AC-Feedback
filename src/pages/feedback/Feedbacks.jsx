@@ -87,22 +87,6 @@ export default function Feedbacks() {
               maxH="306px"
               overflow="hidden"
               overflowY="auto"
-              css={{
-                "&::-webkit-scrollbar": {
-                  backgroundColor: "#ffffff",
-                  borderRadius: "10px",
-                  width: "8px",
-                  direction: "rtl",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "#700e17",
-                  borderRadius: "10px",
-                  width: "8px",
-                },
-                "&::-webkit-scrollbar-thumb:hover": {
-                  backgroundColor: "#86111c",
-                },
-              }}
             >
               <SubmittedAvaliation avaliations={userAvaliationsCreated} />
             </Container>
@@ -162,22 +146,6 @@ export default function Feedbacks() {
               maxH="306px"
               overflow="hidden"
               overflowY="auto"
-              css={{
-                "&::-webkit-scrollbar": {
-                  backgroundColor: "#ffffff",
-                  borderRadius: "10px",
-                  width: "8px",
-                  direction: "rtl",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "#700e17",
-                  borderRadius: "10px",
-                  width: "8px",
-                },
-                "&::-webkit-scrollbar-thumb:hover": {
-                  backgroundColor: "#86111c",
-                },
-              }}
             >
               <SubmittedAvaliation avaliations={userAvaliations} />
             </Container>

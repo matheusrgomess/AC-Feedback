@@ -73,22 +73,7 @@ export default function SeeMoreAvaliation({
     border-top-left-radius: 0px;
     outline: none;
     overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-     background-color: white;
-     width: 6px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: #70011c;
-      border-radius: 10px;
-      width: 4px;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: #86111c;
-    }
-  `;
+  `
 
   return (
     <div>
@@ -204,7 +189,7 @@ export default function SeeMoreAvaliation({
                         </Text>
                       </Container>
                       <div style={{ display: "flex" }}>
-                        {[...Array(parseInt(5))].map((_, i) => {
+                        {[...Array(parseInt(stars))].map((_, i) => {
                           const ratingValue = i + 1;
 
                           return (
