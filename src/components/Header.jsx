@@ -15,19 +15,19 @@ function Header() {
 
   const routes = [
     {
-      name: "HOME",
+      name: "Home",
       path: "/home"
     },
     {
-      name: "AVALIAR",
+      name: "Avaliar",
       path: "/home/rate"
     },
     {
-      name: "FEEDBACKS",
+      name: "Feedbacks",
       path: "/home/feedbacks"
     },
     {
-      name: "CONFIGURAÇÕES",
+      name: "Configurações",
       path: "/home/settings"
     },
   ]
@@ -41,7 +41,7 @@ function Header() {
       </Container>
       <Container display="flex" justifyContent="space-between" alignItems="center" padding="0px" margin="0px" maxW={getMaxWidth()} >
         {routes.map((route, index) => (
-          (route.name === "CONFIGURAÇÕES" && !verifyAdm) ? null : (
+          (route.name === "Configurações" && !verifyAdm) ? null : (
             <ButtonPages title={route.name} navigate={route.path} key={index} isActualRoute={route.path === location.pathname} />
           )
         ))}

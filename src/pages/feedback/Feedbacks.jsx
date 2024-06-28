@@ -16,16 +16,14 @@ export default function Feedbacks() {
   const [openUserFilter, setOpenUserFilter] = useState(false);
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
   const [selectedUser, setSelectedUser] = useState(user);
-  const [analyzingThisUser, setAnalyzingThisUser] = useState("");
 
   const handleOpenUserFilter = () => {
     setOpenUserFilter(true);
-  }
+  };
 
   const handleCloseUserFilter = () => {
     setOpenUserFilter(false);
-    setSelectedUser(analyzingThisUser || user)
-  }
+  };
 
   const handleOpenFilters = () => {
     setOpenFilters(true);
@@ -35,17 +33,14 @@ export default function Feedbacks() {
     setOpenFilters(false);
   };
 
-  const changingUser = (event) => {
-    setSelectedUser(event.target.value)
-  }
-
-  const filtredUser = () => {
-    handleCloseUserFilter()
-    setAnalyzingThisUser(selectedUser)
-  }
-
-  const userAvaliations = formatUserFeedbacks(avaliations, analyzingThisUser || user);
-  const userAvaliationsCreated = formatUserFeedbacksCreated(avaliations, analyzingThisUser || user);
+  const userAvaliations = formatUserFeedbacks(
+    avaliations,
+    selectedUser || user
+  );
+  const userAvaliationsCreated = formatUserFeedbacksCreated(
+    avaliations,
+    selectedUser || user
+  );
 
   return (
     <div
@@ -58,15 +53,27 @@ export default function Feedbacks() {
         alignItems: "center",
       }}
     >
-      {verifyAdm ?
+      {verifyAdm ? (
         <>
-          <Button pos="absolute" top="200px" onClick={handleOpenUserFilter} background="transparent" border="1px solid" color="white" _hover={{}} _active={{ background: "rgba(0, 0, 0, 0.26)" }}>
+          <Button
+            pos="absolute"
+            top="200px"
+            onClick={handleOpenUserFilter}
+            background="transparent"
+            border="1px solid"
+            color="white"
+            _hover={{}}
+            _active={{ background: "rgba(0, 0, 0, 0.26)" }}
+          >
             Filtrar por usuário
           </Button>
-          <ModalUserSelect isOpen={openUserFilter} onClose={handleCloseUserFilter} user={user} selectedUser={selectedUser} filtredUser={filtredUser} analyzingThisUser={analyzingThisUser} changingUser={changingUser} />
-        </> : null
-
-      }
+          <ModalUserSelect
+            isOpen={openUserFilter}
+            onClose={handleCloseUserFilter}
+            setSelectedUser={setSelectedUser}
+          />
+        </>
+      ) : null}
       <ModalFilter isOpen={openFilters} onClose={handleCloseFilters} />
       {userAvaliationsCreated && userAvaliationsCreated.length > 0 ? (
         <Container
@@ -123,7 +130,10 @@ export default function Feedbacks() {
               overflow="hidden"
               overflowY="auto"
             >
-              <SubmittedAvaliation avaliations={userAvaliationsCreated} user={selectedUser} />
+              <SubmittedAvaliation
+                avaliations={userAvaliationsCreated}
+                user={selectedUser}
+              />
             </Container>
           </Container>
         </Container>
@@ -187,7 +197,10 @@ export default function Feedbacks() {
               overflow="hidden"
               overflowY="auto"
             >
-              <SubmittedAvaliation avaliations={userAvaliations} user={selectedUser} />
+              <SubmittedAvaliation
+                avaliations={userAvaliations}
+                user={selectedUser}
+              />
             </Container>
           </Container>
         </Container>

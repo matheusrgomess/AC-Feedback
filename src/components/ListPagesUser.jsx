@@ -3,7 +3,7 @@ import { Button, ListItem } from "@chakra-ui/react";
 import { useNavigate, useLocation, matchPath } from "react-router-dom";
 import AlertExitPage from './AlertExitPage';
 
-export default function ListPagesUser({ title, navigate, isActualRoute }) {
+export default function ListPagesUser({ title, navigate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const nav = useNavigate();
     const location = useLocation();

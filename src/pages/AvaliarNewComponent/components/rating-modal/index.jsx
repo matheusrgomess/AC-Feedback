@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -11,22 +11,28 @@ import {
   Container,
   Select,
 } from "@chakra-ui/react";
+// import { listParticipants } from "services/participants";
+import formattingText from "utils/formattingText";
+import { listParticipants } from "services/participants";
 
 export default function RatingModal({ isOpen, handleClose, handleClick }) {
   const [selectedOption, setSelectedOption] = useState("");
-  const user = localStorage.getItem("user")
+  const user = localStorage.getItem("user");
+  const [participants, setParticipants] = useState([]);
 
-  const reviewers = [
-    { value: "arthur", label: "Arthur" },
-    { value: "cilene", label: "Cilene" },
-    { value: "dunia", label: "Dúnia" },
-    { value: "eduardo", label: "Eduardo" },
-    { value: "juan", label: "Juan" },
-    { value: "matheus-eyng", label: "Matheus Eyng" },
-    { value: "matheus-gomes", label: "Matheus Gomes" },
-    { value: "pablo", label: "Pablo" },
-    { value: "tomas", label: "Tomás" },
-  ]
+  const fetchParticipants = async () => {
+    try {
+      const response = await listParticipants();
+      setParticipants(response.participants);
+    } catch (error) {
+      console.error(error);
+    }
+  
+  };
+
+  useEffect(() => {
+    fetchParticipants();
+  }, []);
 
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
@@ -56,11 +62,11 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
                 onChange={handleSelectChange}
                 value={selectedOption}
               >
-                {reviewers
-                  .filter(reviewer => reviewer.value !== user)
-                  .map(reviewer => (
-                    <option key={reviewer.value} value={reviewer.value}>
-                      {reviewer.label}
+                {participants
+                  ?.filter((participant) => participant.name !== user)
+                  .map((reviewer) => (
+                    <option key={reviewer.name} value={reviewer.name}>
+                      {formattingText(reviewer.name)}
                     </option>
                   ))}
               </Select>
