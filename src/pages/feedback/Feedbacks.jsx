@@ -1,4 +1,4 @@
-import { Container, Heading, Button, Modal, ModalOverlay, ModalContent, ModalHeader, CloseButton, ModalBody, Select, ModalFooter, Divider, Icon } from "@chakra-ui/react";
+import { Container, Heading, Button } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/printingAvaliations";
 import {
   formatUserFeedbacks,
@@ -6,6 +6,7 @@ import {
 } from "../../utils/format-avaliations";
 import { useState } from "react";
 import ModalFilter from "./components/modalFilter";
+import ModalUserSelect from "./components/modalUserSelect";
 
 export default function Feedbacks() {
   const user = localStorage.getItem("user");
@@ -14,7 +15,7 @@ export default function Feedbacks() {
   const [openUserFilter, setOpenUserFilter] = useState(false);
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
   const [selectedUser, setSelectedUser] = useState(user);
-  const [analyzingThisUser, setAnalyzingThisUser] = useState("")
+  const [analyzingThisUser, setAnalyzingThisUser] = useState("");
 
   const handleOpenUserFilter = () => {
     setOpenUserFilter(true);
@@ -32,19 +33,6 @@ export default function Feedbacks() {
   const handleCloseFilters = () => {
     setOpenFilters(false);
   };
-
-  const users = [
-    { value: "admin", label: "Você" },
-    { value: "arthur", label: "Arthur" },
-    { value: "cilene", label: "Cilene" },
-    { value: "dunia", label: "Dúnia" },
-    { value: "eduardo", label: "Eduardo" },
-    { value: "juan", label: "Juan" },
-    { value: "matheus-eyng", label: "Matheus Eyng" },
-    { value: "matheus-gomes", label: "Matheus Gomes" },
-    { value: "pablo", label: "Pablo" },
-    { value: "tomas", label: "Tomás" },
-  ]
 
   const changingUser = (event) => {
     setSelectedUser(event.target.value)
@@ -74,46 +62,7 @@ export default function Feedbacks() {
           <Button pos="absolute" top="200px" onClick={handleOpenUserFilter} background="transparent" border="1px solid" color="white" _hover={{}} _active={{ background: "rgba(0, 0, 0, 0.26)" }}>
             Filtrar por usuário
           </Button>
-          <Modal isOpen={openUserFilter} onClose={handleCloseUserFilter} isCentered>
-            <ModalOverlay />
-            <ModalContent background="#212121" color="white" border="1px solid" borderColor="#ffffff">
-              <ModalHeader display="flex" justifyContent="space-between">
-                <Heading>Selecione um usuário<Icon w={3} position="relative" bottom="10px" _hover={{ cursor:"pointer" }} onClick={() => {console.log('click')}} /></Heading>
-                <CloseButton onClick={handleCloseUserFilter} />
-              </ModalHeader>
-              <Container paddingLeft="15px" paddingRight="15px" paddingBottom="25px">
-                <Divider borderColor="red" />
-              </Container>
-              <ModalBody>
-                <Select
-                  value={selectedUser}
-                  onChange={changingUser}
-                >
-                  {users
-                    .map(user => (
-                      <option key={user.value} value={user.value} style={{ color: "black" }}>
-                        {user.label}
-                      </option>
-                    ))}
-                </Select>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  mr={3}
-                  onClick={handleCloseUserFilter}
-                >
-                  Cancelar
-                </Button>
-                <Button
-                  onClick={filtredUser}
-                  colorScheme="red"
-                  isDisabled={selectedUser === ""}
-                >
-                  Filtrar
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
+          <ModalUserSelect isOpen={openUserFilter} onClose={handleCloseUserFilter} user={user} selectedUser={selectedUser} filtredUser={filtredUser} analyzingThisUser={analyzingThisUser} changingUser={changingUser} />
         </> : null
 
       }
