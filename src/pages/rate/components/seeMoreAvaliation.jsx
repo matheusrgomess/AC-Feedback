@@ -24,7 +24,6 @@ import formattingText from "../../../utils/formattingText";
 import { array } from "../array";
 import { useState } from "react";
 import { TiStar } from "react-icons/ti";
-import styled from "@emotion/styled";
 
 export default function SeeMoreAvaliation({
   isOpen,
@@ -60,20 +59,6 @@ export default function SeeMoreAvaliation({
     onClose();
     setCurrentQuestion(0);
   };
-
-  const StyledTextarea = styled.textarea`
-    font-size: 1em;
-    width: 100%;
-    height: 70px;
-    padding: 2px;
-    resize: none;
-    background: transparent;
-    border: 1px solid #971520;
-    border-radius: 6px;
-    border-top-left-radius: 0px;
-    outline: none;
-    overflow-y: scroll;
-  `
 
   return (
     <div>
@@ -233,10 +218,23 @@ export default function SeeMoreAvaliation({
                       <div>
                         <strong>Justificativa</strong>
                       </div>
-                      <StyledTextarea
+                      <textarea
+                        style={{
+                          "fontSize": "1.1em",
+                          "width": "100%",
+                          "height": "70px",
+                          "padding": "2px",
+                          "resize": "none",
+                          "background": "transparent",
+                          "border": "1px solid #971520",
+                          "borderRadius": "6px",
+                          "borderTopLeftRadius": "0px",
+                          "outline": "none",
+                          "overflowY": "scroll",
+                        }}
                         required
                         readOnly
-                        defaultValue={
+                        value={
                           justification || "Esta questão não foi justificada"
                         }
                       />
@@ -262,21 +260,6 @@ export default function SeeMoreAvaliation({
                       focusBorderColor="#ffffff"
                       overflow="hidden"
                       overflowY="auto"
-                      css={{
-                        "&::-webkit-scrollbar": {
-                          borderRadius: "10px",
-                          width: "6px",
-                          direction: "rtl",
-                        },
-                        "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: "#700e17",
-                          borderRadius: "10px",
-                          width: "6px",
-                        },
-                        "&::-webkit-scrollbar-thumb:hover": {
-                          backgroundColor: "#86111c",
-                        },
-                      }}
                       defaultValue={getObservation(avaliation.questions).rating}
                     />
                   </Container>
