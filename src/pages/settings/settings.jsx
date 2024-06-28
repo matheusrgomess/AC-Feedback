@@ -6,7 +6,7 @@ import {
     InputGroup,
     InputRightAddon,
     Input,
-    UnorderedList,
+    OrderedList,
     ListItem,
     NumberInput,
     NumberInputField,
@@ -217,18 +217,18 @@ export default function Settings() {
                         </InputGroup>
                     }
                     <Container borderLeft="1px solid" borderLeftColor="white" marginTop="20px">
-                        <UnorderedList width="100%">
+                        <OrderedList width="100%">
                             {questionsInput
                                 .filter(item => item.type !== "observations")
                                 .map((item, index) => (
-                                    <ListItem key={index} id="tasks" color="#ffffff">
+                                    <ListItem key={index} id="tasks" color="#ffffff" marginBottom="10px">
                                         <Text _hover={{ cursor: "pointer" }} onClick={() => handleEditQuestion(index)}>
                                             <strong>{item.question}</strong>
                                             <EditIcon marginLeft="5px" />
                                         </Text>
                                     </ListItem>
                                 ))}
-                        </UnorderedList>
+                        </OrderedList>
                     </Container>
                 </Container>
             </Container>
@@ -251,21 +251,6 @@ export default function Settings() {
                                 resize="none"
                                 onChange={(e) => setEditDescription(e.target.value)}
                                 placeholder="Digite aqui"
-                                css={{
-                                    "&::-webkit-scrollbar": {
-                                        borderRadius: "10px",
-                                        width: "6px",
-                                        direction: "rtl",
-                                    },
-                                    "&::-webkit-scrollbar-thumb": {
-                                        backgroundColor: "#700e17",
-                                        borderRadius: "10px",
-                                        width: "6px",
-                                    },
-                                    "&::-webkit-scrollbar-thumb:hover": {
-                                        backgroundColor: "#86111c",
-                                    },
-                                }}
                             />
                         </FormControl>
                     </ModalBody>

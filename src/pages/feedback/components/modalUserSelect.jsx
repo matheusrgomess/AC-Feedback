@@ -1,7 +1,30 @@
-import { Button, Text, Modal, ModalOverlay, ModalHeader, ModalBody, ModalFooter, ModalContent, CloseButton, Container, Divider, Select, Tooltip, Icon, Heading } from "@chakra-ui/react"
+import { 
+    Button, 
+    Text, 
+    Modal, 
+    ModalOverlay, 
+    ModalHeader, 
+    ModalBody, 
+    ModalFooter, 
+    ModalContent, 
+    CloseButton, 
+    Container, 
+    Divider, 
+    Select, 
+    Tooltip, 
+    Icon, 
+    Heading 
+} from "@chakra-ui/react"
 import formattingText from "utils/formattingText"
 
-export default function ModalUserSelect({ isOpen, onClose, selectedUser, filtredUser, analyzingThisUser, changingUser }) {
+export default function ModalUserSelect({
+    isOpen,
+    onClose,
+    selectedUser,
+    filtredUser,
+    analyzingThisUser,
+    changingUser
+}) {
     const user = localStorage.getItem("user");
 
     const users = [
@@ -24,7 +47,7 @@ export default function ModalUserSelect({ isOpen, onClose, selectedUser, filtred
                 <ModalContent background="#212121" color="white">
                     <ModalHeader display="flex" justifyContent="space-between">
                         <Heading>Selecione um usuário<Tooltip
-                            label="Nesse Modal, é possível definir qual usuário você deseja para visualizar os feedbacks relacionados a ele."
+                            label="Neste modal, você pode selecionar um usuário para ver seus feedbacks."
                             aria-label="tooltip explicando como funciona o filtro de usuários"
                         ><Icon w={3} position="relative" bottom="10px" _hover={{ cursor: "pointer" }} /></Tooltip></Heading>
                         <CloseButton onClick={onClose} />

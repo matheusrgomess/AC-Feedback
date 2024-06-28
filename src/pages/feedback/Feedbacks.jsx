@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import ModalFilter from "./components/modalFilter";
 import ModalUserSelect from "./components/modalUserSelect";
+import { CalendarIcon } from "@chakra-ui/icons";
 
 export default function Feedbacks() {
   const user = localStorage.getItem("user");
@@ -106,8 +107,9 @@ export default function Feedbacks() {
               variant="outline"
               colorScheme="white"
               onClick={handleOpenFilters}
+              padding="0px"
             >
-              Filtrar
+              <CalendarIcon />
             </Button>
           </Container>
           <Container padding="8px">
@@ -165,8 +167,13 @@ export default function Feedbacks() {
             justifyContent="space-between"
           >
             <Heading>Avaliações recebidas:</Heading>
-            <Button variant="outline" colorScheme="white">
-              Filtrar
+            <Button
+              variant="outline"
+              colorScheme="white"
+              onClick={handleOpenFilters}
+              padding="0px"
+            >
+              <CalendarIcon />
             </Button>
           </Container>
           <Container padding="8px">
