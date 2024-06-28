@@ -11,7 +11,6 @@ import {
   Container,
   Select,
 } from "@chakra-ui/react";
-// import { listParticipants } from "services/participants";
 import formattingText from "utils/formattingText";
 import { listParticipants } from "services/participants";
 
