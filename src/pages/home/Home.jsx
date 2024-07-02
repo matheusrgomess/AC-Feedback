@@ -7,6 +7,8 @@ import {
 } from "../../utils/format-avaliations";
 import SubmittedAvaliation from "../rate/components/printingAvaliations";
 import { useNavigate } from "react-router-dom";
+import { createUser } from "services/users";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const user = localStorage.getItem("user");
@@ -17,18 +19,42 @@ export default function Home() {
 
   const nav = useNavigate();
 
+  const saveUser = async () => {
+    const user = {
+      email: "teste123@example.com",
+      name: "Teste User",
+      userType: "PARTICIPANT",
+    };
+
+    try {
+      const response = await createUser({ user: user });
+      toast.success(response.message);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
-    <div style={{
-      height: "inherit",
-      color: "white",
-      backgroundColor: "1c222b",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    }}>
+    <div
+      style={{
+        height: "inherit",
+        color: "white",
+        backgroundColor: "1c222b",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Button onClick={saveUser}>Test User</Button>
       {verifyAdm ? (
         <Container width="300px" textAlign="center">
-          <Text color="#838c90"><strong>Você está em uma conta administradora, nela, é possível fazer alterações nos formulários e visualizar todas as avaliações armazenadas</strong></Text>
+          <Text color="#838c90">
+            <strong>
+              Você está em uma conta administradora, nela, é possível fazer
+              alterações nos formulários e visualizar todas as avaliações
+              armazenadas
+            </strong>
+          </Text>
         </Container>
       ) : (
         <>
@@ -72,7 +98,8 @@ export default function Home() {
                     _hover={{}}
                     onClick={() => {
                       nav("/home/feedbacks");
-                    }}>
+                    }}
+                  >
                     Ver mais
                   </Button>
                 </Container>
@@ -124,7 +151,8 @@ export default function Home() {
                     _active={{ bgColor: "#520a11" }}
                     onClick={() => {
                       nav("/home/feedbacks");
-                    }}>
+                    }}
+                  >
                     Ver mais
                   </Button>
                 </Container>
@@ -139,6 +167,6 @@ export default function Home() {
           )}
         </>
       )}
-    </div >
+    </div>
   );
 }
