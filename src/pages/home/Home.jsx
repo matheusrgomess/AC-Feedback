@@ -30,6 +30,7 @@ export default function Home() {
       const response = await createUser({ user: user });
       toast.success(response.message);
     } catch (error) {
+      console.log(error);
       toast.error(error.message);
     }
   };

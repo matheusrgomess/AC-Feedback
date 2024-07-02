@@ -22,11 +22,11 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
   const fetchParticipants = async () => {
     try {
       const response = await listParticipants();
-      setParticipants(response.participants);
+      console.log(response)
+      setParticipants(response);
     } catch (error) {
       console.error(error);
     }
-  
   };
 
   useEffect(() => {
@@ -61,13 +61,11 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
                 onChange={handleSelectChange}
                 value={selectedOption}
               >
-                {participants
-                  ?.filter((participant) => participant.name !== user)
-                  .map((reviewer) => (
-                    <option key={reviewer.name} value={reviewer.name}>
-                      {formattingText(reviewer.name)}
-                    </option>
-                  ))}
+                {participants.map((reviewer) => (
+                  <option key={reviewer.name} value={reviewer.name}>
+                    {reviewer.name}
+                  </option>
+                ))}
               </Select>
             </Container>
           </ModalBody>
