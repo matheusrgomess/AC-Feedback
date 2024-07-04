@@ -15,11 +15,12 @@ export default function RateParticipantScreen() {
   const [justification, setJustification] = useState("");
   const [hover, setHover] = useState(null);
   const [questions, setQuestions] = useState([]);
+  const user = JSON.parse(localStorage.getItem("user"))
   const savedAvaliations =
     JSON.parse(localStorage.getItem("avaliations")) || [];
 
   const avaliation = {
-    reviewer: localStorage.getItem("user") || "",
+    reviewer: user.name || "",
     reviewed: participant,
     questions: questions,
     stars: localStorage.getItem("numberStars"),

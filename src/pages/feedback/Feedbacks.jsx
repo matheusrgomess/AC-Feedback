@@ -10,12 +10,12 @@ import ModalUserSelect from "./components/modalUserSelect";
 import { CalendarIcon } from "@chakra-ui/icons";
 
 export default function Feedbacks() {
-  const user = localStorage.getItem("user");
+  const user = JSON.parse(localStorage.getItem("user"));
   const avaliations = JSON.parse(localStorage.getItem("avaliations") || "[]");
   const [openFilters, setOpenFilters] = useState(false);
   const [openUserFilter, setOpenUserFilter] = useState(false);
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
-  const [selectedUser, setSelectedUser] = useState(user);
+  const [selectedUser, setSelectedUser] = useState(user.name);
 
   const handleOpenUserFilter = () => {
     setOpenUserFilter(true);
@@ -35,11 +35,11 @@ export default function Feedbacks() {
 
   const userAvaliations = formatUserFeedbacks(
     avaliations,
-    selectedUser || user
+    selectedUser || user.name
   );
   const userAvaliationsCreated = formatUserFeedbacksCreated(
     avaliations,
-    selectedUser || user
+    selectedUser || user.name
   );
 
   return (

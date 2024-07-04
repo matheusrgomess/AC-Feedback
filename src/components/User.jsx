@@ -22,7 +22,7 @@ import ListPagesUser from "./ListPagesUser";
 export default function User() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const nav = useNavigate();
-    const user = localStorage.getItem("user");
+    const user = JSON.parse(localStorage.getItem("user"));
     const location = useLocation();
     const verifyAdm = localStorage.getItem("isAdmin") === "true";
 
@@ -73,7 +73,7 @@ export default function User() {
                         <Text color="white">
                             <strong>
                                 Olá,
-                                {formatiingText(user)}!
+                                {formatiingText(user.name)}!
                             </strong>
                         </Text>
                     </Container>

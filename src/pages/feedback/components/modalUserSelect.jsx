@@ -19,7 +19,7 @@ import { useState } from "react";
 import formattingText from "utils/formattingText";
 
 export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
-  const user = localStorage.getItem("user");
+  const user = JSON.parse(localStorage.getItem("user"));
   const [selectedUserFilter, setSelectedUserFilter] = useState("");
 
   const handleCloseModal = () => {
@@ -27,16 +27,15 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
     setSelectedUser(selectedUserFilter);
   };
   const users = [
-    { value: "admin", label: "Você" },
-    { value: "arthur", label: "Arthur" },
-    { value: "cilene", label: "Cilene" },
-    { value: "dunia", label: "Dúnia" },
-    { value: "eduardo", label: "Eduardo" },
-    { value: "juan", label: "Juan" },
+    { value: "pablo-montezano", label: "Você" },
+    { value: "arthur-moreira", label: "Arthur" },
+    { value: "cilene-silva", label: "Cilene" },
+    { value: "dunia-marchiori", label: "Dúnia" },
+    { value: "eduardo-goncalves", label: "Eduardo" },
+    { value: "juan-lima", label: "Juan" },
     { value: "matheus-eyng", label: "Matheus Eyng" },
     { value: "matheus-gomes", label: "Matheus Gomes" },
-    { value: "pablo", label: "Pablo" },
-    { value: "tomas", label: "Tomás" },
+    { value: "tomas-bayer", label: "Tomás" },
   ];
 
   return (
@@ -65,7 +64,7 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
             <Divider borderColor="red" marginBottom="4px" />
             <Text>
               Usuário selecionado neste momento:{" "}
-              <strong>{formattingText(selectedUserFilter || user)}</strong>
+              <strong>{formattingText(selectedUserFilter || user.name)}</strong>
             </Text>
           </Container>
           <ModalBody padding="15px">

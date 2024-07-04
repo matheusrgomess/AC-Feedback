@@ -11,18 +11,18 @@ import { createUser } from "services/users";
 import { toast } from "react-toastify";
 
 export default function Home() {
-  const user = localStorage.getItem("user");
+  const user = JSON.parse(localStorage.getItem("user"));
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
   const avaliations = JSON.parse(localStorage.getItem("avaliations") || "[]");
-  const userAvaliations = formatUserFeedbacks(avaliations, user);
-  const userAvaliationsCreated = formatUserFeedbacksCreated(avaliations, user);
+  const userAvaliations = formatUserFeedbacks(avaliations, user.name);
+  const userAvaliationsCreated = formatUserFeedbacksCreated(avaliations, user.name);
 
   const nav = useNavigate();
 
   const saveUser = async () => {
     const user = {
-      email: "teste123@example.com",
-      name: "Teste User",
+      email: "eduardo.goncalves@acdigital.com.br",
+      name: "eduardo-goncalves",
       userType: "PARTICIPANT",
     };
 

@@ -16,9 +16,13 @@ export default function Autentificacao() {
     password: valuePassword
   }
 
-  const userValidation = async (user) => {
+  const loginUser = async (user) => {
     try {
       const response = await authentifyUser({ user: user });
+      localStorage.setItem('user', JSON.stringify(response.data))
+      const responseParse = JSON.parse(JSON.stringify(response.data))
+      localStorage.setItem("isAdmin", responseParse.role === "ADMIN");
+      navigate("/home");
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -26,8 +30,7 @@ export default function Autentificacao() {
   }
 
   const handleClick = () => {
-    navigate("/home");
-    userValidation(user)
+    loginUser(user)
   };
 
   return (
