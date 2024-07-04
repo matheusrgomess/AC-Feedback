@@ -4,33 +4,30 @@ import Inputs from "./components/Inputs";
 import BackgroundImage from "../../assets/backgroundlogo.png";
 import Banner from "../../assets/bannerlogo.png";
 import { useState } from "react";
+import { authentifyUser } from "services/authentificationUsers";
+import { toast } from "react-toastify";
 
 export default function Autentificacao() {
   const navigate = useNavigate();
-  const [valueUser, setValueUser] = useState("");
+  const [valueEmail, setValueEmail] = useState("");
+  const [valuePassword, setValuePassword] = useState("");
+  const user = {
+    email: valueEmail,
+    password: valuePassword
+  }
 
-  const modValueUser = (event) => {
-    const newValueUser = event.target.value;
-    setValueUser(newValueUser);
-  };
-
-  const normalizeName = (str) => {
-    const nameWithoutDiacritics = str
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-    const formattedName = nameWithoutDiacritics
-      .trim()
-      .toLowerCase()
-      .replace(/ /g, "-");
-    return formattedName;
-  };
+  const userValidation = async (user) => {
+    try {
+      const response = await authentifyUser({ user: user });
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  }
 
   const handleClick = () => {
     navigate("/home");
-    const formattedName = normalizeName(valueUser);
-
-    localStorage.setItem("user", formattedName);
-    localStorage.setItem("isAdmin", formattedName === "admin");
+    userValidation(user)
   };
 
   return (
@@ -68,11 +65,17 @@ export default function Autentificacao() {
           <Inputs
             title="Email"
             placeholder="nome.sobrenome@acdigital.com.br"
-            value={valueUser}
-            onChange={modValueUser}
+            value={valueEmail}
+            onChange={(event) => { setValueEmail(event.target.value) }}
           />
-          <Inputs type="password" title="Senha" placeholder="Senha" />
-          {valueUser === "" ? (
+          <Inputs
+            type="password"
+            title="Senha"
+            placeholder="Senha"
+            value={valuePassword}
+            onChange={(event) => { setValuePassword(event.target.value) }}
+          />
+          {valueEmail === "" || valuePassword === "" ? (
             <Button isDisabled marginBottom="20px" bg="transparent">
               Entrar
             </Button>

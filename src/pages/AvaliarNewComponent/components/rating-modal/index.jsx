@@ -16,13 +16,11 @@ import { listParticipants } from "services/participants";
 
 export default function RatingModal({ isOpen, handleClose, handleClick }) {
   const [selectedOption, setSelectedOption] = useState("");
-  const user = localStorage.getItem("user");
   const [participants, setParticipants] = useState([]);
 
   const fetchParticipants = async () => {
     try {
       const response = await listParticipants();
-      console.log(response)
       setParticipants(response);
     } catch (error) {
       console.error(error);
@@ -63,7 +61,7 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
               >
                 {participants.map((reviewer) => (
                   <option key={reviewer.name} value={reviewer.name}>
-                    {reviewer.name}
+                    {formattingText(reviewer.name)}
                   </option>
                 ))}
               </Select>
