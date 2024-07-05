@@ -7,8 +7,6 @@ import {
 } from "../../utils/format-avaliations";
 import SubmittedAvaliation from "../rate/components/printingAvaliations";
 import { useNavigate } from "react-router-dom";
-import { createUser } from "services/users";
-import { toast } from "react-toastify";
 
 export default function Home() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -18,22 +16,6 @@ export default function Home() {
   const userAvaliationsCreated = formatUserFeedbacksCreated(avaliations, user.name);
 
   const nav = useNavigate();
-
-  const saveUser = async () => {
-    const user = {
-      email: "eduardo.goncalves@acdigital.com.br",
-      name: "eduardo-goncalves",
-      userType: "PARTICIPANT",
-    };
-
-    try {
-      const response = await createUser({ user: user });
-      toast.success(response.message);
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-    }
-  };
 
   return (
     <div
@@ -46,7 +28,6 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      <Button onClick={saveUser}>Test User</Button>
       {verifyAdm ? (
         <Container width="300px" textAlign="center">
           <Text color="#838c90">

@@ -30,6 +30,7 @@ export default function User() {
         if (matchPath("/rate-participant/:participant", location.pathname)) {
             setIsModalOpen(true);
         } else {
+            localStorage.removeItem("user")
             nav("/");
         }
     }
@@ -80,7 +81,7 @@ export default function User() {
                     <Container border="2px solid" borderColor="#971520" borderBottomRadius="6px" paddingTop="10px" minH="84px" paddingLeft="0px">
                         <Container borderLeft="1px solid" paddingLeft="5px" marginLeft="7px">
                             <Text>
-                                <strong style={{textTransform: "uppercase"}}>Pages</strong>
+                                <strong style={{textTransform: "uppercase"}}>Páginas</strong>
                             </Text>
                             <UnorderedList styleType="'- '" position="relative" right="5px">
                                 {routes.map((route, index) => (

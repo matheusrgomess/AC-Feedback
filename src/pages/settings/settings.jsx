@@ -29,6 +29,7 @@ import { EditIcon, CheckIcon, SettingsIcon } from "@chakra-ui/icons";
 import PartConfig from "./components/partConfig";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { createUser } from "services/users";
 
 export default function Settings() {
     const [showADDInput, setShowADDInput] = useState(false);
@@ -119,6 +120,23 @@ export default function Settings() {
         }
     };
 
+
+    const saveUser = async () => {
+        const user = {
+          email: "teste@gmail.com.br",
+          name: "teste-teste",
+          userType: "PARTICIPANT",
+        };
+    
+        try {
+          const response = await createUser({ user: user });
+          toast.success(response.message);
+        } catch (error) {
+          console.log(error);
+          toast.error(error.message);
+        }
+      };
+
     return (
         <div
             style={{
@@ -130,6 +148,7 @@ export default function Settings() {
                 alignItems: "center",
             }}
         >
+            <Button onClick={saveUser}>Adicionar Usuário</Button>
             <Container
                 border="2px solid"
                 borderColor="#971520"

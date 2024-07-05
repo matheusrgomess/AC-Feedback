@@ -16,7 +16,7 @@ export default function InputJustification({
         }}
         value={justification}
         isDisabled={rating === null || rating === 0}
-        borderColor={rating === null || rating === 0 ? "" : "#971520"}
+        borderColor={rating === null || rating === 0 ? "#971520" : ""}
         _hover={{}}
       />
     </>
