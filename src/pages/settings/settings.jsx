@@ -29,7 +29,7 @@ import { EditIcon, CheckIcon, SettingsIcon } from "@chakra-ui/icons";
 import PartConfig from "./components/partConfig";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { createUser } from "services/users";
+import EditParticipants from "./components/editParticipants";
 
 export default function Settings() {
     const [showADDInput, setShowADDInput] = useState(false);
@@ -120,23 +120,6 @@ export default function Settings() {
         }
     };
 
-
-    const saveUser = async () => {
-        const user = {
-          email: "teste@gmail.com.br",
-          name: "teste-teste",
-          userType: "PARTICIPANT",
-        };
-    
-        try {
-          const response = await createUser({ user: user });
-          toast.success(response.message);
-        } catch (error) {
-          console.log(error);
-          toast.error(error.message);
-        }
-      };
-
     return (
         <div
             style={{
@@ -148,7 +131,7 @@ export default function Settings() {
                 alignItems: "center",
             }}
         >
-            <Button onClick={saveUser}>Adicionar Usuário</Button>
+            
             <Container
                 border="2px solid"
                 borderColor="#971520"
@@ -185,6 +168,23 @@ export default function Settings() {
                             <NumberDecrementStepper color="white" />
                         </NumberInputStepper>
                     </NumberInput>
+                    
+                </Container>
+                <Container
+                    margin="0px"
+                    padding="0px"
+                    w="70%"
+                    h="45px"
+                    borderBottom="2px solid"
+                    borderColor="#808080"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    paddingRight="6px"
+                    paddingBottom="5px"
+                    marginBottom="15px"
+                >
+                    <EditParticipants />
                 </Container>
                 <Container padding="10px" borderRadius="6px">
                     <Container padding="0px" width="100%" display="flex" alignItems="center" justifyContent="space-between">
@@ -259,11 +259,11 @@ export default function Settings() {
                     <ModalCloseButton />
                     <ModalBody>
                         <FormControl>
-                            <FormLabel>Título:</FormLabel>
+                            <FormLabel><strong>Título:</strong></FormLabel>
                             <Input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
                         </FormControl>
                         <FormControl mt={4}>
-                            <FormLabel>Descrição:</FormLabel>
+                            <FormLabel><strong>Descrição:</strong></FormLabel>
                             <Textarea
                                 value={editDescription}
                                 height="150px"
