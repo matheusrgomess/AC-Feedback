@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Text, Button, Textarea, Image } from "@chakra-ui/react";
-import { array } from "../array";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -13,13 +12,14 @@ export default function ObservationsPage({
   avaliation,
   saveAvaliation,
 }) {
+  const arrayQuestions = JSON.parse(localStorage.getItem("questionsList"))
   const navigate = useNavigate();
   const [observation, setObservation] = useState("");
 
   const handleClick = () => {
     const updatedQuestions = [
       ...questions,
-      { question: array[currentQuestion].question, rating: observation },
+      { question: arrayQuestions[currentQuestion].question, rating: observation },
     ];
     const updatedAvaliation = {
       ...avaliation,

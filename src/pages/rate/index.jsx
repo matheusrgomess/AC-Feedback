@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Heading, Progress, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { array } from "./array";
 import { useState } from "react";
 import ObservationsPage from "./components/observationsPage";
 import QuestionsPage from "./components/questionsPage";
@@ -16,6 +15,7 @@ export default function RateParticipantScreen() {
   const [hover, setHover] = useState(null);
   const [questions, setQuestions] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"))
+  const arrayQuestions = JSON.parse(localStorage.getItem("questionsList"))
   const savedAvaliations =
     JSON.parse(localStorage.getItem("avaliations")) || [];
 
@@ -41,7 +41,7 @@ export default function RateParticipantScreen() {
 
   const handleAvaliation = (rating) => {
     const newQuestion = {
-      question: array[currentQuestion].question,
+      question: arrayQuestions[currentQuestion].question,
       rating: rating,
       justification: justification,
     };
@@ -114,11 +114,11 @@ export default function RateParticipantScreen() {
                     {questions[currentQuestion].rating}
                   </span>
                 )}
-                <Heading>{array[currentQuestion].question}</Heading>
-                <Text>{array[currentQuestion].questionDescription}</Text>
+                <Heading>{arrayQuestions[currentQuestion].question}</Heading>
+                <Text>{arrayQuestions[currentQuestion].questionDescription}</Text>
               </Container>
               <Container>
-                {array[currentQuestion].type === "rate" ? (
+                {arrayQuestions[currentQuestion].type === "rate" ? (
                   <QuestionsPage
                     participant={participant}
                     hover={hover}
@@ -168,7 +168,7 @@ export default function RateParticipantScreen() {
         <Container>
           <Progress
             value={currentQuestion}
-            max={array.length - 1}
+            max={arrayQuestions.length - 1}
             borderRadius="20px"
             colorScheme="red"
             size="xs"

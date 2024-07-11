@@ -1,9 +1,10 @@
 import { Container, Button } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { array } from "../array";
 import { toast } from "react-toastify";
 
 export default function ButtonRate({ currentQuestion, handleNextQuestion, handlePreviousQuestion, rating }) {
+    const arrayQuestions = JSON.parse(localStorage.getItem("questionsList"))
+
     return (
         <Container
             padding="0px"
@@ -24,7 +25,7 @@ export default function ButtonRate({ currentQuestion, handleNextQuestion, handle
                     <ArrowLeftIcon color="#ffffff" />
                 </Button>
             )}
-            {currentQuestion !== array.length - 1 && (
+            {currentQuestion !== arrayQuestions.length - 1 && (
                 rating === null || rating === 0 ?
                     <Button
                         padding="0px"

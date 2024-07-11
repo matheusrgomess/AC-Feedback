@@ -21,7 +21,6 @@ import {
   ArrowRightIcon,
 } from "@chakra-ui/icons";
 import formattingText from "../../../utils/formattingText";
-import { array } from "../array";
 import { useState } from "react";
 import { TiStar } from "react-icons/ti";
 
@@ -34,8 +33,9 @@ export default function SeeMoreAvaliation({
   filterValidRatings,
   stars,
 }) {
+  const arrayQuestions = JSON.parse(localStorage.getItem("questionsList"))
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const filteredQuestions = array.filter((item) => item.type === "rate");
+  const filteredQuestions = arrayQuestions.filter((item) => item.type === "rate");
   const [
     alternanceObservationandQuestions,
     setAlternanceObservationandQuestions,
