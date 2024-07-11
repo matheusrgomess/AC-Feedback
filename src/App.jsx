@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Autentificacao from "./pages/login/Authentification";
+import Authentification from "./pages/login/authentification";
 import Home from "./pages/home/Home";
 import Feedbacks from "./pages/feedback/Feedbacks";
 import AvaliarNewComponent from "./pages/AvaliarNewComponent";
@@ -30,7 +30,7 @@ function App() {
         <Header />
 
         <Routes>
-          <Route path="/" element={<Autentificacao />} />
+          <Route path="/" element={<Authentification />} />
           <Route path="/home" element={<Home />} />
           <Route path="/home/rate" element={<AvaliarNewComponent />} />
           <Route

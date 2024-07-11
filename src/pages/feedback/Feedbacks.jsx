@@ -1,5 +1,5 @@
 import { Container, Heading, Button } from "@chakra-ui/react";
-import SubmittedAvaliation from "../rate/components/printingAvaliations";
+import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 import {
   formatUserFeedbacks,
   formatUserFeedbacksCreated,

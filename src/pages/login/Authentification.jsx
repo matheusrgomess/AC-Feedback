@@ -7,7 +7,7 @@ import { useState } from "react";
 import { authentifyUser } from "services/authentificationUsers";
 import { toast } from "react-toastify";
 
-export default function Autentificacao() {
+export default function Authentification() {
   const navigate = useNavigate();
   const [valueEmail, setValueEmail] = useState("");
   const [valuePassword, setValuePassword] = useState("");
