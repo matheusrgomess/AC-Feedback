@@ -73,7 +73,7 @@ export default function User() {
                     <Container bgColor="#971520" borderTopRadius="6px" padding="5px">
                         <Text color="white">
                             <strong>
-                                Olá,
+                                Olá,{" "}
                                 {formatiingText(user.name)}!
                             </strong>
                         </Text>

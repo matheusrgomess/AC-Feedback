@@ -37,9 +37,6 @@ export default function EditParticipants() {
         fetchParticipants();
     }, []);
 
-    const participantNames = participants.map(participant => participant.name);
-    console.log(participantNames)
-
     const handleClose = () => {
         setShowInputsNewUser(false)
         setIsOpen(false)
@@ -75,7 +72,7 @@ export default function EditParticipants() {
                         <Text fontSize="18px">Esses são todos os usuários cadastrados:</Text>
                         <UnorderedList>
                             {participants.map(participant =>
-                                <ListItem color="#ffffff" marginBottom="10px">
+                                <ListItem key={participant.name} color="#ffffff" marginBottom="10px">
                                     <Text>
                                         <strong>{formattingText(participant.name)}</strong>
                                     </Text>

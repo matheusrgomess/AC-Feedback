@@ -15,28 +15,32 @@ import {
   Icon,
   Heading,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import formattingText from "utils/formattingText";
+import { listParticipants } from "services/participants";
 
 export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const [selectedUserFilter, setSelectedUserFilter] = useState("");
+  const [participants, setParticipants] = useState([]);
 
   const handleCloseModal = () => {
     onClose();
     setSelectedUser(selectedUserFilter);
   };
-  const users = [
-    { value: "pablo-montezano", label: "Você" },
-    { value: "arthur-moreira", label: "Arthur" },
-    { value: "cilene-silva", label: "Cilene" },
-    { value: "dunia-marchiori", label: "Dúnia" },
-    { value: "eduardo-goncalves", label: "Eduardo" },
-    { value: "juan-lima", label: "Juan" },
-    { value: "matheus-eyng", label: "Matheus Eyng" },
-    { value: "matheus-gomes", label: "Matheus Gomes" },
-    { value: "tomas-bayer", label: "Tomás" },
-  ];
+
+  const fetchParticipants = async () => {
+    try {
+      const response = await listParticipants();
+      setParticipants(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchParticipants();
+  }, []);
 
   return (
     <>
@@ -75,13 +79,20 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
               value={selectedUserFilter}
               onChange={(e) => setSelectedUserFilter(e.target.value)}
             >
-              {users.map((user) => (
+              <option
+                key={user.name}
+                value={user.name}
+                style={{ color: "black" }}
+              >
+                Você
+              </option>
+              {participants.map((user) => (
                 <option
-                  key={user.value}
-                  value={user.value}
+                  key={user.name}
+                  value={user.name}
                   style={{ color: "black" }}
                 >
-                  {user.label}
+                  {formattingText(user.name)}
                 </option>
               ))}
             </Select>
@@ -99,7 +110,7 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
             </Button>
           </ModalFooter>
         </ModalContent>
-      </Modal>
+      </Modal >
     </>
   );
 }
