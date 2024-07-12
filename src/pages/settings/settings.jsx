@@ -14,6 +14,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import EditParticipants from "./components/editParticipants";
 import ListAvaliations from "./components/listAvaliations";
+import CreatingGroupAvaliations from "./components/creatingGroupAvaliations";
 
 export default function Settings() {
     const [showADDInput, setShowADDInput] = useState(false);
@@ -115,7 +116,7 @@ export default function Settings() {
                 alignItems: "center",
             }}
         >
-            
+
             <Container
                 border="2px solid"
                 borderColor="#971520"
@@ -152,7 +153,7 @@ export default function Settings() {
                             <NumberDecrementStepper color="white" />
                         </NumberInputStepper>
                     </NumberInput>
-                    
+
                 </Container>
                 <Container
                     margin="0px"
@@ -170,7 +171,7 @@ export default function Settings() {
                 >
                     <EditParticipants />
                 </Container>
-                <ListAvaliations 
+                <ListAvaliations
                     setShowADDInput={setShowADDInput}
                     showADDInput={showADDInput}
                     inputValue={inputValue}
@@ -188,6 +189,7 @@ export default function Settings() {
                     isOpen={isOpen}
                     onClose={onClose}
                 />
+                <CreatingGroupAvaliations />
             </Container>
         </div>
     );

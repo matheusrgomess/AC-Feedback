@@ -215,7 +215,13 @@ export default function SeeMoreAvaliation({
                       flexDirection="column"
                       bottom="20px"
                     >
-                      <div>
+                      <div style={{
+                        background: "#971520",
+                        width: "110px",
+                        paddingLeft: "4px",
+                        borderTopLeftRadius: "2px",
+                        borderTopRightRadius: "2px",
+                      }}>
                         <strong>Justificativa</strong>
                       </div>
                       <textarea
