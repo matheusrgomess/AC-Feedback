@@ -33,7 +33,10 @@ export default function SeeMoreAvaliation({
   filterValidRatings,
   stars,
 }) {
-  const arrayQuestions = JSON.parse(localStorage.getItem("questionsList"))
+  const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
+  const arrayQuestions = questionGroups
+    .filter(group => group.isSelected)
+    .flatMap(group => group.questions);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const filteredQuestions = arrayQuestions.filter((item) => item.type === "rate");
   const [

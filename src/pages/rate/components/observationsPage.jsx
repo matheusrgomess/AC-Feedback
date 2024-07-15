@@ -12,7 +12,10 @@ export default function ObservationsPage({
   avaliation,
   saveAvaliation,
 }) {
-  const arrayQuestions = JSON.parse(localStorage.getItem("questionsList"))
+  const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
+  const arrayQuestions = questionGroups
+    .filter(group => group.isSelected)
+    .flatMap(group => group.questions);
   const navigate = useNavigate();
   const [observation, setObservation] = useState("");
 
@@ -73,7 +76,7 @@ export default function ObservationsPage({
       <Textarea
         placeholder="Digite Aqui"
         resize={"none"}
-        height="250px" 
+        height="250px"
         w="550px"
         value={observation}
         onChange={modObservation}

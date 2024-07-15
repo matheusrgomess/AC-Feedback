@@ -15,7 +15,10 @@ export default function RateParticipantScreen() {
   const [hover, setHover] = useState(null);
   const [questions, setQuestions] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"))
-  const arrayQuestions = JSON.parse(localStorage.getItem("questionsList"))
+  const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
+  const arrayQuestions = questionGroups
+    .filter(group => group.isSelected)
+    .flatMap(group => group.questions);
   const savedAvaliations =
     JSON.parse(localStorage.getItem("avaliations")) || [];
 

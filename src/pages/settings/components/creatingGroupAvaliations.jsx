@@ -41,6 +41,7 @@ export default function CreatingGroupAvaliations() {
             name: nameGroupValue,
             questions: [],
             numberStars: 5,
+            isSelected: arrayGroups.length > 0 ? false : true,
         };
         const updatedGroups = [...arrayGroups, newGroup];
         setArrayGroups(updatedGroups);
@@ -109,6 +110,15 @@ export default function CreatingGroupAvaliations() {
         localStorage.setItem("QuestionGroups", JSON.stringify(updatedGroups));
     };
 
+    const handleCheckboxChange = (selectedGroup) => {
+        const updatedGroups = arrayGroups.map(group => ({
+            ...group,
+            isSelected: group.name === selectedGroup.name
+        }));
+        setArrayGroups(updatedGroups);
+        localStorage.setItem("QuestionGroups", JSON.stringify(updatedGroups));
+    };
+
     return (
         <>
             <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor="#ffffff" onClick={() => setShowInputGroup(!showInputGroup)}>
@@ -167,14 +177,18 @@ export default function CreatingGroupAvaliations() {
                     <Container key={index} bgColor="red" borderRadius="10px">
                         <Container padding="0px" display="flex" alignItems="center" justifyContent="space-between">
                             <Heading display="flex" alignItems="center">
-                                <Checkbox paddingRight="10px" />
+                                <Checkbox
+                                    paddingRight="10px"
+                                    isChecked={group.isSelected}
+                                    onChange={() => handleCheckboxChange(group)}
+                                />
                                 {group.name}
                             </Heading>
                             <Button bg="transparent" _hover={{}} _active={{}} onClick={() => handleOpen(group)}>
                                 <EditIcon color="white" />
                             </Button>
                         </Container>
-                        <Text>Número de perguntas: {group.questions.length >= 2 ? group.questions.length-1 : group.questions.length}</Text>
+                        <Text>Número de perguntas: {group.questions.length >= 2 ? group.questions.length - 1 : group.questions.length}</Text>
                         <Text>Quantidade de estrelas: {group.numberStars}</Text>
                     </Container>
                 ))}
