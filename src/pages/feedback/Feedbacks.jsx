@@ -132,7 +132,6 @@ export default function Feedbacks() {
             >
               <SubmittedAvaliation
                 avaliations={userAvaliationsCreated}
-                user={selectedUser}
               />
             </Container>
           </Container>
@@ -199,7 +198,6 @@ export default function Feedbacks() {
             >
               <SubmittedAvaliation
                 avaliations={userAvaliations}
-                user={selectedUser}
               />
             </Container>
           </Container>
