@@ -33,12 +33,10 @@ export default function SeeMoreAvaliation({
   filterValidRatings,
   stars,
 }) {
-  const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
-  const arrayQuestions = questionGroups
-    .filter(group => group.isSelected)
-    .flatMap(group => group.questions);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const filteredQuestions = arrayQuestions.filter((item) => item.type === "rate");
+  const filteredQuestions = avaliation.questions.filter(
+    question => question.type === "rate"
+  );
   const [
     alternanceObservationandQuestions,
     setAlternanceObservationandQuestions,
@@ -86,9 +84,9 @@ export default function SeeMoreAvaliation({
               >
                 <Text display="flex" gap="10px" fontWeight="400">
                   Avaliação feita por:
-                  <Heading size="ms">
-                    {formattingText(avaliation.reviewer)}
-                  </Heading>
+                  <Text>
+                    <strong>{formattingText(avaliation.reviewer)}</strong>
+                  </Text>
                 </Text>
                 <IconButton
                   onClick={handleClose}

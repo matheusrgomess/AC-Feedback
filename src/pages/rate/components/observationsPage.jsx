@@ -22,7 +22,7 @@ export default function ObservationsPage({
   const handleClick = () => {
     const updatedQuestions = [
       ...questions,
-      { question: arrayQuestions[currentQuestion].question, rating: observation },
+      { type: "observations", question: arrayQuestions[currentQuestion].question, rating: observation },
     ];
     const updatedAvaliation = {
       ...avaliation,

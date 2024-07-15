@@ -26,7 +26,7 @@ export default function RateParticipantScreen() {
     reviewer: user.name || "",
     reviewed: participant,
     questions: questions,
-    stars: localStorage.getItem("numberStars"),
+    stars: questionGroups.filter(group => group.isSelected)[0].numberStars,
   };
 
   const handleNextQuestion = () => {
@@ -44,6 +44,7 @@ export default function RateParticipantScreen() {
 
   const handleAvaliation = (rating) => {
     const newQuestion = {
+      type: "rate",
       question: arrayQuestions[currentQuestion].question,
       rating: rating,
       justification: justification,

@@ -103,7 +103,7 @@ export default function CreatingGroupAvaliations() {
     const changeStars = (value) => {
         setNumStars(value);
         const updatedGroups = arrayGroups.map(group =>
-            group.name === selectedGroupValue.name ? { ...group, numberStars: value } : group
+            group.name === selectedGroupValue.name ? { ...group, numberStars: Number(value) } : group
         );
 
         setArrayGroups(updatedGroups);

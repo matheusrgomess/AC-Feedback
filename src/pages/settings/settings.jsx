@@ -1,11 +1,6 @@
 import {
     Text,
     Container,
-    NumberInput,
-    NumberInputField,
-    NumberInputStepper,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
     useDisclosure,
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
@@ -20,8 +15,6 @@ export default function Settings() {
     const [showADDInput, setShowADDInput] = useState(false);
     const [questionsInput, setQuestionsInput] = useState(JSON.parse(localStorage.getItem("questionsList")) || []);
     const [inputValue, setInputValue] = useState("");
-    const [numStars, setNumStars] = useState();
-    const numberStars = JSON.parse(localStorage.getItem("numberStars"));
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [selectedQuestion, setSelectedQuestion] = useState(null);
     const [editTitle, setEditTitle] = useState("");
@@ -59,11 +52,6 @@ export default function Settings() {
                 autoClose: 2500
             });
         }
-    };
-
-    const handleNumStars = (value) => {
-        setNumStars(value);
-        localStorage.setItem("numberStars", value);
     };
 
     const handleRemoveQuestion = (index) => {
@@ -130,31 +118,6 @@ export default function Settings() {
                 <Text fontSize="16px" color="#808080">Edite o que você quer que apareça no formulário</Text>
                 <PartConfig title="Título:" />
                 <PartConfig title="Descrição:" />
-                <Container
-                    margin="0px"
-                    padding="0px"
-                    w="70%"
-                    h="40px"
-                    borderBottom="2px solid"
-                    borderColor="#808080"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    paddingRight="6px"
-                    marginBottom="15px"
-                >
-                    <Text>
-                        <strong>Quantidade de notas:</strong>
-                    </Text>
-                    <NumberInput size='sm' maxWidth="65px" defaultValue={numberStars} min={1} max={10} value={numStars} onChange={handleNumStars}>
-                        <NumberInputField readOnly cursor="default" />
-                        <NumberInputStepper>
-                            <NumberIncrementStepper color="white" />
-                            <NumberDecrementStepper color="white" />
-                        </NumberInputStepper>
-                    </NumberInput>
-
-                </Container>
                 <Container
                     margin="0px"
                     padding="0px"
