@@ -12,8 +12,8 @@ export default function ObservationsPage({
   avaliation,
   saveAvaliation,
 }) {
-  const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
-  const arrayQuestions = questionGroups
+  const questionSet = JSON.parse(localStorage.getItem("questionSet"))
+  const arrayQuestions = questionSet
     .filter(group => group.activatedSet)
     .flatMap(group => group.questions);
   const navigate = useNavigate();

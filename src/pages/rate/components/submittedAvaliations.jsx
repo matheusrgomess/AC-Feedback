@@ -20,9 +20,8 @@ export default function SubmittedAvaliation({ avaliations }) {
   };
 
   const getAverageRating = (numbersArray) => {
-    return (
-      numbersArray.reduce((acc, val) => acc + val, 0) / numbersArray.length
-    );
+    const average = numbersArray.reduce((acc, val) => acc + val, 0) / numbersArray.length;
+    return parseFloat(average.toFixed(1));
   };
 
   const filterValidRatings = (questions) => {

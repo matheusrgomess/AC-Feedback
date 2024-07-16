@@ -2,8 +2,8 @@ import { Text } from "@chakra-ui/react";
 import { TiStar } from "react-icons/ti";
 
 export default function Stars({ hover, setHover, rating, setRating }) {
-  const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
-  const numberStars = questionGroups
+  const questionSet = JSON.parse(localStorage.getItem("questionSet"))
+  const numberStars = questionSet
     .filter(group => group.activatedSet)
     .map(group => parseInt(group.numberOfStars))[0];
 

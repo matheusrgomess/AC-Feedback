@@ -15,8 +15,8 @@ export default function RateParticipantScreen() {
   const [hover, setHover] = useState(null);
   const [questions, setQuestions] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"))
-  const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
-  const arrayQuestions = questionGroups
+  const questionSet = JSON.parse(localStorage.getItem("questionSet"))
+  const arrayQuestions = questionSet
     .filter(group => group.activatedSet)
     .flatMap(group => group.questions);
   const savedAvaliations =
@@ -26,7 +26,7 @@ export default function RateParticipantScreen() {
     reviewer: user.name || "",
     reviewed: participant,
     questions: questions,
-    stars: questionGroups.filter(group => group.activatedSet)[0].numberOfStars,
+    stars: questionSet.filter(group => group.activatedSet)[0].numberOfStars,
   };
 
   const handleNextQuestion = () => {

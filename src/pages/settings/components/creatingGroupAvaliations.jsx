@@ -23,31 +23,53 @@ import {
     CloseButton
 } from "@chakra-ui/react";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createQuestionSet } from "services/postQuestionSet";
+import { printQuestionSet } from "services/getQuestionSet";
 
 export default function CreatingGroupAvaliations() {
     const [selectedGroupValue, setSelectedGroupValue] = useState(null);
     const [nameGroupValue, setNameGroupValue] = useState("");
     const [questionsInput, setQuestionsInput] = useState([]);
     const [showInputGroup, setShowInputGroup] = useState(false);
-    const [arrayGroups, setArrayGroups] = useState(JSON.parse(localStorage.getItem("QuestionGroups")) || []);
+    const [arrayGroups, setArrayGroups] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [showADDQuestionsInput, setShowADDQuestionsInput] = useState(false);
     const [inputQuestionsValue, setInputQuestionsValue] = useState("");
     const [numStars, setNumStars] = useState(5);
+    const [questionsSet, setQuestionsSet] = useState()
 
-    const handleCreatingNewGroup = () => {
-        const newGroup = {
-            questionSetName: nameGroupValue,
-            questions: [],
-            numberOfStars: 5,
-            activatedSet: arrayGroups.length > 0 ? false : true,
-        };
-        const updatedGroups = [...arrayGroups, newGroup];
-        setArrayGroups(updatedGroups);
-        localStorage.setItem("QuestionGroups", JSON.stringify(updatedGroups));
-        setNameGroupValue("");
-        setShowInputGroup(false);
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setQuestionsSet(await printQuestionSet())
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, []);
+
+    const handleCreatingNewGroup = async () => {
+        try {
+            const newGroup = {
+                questionSetName: nameGroupValue,
+                questions: [{
+                    "questionName": "Teste10",
+                    "questionType": "RATING",
+                    "questionDescription": " "
+                }],
+                numberOfStars: 5,
+            };
+            const response = await createQuestionSet(newGroup);
+            const updatedGroups = [...arrayGroups, response.data];
+            setArrayGroups(updatedGroups);
+            setNameGroupValue("");
+            setShowInputGroup(false);
+        } catch (error) {
+            console.log(error);
+        }
+
     };
 
     const handleOpen = (group) => {
@@ -76,7 +98,6 @@ export default function CreatingGroupAvaliations() {
             );
 
             setArrayGroups(updatedGroups);
-            localStorage.setItem("QuestionGroups", JSON.stringify(updatedGroups));
             setQuestionsInput(updatedQuestions);
             setInputQuestionsValue("");
             setShowADDQuestionsInput(false);
@@ -107,7 +128,6 @@ export default function CreatingGroupAvaliations() {
         );
 
         setArrayGroups(updatedGroups);
-        localStorage.setItem("QuestionGroups", JSON.stringify(updatedGroups));
     };
 
     const handleCheckboxChange = (selectedGroup) => {
@@ -116,7 +136,20 @@ export default function CreatingGroupAvaliations() {
             activatedSet: group.questionSetName === selectedGroup.questionSetName
         }));
         setArrayGroups(updatedGroups);
-        localStorage.setItem("QuestionGroups", JSON.stringify(updatedGroups));
+    };
+
+    const handleSaveChanges = async () => {
+        const updatedGroup = {
+            ...selectedGroupValue,
+            questions: questionsInput,
+            numberOfStars: numStars,
+        };
+        const response = await createQuestionSet(updatedGroup);
+        const updatedGroups = arrayGroups.map(group =>
+            group.questionSetName === response.questionSetName ? response : group
+        );
+        setArrayGroups(updatedGroups);
+        handleClose();
     };
 
     return (
@@ -173,7 +206,7 @@ export default function CreatingGroupAvaliations() {
                 </InputGroup>
             }
             <Container width="100%" padding="10px" display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={4}>
-                {arrayGroups.map((group, index) => (
+                {questionsSet && questionsSet.questions.map((group, index) => (
                     <Container key={index} bgColor="red" borderRadius="10px">
                         <Container padding="0px" display="flex" alignItems="center" justifyContent="space-between">
                             <Heading display="flex" alignItems="center">
@@ -291,6 +324,7 @@ export default function CreatingGroupAvaliations() {
                                 </OrderedList>
                             </Container>
                         </Container>
+                        <Button onClick={handleSaveChanges} marginTop="15px" bgColor="#ffffff" color="black">Salvar Alterações</Button>
                     </ModalBody>
                 </ModalContent>
             </Modal>

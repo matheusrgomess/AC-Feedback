@@ -1,6 +1,5 @@
 import { api } from '../../api'
 
-
 export async function listParticipants() {
   const user = JSON.parse(localStorage.getItem("user"));
 

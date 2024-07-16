@@ -3,8 +3,8 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { toast } from "react-toastify";
 
 export default function ButtonRate({ currentQuestion, handleNextQuestion, handlePreviousQuestion, rating }) {
-    const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
-    const arrayQuestions = questionGroups
+    const questionSet = JSON.parse(localStorage.getItem("questionSet"))
+    const arrayQuestions = questionSet
         .filter(group => group.activatedSet)
         .flatMap(group => group.questions);
 
