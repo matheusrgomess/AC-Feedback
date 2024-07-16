@@ -35,7 +35,7 @@ export default function SeeMoreAvaliation({
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const filteredQuestions = avaliation.questions.filter(
-    question => question.type === "rate"
+    question => question.type === "RATING"
   );
   const [
     alternanceObservationandQuestions,

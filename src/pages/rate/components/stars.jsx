@@ -4,8 +4,8 @@ import { TiStar } from "react-icons/ti";
 export default function Stars({ hover, setHover, rating, setRating }) {
   const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
   const numberStars = questionGroups
-    .filter(group => group.isSelected)
-    .map(group => parseInt(group.numberStars))[0];
+    .filter(group => group.activatedSet)
+    .map(group => parseInt(group.numberOfStars))[0];
 
   return (
     <div style={{ display: "flex" }}>

@@ -14,7 +14,7 @@ export default function ObservationsPage({
 }) {
   const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
   const arrayQuestions = questionGroups
-    .filter(group => group.isSelected)
+    .filter(group => group.activatedSet)
     .flatMap(group => group.questions);
   const navigate = useNavigate();
   const [observation, setObservation] = useState("");
@@ -22,7 +22,7 @@ export default function ObservationsPage({
   const handleClick = () => {
     const updatedQuestions = [
       ...questions,
-      { type: "observations", question: arrayQuestions[currentQuestion].question, rating: observation },
+      { type: "OBSERVATION", question: arrayQuestions[currentQuestion].question, rating: observation },
     ];
     const updatedAvaliation = {
       ...avaliation,

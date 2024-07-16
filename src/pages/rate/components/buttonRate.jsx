@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 export default function ButtonRate({ currentQuestion, handleNextQuestion, handlePreviousQuestion, rating }) {
     const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
     const arrayQuestions = questionGroups
-        .filter(group => group.isSelected)
+        .filter(group => group.activatedSet)
         .flatMap(group => group.questions);
 
     return (

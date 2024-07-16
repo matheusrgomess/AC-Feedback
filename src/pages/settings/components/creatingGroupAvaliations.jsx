@@ -38,10 +38,10 @@ export default function CreatingGroupAvaliations() {
 
     const handleCreatingNewGroup = () => {
         const newGroup = {
-            name: nameGroupValue,
+            questionSetName: nameGroupValue,
             questions: [],
-            numberStars: 5,
-            isSelected: arrayGroups.length > 0 ? false : true,
+            numberOfStars: 5,
+            activatedSet: arrayGroups.length > 0 ? false : true,
         };
         const updatedGroups = [...arrayGroups, newGroup];
         setArrayGroups(updatedGroups);
@@ -54,7 +54,7 @@ export default function CreatingGroupAvaliations() {
         setIsModalOpen(true);
         setSelectedGroupValue(group);
         setQuestionsInput(group.questions || []);
-        setNumStars(group.numberStars || 5);
+        setNumStars(group.numberOfStars || 5);
     };
 
     const handleClose = () => {
@@ -66,13 +66,13 @@ export default function CreatingGroupAvaliations() {
     const handleQuestionToGroup = () => {
         if (inputQuestionsValue.trim() !== "") {
             const newQuestion = {
-                type: "rate",
-                question: inputQuestionsValue,
+                questionType: "RATING",
+                questionName: inputQuestionsValue,
                 questionDescription: ""
             };
             const updatedQuestions = addObservationsQuestion([...questionsInput, newQuestion]);
             const updatedGroups = arrayGroups.map(group =>
-                group.name === selectedGroupValue.name ? { ...group, questions: updatedQuestions } : group
+                group.questionSetName === selectedGroupValue.questionSetName ? { ...group, questions: updatedQuestions } : group
             );
 
             setArrayGroups(updatedGroups);
@@ -87,12 +87,12 @@ export default function CreatingGroupAvaliations() {
 
     const addObservationsQuestion = (questions) => {
         const lastQuestion = questions[questions.length - 1];
-        if (!lastQuestion || lastQuestion.type !== "observations") {
+        if (!lastQuestion || lastQuestion.questionType !== "OBSERVATION") {
             return [
-                ...questions.filter(q => q.type !== "observations"),
+                ...questions.filter(q => q.questionType !== "OBSERVATION"),
                 {
-                    type: "observations",
-                    question: "Observações",
+                    questionType: "OBSERVATION",
+                    questionName: "Observações",
                     questionDescription: "Coloque uma observação para poder enviar o formulário"
                 }
             ];
@@ -103,7 +103,7 @@ export default function CreatingGroupAvaliations() {
     const changeStars = (value) => {
         setNumStars(value);
         const updatedGroups = arrayGroups.map(group =>
-            group.name === selectedGroupValue.name ? { ...group, numberStars: Number(value) } : group
+            group.questionSetName === selectedGroupValue.questionSetName ? { ...group, numberOfStars: Number(value) } : group
         );
 
         setArrayGroups(updatedGroups);
@@ -113,7 +113,7 @@ export default function CreatingGroupAvaliations() {
     const handleCheckboxChange = (selectedGroup) => {
         const updatedGroups = arrayGroups.map(group => ({
             ...group,
-            isSelected: group.name === selectedGroup.name
+            activatedSet: group.questionSetName === selectedGroup.questionSetName
         }));
         setArrayGroups(updatedGroups);
         localStorage.setItem("QuestionGroups", JSON.stringify(updatedGroups));
@@ -179,17 +179,17 @@ export default function CreatingGroupAvaliations() {
                             <Heading display="flex" alignItems="center">
                                 <Checkbox
                                     paddingRight="10px"
-                                    isChecked={group.isSelected}
+                                    isChecked={group.activatedSet}
                                     onChange={() => handleCheckboxChange(group)}
                                 />
-                                {group.name}
+                                {group.questionSetName}
                             </Heading>
                             <Button bg="transparent" _hover={{}} _active={{}} onClick={() => handleOpen(group)}>
                                 <EditIcon color="white" />
                             </Button>
                         </Container>
                         <Text>Número de perguntas: {group.questions.length >= 2 ? group.questions.length - 1 : group.questions.length}</Text>
-                        <Text>Quantidade de estrelas: {group.numberStars}</Text>
+                        <Text>Quantidade de estrelas: {group.numberOfStars}</Text>
                     </Container>
                 ))}
             </Container>
@@ -198,7 +198,7 @@ export default function CreatingGroupAvaliations() {
                 <ModalContent bg="#26272D" color="white">
                     <ModalHeader display="flex" alignItems="center" justifyContent="space-between">
                         <Heading>
-                            {selectedGroupValue && selectedGroupValue.name}
+                            {selectedGroupValue && selectedGroupValue.questionSetName}
                         </Heading>
                         <CloseButton onClick={handleClose} />
                     </ModalHeader>
@@ -279,11 +279,11 @@ export default function CreatingGroupAvaliations() {
                             <Container borderLeft="1px solid" borderLeftColor="white" marginTop="20px">
                                 <OrderedList width="100%">
                                     {questionsInput
-                                        .filter(item => item.type !== "observations")
+                                        .filter(item => item.questionType !== "OBSERVATION")
                                         .map((item, index) => (
                                             <ListItem key={index} id="tasks" color="#ffffff" marginBottom="10px">
                                                 <Text _hover={{ cursor: "pointer" }}>
-                                                    <strong>{item.question}</strong>
+                                                    <strong>{item.questionName}</strong>
                                                     <EditIcon marginLeft="5px" />
                                                 </Text>
                                             </ListItem>

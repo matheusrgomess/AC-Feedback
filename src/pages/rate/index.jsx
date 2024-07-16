@@ -17,7 +17,7 @@ export default function RateParticipantScreen() {
   const user = JSON.parse(localStorage.getItem("user"))
   const questionGroups = JSON.parse(localStorage.getItem("QuestionGroups"))
   const arrayQuestions = questionGroups
-    .filter(group => group.isSelected)
+    .filter(group => group.activatedSet)
     .flatMap(group => group.questions);
   const savedAvaliations =
     JSON.parse(localStorage.getItem("avaliations")) || [];
@@ -26,7 +26,7 @@ export default function RateParticipantScreen() {
     reviewer: user.name || "",
     reviewed: participant,
     questions: questions,
-    stars: questionGroups.filter(group => group.isSelected)[0].numberStars,
+    stars: questionGroups.filter(group => group.activatedSet)[0].numberOfStars,
   };
 
   const handleNextQuestion = () => {
@@ -44,8 +44,8 @@ export default function RateParticipantScreen() {
 
   const handleAvaliation = (rating) => {
     const newQuestion = {
-      type: "rate",
-      question: arrayQuestions[currentQuestion].question,
+      type: "RATING",
+      question: arrayQuestions[currentQuestion].questionName,
       rating: rating,
       justification: justification,
     };
@@ -118,11 +118,11 @@ export default function RateParticipantScreen() {
                     {questions[currentQuestion].rating}
                   </span>
                 )}
-                <Heading>{arrayQuestions[currentQuestion].question}</Heading>
+                <Heading>{arrayQuestions[currentQuestion].questionName}</Heading>
                 <Text>{arrayQuestions[currentQuestion].questionDescription}</Text>
               </Container>
               <Container>
-                {arrayQuestions[currentQuestion].type === "rate" ? (
+                {arrayQuestions[currentQuestion].questionType === "RATING" ? (
                   <QuestionsPage
                     participant={participant}
                     hover={hover}
