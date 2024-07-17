@@ -1,21 +1,25 @@
 import { Container, Heading, Button } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
-import {
-  formatUserFeedbacks,
-  formatUserFeedbacksCreated,
-} from "../../utils/format-avaliations";
-import { useState } from "react";
+
+import { useCallback, useEffect, useState } from "react";
 import ModalFilter from "./components/modalFilter";
 import ModalUserSelect from "./components/modalUserSelect";
 import { CalendarIcon } from "@chakra-ui/icons";
+import { getFeedbacks } from "services/feedbacks";
 
 export default function Feedbacks() {
+  const [avaliations, setAvaliations] = useState();
   const user = JSON.parse(localStorage.getItem("user"));
-  const avaliations = JSON.parse(localStorage.getItem("avaliations") || "[]");
+
   const [openFilters, setOpenFilters] = useState(false);
   const [openUserFilter, setOpenUserFilter] = useState(false);
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
   const [selectedUser, setSelectedUser] = useState(user.name);
+
+  const fetchFeedbacks = useCallback(async () => {
+    const response = selectedUser && (await getFeedbacks(selectedUser));
+    setAvaliations(response);
+  }, []);
 
   const handleOpenUserFilter = () => {
     setOpenUserFilter(true);
@@ -33,14 +37,9 @@ export default function Feedbacks() {
     setOpenFilters(false);
   };
 
-  const userAvaliations = formatUserFeedbacks(
-    avaliations,
-    selectedUser || user.name
-  );
-  const userAvaliationsCreated = formatUserFeedbacksCreated(
-    avaliations,
-    selectedUser || user.name
-  );
+  useEffect(() => {
+    fetchFeedbacks();
+  }, []);
 
   return (
     <div
@@ -75,7 +74,7 @@ export default function Feedbacks() {
         </>
       ) : null}
       <ModalFilter isOpen={openFilters} onClose={handleCloseFilters} />
-      {userAvaliationsCreated && userAvaliationsCreated.length > 0 ? (
+      {avaliations?.receivedFeedbacks ? (
         <Container
           bg="#1c222b"
           maxH="300px"
@@ -131,7 +130,7 @@ export default function Feedbacks() {
               overflowY="auto"
             >
               <SubmittedAvaliation
-                avaliations={userAvaliationsCreated}
+                avaliations={avaliations.receivedFeedbacks}
               />
             </Container>
           </Container>
@@ -141,7 +140,7 @@ export default function Feedbacks() {
           <Heading color="grey">Nenhum Feedback Criado</Heading>
         </Container>
       )}
-      {userAvaliations && userAvaliations.length > 0 ? (
+      {avaliations?.addedFeedbacks ? (
         <Container
           bg="#1c222b"
           maxH="300px"
@@ -196,9 +195,7 @@ export default function Feedbacks() {
               overflow="hidden"
               overflowY="auto"
             >
-              <SubmittedAvaliation
-                avaliations={userAvaliations}
-              />
+              <SubmittedAvaliation avaliations={avaliations.addedFeedbacks} />
             </Container>
           </Container>
         </Container>

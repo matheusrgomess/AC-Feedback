@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Container, Heading, Button, Text } from "@chakra-ui/react";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  formatUserFeedbacks,
-  formatUserFeedbacksCreated,
-} from "../../utils/format-avaliations";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 import { useNavigate } from "react-router-dom";
+import { getFeedbacks } from "services/feedbacks";
 
 export default function Home() {
+  const [avaliations, setAvaliations] = useState();
   const user = JSON.parse(localStorage.getItem("user"));
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
-  const avaliations = JSON.parse(localStorage.getItem("avaliations") || "[]");
-  const userAvaliations = formatUserFeedbacks(avaliations, user.name);
-  const userAvaliationsCreated = formatUserFeedbacksCreated(avaliations, user.name);
-
   const nav = useNavigate();
+
+  const fetchFeedbacks = useCallback(async () => {
+    const response = await getFeedbacks(user.name);
+    setAvaliations(response);
+  }, []);
+
+  useEffect(() => {
+    fetchFeedbacks();
+  }, []);
 
   return (
     <div
@@ -40,7 +43,7 @@ export default function Home() {
         </Container>
       ) : (
         <>
-          {userAvaliationsCreated && userAvaliationsCreated.length > 0 ? (
+          {avaliations?.receivedFeedbacks ? (
             <Container
               bg="#1c222b"
               maxH="300px"
@@ -71,7 +74,9 @@ export default function Home() {
                   overflow="hidden"
                   overflowY="auto"
                 >
-                  <SubmittedAvaliation avaliations={userAvaliationsCreated} />
+                  <SubmittedAvaliation
+                    avaliations={avaliations.addedFeedbacks}
+                  />
                   <Button
                     marginLeft="14px"
                     bgColor="#700e17"
@@ -93,7 +98,8 @@ export default function Home() {
             </Container>
           )}
 
-          {userAvaliations && userAvaliations.length > 0 ? (
+          {avaliations?.addedFeedbacks &&
+          avaliations?.addedFeedbacks.length > 0 ? (
             <Container
               bg="#1c222b"
               maxH="300px"
@@ -124,7 +130,9 @@ export default function Home() {
                   overflow="hidden"
                   overflowY="auto"
                 >
-                  <SubmittedAvaliation avaliations={userAvaliations} />
+                  <SubmittedAvaliation
+                    avaliations={avaliations.receivedFeedbacks}
+                  />
                   <Button
                     marginLeft="14px"
                     bgColor="#700e17"

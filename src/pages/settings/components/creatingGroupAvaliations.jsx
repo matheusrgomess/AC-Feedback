@@ -24,7 +24,7 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
-import { createQuestionSet } from "services/postQuestionSet";
+import { createQuestionSet } from "services/postQuestionsSet";
 import { printQuestionSet } from "services/getQuestionsSet";
 
 export default function CreatingGroupAvaliations() {

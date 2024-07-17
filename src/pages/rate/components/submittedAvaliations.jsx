@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { parseISO, format } from "date-fns";
+import { ptBR } from 'date-fns/locale';
 import { Container, Heading, Button, Text, Tooltip } from "@chakra-ui/react";
 import { ViewIcon, CalendarIcon } from "@chakra-ui/icons";
 import formattingText from "utils/formattingText";
@@ -20,7 +22,8 @@ export default function SubmittedAvaliation({ avaliations }) {
   };
 
   const getAverageRating = (numbersArray) => {
-    const average = numbersArray.reduce((acc, val) => acc + val, 0) / numbersArray.length;
+    const average =
+      numbersArray.reduce((acc, val) => acc + val, 0) / numbersArray.length;
     return parseFloat(average.toFixed(1));
   };
 
@@ -37,7 +40,7 @@ export default function SubmittedAvaliation({ avaliations }) {
   const handleOpenModal = (avaliation, numStars) => {
     setIsModalOpen(true);
     setSelectedAvaliation(avaliation);
-    setStars(numStars)
+    setStars(numStars);
   };
 
   const handleCloseModal = () => {
@@ -46,7 +49,7 @@ export default function SubmittedAvaliation({ avaliations }) {
 
   const renderAvaliation = (avaliation) => {
     const questions = avaliation.questions;
-    const numStars = avaliation.stars
+    const numStars = avaliation.stars;
     const filteredValidRatings = filterValidRatings(questions);
 
     const observationRating = findObservation(questions);
@@ -88,7 +91,9 @@ export default function SubmittedAvaliation({ avaliations }) {
           >
             <CalendarIcon color="white" />
             <Text paddingInline="8px" color="white">
-              {avaliation.date}
+              {format(parseISO(avaliation.date), "dd/MM/yyyy, HH:mm:ss", {
+                locale: ptBR,
+              })}
             </Text>
             <Tooltip
               label="Ver avaliação completa"

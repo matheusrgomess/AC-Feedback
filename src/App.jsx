@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Authentification from "./pages/login/authentification";
+import Authentification from "./pages/login/Authentification";
 import Home from "./pages/home/Home";
 import Feedbacks from "./pages/feedback/Feedbacks";
 import AvaliarNewComponent from "./pages/AvaliarNewComponent";
