@@ -25,7 +25,7 @@ import {
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 import { createQuestionSet } from "services/postQuestionSet";
-import { printQuestionSet } from "services/getQuestionSet";
+import { printQuestionSet } from "services/getQuestionsSet";
 
 export default function CreatingGroupAvaliations() {
     const [selectedGroupValue, setSelectedGroupValue] = useState(null);
@@ -206,7 +206,7 @@ export default function CreatingGroupAvaliations() {
                 </InputGroup>
             }
             <Container width="100%" padding="10px" display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={4}>
-                {questionsSet && questionsSet.questions.map((group, index) => (
+                {questionsSet?.questions.map((group, index) => (
                     <Container key={index} bgColor="red" borderRadius="10px">
                         <Container padding="0px" display="flex" alignItems="center" justifyContent="space-between">
                             <Heading display="flex" alignItems="center">

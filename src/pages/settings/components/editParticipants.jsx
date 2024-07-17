@@ -71,7 +71,7 @@ export default function EditParticipants() {
                     <ModalBody>
                         <Text fontSize="18px">Esses são todos os usuários cadastrados:</Text>
                         <UnorderedList>
-                            {participants.map(participant =>
+                            {participants?.map(participant =>
                                 <ListItem key={participant.name} color="#ffffff" marginBottom="10px">
                                     <Text>
                                         <strong>{formattingText(participant.name)}</strong>
