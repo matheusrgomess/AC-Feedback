@@ -110,7 +110,7 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
             </Button>
           </ModalFooter>
         </ModalContent>
-      </Modal >
+      </Modal>
     </>
   );
 }

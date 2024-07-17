@@ -17,7 +17,7 @@ export default function Feedbacks() {
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
   const [selectedUser, setSelectedUser] = useState(user.name);
 
-  const fetchFeedbacks = useCallback(async () => {
+  const fetchFeedbacks = useCallback(async (selectedUser) => {
     const response = selectedUser && (await getFeedbacks(selectedUser));
     setAvaliations(response);
   }, []);
@@ -39,8 +39,8 @@ export default function Feedbacks() {
   };
 
   useEffect(() => {
-    fetchFeedbacks();
-  }, []);
+    fetchFeedbacks(selectedUser);
+  }, [selectedUser]);
 
   return (
     <div
@@ -75,7 +75,7 @@ export default function Feedbacks() {
         </>
       ) : null}
       <ModalFilter isOpen={openFilters} onClose={handleCloseFilters} />
-      {avaliations?.receivedFeedbacks.length > 0 ? (
+      {avaliations?.addedFeedbacks.length > 0 ? (
         <Container
           bg="#1c222b"
           maxH="300px"
@@ -141,7 +141,7 @@ export default function Feedbacks() {
           <Heading color="grey">Nenhum Feedback Criado</Heading>
         </Container>
       )}
-      {avaliations?.addedFeedbacks.length > 0? (
+      {avaliations?.receivedFeedbacks.length > 0 ? (
         <Container
           bg="#1c222b"
           maxH="300px"

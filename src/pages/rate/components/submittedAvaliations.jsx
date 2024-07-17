@@ -53,8 +53,6 @@ export default function SubmittedAvaliation({ avaliations }) {
     const filteredQuestionsOBSERVATION = avaliation.questions.filter(
       (question) => question.questionType === "OBSERVATION"
     );
-
-    console.log(filteredQuestionsOBSERVATION[0].observation)
     return (
       <Container
         key={avaliation.id}
