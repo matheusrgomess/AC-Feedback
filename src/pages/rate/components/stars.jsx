@@ -1,21 +1,31 @@
 import { Text } from "@chakra-ui/react";
 import { TiStar } from "react-icons/ti";
+import { useState, useEffect } from "react";
+import { getActivatedGroup } from "services/getActivatedGroup";
 
 export default function Stars({ hover, setHover, rating, setRating }) {
-  const questionSet = JSON.parse(localStorage.getItem("questionSet"))
-  const numberStars = questionSet
-    .filter(group => group.activatedSet)
-    .map(group => parseInt(group.numberOfStars))[0];
+  const [activatedGroup, setActivatedGroup] = useState()
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setActivatedGroup(await getActivatedGroup())
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, []);
 
   return (
     <div style={{ display: "flex" }}>
-      {[...Array(numberStars)].map((_, i) => {
+      {[...Array(activatedGroup?.numberOfStars)].map((_, i) => {
         const ratingValue = i + 1;
         return (
           <label key={ratingValue}>
             <input
               type="radio"
-              style={{ opacity:"0" }}
+              style={{ opacity: "0" }}
               name="rating"
               value={ratingValue}
               onClick={() => setRating(ratingValue)}

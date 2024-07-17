@@ -1,12 +1,22 @@
 import { Container, Button } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { toast } from "react-toastify";
+import { useState, useEffect } from "react";
+import { getActivatedGroup } from "services/getActivatedGroup";
 
 export default function ButtonRate({ currentQuestion, handleNextQuestion, handlePreviousQuestion, rating }) {
-    const questionSet = JSON.parse(localStorage.getItem("questionSet"))
-    const arrayQuestions = questionSet
-        .filter(group => group.activatedSet)
-        .flatMap(group => group.questions);
+    const [activatedGroup, setActivatedGroup] = useState()
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setActivatedGroup(await getActivatedGroup())
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, []);
 
     return (
         <Container
@@ -28,7 +38,7 @@ export default function ButtonRate({ currentQuestion, handleNextQuestion, handle
                     <ArrowLeftIcon color="#ffffff" />
                 </Button>
             )}
-            {currentQuestion !== arrayQuestions.length - 1 && (
+            {currentQuestion !== activatedGroup?.questions?.length - 1 && (
                 rating === null || rating === 0 ?
                     <Button
                         padding="0px"

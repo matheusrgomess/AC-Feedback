@@ -1,11 +1,13 @@
 import React from "react";
 import { Container, Heading, Progress, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ObservationsPage from "./components/observationsPage";
 import QuestionsPage from "./components/questionsPage";
 import ButtonRate from "./components/buttonRate";
 import formattingText from "utils/formattingText";
+import { getActivatedGroup } from "services/getActivatedGroup";
+import { postFeedback } from "services/feedbacks";
 
 export default function RateParticipantScreen() {
   const { participant } = useParams();
@@ -15,18 +17,23 @@ export default function RateParticipantScreen() {
   const [hover, setHover] = useState(null);
   const [questions, setQuestions] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"))
-  const questionSet = JSON.parse(localStorage.getItem("questionSet"))
-  const arrayQuestions = questionSet
-    .filter(group => group.activatedSet)
-    .flatMap(group => group.questions);
-  const savedAvaliations =
-    JSON.parse(localStorage.getItem("avaliations")) || [];
+  const [activatedGroup, setActivatedGroup] = useState()
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setActivatedGroup(await getActivatedGroup())
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, []);
 
   const avaliation = {
     reviewer: user.name || "",
     reviewed: participant,
     questions: questions,
-    stars: questionSet.filter(group => group.activatedSet)[0].numberOfStars,
   };
 
   const handleNextQuestion = () => {
@@ -44,9 +51,9 @@ export default function RateParticipantScreen() {
 
   const handleAvaliation = (rating) => {
     const newQuestion = {
-      type: "RATING",
-      question: arrayQuestions[currentQuestion].questionName,
+      questionName: activatedGroup.questions[currentQuestion].questionName,
       rating: rating,
+      questionType: "RATING",
       justification: justification,
     };
 
@@ -58,8 +65,7 @@ export default function RateParticipantScreen() {
   };
 
   const saveAvaliation = (finalAvaliation) => {
-    savedAvaliations.push(finalAvaliation);
-    localStorage.setItem("avaliations", JSON.stringify(savedAvaliations));
+    postFeedback(finalAvaliation)
     setQuestions([]);
   };
 
@@ -118,11 +124,11 @@ export default function RateParticipantScreen() {
                     {questions[currentQuestion].rating}
                   </span>
                 )}
-                <Heading>{arrayQuestions[currentQuestion].questionName}</Heading>
-                <Text>{arrayQuestions[currentQuestion].questionDescription}</Text>
+                <Heading>{activatedGroup?.questions[currentQuestion].questionName}</Heading>
+                <Text>{activatedGroup?.questions[currentQuestion].questionDescription}</Text>
               </Container>
               <Container>
-                {arrayQuestions[currentQuestion].questionType === "RATING" ? (
+                {activatedGroup?.questions[currentQuestion].questionType === "RATING" ? (
                   <QuestionsPage
                     participant={participant}
                     hover={hover}
@@ -172,7 +178,7 @@ export default function RateParticipantScreen() {
         <Container>
           <Progress
             value={currentQuestion}
-            max={arrayQuestions.length - 1}
+            max={activatedGroup?.questions.length - 1}
             borderRadius="20px"
             colorScheme="red"
             size="xs"

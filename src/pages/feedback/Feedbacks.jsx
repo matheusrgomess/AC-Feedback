@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Container, Heading, Button } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 
@@ -74,7 +75,7 @@ export default function Feedbacks() {
         </>
       ) : null}
       <ModalFilter isOpen={openFilters} onClose={handleCloseFilters} />
-      {avaliations?.receivedFeedbacks ? (
+      {avaliations?.receivedFeedbacks.length > 0 ? (
         <Container
           bg="#1c222b"
           maxH="300px"
@@ -140,7 +141,7 @@ export default function Feedbacks() {
           <Heading color="grey">Nenhum Feedback Criado</Heading>
         </Container>
       )}
-      {avaliations?.addedFeedbacks ? (
+      {avaliations?.addedFeedbacks.length > 0? (
         <Container
           bg="#1c222b"
           maxH="300px"

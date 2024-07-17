@@ -2,9 +2,9 @@ import React from "react";
 import { Container, Text, Button, Textarea, Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logoAC from "../../../assets/aclogo.png";
-import { format } from "date-fns";
+import { getActivatedGroup } from "services/getActivatedGroup";
 
 export default function ObservationsPage({
   currentQuestion,
@@ -12,23 +12,34 @@ export default function ObservationsPage({
   avaliation,
   saveAvaliation,
 }) {
-  const questionSet = JSON.parse(localStorage.getItem("questionSet"))
-  const arrayQuestions = questionSet
-    .filter(group => group.activatedSet)
-    .flatMap(group => group.questions);
+  const [activatedGroup, setActivatedGroup] = useState()
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setActivatedGroup(await getActivatedGroup())
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, []);
   const navigate = useNavigate();
   const [observation, setObservation] = useState("");
 
+  console.log(activatedGroup)
   const handleClick = () => {
     const updatedQuestions = [
       ...questions,
-      { type: "OBSERVATION", question: arrayQuestions[currentQuestion].question, rating: observation },
+      { questionName: activatedGroup.questions[currentQuestion].questionName, questionType: "OBSERVATION", observation: observation },
     ];
     const updatedAvaliation = {
       ...avaliation,
       questions: updatedQuestions,
-      id: Math.floor(Math.random() * 100),
-      date: format(new Date(), "dd/MM/yyyy"),
+      avaliationInfo: {
+        groupTitle: activatedGroup.questionSetName,
+        numberOfStars: activatedGroup.numberOfStars,
+      }
     };
     saveAvaliation(updatedAvaliation);
     navigate("/home");

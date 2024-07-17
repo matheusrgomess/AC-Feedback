@@ -26,6 +26,7 @@ import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 import { createQuestionSet } from "services/postQuestionsSet";
 import { printQuestionSet } from "services/getQuestionsSet";
+import { postActivateGroup } from "services/postActivateGroup";
 
 export default function CreatingGroupAvaliations() {
     const [selectedGroupValue, setSelectedGroupValue] = useState(null);
@@ -54,18 +55,24 @@ export default function CreatingGroupAvaliations() {
         try {
             const newGroup = {
                 questionSetName: nameGroupValue,
-                questions: [{
-                    "questionName": "Teste10",
-                    "questionType": "RATING",
-                    "questionDescription": " "
-                }],
+                questions: [
+                    {
+                        "questionName": "Pergunta1",
+                        "questionType": "RATING",
+                        "questionDescription": "Descriçao da Pergunta1"
+                    },
+                    {
+                        "questionName": "Observações",
+                        "questionType": "OBSERVATION",
+                        "questionDescription": "Coloque uma observação para poder enviar o formulário"
+                    }
+                ],
                 numberOfStars: 5,
             };
             const response = await createQuestionSet(newGroup);
-            const updatedGroups = [...arrayGroups, response.data];
-            setArrayGroups(updatedGroups);
             setNameGroupValue("");
             setShowInputGroup(false);
+            return response.data
         } catch (error) {
             console.log(error);
         }
@@ -131,11 +138,7 @@ export default function CreatingGroupAvaliations() {
     };
 
     const handleCheckboxChange = (selectedGroup) => {
-        const updatedGroups = arrayGroups.map(group => ({
-            ...group,
-            activatedSet: group.questionSetName === selectedGroup.questionSetName
-        }));
-        setArrayGroups(updatedGroups);
+        postActivateGroup(selectedGroup.questionSetName)
     };
 
     const handleSaveChanges = async () => {
