@@ -91,7 +91,7 @@ export default function SubmittedAvaliation({ avaliations }) {
           >
             <CalendarIcon color="white" />
             <Text paddingInline="8px" color="white">
-              {format(parseISO(avaliation.date), "dd/MM/yyyy, HH:mm:ss", {
+              {format(parseISO(avaliation.date), "dd/MM/yyyy, HH:mm", {
                 locale: ptBR,
               })}
             </Text>
