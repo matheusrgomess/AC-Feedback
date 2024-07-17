@@ -2,7 +2,6 @@ import { api } from "../../api";
 
 
 export async function getFeedbacks(participantName, limit, startDate, endDate) {
-  console.log(participantName)
   const response = await api.get('/list-feedbacks', {
     params: {
       participantName: participantName,
@@ -11,5 +10,11 @@ export async function getFeedbacks(participantName, limit, startDate, endDate) {
       endDate: endDate,
     }
   })
+  return response.data
+}
+
+export async function postFeedback(data) {
+  const response = await api.post('/feedback', { feedback: data })
+
   return response.data
 }
