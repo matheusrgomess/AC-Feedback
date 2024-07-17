@@ -34,8 +34,11 @@ export default function SeeMoreAvaliation({
   stars,
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
+
+  console.log("avaliation ->", avaliation);
+
   const filteredQuestions = avaliation.questions.filter(
-    question => question.type === "RATING"
+    (question) => question.questionType === "RATING"
   );
   const [
     alternanceObservationandQuestions,
@@ -175,7 +178,11 @@ export default function SeeMoreAvaliation({
                         </Text>
                       </Container>
                       <div style={{ display: "flex" }}>
-                        {[...Array(parseInt(stars))].map((_, i) => {
+                        {[
+                          ...Array(
+                            parseInt(avaliation.avaliationInfo.numberOfStars)
+                          ),
+                        ].map((_, i) => {
                           const ratingValue = i + 1;
 
                           return (
@@ -216,28 +223,30 @@ export default function SeeMoreAvaliation({
                       flexDirection="column"
                       bottom="20px"
                     >
-                      <div style={{
-                        background: "#971520",
-                        width: "110px",
-                        paddingLeft: "4px",
-                        borderTopLeftRadius: "2px",
-                        borderTopRightRadius: "2px",
-                      }}>
+                      <div
+                        style={{
+                          background: "#971520",
+                          width: "110px",
+                          paddingLeft: "4px",
+                          borderTopLeftRadius: "2px",
+                          borderTopRightRadius: "2px",
+                        }}
+                      >
                         <strong>Justificativa</strong>
                       </div>
                       <textarea
                         style={{
-                          "fontSize": "1.1em",
-                          "width": "100%",
-                          "height": "70px",
-                          "padding": "2px",
-                          "resize": "none",
-                          "background": "transparent",
-                          "border": "1px solid #971520",
-                          "borderRadius": "6px",
-                          "borderTopLeftRadius": "0px",
-                          "outline": "none",
-                          "overflowY": "scroll",
+                          fontSize: "1.1em",
+                          width: "100%",
+                          height: "70px",
+                          padding: "2px",
+                          resize: "none",
+                          background: "transparent",
+                          border: "1px solid #971520",
+                          borderRadius: "6px",
+                          borderTopLeftRadius: "0px",
+                          outline: "none",
+                          overflowY: "scroll",
                         }}
                         required
                         readOnly
