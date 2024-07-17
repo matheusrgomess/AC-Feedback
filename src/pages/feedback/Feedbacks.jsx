@@ -131,7 +131,7 @@ export default function Feedbacks() {
               overflowY="auto"
             >
               <SubmittedAvaliation
-                avaliations={avaliations.receivedFeedbacks}
+                avaliations={avaliations.addedFeedbacks}
               />
             </Container>
           </Container>
@@ -196,7 +196,7 @@ export default function Feedbacks() {
               overflow="hidden"
               overflowY="auto"
             >
-              <SubmittedAvaliation avaliations={avaliations.addedFeedbacks} />
+              <SubmittedAvaliation avaliations={avaliations.receivedFeedbacks} />
             </Container>
           </Container>
         </Container>

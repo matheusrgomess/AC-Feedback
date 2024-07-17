@@ -54,6 +54,7 @@ export default function RateParticipantScreen() {
       questionName: activatedGroup.questions[currentQuestion].questionName,
       rating: rating,
       questionType: "RATING",
+      questionDescription: activatedGroup.questions[currentQuestion].questionDescription,
       justification: justification,
     };
 

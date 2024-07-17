@@ -33,10 +33,6 @@ export default function SubmittedAvaliation({ avaliations }) {
       .map((question) => parseFloat(question.rating));
   };
 
-  const findObservation = (questions) => {
-    return questions.find((question) => typeof question.rating === "string");
-  };
-
   const handleOpenModal = (avaliation, numStars) => {
     setIsModalOpen(true);
     setSelectedAvaliation(avaliation);
@@ -52,10 +48,13 @@ export default function SubmittedAvaliation({ avaliations }) {
     const numStars = avaliation.stars;
     const filteredValidRatings = filterValidRatings(questions);
 
-    const observationRating = findObservation(questions);
-
     const averageRating = getAverageRating(filteredValidRatings);
 
+    const filteredQuestionsOBSERVATION = avaliation.questions.filter(
+      (question) => question.questionType === "OBSERVATION"
+    );
+
+    console.log(filteredQuestionsOBSERVATION[0].observation)
     return (
       <Container
         key={avaliation.id}
@@ -125,11 +124,7 @@ export default function SubmittedAvaliation({ avaliations }) {
               WebkitLineClamp: 3,
             }}
           >
-            {observationRating && (
-              <>
-                <strong>Observação:</strong> {observationRating.rating}
-              </>
-            )}
+                <strong>Observação:</strong> {filteredQuestionsOBSERVATION[0].observation}
           </Text>
           <br />
           <Text color="white">
@@ -152,7 +147,6 @@ export default function SubmittedAvaliation({ avaliations }) {
           onClose={handleCloseModal}
           avaliation={selectedAvaliation}
           getAverageRating={getAverageRating}
-          getObservation={findObservation}
           filterValidRatings={filterValidRatings}
           stars={stars}
         />

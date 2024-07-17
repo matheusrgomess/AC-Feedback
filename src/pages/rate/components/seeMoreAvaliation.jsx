@@ -23,23 +23,24 @@ import {
 import formattingText from "../../../utils/formattingText";
 import { useState } from "react";
 import { TiStar } from "react-icons/ti";
+import { parseISO, format } from "date-fns";
+import { ptBR } from 'date-fns/locale';
 
 export default function SeeMoreAvaliation({
   isOpen,
   onClose,
   avaliation,
   getAverageRating,
-  getObservation,
   filterValidRatings,
-  stars,
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-
-  console.log("avaliation ->", avaliation);
-
-  const filteredQuestions = avaliation.questions.filter(
+  const filteredQuestionsRATING = avaliation.questions.filter(
     (question) => question.questionType === "RATING"
   );
+  const filteredQuestionsOBSERVATION = avaliation.questions.filter(
+    (question) => question.questionType === "OBSERVATION"
+  );
+
   const [
     alternanceObservationandQuestions,
     setAlternanceObservationandQuestions,
@@ -62,6 +63,7 @@ export default function SeeMoreAvaliation({
   const handleClose = () => {
     onClose();
     setCurrentQuestion(0);
+    setAlternanceObservationandQuestions(false)
   };
 
   return (
@@ -86,10 +88,7 @@ export default function SeeMoreAvaliation({
                 color="white"
               >
                 <Text display="flex" gap="10px" fontWeight="400">
-                  Avaliação feita por:
-                  <Text>
-                    <strong>{formattingText(avaliation.reviewer)}</strong>
-                  </Text>
+                  Avaliação feita por:<strong>{formattingText(avaliation.reviewer)}</strong>
                 </Text>
                 <IconButton
                   onClick={handleClose}
@@ -136,7 +135,9 @@ export default function SeeMoreAvaliation({
                     <Flex alignItems="center" fontSize="20px">
                       <CalendarIcon marginRight="5px" />
                       <strong>
-                        <Text>{avaliation.date}</Text>
+                        <Text>{format(parseISO(avaliation.date), "dd/MM/yyyy", {
+                          locale: ptBR,
+                        })}</Text>
                       </strong>
                     </Flex>
                     <strong>
@@ -168,11 +169,11 @@ export default function SeeMoreAvaliation({
                     >
                       <Container textAlign="center">
                         <Heading fontSize="40px">
-                          {filteredQuestions[currentQuestion].question}
+                          {filteredQuestionsRATING[currentQuestion].questionName}
                         </Heading>
                         <Text fontSize="22px">
                           {
-                            filteredQuestions[currentQuestion]
+                            filteredQuestionsRATING[currentQuestion]
                               .questionDescription
                           }
                         </Text>
@@ -276,7 +277,7 @@ export default function SeeMoreAvaliation({
                       focusBorderColor="#ffffff"
                       overflow="hidden"
                       overflowY="auto"
-                      defaultValue={getObservation(avaliation.questions).rating}
+                      defaultValue={filteredQuestionsOBSERVATION[0].observation}
                     />
                   </Container>
                 )}
@@ -313,7 +314,7 @@ export default function SeeMoreAvaliation({
                         <ArrowLeftIcon color="#ffffff" />
                       </Button>
                     )}
-                    {currentQuestion !== filteredQuestions.length - 1 && (
+                    {currentQuestion !== filteredQuestionsRATING.length - 1 && (
                       <Button
                         padding="0px"
                         bg="transparent"
@@ -328,7 +329,7 @@ export default function SeeMoreAvaliation({
                   <Container maxWidth="300px" margin="0px">
                     <Progress
                       value={currentQuestion}
-                      max={filteredQuestions.length - 1}
+                      max={filteredQuestionsRATING.length - 1}
                       borderRadius="20px"
                       colorScheme="red"
                       size="xs"
