@@ -13,7 +13,7 @@ import {
     Select,
     Divider,
     UnorderedList,
-    ListItem
+    ListItem,
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 import { createUser } from "services/users";
@@ -22,37 +22,67 @@ import { useState, useEffect } from "react";
 import { FaUserPlus } from "react-icons/fa6";
 import { listParticipants } from "services/participants";
 import formattingText from "utils/formattingText";
+import ModalEditingParticipant from "./modalEditingParticipant";
 
 export default function EditParticipants() {
-    const [isOpen, setIsOpen] = useState(false)
-    const [showInputsNewUser, setShowInputsNewUser] = useState(false)
-    const [participants, setParticipants] = useState([])
+    const [isOpenPrincipalModal, setIsOpenPrincipalModal] = useState(false);
+    const [isOpenEditParticipantSelected, setIsOpenEditParticipantSelected] = useState(false);
+    const [showInputsNewUser, setShowInputsNewUser] = useState(false);
+    const [valueEmail, setValueEmail] = useState("");
+    const [valueName, setValueName] = useState("");
+    const [participants, setParticipants] = useState([]);
+    const [userType, setUserType] = useState("PARTICIPANT");
+    const [infoSelectedParticipant, setInfoSelectedParticipant] = useState();
+
+    const normalizeName = (str) => {
+        const nameWithoutDiacritics = str
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+        const formattedName = nameWithoutDiacritics
+            .trim()
+            .toLowerCase()
+            .replace(/ /g, "-");
+        return formattedName;
+    };
+
+    const fetchParticipants = async () => {
+        const participantsList = await listParticipants();
+        setParticipants(participantsList);
+    }
 
     useEffect(() => {
-        async function fetchParticipants() {
-            const participantsList = await listParticipants();
-            setParticipants(participantsList);
-        }
-
         fetchParticipants();
     }, []);
 
-    const handleClose = () => {
-        setShowInputsNewUser(false)
-        setIsOpen(false)
+    const handleClosePrincipalModal = () => {
+        setShowInputsNewUser(false);
+        setIsOpenPrincipalModal(false);
+    }
+
+    const handleCloseEditParticipantSelected = () => {
+        setIsOpenEditParticipantSelected(false);
+    }
+
+    const handleOpenEditParticipantSelected = (participant) => {
+        setIsOpenEditParticipantSelected(true);
+        setInfoSelectedParticipant(participant);
     }
 
     const saveUser = async () => {
         const user = {
-            email: "teste@gmail.com.br",
-            name: "teste-teste",
-            userType: "PARTICIPANT",
+            email: valueEmail,
+            name: normalizeName(valueName),
+            userType: userType,
         };
 
         try {
-            const response = await createUser({ user: user });
-            handleClose()
-            toast.success(response.message);
+            await createUser({ user: user });
+            await fetchParticipants()
+            setValueName("");
+            setValueEmail("");
+            setUserType("PARTICIPANT");
+            setShowInputsNewUser(false)
+            toast.success("Novo usuário criado: " + user.name);
         } catch (error) {
             console.log(error);
             toast.error(error.message);
@@ -61,21 +91,21 @@ export default function EditParticipants() {
 
     return (
         <>
-            <Modal isOpen={isOpen} onClose={handleClose} isCentered>
+            <Modal isOpen={isOpenPrincipalModal} onClose={handleClosePrincipalModal} isCentered>
                 <ModalOverlay />
                 <ModalContent bg="#1c222b" color="white">
                     <ModalHeader>
                         Editar usuários
-                        <ModalCloseButton onClick={handleClose} />
+                        <ModalCloseButton onClick={handleClosePrincipalModal} />
                     </ModalHeader>
                     <ModalBody>
                         <Text fontSize="18px">Esses são todos os usuários cadastrados:</Text>
                         <UnorderedList>
                             {participants?.map(participant =>
                                 <ListItem key={participant.name} color="#ffffff" marginBottom="10px">
-                                    <Text>
-                                        <strong>{formattingText(participant.name)}</strong>
-                                    </Text>
+                                    <Button variant="ghost" _hover={{ bgColor: "rgba(0, 0, 0, 0.5)" }} onClick={() => handleOpenEditParticipantSelected(participant)}>
+                                        <Text textColor="white"><strong>{formattingText(participant.name)}</strong></Text>
+                                    </Button>
                                 </ListItem>)}
                         </UnorderedList>
                         <Button onClick={() => { setShowInputsNewUser(!showInputsNewUser) }} bg="transparent" borderLeft={showInputsNewUser ? "1px solid" : "none"} color="white" borderRadius="none" _hover={{}} _active={{ bgColor: "rgba(0,0,0,0.1)" }}>
@@ -89,6 +119,8 @@ export default function EditParticipants() {
                                 <Divider marginBottom="10px" />
                                 <Text><strong>Nome do usuário:</strong></Text>
                                 <Input placeholder="Digite aqui o nome"
+                                    value={valueName}
+                                    onChange={(event) => { setValueName(event.target.value) }}
                                     border="none"
                                     borderBottom="1px solid"
                                     borderRadius="none"
@@ -103,6 +135,8 @@ export default function EditParticipants() {
                                     }}></Input>
                                 <Text><strong>Email do usuário:</strong></Text>
                                 <Input placeholder="Digite aqui o email"
+                                    value={valueEmail}
+                                    onChange={(event) => { setValueEmail(event.target.value) }}
                                     border="none"
                                     borderBottom="1px solid"
                                     borderRadius="none"
@@ -117,23 +151,30 @@ export default function EditParticipants() {
                                     }}></Input>
                                 <Container display="flex" alignItems="center" padding="0px" marginTop="15px" justifyContent="space-between">
                                     <Text><strong>Tipo de usuário:</strong></Text>
-                                    <Select width="45%" border="none" _focus={{ boxShadow: "0px 0px 0px 1px #971520" }}>
-                                        <option style={{ color: "black" }}>Participante</option>
-                                        <option style={{ color: "black" }}>Administrador</option>
+                                    <Select width="45%" border="none" _focus={{ boxShadow: "0px 0px 0px 1px #971520" }} value={userType} onChange={(event) => setUserType(event.target.value)}>
+                                        <option style={{ color: "black" }} value="PARTICIPANT">Participante</option>
+                                        <option style={{ color: "black" }} value="ADMIN">Administrador</option>
                                     </Select>
                                 </Container>
-
+                                <Button onClick={saveUser}>Salvar novo usuário</Button>
                             </Container>
 
                         }
                     </ModalBody>
                     <ModalFooter>
-                        <Button onClick={saveUser}>Salvar</Button>
+                        <Button>Salvar</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
+            <ModalEditingParticipant
+                isOpenEditParticipantSelected={isOpenEditParticipantSelected}
+                infoSelectedParticipant={infoSelectedParticipant}
+                setInfoSelectedParticipant={setInfoSelectedParticipant}
+                handleCloseEditParticipantSelected={handleCloseEditParticipantSelected}
+                setParticipants={setParticipants}
+            />
             <Button
-                onClick={() => { setIsOpen(!isOpen) }}
+                onClick={() => { setIsOpenPrincipalModal(!isOpenPrincipalModal) }}
                 padding="0px"
                 color="white"
                 bg="transparent"
