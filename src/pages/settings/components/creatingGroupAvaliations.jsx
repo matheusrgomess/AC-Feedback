@@ -27,6 +27,8 @@ import { useState, useEffect } from "react";
 import { createQuestionSet } from "services/postQuestionsSet";
 import { printQuestionSet } from "services/getQuestionsSet";
 import { postActivateGroup } from "services/postActivateGroup";
+import { deleteQuestionSet } from "services/delQuestionsSet";
+import { toast } from "react-toastify";
 
 export default function CreatingGroupAvaliations() {
     const [selectedGroupValue, setSelectedGroupValue] = useState(null);
@@ -40,14 +42,15 @@ export default function CreatingGroupAvaliations() {
     const [numStars, setNumStars] = useState(5);
     const [questionsSet, setQuestionsSet] = useState()
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                setQuestionsSet(await printQuestionSet())
-            } catch (error) {
-                console.log(error);
-            }
+    const fetchData = async () => {
+        try {
+            setQuestionsSet(await printQuestionSet())
+        } catch (error) {
+            console.log(error);
         }
+    }
+
+    useEffect(() => {
         fetchData();
     }, []);
 
@@ -70,6 +73,7 @@ export default function CreatingGroupAvaliations() {
                 numberOfStars: 5,
             };
             const response = await createQuestionSet(newGroup);
+            fetchData()
             setNameGroupValue("");
             setShowInputGroup(false);
             return response.data
@@ -138,7 +142,7 @@ export default function CreatingGroupAvaliations() {
     };
 
     const handleCheckboxChange = (selectedGroup) => {
-        postActivateGroup(selectedGroup.questionSetName)
+        postActivateGroup(selectedGroup.questionSetName).then(() => fetchData());
     };
 
     const handleSaveChanges = async () => {
@@ -154,6 +158,20 @@ export default function CreatingGroupAvaliations() {
         setArrayGroups(updatedGroups);
         handleClose();
     };
+
+    const handleDeleteGroup = async (selectedGroup) => {
+        if (selectedGroup.activatedSet === false) {
+            try {
+                await deleteQuestionSet(selectedGroup.id);
+                fetchData();
+                handleClose();
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            toast.error("Não é possível excluir um grupo ativado");
+        }
+    }
 
     return (
         <>
@@ -328,6 +346,7 @@ export default function CreatingGroupAvaliations() {
                             </Container>
                         </Container>
                         <Button onClick={handleSaveChanges} marginTop="15px" bgColor="#ffffff" color="black">Salvar Alterações</Button>
+                        <Button marginTop="15px" marginLeft="10px" colorScheme="red" onClick={() => handleDeleteGroup(selectedGroupValue)}>Excluir Grupo</Button>
                     </ModalBody>
                 </ModalContent>
             </Modal>
