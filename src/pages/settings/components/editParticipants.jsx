@@ -17,12 +17,13 @@ import {
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 import { createUser } from "services/users";
-import { FaUserEdit } from "react-icons/fa";
+import { FaUserCog } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { FaUserPlus } from "react-icons/fa6";
 import { listParticipants } from "services/participants";
 import formattingText from "utils/formattingText";
 import ModalEditingParticipant from "./modalEditingParticipant";
+import normalizeNameToAPI from "utils/normalizeNameToAPI";
 
 export default function EditParticipants() {
     const [isOpenPrincipalModal, setIsOpenPrincipalModal] = useState(false);
@@ -33,17 +34,6 @@ export default function EditParticipants() {
     const [participants, setParticipants] = useState([]);
     const [userType, setUserType] = useState("PARTICIPANT");
     const [infoSelectedParticipant, setInfoSelectedParticipant] = useState();
-
-    const normalizeName = (str) => {
-        const nameWithoutDiacritics = str
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "");
-        const formattedName = nameWithoutDiacritics
-            .trim()
-            .toLowerCase()
-            .replace(/ /g, "-");
-        return formattedName;
-    };
 
     const fetchParticipants = async () => {
         const participantsList = await listParticipants();
@@ -71,7 +61,7 @@ export default function EditParticipants() {
     const saveUser = async () => {
         const user = {
             email: valueEmail,
-            name: normalizeName(valueName),
+            name: normalizeNameToAPI(valueName),
             userType: userType,
         };
 
@@ -177,11 +167,12 @@ export default function EditParticipants() {
                 onClick={() => { setIsOpenPrincipalModal(!isOpenPrincipalModal) }}
                 padding="0px"
                 color="white"
+                variant="ghost"
                 bg="transparent"
-                _hover={{ bg: "rgba(0, 0, 0, 0.1)" }}
+                _hover={{ bg: "rgba(0, 0, 0, 0.3)" }}
             >
-                <Text display="flex" textDecoration="underline" marginRight="10px"><strong>Editar usuários</strong></Text>
-                <FaUserEdit size={22.5}></FaUserEdit>
+                <Text display="flex" marginRight="10px"><strong>Editar usuários</strong></Text>
+                <FaUserCog size={22.5}></FaUserCog>
             </Button>
         </>
 
