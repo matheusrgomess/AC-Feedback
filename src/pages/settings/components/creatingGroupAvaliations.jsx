@@ -7,7 +7,7 @@ import {
     IconButton,
     Container,
     Heading,
-    Checkbox,
+    Checkbox
 } from "@chakra-ui/react";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
@@ -18,6 +18,7 @@ import { deleteQuestionSet } from "services/delQuestionsSet";
 import { toast } from "react-toastify";
 import ModalEditingGroup from "./modalEditingGroup";
 import { TiStar } from "react-icons/ti";
+import { editQuestionSet } from "services/putQuestionSet";
 
 export default function CreatingGroupAvaliations() {
     const [selectedGroupValue, setSelectedGroupValue] = useState(null);
@@ -28,6 +29,12 @@ export default function CreatingGroupAvaliations() {
     const [showADDQuestionsInput, setShowADDQuestionsInput] = useState(false);
     const [inputQuestionsValue, setInputQuestionsValue] = useState("");
     const [questionsSet, setQuestionsSet] = useState();
+    const [valueInputName, setValueInputName] = useState("");
+    const [numberInputStars, setNumberInputStars] = useState();
+    const [openSelectedQuestion, setOpenSelectedQuestion] = useState(false);
+    const [selectedQuestion, setSelectedQuestion] = useState({});
+    const [valueNewTitleQuestion, setValueNewTitleQuestion] = useState("");
+    const [valueNewDescQuestion, setValueNewDescQuestion] = useState("");
 
     const fetchData = async () => {
         try {
@@ -55,20 +62,21 @@ export default function CreatingGroupAvaliations() {
                 numberOfStars: 5,
             };
             const response = await createQuestionSet(newGroup);
-            fetchData()
+            fetchData();
             setNameGroupValue("");
             setShowInputGroup(false);
             return response.data
         } catch (error) {
             console.log(error);
         }
-
     };
 
     const handleOpen = (group) => {
         setIsModalOpen(true);
         setSelectedGroupValue(group);
         setQuestionsInput(group.questions || []);
+        setValueInputName(group.questionSetName);
+        setNumberInputStars(group.numberOfStars);
     };
 
     const handleClose = () => {
@@ -84,8 +92,7 @@ export default function CreatingGroupAvaliations() {
                 questionName: inputQuestionsValue,
                 questionDescription: ""
             };
-            const updatedQuestions = [...questionsInput, newQuestion]
-
+            const updatedQuestions = [...questionsInput, newQuestion];
             setQuestionsInput(updatedQuestions);
             setInputQuestionsValue("");
             setShowADDQuestionsInput(false);
@@ -110,7 +117,52 @@ export default function CreatingGroupAvaliations() {
         } else {
             toast.error("Não é possível excluir um grupo ativado");
         }
-    }
+    };
+
+    const handleSaveChanges = async () => {
+        const changes = {
+            questionSet: {
+                numberOfStars: Number(numberInputStars),
+                questionSetName: valueInputName,
+                questions: questionsInput
+            }
+        };
+        try {
+            await editQuestionSet(selectedGroupValue.id, changes);
+            setShowADDQuestionsInput(false);
+            handleClose();
+            fetchData();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleSelectedQuestionOpen = (item) => {
+        setOpenSelectedQuestion(true);
+        setSelectedQuestion(item);
+        setValueNewTitleQuestion(item.questionName || "");
+        setValueNewDescQuestion(item.questionDescription || "");
+    };
+
+    const handleSelectedQuestionClose = () => {
+        setOpenSelectedQuestion(false);
+    };
+
+    const handleRemoveQuestion = () => {
+        const updatedQuestions = questionsInput.filter(question => question !== selectedQuestion);
+        setQuestionsInput(updatedQuestions);
+        setOpenSelectedQuestion(false);
+    };
+
+    const handleUpdateQuestion = async () => {
+        const updatedQuestions = questionsInput.map(question =>
+            question === selectedQuestion
+                ? { ...question, questionName: valueNewTitleQuestion, questionDescription: valueNewDescQuestion }
+                : question
+        );
+        setQuestionsInput(updatedQuestions);
+        setOpenSelectedQuestion(false);
+    };
 
     return (
         <>
@@ -119,8 +171,7 @@ export default function CreatingGroupAvaliations() {
                     Criar novo grupo de avaliações
                 </Text>
             </Button>
-            {
-                showInputGroup &&
+            {showInputGroup && (
                 <InputGroup size="sm" marginTop="15px">
                     <Input
                         placeholder="Digite aqui o nome do novo agrupamento de avaliações"
@@ -133,7 +184,7 @@ export default function CreatingGroupAvaliations() {
                         color="white"
                         value={nameGroupValue}
                         onChange={(event) => setNameGroupValue(event.target.value)}
-                    ></Input>
+                    />
                     <InputRightAddon
                         width="50px"
                         display="flex"
@@ -164,10 +215,10 @@ export default function CreatingGroupAvaliations() {
                         </IconButton>
                     </InputRightAddon>
                 </InputGroup>
-            }
+            )}
             <Container minWidth="100%" padding="0px" paddingTop="10px" display="grid" margin="0px" gridTemplateColumns="repeat(2, 1fr)" gap={4}>
                 {questionsSet?.questions.map((group, index) => (
-                    <Container key={index} bgColor="#14181E" borderRadius="10px" border="1px solid" borderColor="white" minWidth="350px" maxWidth="350px" >
+                    <Container key={index} bgColor="#14181E" borderRadius="10px" border="1px solid" borderColor="white" minWidth="350px" maxWidth="350px">
                         <Container padding="0px" display="flex" alignItems="center" justifyContent="space-between">
                             <Heading display="flex" alignItems="center">
                                 <Checkbox
@@ -190,8 +241,12 @@ export default function CreatingGroupAvaliations() {
                                 <EditIcon color="white" transition="color 0.3s ease-in-out" _hover={{ color: "red", transition: "color 0.3s ease-in-out" }} boxSize={5} />
                             </Button>
                         </Container>
-                        <Text paddingTop="5px" paddingBottom="10px" fontSize={17}><strong>Número de perguntas: {group.questions.map(question => question.questionType === "OBSERVATION")? group.questions.length-1 : group.questions.length}</strong></Text>
-                        <Text fontSize={17}><strong>Quantidade de estrelas: {group.numberOfStars}</strong></Text>
+                        <Text paddingTop="5px" paddingBottom="10px" fontSize={17}>
+                            <strong>Número de perguntas: {group.questions.map(question => question.questionType === "OBSERVATION") ? group.questions.length - 1 : group.questions.length}</strong>
+                        </Text>
+                        <Text fontSize={17}>
+                            <strong>Quantidade de estrelas: {group.numberOfStars}</strong>
+                        </Text>
                         <div style={{ display: "flex", position: "relative", right: "3px", bottom: "5px", padding: "0px", alignItems: "center", height: "25px", maxWidth: "85%" }}>
                             {[
                                 ...Array(
@@ -222,6 +277,22 @@ export default function CreatingGroupAvaliations() {
                 showADDQuestionsInput={showADDQuestionsInput}
                 setShowADDQuestionsInput={setShowADDQuestionsInput}
                 inputQuestionsValue={inputQuestionsValue}
+                valueInputName={valueInputName}
+                setValueInputName={setValueInputName}
+                numberInputStars={numberInputStars}
+                setNumberInputStars={setNumberInputStars}
+                handleSaveChanges={handleSaveChanges}
+                handleSelectedQuestionOpen={handleSelectedQuestionOpen}
+                handleSelectedQuestionClose={handleSelectedQuestionClose}
+                selectedQuestion={selectedQuestion}
+                setSelectedQuestion={setSelectedQuestion}
+                valueNewTitleQuestion={valueNewTitleQuestion}
+                setValueNewTitleQuestion={setValueNewTitleQuestion}
+                valueNewDescQuestion={valueNewDescQuestion}
+                setValueNewDescQuestion={setValueNewDescQuestion}
+                openSelectedQuestion={openSelectedQuestion}
+                handleRemoveQuestion={handleRemoveQuestion}
+                handleUpdateQuestion={handleUpdateQuestion}
             />
         </>
     );
