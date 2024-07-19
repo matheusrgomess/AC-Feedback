@@ -11,7 +11,6 @@ import { getFeedbacks } from "services/feedbacks";
 export default function Feedbacks() {
   const [avaliations, setAvaliations] = useState();
   const user = JSON.parse(localStorage.getItem("user"));
-
   const [openFilters, setOpenFilters] = useState(false);
   const [openUserFilter, setOpenUserFilter] = useState(false);
   const verifyAdm = localStorage.getItem("isAdmin") === "true";

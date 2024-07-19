@@ -169,13 +169,10 @@ export default function SeeMoreAvaliation({
                     >
                       <Container textAlign="center">
                         <Heading fontSize="40px">
-                          {filteredQuestionsRATING[currentQuestion].questionName}
+                          {filteredQuestionsRATING[currentQuestion]?.questionName}
                         </Heading>
                         <Text fontSize="22px">
-                          {
-                            filteredQuestionsRATING[currentQuestion]
-                              .questionDescription
-                          }
+                          {filteredQuestionsRATING[currentQuestion]?.questionDescription}
                         </Text>
                       </Container>
                       <div style={{ display: "flex" }}>

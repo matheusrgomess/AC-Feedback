@@ -43,7 +43,7 @@ export default function Home() {
         </Container>
       ) : (
         <>
-          {avaliations?.receivedFeedbacks ? (
+          {avaliations?.addedFeedbacks.length > 0 ? (
             <Container
               bg="#1c222b"
               maxH="300px"
@@ -98,8 +98,7 @@ export default function Home() {
             </Container>
           )}
 
-          {avaliations?.addedFeedbacks &&
-          avaliations?.addedFeedbacks.length > 0 ? (
+          {avaliations?.receivedFeedbacks.length > 0 ? (
             <Container
               bg="#1c222b"
               maxH="300px"

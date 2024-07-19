@@ -155,14 +155,21 @@ export default function CreatingGroupAvaliations() {
     };
 
     const handleUpdateQuestion = async () => {
-        const updatedQuestions = questionsInput.map(question =>
-            question === selectedQuestion
-                ? { ...question, questionName: valueNewTitleQuestion, questionDescription: valueNewDescQuestion }
-                : question
-        );
+        const updatedQuestions = questionsInput.map(question => {
+            if (question === selectedQuestion) {
+                if (valueNewTitleQuestion !== "") {
+                    setOpenSelectedQuestion(false);
+                    return { ...question, questionName: valueNewTitleQuestion, questionDescription: valueNewDescQuestion };
+                } else {
+                    toast.error("É necessário haver um título para a pergunta");
+                    return question;
+                }
+            }
+            return question;
+        });
         setQuestionsInput(updatedQuestions);
-        setOpenSelectedQuestion(false);
     };
+
 
     return (
         <>

@@ -23,13 +23,12 @@ export default function SubmittedAvaliation({ avaliations }) {
 
   const getAverageRating = (numbersArray) => {
     const average =
-      numbersArray.reduce((acc, val) => acc + val, 0) / numbersArray.length;
+      numbersArray?.reduce((acc, val) => acc + val, 0) / numbersArray?.length;
     return parseFloat(average.toFixed(1));
   };
 
   const filterValidRatings = (questions) => {
-    return questions
-      .filter((question) => typeof question.rating === "number")
+    return questions?.filter((question) => typeof question.rating === "number")
       .map((question) => parseFloat(question.rating));
   };
 
@@ -44,93 +43,95 @@ export default function SubmittedAvaliation({ avaliations }) {
   };
 
   const renderAvaliation = (avaliation) => {
-    const questions = avaliation.questions;
-    const numStars = avaliation.stars;
+    const questions = avaliation?.questions;
+    const numStars = avaliation?.stars;
     const filteredValidRatings = filterValidRatings(questions);
 
     const averageRating = getAverageRating(filteredValidRatings);
 
-    const filteredQuestionsOBSERVATION = avaliation.questions.filter(
+    const filteredQuestionsOBSERVATION = avaliation?.questions.filter(
       (question) => question.questionType === "OBSERVATION"
     );
     return (
-      <Container
-        key={avaliation.id}
-        as="div"
-        bg="white"
-        w="95%"
-        maxH="200px"
-        border="2px solid"
-        borderColor="#971520"
-        padding="10px"
-        borderRadius="12px"
-        marginBottom="15px"
-        bgColor="#1c222b"
-      >
+      avaliation && <>
         <Container
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          padding="0px"
-          marginBottom="5px"
-          borderBottom="2px solid"
-          borderColor="#ffffff"
-          overflow="hidden"
-          color="#ffffff"
+          key={avaliation.id}
+          as="div"
+          bg="white"
+          w="95%"
+          maxH="200px"
+          border="2px solid"
+          borderColor="#971520"
+          padding="10px"
+          borderRadius="12px"
+          marginBottom="15px"
+          bgColor="#1c222b"
         >
-          <Heading>{formattingText(avaliation.reviewer)}:</Heading>
           <Container
             display="flex"
-            width="auto"
             alignItems="center"
+            justifyContent="space-between"
             padding="0px"
-            margin="0px"
+            marginBottom="5px"
+            borderBottom="2px solid"
+            borderColor="#ffffff"
+            overflow="hidden"
+            color="#ffffff"
           >
-            <CalendarIcon color="white" />
-            <Text paddingInline="8px" color="white">
-              {format(parseISO(avaliation.date), "dd/MM/yyyy, HH:mm", {
-                locale: ptBR,
-              })}
-            </Text>
-            <Tooltip
-              label="Ver avaliação completa"
-              aria-label="tooltip para botão de visualizar"
+            <Heading>{formattingText(avaliation?.reviewer)}:</Heading>
+            <Container
+              display="flex"
+              width="auto"
+              alignItems="center"
+              padding="0px"
+              margin="0px"
             >
-              <Button
-                bg="#971520"
-                _hover={{}}
-                _active={{ bgColor: "#5a0c12" }}
-                color="#ffffff"
-                padding="0px"
-                size="sm"
-                margin="5px"
-                marginLeft="10px"
-                onClick={() => handleOpenModal(avaliation, numStars)}
+              <CalendarIcon color="white" />
+              <Text paddingInline="8px" color="white">
+                {avaliation && format(parseISO(avaliation?.date), "dd/MM/yyyy, HH:mm", {
+                  locale: ptBR,
+                })}
+              </Text>
+              <Tooltip
+                label="Ver avaliação completa"
+                aria-label="tooltip para botão de visualizar"
               >
-                <ViewIcon />
-              </Button>
-            </Tooltip>
+                <Button
+                  bg="#971520"
+                  _hover={{}}
+                  _active={{ bgColor: "#5a0c12" }}
+                  color="#ffffff"
+                  padding="0px"
+                  size="sm"
+                  margin="5px"
+                  marginLeft="10px"
+                  onClick={() => handleOpenModal(avaliation, numStars)}
+                >
+                  <ViewIcon />
+                </Button>
+              </Tooltip>
+            </Container>
+          </Container>
+          <Container padding="0px">
+            <Text
+              color="white"
+              style={{
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                WebkitLineClamp: 3,
+              }}
+            >
+              <strong>Observação:</strong> {filteredQuestionsOBSERVATION && filteredQuestionsOBSERVATION[0].observation}
+            </Text>
+            <br />
+            <Text color="white">
+              <strong>Média dos Ratings:</strong> {averageRating}
+            </Text>
+            <br />
           </Container>
         </Container>
-        <Container padding="0px">
-          <Text
-            color="white"
-            style={{
-              display: "-webkit-box",
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-              WebkitLineClamp: 3,
-            }}
-          >
-                <strong>Observação:</strong> {filteredQuestionsOBSERVATION[0].observation}
-          </Text>
-          <br />
-          <Text color="white">
-            <strong>Média dos Ratings:</strong> {averageRating}
-          </Text>
-          <br />
-        </Container>
-      </Container>
+      </>
     );
   };
 

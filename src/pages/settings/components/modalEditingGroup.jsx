@@ -77,6 +77,7 @@ export default function ModalEditingGroup({
                             w="100%"
                             h="40px"
                             borderBottom="2px solid"
+                            paddingBottom="10px"
                             borderColor="#808080"
                             display="flex"
                             alignItems="center"
@@ -85,7 +86,7 @@ export default function ModalEditingGroup({
                             marginBottom="15px"
                         >
                             <Text><strong>Título do grupo:</strong></Text>
-                            <Input maxWidth="60%" value={valueInputName} onChange={(event) => setValueInputName(event.target.value)} />
+                            <Input maxWidth="60%" value={valueInputName} paddingLeft="5px" onChange={(event) => setValueInputName(event.target.value)} />
                         </Container>
                         <Container
                             margin="0px"
@@ -195,13 +196,13 @@ export default function ModalEditingGroup({
                     </ModalHeader>
                     <ModalBody>
                         <Text fontSize={17}><strong>Título:</strong></Text>
-                        <Input value={valueNewTitleQuestion} onChange={(event) => setValueNewTitleQuestion(event.target.value)} />
+                        <Input marginBottom="20px" value={valueNewTitleQuestion} onChange={(event) => setValueNewTitleQuestion(event.target.value)} />
                         <Text fontSize={17}><strong>Descrição:</strong></Text>
-                        <Input value={valueNewDescQuestion} onChange={(event) => setValueNewDescQuestion(event.target.value)} />
+                        <Input value={valueNewDescQuestion} placeholder="Digite a descrição da pergunta" onChange={(event) => setValueNewDescQuestion(event.target.value)} />
                     </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme="red" marginRight={5} onClick={handleRemoveQuestion}>Apagar Pergunta</Button>
-                        <Button onClick={handleUpdateQuestion}>Salvar Alterações</Button>
+                        <Button colorScheme="red" _hover={{ bg: "#680000" }} marginRight={5} onClick={handleRemoveQuestion}>Apagar Pergunta</Button>
+                        <Button bg="black" color="white" _hover={{ bg:"rgba(0, 0, 0, 0.801)" }} onClick={handleUpdateQuestion}>Salvar Alterações</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
