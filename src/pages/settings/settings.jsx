@@ -24,6 +24,7 @@ export default function Settings() {
             <Container
                 border="2px solid"
                 borderColor="#971520"
+                minWidth="750px"
                 padding="10px"
                 borderRadius="12px"
             >

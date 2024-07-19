@@ -8,9 +8,8 @@ import { useState, useEffect } from "react";
 import { editParticipant } from "services/putParticipants";
 import normalizeNameToAPI from "utils/normalizeNameToAPI";
 
-export default function ModalEditingParticipant({ isOpenEditParticipantSelected, handleCloseEditParticipantSelected, infoSelectedParticipant, setInfoSelectedParticipant, setParticipants }) {
+export default function ModalEditingParticipant({ isOpenEditParticipantSelected, handleCloseEditParticipantSelected, infoSelectedParticipant, setParticipants, showButtonConfirm, setShowButtonConfirm }) {
     const participantId = infoSelectedParticipant?.id;
-    const [showButtonConfirm, setShowButtonConfirm] = useState(false);
     const [newValueName, setNewValueName] = useState("");
     const [newValueEmail, setNewValueEmail] = useState("");
     const [newUserType, setNewUserType] = useState("");

@@ -4,7 +4,6 @@ import {
     ModalBody,
     ModalCloseButton,
     ModalContent,
-    ModalFooter,
     ModalHeader,
     ModalOverlay,
     Text,
@@ -14,6 +13,7 @@ import {
     Divider,
     UnorderedList,
     ListItem,
+    Heading,
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 import { createUser } from "services/users";
@@ -34,6 +34,7 @@ export default function EditParticipants() {
     const [participants, setParticipants] = useState([]);
     const [userType, setUserType] = useState("PARTICIPANT");
     const [infoSelectedParticipant, setInfoSelectedParticipant] = useState();
+    const [showButtonConfirm, setShowButtonConfirm] = useState(false);
 
     const fetchParticipants = async () => {
         const participantsList = await listParticipants();
@@ -51,6 +52,7 @@ export default function EditParticipants() {
 
     const handleCloseEditParticipantSelected = () => {
         setIsOpenEditParticipantSelected(false);
+        setShowButtonConfirm(false);
     }
 
     const handleOpenEditParticipantSelected = (participant) => {
@@ -85,7 +87,9 @@ export default function EditParticipants() {
                 <ModalOverlay />
                 <ModalContent bg="#1c222b" color="white">
                     <ModalHeader>
-                        Editar usuários
+                        <Heading>
+                            Editar usuários
+                        </Heading>
                         <ModalCloseButton onClick={handleClosePrincipalModal} />
                     </ModalHeader>
                     <ModalBody>
@@ -151,9 +155,6 @@ export default function EditParticipants() {
 
                         }
                     </ModalBody>
-                    <ModalFooter>
-                        <Button>Salvar</Button>
-                    </ModalFooter>
                 </ModalContent>
             </Modal>
             <ModalEditingParticipant
@@ -162,6 +163,8 @@ export default function EditParticipants() {
                 setInfoSelectedParticipant={setInfoSelectedParticipant}
                 handleCloseEditParticipantSelected={handleCloseEditParticipantSelected}
                 setParticipants={setParticipants}
+                showButtonConfirm={showButtonConfirm}
+                setShowButtonConfirm={setShowButtonConfirm}
             />
             <Button
                 onClick={() => { setIsOpenPrincipalModal(!isOpenPrincipalModal) }}

@@ -22,7 +22,13 @@ export default function RateParticipantScreen() {
   useEffect(() => {
     async function fetchData() {
       try {
-        setActivatedGroup(await getActivatedGroup())
+        const group = await getActivatedGroup();
+        const sortedQuestions = group.questions.sort((a, b) => {
+          if (a.questionType === "OBSERVATION") return 1;
+          if (b.questionType === "OBSERVATION") return -1;
+          return 0;
+        });
+        setActivatedGroup({ ...group, questions: sortedQuestions });
       } catch (error) {
         console.log(error);
       }

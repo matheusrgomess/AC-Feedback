@@ -1,11 +1,4 @@
 import {
-    NumberInputField,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
-    NumberInputStepper,
-    NumberInput,
-    OrderedList,
-    ListItem,
     Button,
     Text,
     InputGroup,
@@ -15,12 +8,6 @@ import {
     Container,
     Heading,
     Checkbox,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    CloseButton
 } from "@chakra-ui/react";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
@@ -29,18 +16,18 @@ import { printQuestionSet } from "services/getQuestionsSet";
 import { postActivateGroup } from "services/postActivateGroup";
 import { deleteQuestionSet } from "services/delQuestionsSet";
 import { toast } from "react-toastify";
+import ModalEditingGroup from "./modalEditingGroup";
+import { TiStar } from "react-icons/ti";
 
 export default function CreatingGroupAvaliations() {
     const [selectedGroupValue, setSelectedGroupValue] = useState(null);
     const [nameGroupValue, setNameGroupValue] = useState("");
     const [questionsInput, setQuestionsInput] = useState([]);
     const [showInputGroup, setShowInputGroup] = useState(false);
-    const [arrayGroups, setArrayGroups] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [showADDQuestionsInput, setShowADDQuestionsInput] = useState(false);
     const [inputQuestionsValue, setInputQuestionsValue] = useState("");
-    const [numStars, setNumStars] = useState(5);
-    const [questionsSet, setQuestionsSet] = useState()
+    const [questionsSet, setQuestionsSet] = useState();
 
     const fetchData = async () => {
         try {
@@ -59,11 +46,6 @@ export default function CreatingGroupAvaliations() {
             const newGroup = {
                 questionSetName: nameGroupValue,
                 questions: [
-                    {
-                        "questionName": "Pergunta1",
-                        "questionType": "RATING",
-                        "questionDescription": "Descriçao da Pergunta1"
-                    },
                     {
                         "questionName": "Observações",
                         "questionType": "OBSERVATION",
@@ -87,7 +69,6 @@ export default function CreatingGroupAvaliations() {
         setIsModalOpen(true);
         setSelectedGroupValue(group);
         setQuestionsInput(group.questions || []);
-        setNumStars(group.numberOfStars || 5);
     };
 
     const handleClose = () => {
@@ -103,12 +84,8 @@ export default function CreatingGroupAvaliations() {
                 questionName: inputQuestionsValue,
                 questionDescription: ""
             };
-            const updatedQuestions = addObservationsQuestion([...questionsInput, newQuestion]);
-            const updatedGroups = arrayGroups.map(group =>
-                group.questionSetName === selectedGroupValue.questionSetName ? { ...group, questions: updatedQuestions } : group
-            );
+            const updatedQuestions = [...questionsInput, newQuestion]
 
-            setArrayGroups(updatedGroups);
             setQuestionsInput(updatedQuestions);
             setInputQuestionsValue("");
             setShowADDQuestionsInput(false);
@@ -117,46 +94,8 @@ export default function CreatingGroupAvaliations() {
         }
     };
 
-    const addObservationsQuestion = (questions) => {
-        const lastQuestion = questions[questions.length - 1];
-        if (!lastQuestion || lastQuestion.questionType !== "OBSERVATION") {
-            return [
-                ...questions.filter(q => q.questionType !== "OBSERVATION"),
-                {
-                    questionType: "OBSERVATION",
-                    questionName: "Observações",
-                    questionDescription: "Coloque uma observação para poder enviar o formulário"
-                }
-            ];
-        }
-        return questions;
-    };
-
-    const changeStars = (value) => {
-        setNumStars(value);
-        const updatedGroups = arrayGroups.map(group =>
-            group.questionSetName === selectedGroupValue.questionSetName ? { ...group, numberOfStars: Number(value) } : group
-        );
-
-        setArrayGroups(updatedGroups);
-    };
-
     const handleCheckboxChange = (selectedGroup) => {
         postActivateGroup(selectedGroup.questionSetName).then(() => fetchData());
-    };
-
-    const handleSaveChanges = async () => {
-        const updatedGroup = {
-            ...selectedGroupValue,
-            questions: questionsInput,
-            numberOfStars: numStars,
-        };
-        const response = await createQuestionSet(updatedGroup);
-        const updatedGroups = arrayGroups.map(group =>
-            group.questionSetName === response.questionSetName ? response : group
-        );
-        setArrayGroups(updatedGroups);
-        handleClose();
     };
 
     const handleDeleteGroup = async (selectedGroup) => {
@@ -226,130 +165,64 @@ export default function CreatingGroupAvaliations() {
                     </InputRightAddon>
                 </InputGroup>
             }
-            <Container width="100%" padding="10px" display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={4}>
+            <Container minWidth="100%" padding="0px" paddingTop="10px" display="grid" margin="0px" gridTemplateColumns="repeat(2, 1fr)" gap={4}>
                 {questionsSet?.questions.map((group, index) => (
-                    <Container key={index} bgColor="red" borderRadius="10px">
+                    <Container key={index} bgColor="#14181E" borderRadius="10px" border="1px solid" borderColor="white" minWidth="350px" maxWidth="350px" >
                         <Container padding="0px" display="flex" alignItems="center" justifyContent="space-between">
                             <Heading display="flex" alignItems="center">
                                 <Checkbox
                                     paddingRight="10px"
                                     isChecked={group.activatedSet}
                                     onChange={() => handleCheckboxChange(group)}
+                                    colorScheme="red"
                                 />
-                                {group.questionSetName}
+                                <Heading
+                                    maxWidth="250px"
+                                    style={{
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis"
+                                    }}>
+                                    {group.questionSetName}
+                                </Heading>
                             </Heading>
-                            <Button bg="transparent" _hover={{}} _active={{}} onClick={() => handleOpen(group)}>
-                                <EditIcon color="white" />
+                            <Button bg="transparent" padding="0px" _hover={{}} _active={{}} onClick={() => handleOpen(group)}>
+                                <EditIcon color="white" transition="color 0.3s ease-in-out" _hover={{ color: "red", transition: "color 0.3s ease-in-out" }} boxSize={5} />
                             </Button>
                         </Container>
-                        <Text>Número de perguntas: {group.questions.length >= 2 ? group.questions.length - 1 : group.questions.length}</Text>
-                        <Text>Quantidade de estrelas: {group.numberOfStars}</Text>
+                        <Text paddingTop="5px" paddingBottom="10px" fontSize={17}><strong>Número de perguntas: {group.questions.map(question => question.questionType === "OBSERVATION")? group.questions.length-1 : group.questions.length}</strong></Text>
+                        <Text fontSize={17}><strong>Quantidade de estrelas: {group.numberOfStars}</strong></Text>
+                        <div style={{ display: "flex", position: "relative", right: "3px", bottom: "5px", padding: "0px", alignItems: "center", height: "25px", maxWidth: "85%" }}>
+                            {[
+                                ...Array(
+                                    parseInt(group.numberOfStars)
+                                ),
+                            ].map((_, i) => {
+                                return (
+                                    <TiStar
+                                        className="star"
+                                        color="#971520"
+                                        style={{ margin: "0", padding: "0" }}
+                                        size={25}
+                                    />
+                                );
+                            })}
+                        </div>
                     </Container>
                 ))}
             </Container>
-            <Modal isOpen={isModalOpen} onClose={handleClose} isCentered>
-                <ModalOverlay />
-                <ModalContent bg="#26272D" color="white">
-                    <ModalHeader display="flex" alignItems="center" justifyContent="space-between">
-                        <Heading>
-                            {selectedGroupValue && selectedGroupValue.questionSetName}
-                        </Heading>
-                        <CloseButton onClick={handleClose} />
-                    </ModalHeader>
-                    <ModalBody>
-                        <Container
-                            margin="0px"
-                            padding="0px"
-                            w="70%"
-                            h="40px"
-                            borderBottom="2px solid"
-                            borderColor="#808080"
-                            display="flex"
-                            alignItems="center"
-                            justifyContent="space-between"
-                            paddingRight="6px"
-                            marginBottom="15px"
-                        >
-                            <Text>
-                                <strong>Quantidade de notas:</strong>
-                            </Text>
-                            <NumberInput size='sm' maxWidth="65px" defaultValue={numStars} value={numStars} min={1} max={10} onChange={changeStars}>
-                                <NumberInputField readOnly cursor="default" />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper color="white" />
-                                    <NumberDecrementStepper color="white" />
-                                </NumberInputStepper>
-                            </NumberInput>
-                        </Container>
-                        <Container padding="10px" borderRadius="6px">
-                            <Container padding="0px" width="100%" display="flex" alignItems="center" justifyContent="space-between">
-                                <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor="#ffffff" onClick={() => setShowADDQuestionsInput(!showADDQuestionsInput)}>
-                                    Nova escala de avaliação
-                                </Button>
-                            </Container>
-                            {showADDQuestionsInput &&
-                                <InputGroup size="sm" marginTop="15px">
-                                    <Input
-                                        marginBottom="10px"
-                                        variant="flushed"
-                                        _focus={{
-                                            boxShadow: "none",
-                                            borderColor: "#ffffff",
-                                        }}
-                                        color="white"
-                                        value={inputQuestionsValue}
-                                        onChange={(event) => setInputQuestionsValue(event.target.value)}
-                                    ></Input>
-                                    <InputRightAddon
-                                        width="50px"
-                                        display="flex"
-                                        alignItems="center"
-                                        justifyContent="center"
-                                        bg="none"
-                                        border="none"
-                                        borderBottom="1px solid"
-                                        borderColor="white"
-                                        borderRadius="none"
-                                    >
-                                        <IconButton
-                                            bg="none"
-                                            _hover={{}}
-                                            _active={{}}
-                                            boxSize={1}
-                                            onClick={handleQuestionToGroup}
-                                        >
-                                            <CheckIcon
-                                                style={{
-                                                    transition: "color 0.3s ease",
-                                                    color: "white",
-                                                }}
-                                                onMouseOver={(e) => e.currentTarget.style.color = "green"}
-                                                onMouseOut={(e) => e.currentTarget.style.color = "white"}
-                                            />
-                                        </IconButton>
-                                    </InputRightAddon>
-                                </InputGroup>
-                            }
-                            <Container borderLeft="1px solid" borderLeftColor="white" marginTop="20px">
-                                <OrderedList width="100%">
-                                    {questionsInput
-                                        .filter(item => item.questionType !== "OBSERVATION")
-                                        .map((item, index) => (
-                                            <ListItem key={index} id="tasks" color="#ffffff" marginBottom="10px">
-                                                <Text _hover={{ cursor: "pointer" }}>
-                                                    <strong>{item.questionName}</strong>
-                                                    <EditIcon marginLeft="5px" />
-                                                </Text>
-                                            </ListItem>
-                                        ))}
-                                </OrderedList>
-                            </Container>
-                        </Container>
-                        <Button onClick={handleSaveChanges} marginTop="15px" bgColor="#ffffff" color="black">Salvar Alterações</Button>
-                        <Button marginTop="15px" marginLeft="10px" colorScheme="red" onClick={() => handleDeleteGroup(selectedGroupValue)}>Excluir Grupo</Button>
-                    </ModalBody>
-                </ModalContent>
-            </Modal>
+            <ModalEditingGroup
+                isModalOpen={isModalOpen}
+                handleClose={handleClose}
+                selectedGroupValue={selectedGroupValue}
+                handleQuestionToGroup={handleQuestionToGroup}
+                questionsInput={questionsInput}
+                setInputQuestionsValue={setInputQuestionsValue}
+                handleDeleteGroup={handleDeleteGroup}
+                showADDQuestionsInput={showADDQuestionsInput}
+                setShowADDQuestionsInput={setShowADDQuestionsInput}
+                inputQuestionsValue={inputQuestionsValue}
+            />
         </>
     );
 }
