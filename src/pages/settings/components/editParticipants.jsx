@@ -20,7 +20,7 @@ import { createUser } from "services/users";
 import { FaUserCog } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { FaUserPlus } from "react-icons/fa6";
-import { listParticipants } from "services/participants";
+import { listUsers } from "services/users";
 import formattingText from "utils/formattingText";
 import ModalEditingParticipant from "./modalEditingParticipant";
 import normalizeNameToAPI from "utils/normalizeNameToAPI";
@@ -37,7 +37,7 @@ export default function EditParticipants() {
     const [showButtonConfirm, setShowButtonConfirm] = useState(false);
 
     const fetchParticipants = async () => {
-        const participantsList = await listParticipants();
+        const participantsList = await listUsers();
         setParticipants(participantsList);
     }
 

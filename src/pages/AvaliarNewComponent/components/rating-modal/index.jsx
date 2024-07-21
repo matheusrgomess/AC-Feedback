@@ -12,7 +12,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 import formattingText from "utils/formattingText";
-import { listParticipants } from "services/participants";
+import { listUsers } from "services/users";
 
 export default function RatingModal({ isOpen, handleClose, handleClick }) {
   const [selectedOption, setSelectedOption] = useState("");
@@ -20,7 +20,7 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
 
   const fetchParticipants = async () => {
     try {
-      const response = await listParticipants();
+      const response = await listUsers();
       setParticipants(response);
     } catch (error) {
       console.error(error);

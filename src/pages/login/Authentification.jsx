@@ -4,7 +4,7 @@ import Inputs from "./components/Inputs";
 import BackgroundImage from "../../assets/backgroundlogo.png";
 import Banner from "../../assets/bannerlogo.png";
 import { useState } from "react";
-import { authentifyUser } from "services/authentificationUsers";
+import { authentifyUser } from "services/users";
 import { toast } from "react-toastify";
 
 export default function Authentification() {

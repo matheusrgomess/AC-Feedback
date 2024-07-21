@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import { TiStar } from "react-icons/ti";
 import { useState, useEffect } from "react";
-import { getActivatedGroup } from "services/getActivatedGroup";
+import { getActivatedGroup } from "services/questionsSet";
 
 export default function Stars({ hover, setHover, rating, setRating }) {
   const [activatedGroup, setActivatedGroup] = useState()

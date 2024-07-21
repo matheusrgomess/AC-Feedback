@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import formattingText from "utils/formattingText";
-import { listParticipants } from "services/participants";
+import { listUsers } from "services/users";
 
 export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -31,7 +31,7 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
 
   const fetchParticipants = async () => {
     try {
-      const response = await listParticipants();
+      const response = await listUsers();
       setParticipants(response);
     } catch (error) {
       console.error(error);

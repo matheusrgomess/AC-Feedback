@@ -1,11 +1,9 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Button, Text, ModalBody, Heading, ModalFooter, Flex, Container, Tooltip, Input, Select } from "@chakra-ui/react"
-import { deleteParticipant } from "services/delParticipants";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Button, Text, ModalBody, Heading, ModalFooter, Flex, Container, Tooltip, Input, Select } from "@chakra-ui/react";
 import formattingText from "utils/formattingText";
-import { listParticipants } from "services/participants";
 import { CheckIcon } from "@chakra-ui/icons";
 import { FaUserEdit, FaUserSlash } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { editParticipant } from "services/putParticipants";
+import { listUsers, editUser, deleteUser } from "services/users";
 import normalizeNameToAPI from "utils/normalizeNameToAPI";
 
 export default function ModalEditingParticipant({ isOpenEditParticipantSelected, handleCloseEditParticipantSelected, infoSelectedParticipant, setParticipants, showButtonConfirm, setShowButtonConfirm }) {
@@ -24,10 +22,11 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
 
     const deleteParticipantSelected = async (id) => {
         try {
-            await deleteParticipant(id);
+            await deleteUser(id);
             handleCloseEditParticipantSelected();
-            const participantsList = await listParticipants();
+            const participantsList = await listUsers();
             setParticipants(participantsList);
+            
         } catch (error) {
             console.log(error)
         }
@@ -44,9 +43,9 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
             userType: newUserType
         }
         try {
-            await editParticipant(infoSelectedParticipant.id, data);
+            await editUser(infoSelectedParticipant.id, data);
             handleCloseEditParticipantSelected();
-            const participantsList = await listParticipants();
+            const participantsList = await listUsers();
             setParticipants(participantsList);
         } catch (error) {
             console.log(error)

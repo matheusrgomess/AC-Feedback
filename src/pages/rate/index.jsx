@@ -6,7 +6,7 @@ import ObservationsPage from "./components/observationsPage";
 import QuestionsPage from "./components/questionsPage";
 import ButtonRate from "./components/buttonRate";
 import formattingText from "utils/formattingText";
-import { getActivatedGroup } from "services/getActivatedGroup";
+import { getActivatedGroup } from "services/questionsSet";
 import { postFeedback } from "services/feedbacks";
 
 export default function RateParticipantScreen() {

@@ -11,14 +11,10 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
-import { createQuestionSet } from "services/postQuestionsSet";
-import { printQuestionSet } from "services/getQuestionsSet";
-import { postActivateGroup } from "services/postActivateGroup";
-import { deleteQuestionSet } from "services/delQuestionsSet";
 import { toast } from "react-toastify";
 import ModalEditingGroup from "./modalEditingGroup";
 import { TiStar } from "react-icons/ti";
-import { editQuestionSet } from "services/putQuestionSet";
+import { printQuestionSet, createQuestionSet, editQuestionSet, deleteQuestionSet, postActivateGroup } from "services/questionsSet";
 
 export default function CreatingGroupAvaliations() {
     const [selectedGroupValue, setSelectedGroupValue] = useState(null);

@@ -2,7 +2,7 @@ import { Container, Button } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
-import { getActivatedGroup } from "services/getActivatedGroup";
+import { getActivatedGroup } from "services/questionsSet";
 
 export default function ButtonRate({ currentQuestion, handleNextQuestion, handlePreviousQuestion, rating }) {
     const [activatedGroup, setActivatedGroup] = useState()

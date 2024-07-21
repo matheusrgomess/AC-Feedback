@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import logoAC from "../../../assets/aclogo.png";
-import { getActivatedGroup } from "services/getActivatedGroup";
+import { getActivatedGroup } from "services/questionsSet";
 
 export default function ObservationsPage({
   currentQuestion,
