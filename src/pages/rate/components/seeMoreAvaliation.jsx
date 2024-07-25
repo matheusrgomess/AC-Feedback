@@ -300,28 +300,27 @@ export default function SeeMoreAvaliation({
                     maxW="100px"
                     paddingBottom="10px"
                   >
-                    {currentQuestion !== 0 && (
-                      <Button
-                        padding="0px"
-                        bg="transparent"
-                        _hover={{ border: "1px solid", borderColor: "#ffffff" }}
-                        _active={{ bgColor: "#00000057" }}
-                        onClick={clickPrevious}
-                      >
-                        <ArrowLeftIcon color="#ffffff" />
-                      </Button>
-                    )}
-                    {currentQuestion !== filteredQuestionsRATING.length - 1 && (
-                      <Button
-                        padding="0px"
-                        bg="transparent"
-                        _hover={{ border: "1px solid", borderColor: "#ffffff" }}
-                        _active={{ bgColor: "#00000057" }}
-                        onClick={clickNext}
-                      >
-                        <ArrowRightIcon color="#ffffff" />
-                      </Button>
-                    )}
+                    <Button
+                      padding="0px"
+                      isDisabled={currentQuestion === 0}
+                      bg="transparent"
+                      _hover={{ border: "1px solid", borderColor: "#ffffff" }}
+                      _active={{ bgColor: "#00000057" }}
+                      onClick={clickPrevious}
+                    >
+                      <ArrowLeftIcon color="#ffffff" />
+                    </Button>
+
+                    <Button
+                      padding="0px"
+                      isDisabled={currentQuestion === filteredQuestionsRATING.length - 1}
+                      bg="transparent"
+                      _hover={{ border: "1px solid", borderColor: "#ffffff" }}
+                      _active={{ bgColor: "#00000057" }}
+                      onClick={clickNext}
+                    >
+                      <ArrowRightIcon color="#ffffff" />
+                    </Button>
                   </Container>
                   <Container maxWidth="300px" margin="0px">
                     <Progress

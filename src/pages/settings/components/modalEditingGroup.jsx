@@ -202,7 +202,7 @@ export default function ModalEditingGroup({
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="red" _hover={{ bg: "#680000" }} marginRight={5} onClick={handleRemoveQuestion}>Apagar Pergunta</Button>
-                        <Button bg="black" color="white" _hover={{ bg:"rgba(0, 0, 0, 0.801)" }} onClick={handleUpdateQuestion}>Salvar Alterações</Button>
+                        <Button bg="black" color="white" _hover={{ bg: "rgba(0, 0, 0, 0.801)" }} onClick={handleUpdateQuestion}>Salvar Alterações</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

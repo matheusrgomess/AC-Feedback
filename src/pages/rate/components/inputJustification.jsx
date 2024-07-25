@@ -5,7 +5,7 @@ export default function InputJustification({
   justification,
   setJustification,
 }) {
- 
+
   return (
     <>
       <Input

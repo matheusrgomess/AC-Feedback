@@ -1,6 +1,6 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Text, Heading } from "@chakra-ui/react"
 
-export default function AlertExitPage({ isOpen, onClose, onClickConfirm, onClickClose}) {
+export default function AlertExitPage({ isOpen, onClose, onClickConfirm, onClickClose }) {
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />

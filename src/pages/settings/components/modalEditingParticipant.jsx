@@ -26,7 +26,7 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
             handleCloseEditParticipantSelected();
             const participantsList = await listUsers();
             setParticipants(participantsList);
-            
+
         } catch (error) {
             console.log(error)
         }

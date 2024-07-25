@@ -27,44 +27,41 @@ export default function ButtonRate({ currentQuestion, handleNextQuestion, handle
             justifyContent="space-between"
             maxW="100px"
         >
-            {currentQuestion !== 0 && (
+            <Button
+                padding="0px"
+                isDisabled={currentQuestion === 0}
+                bg="transparent"
+                _hover={{ border: "1px solid", borderColor: "#ffffff" }}
+                _active={{ bgColor: "#00000057" }}
+                onClick={handlePreviousQuestion}
+            >
+                <ArrowLeftIcon color="#ffffff" />
+            </Button>
+            {currentQuestion !== activatedGroup?.questions?.length - 1 && (rating === null || rating === 0) ?
                 <Button
                     padding="0px"
                     bg="transparent"
+                    _hover={{ border: "1px solid", borderColor: "#777a80", cursor: "not-allowed" }}
+                    _active={{ bgColor: "#00000057" }}
+                    onClick={() => {
+                        toast.error('É necessário uma avaliação sobre este item', {
+                            autoClose: 2500
+                        });
+                    }}
+                >
+                    <ArrowRightIcon color="#777a80" />
+                </Button> :
+                <Button
+                    padding="0px"
+                    isDisabled={currentQuestion === activatedGroup?.questions?.length - 1}
+                    bg="transparent"
                     _hover={{ border: "1px solid", borderColor: "#ffffff" }}
                     _active={{ bgColor: "#00000057" }}
-                    onClick={handlePreviousQuestion}
+                    onClick={handleNextQuestion}
                 >
-                    <ArrowLeftIcon color="#ffffff" />
+                    <ArrowRightIcon color="#ffffff" />
                 </Button>
-            )}
-            {currentQuestion !== activatedGroup?.questions?.length - 1 && (
-                rating === null || rating === 0 ?
-                    <Button
-                        padding="0px"
-                        bg="transparent"
-                        _hover={{ border: "1px solid", borderColor: "#777a80", cursor: "not-allowed" }}
-                        _active={{ bgColor: "#00000057" }}
-                        onClick={() => {
-                            toast.error('É necessário uma avaliação sobre este item', {
-                                autoClose: 2500
-                            });
-                        }}
-                    >
-                        <ArrowRightIcon color="#777a80" />
-                    </Button> :
-                    <Button
-                        padding="0px"
-                        bg="transparent"
-                        _hover={{ border: "1px solid", borderColor: "#ffffff" }}
-                        _active={{ bgColor: "#00000057" }}
-                        onClick={handleNextQuestion}
-                    >
-                        <ArrowRightIcon color="#ffffff" />
-                    </Button>
-
-
-            )}
+            }
         </Container>
     )
 }

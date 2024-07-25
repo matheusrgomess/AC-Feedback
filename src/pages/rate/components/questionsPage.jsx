@@ -12,7 +12,7 @@ export default function QuestionsPage({
   setJustification,
 }) {
   return (
-    <div style={{ position:"relative" }}>
+    <div style={{ position: "relative" }}>
       <Container
         display="flex"
         alignItems="center"

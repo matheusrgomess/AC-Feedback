@@ -81,7 +81,7 @@ export default function User() {
                     <Container border="2px solid" borderColor="#971520" borderBottomRadius="6px" paddingTop="10px" minH="84px" paddingLeft="0px">
                         <Container borderLeft="1px solid" paddingLeft="5px" marginLeft="7px">
                             <Text>
-                                <strong style={{textTransform: "uppercase"}}>Páginas</strong>
+                                <strong style={{ textTransform: "uppercase" }}>Páginas</strong>
                             </Text>
                             <UnorderedList styleType="'- '" position="relative" right="5px">
                                 {routes.map((route, index) => (

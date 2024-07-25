@@ -13,7 +13,7 @@ export default function Calendar() {
 
     return (
         <Container bg="#26272d" border="3px solid" borderColor="white" borderRadius="10px" padding="0px" paddingRight="3px" alignItems="center" display="flex" flexDirection="row">
-            <Image src={CalendarImage} alt='Icon Calendar' maxWidth='37px' height='40px' marginRight="3px"/>
+            <Image src={CalendarImage} alt='Icon Calendar' maxWidth='37px' height='40px' marginRight="3px" />
             <strong><Text fontSize="18px" color="#ffffff" whiteSpace="nowrap">{getActualDate()}</Text></strong>
         </Container>
     );

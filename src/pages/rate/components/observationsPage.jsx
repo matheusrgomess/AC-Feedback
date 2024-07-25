@@ -14,20 +14,18 @@ export default function ObservationsPage({
 }) {
   const [activatedGroup, setActivatedGroup] = useState()
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                setActivatedGroup(await getActivatedGroup())
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchData();
-    }, []);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setActivatedGroup(await getActivatedGroup())
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, []);
   const navigate = useNavigate();
   const [observation, setObservation] = useState("");
-
-  console.log(activatedGroup)
   const handleClick = () => {
     const updatedQuestions = [
       ...questions,
