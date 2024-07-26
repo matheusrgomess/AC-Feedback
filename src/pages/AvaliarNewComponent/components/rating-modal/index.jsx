@@ -11,7 +11,7 @@ import {
   Container,
   Select,
 } from "@chakra-ui/react";
-import formattingText from "utils/formattingText";
+import { formattingName } from "utils/formattingTexts";
 import { listUsers } from "services/users";
 
 export default function RatingModal({ isOpen, handleClose, handleClick }) {
@@ -61,7 +61,7 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
               >
                 {participants.map((reviewer) => (
                   <option key={reviewer.name} value={reviewer.name}>
-                    {formattingText(reviewer.name)}
+                    {formattingName(reviewer.name)}
                   </option>
                 ))}
               </Select>

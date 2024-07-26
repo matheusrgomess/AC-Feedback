@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import ObservationsPage from "./components/observationsPage";
 import QuestionsPage from "./components/questionsPage";
 import ButtonRate from "./components/buttonRate";
-import formattingText from "utils/formattingText";
+import { formattingName } from "utils/formattingTexts";
 import { getActivatedGroup } from "services/questionsSet";
 import { postFeedback } from "services/feedbacks";
 
@@ -170,7 +170,7 @@ export default function RateParticipantScreen() {
               rating={rating}
             />
             <Text color="#ffffff3d" fontSize="15px" as="span">
-              {formattingText(participant)}
+              {formattingName(participant)}
             </Text>
           </Container>
         </Container>

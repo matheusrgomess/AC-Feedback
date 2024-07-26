@@ -3,7 +3,7 @@ import { parseISO, format } from "date-fns";
 import { ptBR } from 'date-fns/locale';
 import { Container, Heading, Button, Text, Tooltip } from "@chakra-ui/react";
 import { ViewIcon, CalendarIcon } from "@chakra-ui/icons";
-import formattingText from "utils/formattingText";
+import { formattingName } from "utils/formattingTexts";
 import { useLocation } from "react-router-dom";
 import SeeMoreAvaliation from "./seeMoreAvaliation";
 
@@ -78,7 +78,7 @@ export default function SubmittedAvaliation({ avaliations }) {
             overflow="hidden"
             color="#ffffff"
           >
-            <Heading>{formattingText(avaliation?.reviewer)}:</Heading>
+            <Heading>{formattingName(avaliation?.reviewer)}:</Heading>
             <Container
               display="flex"
               width="auto"

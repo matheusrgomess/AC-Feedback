@@ -19,9 +19,8 @@ import { FaUserCog } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { FaUserPlus } from "react-icons/fa6";
 import { listUsers } from "services/users";
-import formattingText from "utils/formattingText";
+import { formattingName, APIformattingName } from "utils/formattingTexts";
 import ModalEditingParticipant from "./modalEditingParticipant";
-import normalizeNameToAPI from "utils/normalizeNameToAPI";
 import ModalCreatingUsers from "./modalCreatingUsers";
 
 export default function EditParticipants() {
@@ -61,7 +60,7 @@ export default function EditParticipants() {
     const saveUser = async () => {
         const user = {
             email: valueEmail,
-            name: normalizeNameToAPI(valueName),
+            name: APIformattingName(valueName),
             userType: userType,
         };
 
@@ -72,7 +71,7 @@ export default function EditParticipants() {
             setValueEmail("");
             setUserType("PARTICIPANT");
             setIsOpenModalCreateParticipant(false);
-            toast.success("Novo usuário criado: " + formattingText(user.name));
+            toast.success("Novo usuário criado: " + formattingName(user.name));
         } catch (error) {
             console.log(error);
             toast.error(error.message);
@@ -117,7 +116,7 @@ export default function EditParticipants() {
                                     {participants?.map(participant =>
                                         <ListItem key={participant.name} color="#ffffff" marginBottom="10px">
                                             <Button variant="ghost" _hover={{ bgColor: "rgba(0, 0, 0, 0.5)" }} onClick={() => handleOpenEditParticipantSelected(participant)}>
-                                                <Text textColor="white"><strong>{formattingText(participant.name)}</strong></Text>
+                                                <Text textColor="white"><strong>{formattingName(participant.name)}</strong></Text>
                                             </Button>
                                         </ListItem>)}
                                 </UnorderedList>

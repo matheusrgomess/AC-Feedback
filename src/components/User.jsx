@@ -10,12 +10,13 @@ import {
     Button,
     Text,
     UnorderedList,
-    Divider
+    Divider,
+    Box
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useNavigate, useLocation, matchPath } from "react-router-dom";
 import AlertExitPage from "./AlertExitPage";
-import formatiingText from "../utils/formattingText";
+import {formattingName, formattingFirstName} from "../utils/formattingTexts";
 import { MdLogout } from "react-icons/md";
 import ListPagesUser from "./ListPagesUser";
 
@@ -67,14 +68,17 @@ export default function User() {
         <>
             <Menu>
                 <MenuButton bg='#ba303b' as={Button} rightIcon={<ChevronDownIcon color="#ffffff" w={6} h={6} />} _hover={{}} _active={{}} padding="0px" minH="48px">
-                    <Avatar bg='#ba303b' />
+                    <Box display="flex" alignItems="center">
+                        <Avatar bg="#ba303b" />
+                        <Text marginLeft="5px" color="white" fontSize={20}>{formattingFirstName(user.name)}</Text>
+                    </Box>
                 </MenuButton>
                 <MenuList marginTop="6px" padding="0px" minHeight="120px">
                     <Container bgColor="#971520" borderTopRadius="6px" padding="5px">
                         <Text color="white">
                             <strong>
                                 Olá,{" "}
-                                {formatiingText(user.name)}!
+                                {formattingName(user.name)}!
                             </strong>
                         </Text>
                     </Container>

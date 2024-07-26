@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Container, Heading, Button } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
-
 import { useCallback, useEffect, useState } from "react";
 import ModalFilter from "./components/modalFilter";
 import ModalUserSelect from "./components/modalUserSelect";

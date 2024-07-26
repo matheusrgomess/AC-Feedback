@@ -20,7 +20,7 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon,
 } from "@chakra-ui/icons";
-import formattingText from "../../../utils/formattingText";
+import { formattingName } from "../../../utils/formattingTexts";
 import { useState } from "react";
 import { TiStar } from "react-icons/ti";
 import { parseISO, format } from "date-fns";
@@ -88,7 +88,7 @@ export default function SeeMoreAvaliation({
                 color="white"
               >
                 <Text display="flex" gap="10px" fontWeight="400">
-                  Avaliação feita por:<strong>{formattingText(avaliation.reviewer)}</strong>
+                  Avaliação feita por:<strong>{formattingName(avaliation.reviewer)}</strong>
                 </Text>
                 <IconButton
                   onClick={handleClose}
@@ -116,7 +116,7 @@ export default function SeeMoreAvaliation({
                       <strong>
                         <Text marginRight="8px">Pessoa avaliada:</Text>
                       </strong>
-                      {formattingText(avaliation.reviewed)}
+                      {formattingName(avaliation.reviewed)}
                     </Flex>
                     <Button
                       bgColor="#700e17"

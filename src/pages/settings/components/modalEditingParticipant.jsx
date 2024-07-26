@@ -1,10 +1,9 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Button, Text, ModalBody, Heading, ModalFooter, Flex, Container, Tooltip, Input, Select } from "@chakra-ui/react";
-import formattingText from "utils/formattingText";
+import { formattingName, APIformattingName } from "utils/formattingTexts";
 import { CheckIcon } from "@chakra-ui/icons";
 import { FaUserEdit, FaUserSlash } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { listUsers, editUser, deleteUser } from "services/users";
-import normalizeNameToAPI from "utils/normalizeNameToAPI";
 
 export default function ModalEditingParticipant({ isOpenEditParticipantSelected, handleCloseEditParticipantSelected, infoSelectedParticipant, setParticipants, showButtonConfirm, setShowButtonConfirm }) {
     const participantId = infoSelectedParticipant?.id;
@@ -14,7 +13,7 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
 
     useEffect(() => {
         if (infoSelectedParticipant) {
-            setNewValueName(formattingText(infoSelectedParticipant.name));
+            setNewValueName(formattingName(infoSelectedParticipant.name));
             setNewValueEmail(infoSelectedParticipant.email);
             setNewUserType(infoSelectedParticipant.userType);
         }
@@ -34,7 +33,7 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
 
     const handleClickEdit = () => {
         setShowButtonConfirm(!showButtonConfirm);
-        setNewValueName(formattingText(infoSelectedParticipant.name));
+        setNewValueName(formattingName(infoSelectedParticipant.name));
         setNewValueEmail(infoSelectedParticipant.email);
         setNewUserType(infoSelectedParticipant.userType);
     }
@@ -42,7 +41,7 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
     const sendNewInfoUser = async () => {
         const data = {
             email: newValueEmail,
-            name: normalizeNameToAPI(newValueName),
+            name: APIformattingName(newValueName),
             userType: newUserType
         }
         try {
@@ -62,7 +61,7 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
             <ModalContent>
                 <ModalHeader>
                     <Heading color="#1c222b">
-                        {infoSelectedParticipant && formattingText(infoSelectedParticipant.name)}
+                        {infoSelectedParticipant && formattingName(infoSelectedParticipant.name)}
                     </Heading>
                     <ModalCloseButton color="black" onClick={handleCloseEditParticipantSelected} />
                 </ModalHeader>
@@ -71,7 +70,7 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
                         <Container padding="0px" marginBottom="10px">
                             <Text textColor="#1c222b"><strong>Nome:</strong></Text>
                             {showButtonConfirm === false ?
-                                <Text>{infoSelectedParticipant && formattingText(infoSelectedParticipant.name)}</Text>
+                                <Text>{infoSelectedParticipant && formattingName(infoSelectedParticipant.name)}</Text>
                                 :
                                 <Input
                                     maxWidth="90%"

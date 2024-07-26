@@ -16,7 +16,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import formattingText from "utils/formattingText";
+import { formattingName } from "utils/formattingTexts";
 import { listUsers } from "services/users";
 
 export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
@@ -68,7 +68,7 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
             <Divider borderColor="red" marginBottom="4px" />
             <Text>
               Usuário selecionado neste momento:{" "}
-              <strong>{formattingText(selectedUserFilter || user.name)}</strong>
+              <strong>{formattingName(selectedUserFilter || user.name)}</strong>
             </Text>
           </Container>
           <ModalBody padding="15px">
@@ -92,7 +92,7 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
                   value={user.name}
                   style={{ color: "black" }}
                 >
-                  {formattingText(user.name)}
+                  {formattingName(user.name)}
                 </option>
               ))}
             </Select>
