@@ -33,7 +33,10 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
     }
 
     const handleClickEdit = () => {
-        setShowButtonConfirm(!showButtonConfirm)
+        setShowButtonConfirm(!showButtonConfirm);
+        setNewValueName(formattingText(infoSelectedParticipant.name));
+        setNewValueEmail(infoSelectedParticipant.email);
+        setNewUserType(infoSelectedParticipant.userType);
     }
 
     const sendNewInfoUser = async () => {
@@ -70,7 +73,24 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
                             {showButtonConfirm === false ?
                                 <Text>{infoSelectedParticipant && formattingText(infoSelectedParticipant.name)}</Text>
                                 :
-                                <Input maxWidth="90%" padding="0px" value={newValueName} onChange={(event) => setNewValueName(event.target.value)}></Input>
+                                <Input
+                                    maxWidth="90%"
+                                    padding="0px"
+                                    value={newValueName}
+                                    onChange={(event) => setNewValueName(event.target.value)}
+                                    border="none"
+                                    borderBottom="1px solid"
+                                    borderRadius="none"
+                                    _hover={{}}
+                                    _focus={{
+                                        boxShadow: "none",
+                                        borderColor: "red",
+                                        borderTopColor: "transparent",
+                                        borderLeftColor: "transparent",
+                                        borderRightColor: "transparent",
+                                    }}
+                                    fontSize="18px"
+                                    ></Input>
                             }
 
                         </Container>
@@ -79,7 +99,19 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
                             {showButtonConfirm === false ?
                                 <Text>{infoSelectedParticipant && infoSelectedParticipant.email}</Text>
                                 :
-                                <Input maxWidth="90%" padding="0px" value={newValueEmail} onChange={(event) => setNewValueEmail(event.target.value)}></Input>
+                                <Input maxWidth="90%" padding="0px" value={newValueEmail} onChange={(event) => setNewValueEmail(event.target.value)} border="none"
+                                    borderBottom="1px solid"
+                                    borderRadius="none"
+                                    _hover={{}}
+                                    _focus={{
+                                        boxShadow: "none",
+                                        borderColor: "red",
+                                        borderTopColor: "transparent",
+                                        borderLeftColor: "transparent",
+                                        borderRightColor: "transparent",
+                                    }}
+                                    fontSize="18px"
+                                    ></Input>
                             }
                         </Container>
                         <Container padding="0px" marginBottom="10px">
@@ -87,7 +119,7 @@ export default function ModalEditingParticipant({ isOpenEditParticipantSelected,
                             {showButtonConfirm === false ?
                                 <Text>{infoSelectedParticipant && infoSelectedParticipant.userType === "PARTICIPANT" ? "Participante" : "Administrador"}</Text>
                                 :
-                                <Select value={newUserType} onChange={(event) => setNewUserType(event.target.value)}>
+                                <Select value={newUserType} onChange={(event) => setNewUserType(event.target.value)} focusBorderColor="#FF0000">
                                     <option style={{ color: "black" }} value="PARTICIPANT">Participante</option>
                                     <option style={{ color: "black" }} value="ADMIN">Administrador</option>
                                 </Select>

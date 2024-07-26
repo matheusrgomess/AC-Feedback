@@ -1,6 +1,7 @@
 import {
     Text,
     Container,
+    Heading,
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
 import PartConfig from "./components/partConfig";
@@ -28,11 +29,11 @@ export default function Settings() {
                 padding="10px"
                 borderRadius="12px"
             >
-                <Text fontSize="23px">
+                <Heading>
                     <SettingsIcon marginRight="5px" />
                     Configurações do formulários
-                </Text>
-                <Text fontSize="16px" color="#808080">Edite o que você quer que apareça no formulário</Text>
+                </Heading>
+                <Text fontSize="16px" color="#808080" marginLeft="42px">Edite o que você quer que apareça no formulário</Text>
                 <PartConfig title="Título:" />
                 <PartConfig title="Descrição:" />
                 <Container
@@ -41,7 +42,7 @@ export default function Settings() {
                     w="70%"
                     h="45px"
                     borderBottom="2px solid"
-                    borderColor="#808080"
+                    borderColor="#ffffff"
                     display="flex"
                     alignItems="center"
                     justifyContent="space-between"

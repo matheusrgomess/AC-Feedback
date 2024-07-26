@@ -8,7 +8,7 @@ export default function PartConfig(props) {
             w="70%"
             h="40px"
             borderBottom="2px solid"
-            borderColor="#808080"
+            borderColor="white"
             display="flex"
             alignItems="center"
             justifyContent="space-between"

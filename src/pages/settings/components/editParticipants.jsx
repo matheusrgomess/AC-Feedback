@@ -7,13 +7,11 @@ import {
     ModalHeader,
     ModalOverlay,
     Text,
-    Input,
-    Container,
-    Select,
-    Divider,
     UnorderedList,
     ListItem,
     Heading,
+    Container,
+    Divider,
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 import { createUser } from "services/users";
@@ -24,11 +22,12 @@ import { listUsers } from "services/users";
 import formattingText from "utils/formattingText";
 import ModalEditingParticipant from "./modalEditingParticipant";
 import normalizeNameToAPI from "utils/normalizeNameToAPI";
+import ModalCreatingUsers from "./modalCreatingUsers";
 
 export default function EditParticipants() {
     const [isOpenPrincipalModal, setIsOpenPrincipalModal] = useState(false);
+    const [isOpenModalCreateParticipant, setIsOpenModalCreateParticipant] = useState(false);
     const [isOpenEditParticipantSelected, setIsOpenEditParticipantSelected] = useState(false);
-    const [showInputsNewUser, setShowInputsNewUser] = useState(false);
     const [valueEmail, setValueEmail] = useState("");
     const [valueName, setValueName] = useState("");
     const [participants, setParticipants] = useState([]);
@@ -46,7 +45,6 @@ export default function EditParticipants() {
     }, []);
 
     const handleClosePrincipalModal = () => {
-        setShowInputsNewUser(false);
         setIsOpenPrincipalModal(false);
     }
 
@@ -73,14 +71,24 @@ export default function EditParticipants() {
             setValueName("");
             setValueEmail("");
             setUserType("PARTICIPANT");
-            setShowInputsNewUser(false)
-            toast.success("Novo usuário criado: " + user.name);
+            setIsOpenModalCreateParticipant(false);
+            toast.success("Novo usuário criado: " + formattingText(user.name));
         } catch (error) {
             console.log(error);
             toast.error(error.message);
         }
     };
 
+    const handleCloseModalCreateParticipant = () => {
+        setIsOpenModalCreateParticipant(false);
+        setValueName("");
+        setValueEmail("");
+        setUserType("PARTICIPANT");
+    }
+
+    const handleOpenModalCreateParticipant = () => {
+        setIsOpenModalCreateParticipant(true);
+    }
     return (
         <>
             <Modal isOpen={isOpenPrincipalModal} onClose={handleClosePrincipalModal} isCentered>
@@ -93,67 +101,35 @@ export default function EditParticipants() {
                         <ModalCloseButton onClick={handleClosePrincipalModal} />
                     </ModalHeader>
                     <ModalBody>
-                        <Text fontSize="18px">Esses são todos os usuários cadastrados:</Text>
-                        <UnorderedList>
-                            {participants?.map(participant =>
-                                <ListItem key={participant.name} color="#ffffff" marginBottom="10px">
-                                    <Button variant="ghost" _hover={{ bgColor: "rgba(0, 0, 0, 0.5)" }} onClick={() => handleOpenEditParticipantSelected(participant)}>
-                                        <Text textColor="white"><strong>{formattingText(participant.name)}</strong></Text>
-                                    </Button>
-                                </ListItem>)}
-                        </UnorderedList>
-                        <Button onClick={() => { setShowInputsNewUser(!showInputsNewUser) }} bg="transparent" borderLeft={showInputsNewUser ? "1px solid" : "none"} color="white" borderRadius="none" _hover={{}} _active={{ bgColor: "rgba(0,0,0,0.1)" }}>
+                        <Text fontSize="18px"><strong>Esses são todos os usuários cadastrados:</strong></Text>
+                        <Container padding="0px" maxHeight="300px" maxWidth="96%" position="relative" right="7px">
+                            <Container
+                                className="scrollbar"
+                                padding="10px"
+                                maxW="100%"
+                                maxH="306px"
+                                overflow="hidden"
+                                overflowY="auto"
+                                bgColor="#14181e60"
+                                borderRadius="10px"
+                            >
+                                <UnorderedList listStyleType="none">
+                                    {participants?.map(participant =>
+                                        <ListItem key={participant.name} color="#ffffff" marginBottom="10px">
+                                            <Button variant="ghost" _hover={{ bgColor: "rgba(0, 0, 0, 0.5)" }} onClick={() => handleOpenEditParticipantSelected(participant)}>
+                                                <Text textColor="white"><strong>{formattingText(participant.name)}</strong></Text>
+                                            </Button>
+                                        </ListItem>)}
+                                </UnorderedList>
+                            </Container>
+                        </Container>
+                        <Divider marginTop="20px"/>
+                        <Button marginTop="10px" onClick={handleOpenModalCreateParticipant} bg="transparent" color="white" borderRadius="none" _hover={{}} _active={{ bgColor: "rgba(0,0,0,0.1)" }}>
                             <Text marginRight="10px">
                                 Criar novo usuário
                             </Text>
                             <FaUserPlus size={20} />
                         </Button>
-                        {showInputsNewUser &&
-                            <Container borderLeft="1px solid" paddingLeft="10px">
-                                <Divider marginBottom="10px" />
-                                <Text><strong>Nome do usuário:</strong></Text>
-                                <Input placeholder="Digite aqui o nome"
-                                    value={valueName}
-                                    onChange={(event) => { setValueName(event.target.value) }}
-                                    border="none"
-                                    borderBottom="1px solid"
-                                    borderRadius="none"
-                                    _hover={{}}
-                                    padding="0px"
-                                    _focus={{
-                                        boxShadow: "none",
-                                        borderColor: "red",
-                                        borderTopColor: "transparent",
-                                        borderLeftColor: "transparent",
-                                        borderRightColor: "transparent",
-                                    }}></Input>
-                                <Text><strong>Email do usuário:</strong></Text>
-                                <Input placeholder="Digite aqui o email"
-                                    value={valueEmail}
-                                    onChange={(event) => { setValueEmail(event.target.value) }}
-                                    border="none"
-                                    borderBottom="1px solid"
-                                    borderRadius="none"
-                                    _hover={{}}
-                                    padding="0px"
-                                    _focus={{
-                                        boxShadow: "none",
-                                        borderColor: "red",
-                                        borderTopColor: "transparent",
-                                        borderLeftColor: "transparent",
-                                        borderRightColor: "transparent",
-                                    }}></Input>
-                                <Container display="flex" alignItems="center" padding="0px" marginTop="15px" justifyContent="space-between">
-                                    <Text><strong>Tipo de usuário:</strong></Text>
-                                    <Select width="45%" border="none" _focus={{ boxShadow: "0px 0px 0px 1px #971520" }} value={userType} onChange={(event) => setUserType(event.target.value)}>
-                                        <option style={{ color: "black" }} value="PARTICIPANT">Participante</option>
-                                        <option style={{ color: "black" }} value="ADMIN">Administrador</option>
-                                    </Select>
-                                </Container>
-                                <Button onClick={saveUser}>Salvar novo usuário</Button>
-                            </Container>
-
-                        }
                     </ModalBody>
                 </ModalContent>
             </Modal>
@@ -165,6 +141,17 @@ export default function EditParticipants() {
                 setParticipants={setParticipants}
                 showButtonConfirm={showButtonConfirm}
                 setShowButtonConfirm={setShowButtonConfirm}
+            />
+            <ModalCreatingUsers
+                handleCloseModalCreateParticipant={handleCloseModalCreateParticipant}
+                isOpenModalCreateParticipant={isOpenModalCreateParticipant}
+                userType={userType}
+                setUserType={setUserType}
+                saveUser={saveUser}
+                valueEmail={valueEmail}
+                valueName={valueName}
+                setValueEmail={setValueEmail}
+                setValueName={setValueName}
             />
             <Button
                 onClick={() => { setIsOpenPrincipalModal(!isOpenPrincipalModal) }}
@@ -178,6 +165,5 @@ export default function EditParticipants() {
                 <FaUserCog size={22.5}></FaUserCog>
             </Button>
         </>
-
     )
 }

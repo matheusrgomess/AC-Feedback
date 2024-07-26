@@ -45,7 +45,7 @@ function Header() {
           )
         ))}
       </Container>
-      <Container padding="0px" paddingRight="18px" margin="0px" display="flex" justifyContent="end" alignItems="center" maxW="360px">
+      <Container padding="0px" paddingRight="18px" margin="0px" display="flex" justifyContent="end" alignItems="center" maxW="294px">
         <User />
       </Container>
     </Box>
