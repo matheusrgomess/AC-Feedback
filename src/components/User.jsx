@@ -67,14 +67,14 @@ export default function User() {
     return (
         <>
             <Menu>
-                <MenuButton bg='#ba303b' as={Button} rightIcon={<ChevronDownIcon color="#ffffff" w={6} h={6} />} _hover={{}} _active={{}} padding="0px" minH="48px">
+                <MenuButton bg='#700e17' as={Button} rightIcon={<ChevronDownIcon color="#ffffff" w={6} h={6} />} _hover={{}} _active={{}} padding="0px" minH="48px">
                     <Box display="flex" alignItems="center">
-                        <Avatar bg="#ba303b" />
+                        <Avatar bg="#700e17" />
                         <Text marginLeft="5px" color="white" fontSize={20}>{formattingFirstName(user.name)}</Text>
                     </Box>
                 </MenuButton>
                 <MenuList marginTop="6px" padding="0px" minHeight="120px">
-                    <Container bgColor="#971520" borderTopRadius="6px" padding="5px">
+                    <Container bgColor="#700e17" borderTopRadius="6px" padding="5px">
                         <Text color="white">
                             <strong>
                                 Olá,{" "}
@@ -82,7 +82,7 @@ export default function User() {
                             </strong>
                         </Text>
                     </Container>
-                    <Container border="2px solid" borderColor="#971520" borderBottomRadius="6px" paddingTop="10px" minH="84px" paddingLeft="0px">
+                    <Container border="2px solid" borderColor="#700e17" borderBottomRadius="6px" paddingTop="10px" minH="84px" paddingLeft="0px">
                         <Container borderLeft="1px solid" paddingLeft="5px" marginLeft="7px">
                             <Text>
                                 <strong style={{ textTransform: "uppercase" }}>Páginas</strong>

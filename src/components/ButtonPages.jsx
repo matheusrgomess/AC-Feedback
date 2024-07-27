@@ -33,7 +33,7 @@ export default function ButtonPages({ title, navigate, isActualRoute }) {
         _hover={{}}
         _active={{ bg: "rgba(0, 0, 0, 0.473)" }}
         css={{
-          color: isActualRoute ? "#BA303B" : "#ffffff",
+          color: isActualRoute ? "#700e17" : "#ffffff",
           textDecoration: "none",
           textTransform: "uppercase",
           padding: "0px",
@@ -47,7 +47,7 @@ export default function ButtonPages({ title, navigate, isActualRoute }) {
             content: '" "',
             width: "0%",
             height: "4px",
-            backgroundColor: "#BA303B",
+            backgroundColor: "#700e17",
             position: "absolute",
             bottom: "4px",
             left: "0px",

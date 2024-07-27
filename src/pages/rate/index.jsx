@@ -96,7 +96,7 @@ export default function RateParticipantScreen() {
       >
         <Container
           border="1px solid"
-          borderColor="#971520"
+          borderColor="#700e17"
           borderRadius="8px"
           h="525px"
           maxH="550px"

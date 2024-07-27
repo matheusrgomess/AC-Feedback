@@ -9,7 +9,6 @@ import EditParticipants from "./components/editParticipants";
 import CreatingGroupAvaliations from "./components/creatingGroupAvaliations";
 
 export default function Settings() {
-
     return (
         <div
             style={{
@@ -19,13 +18,13 @@ export default function Settings() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                paddingBottom: "100px"
             }}
         >
-
             <Container
                 border="2px solid"
-                borderColor="#971520"
-                minWidth="750px"
+                borderColor="#700e17"
+                minWidth="760px"
                 padding="10px"
                 borderRadius="12px"
             >

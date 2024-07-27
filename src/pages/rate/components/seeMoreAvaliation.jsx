@@ -75,7 +75,7 @@ export default function SeeMoreAvaliation({
             minW="600px"
             minH="500px"
             borderLeft="6px solid"
-            borderLeftColor="#971520"
+            borderLeftColor="#700e17"
           >
             <ModalHeader paddingBottom="10px">
               <Container
@@ -195,7 +195,7 @@ export default function SeeMoreAvaliation({
                                 className="star"
                                 color={
                                   ratingValue <= rating
-                                    ? "#971520"
+                                    ? "#700e17"
                                     : "#ffffff2b"
                                 }
                                 size={50}
@@ -223,7 +223,7 @@ export default function SeeMoreAvaliation({
                     >
                       <div
                         style={{
-                          background: "#971520",
+                          background: "#700e17",
                           width: "110px",
                           paddingLeft: "4px",
                           borderTopLeftRadius: "2px",
@@ -240,7 +240,7 @@ export default function SeeMoreAvaliation({
                           padding: "2px",
                           resize: "none",
                           background: "transparent",
-                          border: "1px solid #971520",
+                          border: "1px solid #700e17",
                           borderRadius: "6px",
                           borderTopLeftRadius: "0px",
                           outline: "none",

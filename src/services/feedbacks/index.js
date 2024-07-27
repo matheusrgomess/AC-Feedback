@@ -1,12 +1,10 @@
 import { api } from "../../api";
 
-export async function getFeedbacks(participantName, limit, startDate, endDate) {
+export async function getFeedbacks(participantName, limit) {
   const response = await api.get("/list-feedbacks", {
     params: {
       participantName: participantName,
       limit,
-      startDate: startDate,
-      endDate: endDate,
     },
   });
   return response.data;

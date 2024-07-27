@@ -169,7 +169,7 @@ export default function CreatingGroupAvaliations() {
 
     return (
         <>
-            <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor="#ffffff" onClick={() => setShowInputGroup(!showInputGroup)}>
+            <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor="#ffffff" onClick={() => setShowInputGroup(!showInputGroup)} marginBottom="10px">
                 <Text marginRight="10px">
                     Criar novo grupo de avaliações
                 </Text>
@@ -219,7 +219,20 @@ export default function CreatingGroupAvaliations() {
                     </InputRightAddon>
                 </InputGroup>
             )}
-            <Container minWidth="100%" padding="0px" paddingTop="10px" display="grid" margin="0px" gridTemplateColumns="repeat(2, 1fr)" gap={4}>
+            <Container
+                bg="#14181E"
+                className="scrollbar"
+                overflow="hidden"
+                overflowY="auto"
+                minWidth="100%"
+                maxHeight="220px"
+                borderRadius="10px"
+                padding="5px"
+                display="grid"
+                margin="0px"
+                gridTemplateColumns="repeat(2, 1fr)"
+                gap={4}
+            >
                 {questionsSet?.questions.map((group, index) => (
                     <Container key={index} bgColor="#14181E" borderRadius="10px" border="1px solid" borderColor="white" minWidth="350px" maxWidth="350px">
                         <Container padding="0px" display="flex" alignItems="center" justifyContent="space-between">

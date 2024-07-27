@@ -61,7 +61,7 @@ export default function SubmittedAvaliation({ avaliations }) {
           w="95%"
           maxH="200px"
           border="2px solid"
-          borderColor="#971520"
+          borderColor="#700e17"
           padding="10px"
           borderRadius="12px"
           marginBottom="15px"
@@ -97,7 +97,7 @@ export default function SubmittedAvaliation({ avaliations }) {
                 aria-label="tooltip para botão de visualizar"
               >
                 <Button
-                  bg="#971520"
+                  bg="#700e17"
                   _hover={{}}
                   _active={{ bgColor: "#5a0c12" }}
                   color="#ffffff"

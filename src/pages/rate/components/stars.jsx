@@ -32,7 +32,7 @@ export default function Stars({ hover, setHover, rating, setRating }) {
             />
             <TiStar
               className="star"
-              color={ratingValue <= (hover || rating) ? "#971520" : "#ffffff2b"}
+              color={ratingValue <= (hover || rating) ? "#700e17" : "#ffffff2b"}
               size={50}
               onMouseEnter={() => setHover(ratingValue)}
               onMouseLeave={() => setHover(null)}
