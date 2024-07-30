@@ -21,7 +21,7 @@ export async function deleteQuestionSet(questionId) {
 }
 
 export async function postActivateGroup(nameGroup) {
-  const response = await api.post("/activate-group", {
+  const response = await api.post("/activate-question-set", {
     questionSetTitle: nameGroup,
   });
   return response.data;

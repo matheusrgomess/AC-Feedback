@@ -5,10 +5,11 @@ import { useCallback, useEffect, useState } from "react";
 import ModalFilter from "./components/modalFilter";
 import ModalUserSelect from "./components/modalUserSelect";
 import { CalendarIcon } from "@chakra-ui/icons";
-import { getFeedbacks } from "services/feedbacks";
+import { getAddedFeedbacks, getReceivedFeedbacks } from "services/feedbacks";
 
 export default function Feedbacks() {
-  const [avaliations, setAvaliations] = useState();
+  const [avaliationsAdded, setAvaliationsAdded] = useState();
+  const [avaliationsReceived, setAvaliationsReceived] = useState();
   const user = JSON.parse(localStorage.getItem("user"));
   const [openFilters, setOpenFilters] = useState(false);
   const [openUserFilter, setOpenUserFilter] = useState(false);
@@ -16,8 +17,10 @@ export default function Feedbacks() {
   const [selectedUser, setSelectedUser] = useState(user.name);
 
   const fetchFeedbacks = useCallback(async (selectedUser) => {
-    const response = selectedUser && (await getFeedbacks(selectedUser));
-    setAvaliations(response);
+    const responseAdded = selectedUser && (await getAddedFeedbacks(selectedUser));
+    const responseReceived = selectedUser && (await getReceivedFeedbacks(selectedUser));
+    setAvaliationsAdded(responseAdded.addedFeedbacks);
+    setAvaliationsReceived(responseReceived.receivedFeedbacks);
   }, []);
 
   const handleOpenUserFilter = () => {
@@ -73,7 +76,7 @@ export default function Feedbacks() {
         </>
       ) : null}
       <ModalFilter isOpen={openFilters} onClose={handleCloseFilters} />
-      {avaliations?.addedFeedbacks.length > 0 ? (
+      {avaliationsAdded && avaliationsAdded.length > 0 ? (
         <Container
           bg="#1c222b"
           maxH="300px"
@@ -129,7 +132,7 @@ export default function Feedbacks() {
               overflowY="auto"
             >
               <SubmittedAvaliation
-                avaliations={avaliations.addedFeedbacks}
+                avaliations={avaliationsAdded}
               />
             </Container>
           </Container>
@@ -139,7 +142,7 @@ export default function Feedbacks() {
           <Heading color="grey">Nenhum Feedback Criado</Heading>
         </Container>
       )}
-      {avaliations?.receivedFeedbacks.length > 0 ? (
+      {avaliationsReceived && avaliationsReceived.length > 0 ? (
         <Container
           bg="#1c222b"
           maxH="300px"
@@ -194,7 +197,7 @@ export default function Feedbacks() {
               overflow="hidden"
               overflowY="auto"
             >
-              <SubmittedAvaliation avaliations={avaliations.receivedFeedbacks} />
+              <SubmittedAvaliation avaliations={avaliationsReceived} />
             </Container>
           </Container>
         </Container>

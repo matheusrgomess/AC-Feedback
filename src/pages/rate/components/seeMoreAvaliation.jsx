@@ -32,6 +32,7 @@ export default function SeeMoreAvaliation({
   avaliation,
   getAverageRating,
   filterValidRatings,
+  questionSetSelected
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const filteredQuestionsRATING = avaliation.questions.filter(
@@ -178,7 +179,7 @@ export default function SeeMoreAvaliation({
                       <div style={{ display: "flex" }}>
                         {[
                           ...Array(
-                            parseInt(avaliation.avaliationInfo.numberOfStars)
+                            parseInt(questionSetSelected.numberOfStars)
                           ),
                         ].map((_, i) => {
                           const ratingValue = i + 1;

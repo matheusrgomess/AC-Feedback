@@ -1,10 +1,23 @@
 import { api } from "../../api";
 
-export async function getFeedbacks(participantName, limit) {
-  const response = await api.get("/list-feedbacks", {
+export async function getAddedFeedbacks(participantName, questionSetId, limit, reviewedParticipantName) {
+  const response = await api.get("/list-added-feedbacks", {
     params: {
       participantName: participantName,
       limit,
+      questionSetId: questionSetId,
+      reviewedParticipantName: reviewedParticipantName
+    },
+  });
+  return response.data;
+}
+
+export async function getReceivedFeedbacks(participantName, questionSetId, limit) {
+  const response = await api.get("/list-received-feedbacks", {
+    params: {
+      participantName: participantName,
+      limit,
+      questionSetId: questionSetId,
     },
   });
   return response.data;

@@ -34,10 +34,7 @@ export default function ObservationsPage({
     const updatedAvaliation = {
       ...avaliation,
       questions: updatedQuestions,
-      avaliationInfo: {
-        groupTitle: activatedGroup.questionSetName,
-        numberOfStars: activatedGroup.numberOfStars,
-      }
+      questionSetId: activatedGroup.id
     };
     saveAvaliation(updatedAvaliation);
     navigate("/home");
