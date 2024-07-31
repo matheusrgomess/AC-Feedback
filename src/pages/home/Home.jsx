@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Container, Heading, Button, Text } from "@chakra-ui/react";
+import { Container, Heading, Button, Text, Spinner } from "@chakra-ui/react";
 import "react-toastify/dist/ReactToastify.css";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 import { useNavigate } from "react-router-dom";
@@ -10,18 +10,26 @@ export default function Home() {
   const [avaliationsReceived, setAvaliationsReceived] = useState();
   const user = JSON.parse(localStorage.getItem("user"));
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
+  const [loading, setLoading] = useState(true);
   const nav = useNavigate();
 
   const fetchFeedbacks = useCallback(async () => {
-    const responseAdded = await getAddedFeedbacks(user.name);
+    try {
+   const responseAdded = await getAddedFeedbacks(user.name);
     const responseReceived = await getReceivedFeedbacks(user.name)
     setAvaliationsAdded(responseAdded.addedFeedbacks);
-    setAvaliationsReceived(responseReceived.receivedFeedbacks);
+    setAvaliationsReceived(responseReceived.receivedFeedbacks);   
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
 
   useEffect(() => {
     fetchFeedbacks();
-  }, []);
+  }, [fetchFeedbacks]);
 
   return (
     <div
@@ -46,7 +54,26 @@ export default function Home() {
         </Container>
       ) : (
         <>
-          {avaliationsAdded && avaliationsAdded.length > 0 ? (
+          {loading ? (
+            <Container
+              minHeight="320px"
+              maxH="300px"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              position="relative"
+              bottom="50"
+            >
+              <Spinner
+                thickness="5px"
+                width="75px"
+                height="75px"
+                speed="0.55s"
+                emptyColor="white"
+                color="#700e17"
+              />
+            </Container>
+          ) : avaliationsAdded && avaliationsAdded.length > 0 ? (
             <Container
               bg="#1c222b"
               maxH="300px"
@@ -77,9 +104,7 @@ export default function Home() {
                   overflow="hidden"
                   overflowY="auto"
                 >
-                  <SubmittedAvaliation
-                    avaliations={avaliationsAdded}
-                  />
+                  <SubmittedAvaliation avaliations={avaliationsAdded} />
                   <Button
                     marginLeft="14px"
                     bgColor="#700e17"
@@ -101,7 +126,26 @@ export default function Home() {
             </Container>
           )}
 
-          {avaliationsReceived && avaliationsReceived.length > 0 ? (
+          {loading ? (
+            <Container
+              minHeight="320px"
+              maxH="300px"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              position="relative"
+              bottom="50"
+            >
+              <Spinner
+                thickness="5px"
+                width="75px"
+                height="75px"
+                speed="0.55s"
+                emptyColor="white"
+                color="#700e17"
+              />
+            </Container>
+          ) : avaliationsReceived && avaliationsReceived.length > 0 ? (
             <Container
               bg="#1c222b"
               maxH="300px"
@@ -132,9 +176,7 @@ export default function Home() {
                   overflow="hidden"
                   overflowY="auto"
                 >
-                  <SubmittedAvaliation
-                    avaliations={avaliationsReceived}
-                  />
+                  <SubmittedAvaliation avaliations={avaliationsReceived} />
                   <Button
                     marginLeft="14px"
                     bgColor="#700e17"

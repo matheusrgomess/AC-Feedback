@@ -7,7 +7,8 @@ import {
     IconButton,
     Container,
     Heading,
-    Checkbox
+    Checkbox,
+    Spinner
 } from "@chakra-ui/react";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
@@ -31,14 +32,17 @@ export default function CreatingGroupAvaliations() {
     const [selectedQuestion, setSelectedQuestion] = useState({});
     const [valueNewTitleQuestion, setValueNewTitleQuestion] = useState("");
     const [valueNewDescQuestion, setValueNewDescQuestion] = useState("");
+    const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
         try {
-            setQuestionsSet(await printQuestionSet())
+            setQuestionsSet(await printQuestionSet());
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         fetchData();
@@ -61,7 +65,7 @@ export default function CreatingGroupAvaliations() {
             fetchData();
             setNameGroupValue("");
             setShowInputGroup(false);
-            return response.data
+            return response.data;
         } catch (error) {
             console.log(error);
         }
@@ -166,7 +170,6 @@ export default function CreatingGroupAvaliations() {
         setQuestionsInput(updatedQuestions);
     };
 
-
     return (
         <>
             <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor="#ffffff" onClick={() => setShowInputGroup(!showInputGroup)} marginBottom="10px">
@@ -219,69 +222,76 @@ export default function CreatingGroupAvaliations() {
                     </InputRightAddon>
                 </InputGroup>
             )}
-            <Container
-                bg="#14181E"
-                className="scrollbar"
-                overflow="hidden"
-                overflowY="auto"
-                minWidth="100%"
-                maxHeight="220px"
-                borderRadius="10px"
-                padding="5px"
-                display="grid"
-                margin="0px"
-                gridTemplateColumns="repeat(2, 1fr)"
-                gap={4}
-            >
-                {questionsSet?.questions.map((group, index) => (
-                    <Container key={index} bgColor="#14181E" borderRadius="10px" border="1px solid" borderColor="white" minWidth="350px" maxWidth="350px">
-                        <Container padding="0px" display="flex" alignItems="center" justifyContent="space-between">
-                            <Heading display="flex" alignItems="center">
-                                <Checkbox
-                                    paddingRight="10px"
-                                    isChecked={group.activatedSet}
-                                    onChange={() => handleCheckboxChange(group)}
-                                    colorScheme="red"
-                                />
-                                <Heading
-                                    maxWidth="250px"
-                                    style={{
-                                        whiteSpace: "nowrap",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis"
-                                    }}>
-                                    {group.questionSetName}
-                                </Heading>
-                            </Heading>
-                            <Button bg="transparent" padding="0px" _hover={{}} _active={{}} onClick={() => handleOpen(group)}>
-                                <EditIcon color="white" transition="color 0.3s ease-in-out" _hover={{ color: "red", transition: "color 0.3s ease-in-out" }} boxSize={5} />
-                            </Button>
-                        </Container>
-                        <Text paddingTop="5px" paddingBottom="10px" fontSize={17}>
-                            <strong>Número de perguntas: {group.questions.map(question => question.questionType === "OBSERVATION") ? group.questions.length - 1 : group.questions.length}</strong>
-                        </Text>
-                        <Text fontSize={17}>
-                            <strong>Quantidade de estrelas: {group.numberOfStars}</strong>
-                        </Text>
-                        <div style={{ display: "flex", position: "relative", right: "3px", bottom: "5px", padding: "0px", alignItems: "center", height: "25px", maxWidth: "85%" }}>
-                            {[
-                                ...Array(
-                                    parseInt(group.numberOfStars)
-                                ),
-                            ].map((_, i) => {
-                                return (
-                                    <TiStar
-                                        className="star"
-                                        color="#971520"
-                                        style={{ margin: "0", padding: "0" }}
-                                        size={25}
+
+            {loading ? (
+                <Container minWidth="100%" display="flex" alignItems="center" justifyContent="center">
+                    <Spinner />
+                </Container>
+            ) : (
+                <Container
+                    bg="#14181E"
+                    className="scrollbar"
+                    overflow="hidden"
+                    overflowY="auto"
+                    minWidth="100%"
+                    maxHeight="220px"
+                    borderRadius="10px"
+                    padding="5px"
+                    display="grid"
+                    margin="0px"
+                    gridTemplateColumns="repeat(2, 1fr)"
+                    gap={4}
+                >
+                    {questionsSet?.questions.map((group, index) => (
+                        <Container key={index} bgColor="#14181E" borderRadius="10px" border="1px solid" borderColor="white" minWidth="350px" maxWidth="350px">
+                            <Container padding="0px" display="flex" alignItems="center" justifyContent="space-between">
+                                <Heading display="flex" alignItems="center">
+                                    <Checkbox
+                                        paddingRight="10px"
+                                        isChecked={group.activatedSet}
+                                        onChange={() => handleCheckboxChange(group)}
+                                        colorScheme="red"
                                     />
-                                );
-                            })}
-                        </div>
-                    </Container>
-                ))}
-            </Container>
+                                    <Heading
+                                        maxWidth="250px"
+                                        style={{
+                                            whiteSpace: "nowrap",
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis"
+                                        }}>
+                                        {group.questionSetName}
+                                    </Heading>
+                                </Heading>
+                                <Button bg="transparent" padding="0px" _hover={{}} _active={{}} onClick={() => handleOpen(group)}>
+                                    <EditIcon color="white" transition="color 0.3s ease-in-out" _hover={{ color: "red", transition: "color 0.3s ease-in-out" }} boxSize={5} />
+                                </Button>
+                            </Container>
+                            <Text paddingTop="5px" paddingBottom="10px" fontSize={17}>
+                                <strong>Número de perguntas: {group.questions.map(question => question.questionType === "OBSERVATION") ? group.questions.length - 1 : group.questions.length}</strong>
+                            </Text>
+                            <Text fontSize={17}>
+                                <strong>Quantidade de estrelas: {group.numberOfStars}</strong>
+                            </Text>
+                            <div style={{ display: "flex", position: "relative", right: "3px", bottom: "5px", padding: "0px", alignItems: "center", height: "25px", maxWidth: "85%" }}>
+                                {[
+                                    ...Array(
+                                        parseInt(group.numberOfStars)
+                                    ),
+                                ].map((_, i) => {
+                                    return (
+                                        <TiStar
+                                            className="star"
+                                            color="#971520"
+                                            style={{ margin: "0", padding: "0" }}
+                                            size={25}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </Container>
+                    ))}
+                </Container>
+            )}
             <ModalEditingGroup
                 isModalOpen={isModalOpen}
                 handleClose={handleClose}

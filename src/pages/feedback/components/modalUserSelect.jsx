@@ -19,7 +19,7 @@ import { useState, useEffect } from "react";
 import { formattingName } from "utils/formattingTexts";
 import { listUsers } from "services/users";
 
-export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
+export default function ModalUserSelect({ isOpen, onClose, setSelectedUser, setLoading }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const [selectedUserFilter, setSelectedUserFilter] = useState("");
   const [participants, setParticipants] = useState([]);
@@ -27,6 +27,7 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser }) {
   const handleCloseModal = () => {
     onClose();
     setSelectedUser(selectedUserFilter);
+    setLoading(true);
   };
 
   const fetchParticipants = async () => {

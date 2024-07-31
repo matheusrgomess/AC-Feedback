@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Container, Heading, Button } from "@chakra-ui/react";
+import { Container, Heading, Button, Spinner } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 import { useCallback, useEffect, useState } from "react";
 import ModalFilter from "./components/modalFilter";
@@ -15,12 +15,19 @@ export default function Feedbacks() {
   const [openUserFilter, setOpenUserFilter] = useState(false);
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
   const [selectedUser, setSelectedUser] = useState(user.name);
+  const [loading, setLoading] = useState(true);
 
   const fetchFeedbacks = useCallback(async (selectedUser) => {
-    const responseAdded = selectedUser && (await getAddedFeedbacks(selectedUser));
-    const responseReceived = selectedUser && (await getReceivedFeedbacks(selectedUser));
-    setAvaliationsAdded(responseAdded.addedFeedbacks);
-    setAvaliationsReceived(responseReceived.receivedFeedbacks);
+    try {
+      const responseAdded = selectedUser && (await getAddedFeedbacks(selectedUser));
+      const responseReceived = selectedUser && (await getReceivedFeedbacks(selectedUser));
+      setAvaliationsAdded(responseAdded.addedFeedbacks);
+      setAvaliationsReceived(responseReceived.receivedFeedbacks);
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
   }, []);
 
   const handleOpenUserFilter = () => {
@@ -72,140 +79,164 @@ export default function Feedbacks() {
             isOpen={openUserFilter}
             onClose={handleCloseUserFilter}
             setSelectedUser={setSelectedUser}
+            setLoading={setLoading}
           />
         </>
       ) : null}
       <ModalFilter isOpen={openFilters} onClose={handleCloseFilters} />
-      {avaliationsAdded && avaliationsAdded.length > 0 ? (
-        <Container
-          bg="#1c222b"
-          maxH="300px"
-          borderRadius="20px"
-          padding="0px"
-          position="relative"
-          pos="relative"
-          bottom="50"
-          _after={{
-            content: '""',
-            position: "absolute",
-            top: 300,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            width: "95%",
-            height: "75px",
-            background:
-              "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
-            borderBottomRadius: "20px",
-            pointerEvents: "none",
-          }}
-        >
+      {loading ?
+        <Container minHeight="320px" maxH="300px" display="flex" alignItems="center" justifyContent="center" position="relative" bottom="50">
+          <Spinner
+            thickness='5px'
+            width="75px"
+            height="75px"
+            speed='0.55s'
+            emptyColor='white'
+            color='#700e17' />
+        </Container>
+        :
+        avaliationsAdded && avaliationsAdded.length > 0 ? (
           <Container
-            bgColor="#700e17"
-            padding="5px"
-            minW="100%"
-            borderTopRadius="10px"
-            borderBottomRadius="4px"
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
+            maxH="300px"
+            borderRadius="20px"
+            padding="0px"
+            position="relative"
+            bottom="50"
+            _after={{
+              content: '""',
+              position: "absolute",
+              top: 300,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              width: "95%",
+              height: "75px",
+              background:
+                "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
+              borderBottomRadius: "20px",
+              pointerEvents: "none",
+            }}
           >
-            <Heading>Avaliações criadas:</Heading>
-            <Button
-              variant="outline"
-              colorScheme="white"
-              onClick={handleOpenFilters}
-              padding="0px"
-            >
-              <CalendarIcon />
-            </Button>
-          </Container>
-          <Container padding="8px">
             <Container
-              className="scrollbar"
-              padding="10px"
-              paddingBottom="50px"
-              paddingTop="15px"
-              maxW="100%"
-              maxH="306px"
-              overflow="hidden"
-              overflowY="auto"
+              bgColor="#700e17"
+              padding="5px"
+              minW="100%"
+              borderTopRadius="10px"
+              borderBottomRadius="4px"
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
             >
-              <SubmittedAvaliation
-                avaliations={avaliationsAdded}
-              />
+              <Heading>Avaliações criadas:</Heading>
+              <Button
+                variant="outline"
+                colorScheme="white"
+                onClick={handleOpenFilters}
+                padding="0px"
+              >
+                <CalendarIcon />
+              </Button>
+            </Container>
+            <Container padding="8px">
+              <Container
+                className="scrollbar"
+                padding="10px"
+                paddingBottom="50px"
+                paddingTop="15px"
+                maxW="100%"
+                maxH="306px"
+                overflow="hidden"
+                overflowY="auto"
+              >
+                <SubmittedAvaliation
+                  avaliations={avaliationsAdded}
+                />
+              </Container>
             </Container>
           </Container>
-        </Container>
-      ) : (
-        <Container>
-          <Heading color="grey">Nenhum Feedback Criado</Heading>
-        </Container>
-      )}
-      {avaliationsReceived && avaliationsReceived.length > 0 ? (
-        <Container
-          bg="#1c222b"
-          maxH="300px"
-          borderRadius="20px"
-          padding="0px"
-          position="relative"
-          pos="relative"
-          bottom="50"
-          _after={{
-            content: '""',
-            position: "absolute",
-            top: 300,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            width: "95%",
-            height: "75px",
-            background:
-              "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
-            borderBottomRadius: "20px",
-            pointerEvents: "none",
-          }}
-        >
-          <Container
-            bgColor="#700e17"
-            padding="5px"
-            minW="100%"
-            borderTopRadius="10px"
-            borderBottomRadius="4px"
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Heading>Avaliações recebidas:</Heading>
-            <Button
-              variant="outline"
-              colorScheme="white"
-              onClick={handleOpenFilters}
-              padding="0px"
-            >
-              <CalendarIcon />
-            </Button>
+        ) : (
+          <Container>
+            <Heading color="grey">Nenhum Feedback Criado</Heading>
           </Container>
-          <Container padding="8px">
+        )}
+
+      {loading ?
+        <Container minHeight="320px" maxH="300px" display="flex" alignItems="center" justifyContent="center" position="relative" bottom="50">
+          <Spinner
+            thickness='5px'
+            width="75px"
+            height="75px"
+            speed='0.55s'
+            emptyColor='white'
+            color='#700e17' />
+        </Container>
+        :
+        avaliationsReceived && avaliationsReceived.length > 0 ? (
+          <Container
+            bg="#1c222b"
+            maxH="300px"
+            borderRadius="20px"
+            padding="0px"
+            position="relative"
+            pos="relative"
+            bottom="50"
+            _after={{
+              content: '""',
+              position: "absolute",
+              top: 300,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              width: "95%",
+              height: "75px",
+              background:
+                "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
+              borderBottomRadius: "20px",
+              pointerEvents: "none",
+            }}
+          >
             <Container
-              className="scrollbar"
-              padding="10px"
-              paddingTop="15px"
-              paddingBottom="50px"
-              maxW="100%"
-              maxH="306px"
-              overflow="hidden"
-              overflowY="auto"
+              bgColor="#700e17"
+              padding="5px"
+              minW="100%"
+              borderTopRadius="10px"
+              borderBottomRadius="4px"
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
             >
-              <SubmittedAvaliation avaliations={avaliationsReceived} />
+              <Heading>Avaliações recebidas:</Heading>
+              <Button
+                variant="outline"
+                colorScheme="white"
+                onClick={handleOpenFilters}
+                padding="0px"
+              >
+                <CalendarIcon />
+              </Button>
+            </Container>
+            <Container padding="8px">
+              <Container
+                className="scrollbar"
+                padding="10px"
+                paddingTop="15px"
+                paddingBottom="50px"
+                maxW="100%"
+                maxH="306px"
+                overflow="hidden"
+                overflowY="auto"
+              >
+                <SubmittedAvaliation avaliations={avaliationsReceived} />
+              </Container>
             </Container>
           </Container>
-        </Container>
-      ) : (
-        <Container>
-          <Heading color="grey">Nenhum Feedback Recebido</Heading>
-        </Container>
-      )}
+        ) : (
+          <Container>
+            <Heading color="grey">Nenhum Feedback Recebido</Heading>
+          </Container>
+        )
+      }
+
     </div>
   );
 }

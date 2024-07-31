@@ -73,84 +73,82 @@ export default function SubmittedAvaliation({ avaliations }) {
 
     return (
       avaliation && (
-        <>
+        <Container
+          key={avaliation.id}
+          as="div"
+          bg="white"
+          w="95%"
+          maxH="200px"
+          border="2px solid"
+          borderColor="#700e17"
+          padding="10px"
+          borderRadius="12px"
+          marginBottom="15px"
+          bgColor="#1c222b"
+        >
           <Container
-            key={avaliation.id}
-            as="div"
-            bg="white"
-            w="95%"
-            maxH="200px"
-            border="2px solid"
-            borderColor="#700e17"
-            padding="10px"
-            borderRadius="12px"
-            marginBottom="15px"
-            bgColor="#1c222b"
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            padding="0px"
+            marginBottom="5px"
+            borderBottom="2px solid"
+            borderColor="#ffffff"
+            overflow="hidden"
+            color="#ffffff"
           >
+            <Heading>{formattingName(avaliation?.reviewer)}:</Heading>
             <Container
               display="flex"
+              width="auto"
               alignItems="center"
-              justifyContent="space-between"
               padding="0px"
-              marginBottom="5px"
-              borderBottom="2px solid"
-              borderColor="#ffffff"
-              overflow="hidden"
-              color="#ffffff"
+              margin="0px"
             >
-              <Heading>{formattingName(avaliation?.reviewer)}:</Heading>
-              <Container
-                display="flex"
-                width="auto"
-                alignItems="center"
-                padding="0px"
-                margin="0px"
+              <CalendarIcon color="white" />
+              <Text paddingInline="8px" color="white">
+                {avaliation && format(parseISO(avaliation?.date), "dd/MM/yyyy, HH:mm", {
+                  locale: ptBR,
+                })}
+              </Text>
+              <Tooltip
+                label="Ver avaliação completa"
+                aria-label="tooltip para botão de visualizar"
               >
-                <CalendarIcon color="white" />
-                <Text paddingInline="8px" color="white">
-                  {avaliation && format(parseISO(avaliation?.date), "dd/MM/yyyy, HH:mm", {
-                    locale: ptBR,
-                  })}
-                </Text>
-                <Tooltip
-                  label="Ver avaliação completa"
-                  aria-label="tooltip para botão de visualizar"
+                <Button
+                  bg="#700e17"
+                  _hover={{}}
+                  _active={{ bgColor: "#5a0c12" }}
+                  color="#ffffff"
+                  padding="0px"
+                  size="sm"
+                  margin="5px"
+                  marginLeft="10px"
+                  onClick={() => handleOpenModal(avaliation, numStars, questionSetSelected)}
                 >
-                  <Button
-                    bg="#700e17"
-                    _hover={{}}
-                    _active={{ bgColor: "#5a0c12" }}
-                    color="#ffffff"
-                    padding="0px"
-                    size="sm"
-                    margin="5px"
-                    marginLeft="10px"
-                    onClick={() => handleOpenModal(avaliation, numStars, questionSetSelected)}
-                  >
-                    <ViewIcon />
-                  </Button>
-                </Tooltip>
-              </Container>
-            </Container>
-            <Container padding="0px">
-              <Text
-                color="white"
-                style={{
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                  WebkitLineClamp: 3,
-                }}
-              >
-                <strong>Observação:</strong> {filteredQuestionsOBSERVATION && filteredQuestionsOBSERVATION[0]?.observation}
-              </Text>
-              <br />
-              <Text color="white">
-                <strong>Média dos Ratings:</strong> {averageRating}
-              </Text>
+                  <ViewIcon />
+                </Button>
+              </Tooltip>
             </Container>
           </Container>
-        </>
+          <Container padding="0px">
+            <Text
+              color="white"
+              style={{
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                WebkitLineClamp: 3,
+              }}
+            >
+              <strong>Observação:</strong> {filteredQuestionsOBSERVATION && filteredQuestionsOBSERVATION[0]?.observation}
+            </Text>
+            <br />
+            <Text color="white">
+              <strong>Média dos Ratings:</strong> {averageRating}
+            </Text>
+          </Container>
+        </Container>
       )
     );
   };
@@ -159,7 +157,8 @@ export default function SubmittedAvaliation({ avaliations }) {
     <>
       {avaliations && checkIfIsHomeScreen()
         ? renderAvaliation(getLastRating())
-        : avaliations.map((avaliation) => renderAvaliation(avaliation))}
+        : avaliations.map((avaliation) => renderAvaliation(avaliation))
+      }
       {selectedAvaliation && (
         <SeeMoreAvaliation
           isOpen={isModalOpen}
