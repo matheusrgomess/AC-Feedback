@@ -98,7 +98,14 @@ export default function RateParticipantScreen() {
         minWidth="100%"
       >
         {loading ?
-          <Spinner />
+          <Spinner
+            thickness="5px"
+            width="75px"
+            height="75px"
+            speed="0.55s"
+            emptyColor="white"
+            color="#700e17"
+          />
           :
           <Container
             border="1px solid"
