@@ -80,7 +80,7 @@ export default function Feedbacks() {
   const newGroupFiltred = async (selectedGroup) => {
     try {
       const responseNewGroupAdded = await getAddedFeedbacks(selectUserAdded === "" ? user.name : selectUserAdded, selectedGroup);
-      const responseNewGroupReceived = await getReceivedFeedbacks(selectUserReceived, selectedGroup);
+      const responseNewGroupReceived = await getReceivedFeedbacks(selectUserReceived === "" ? user.name : selectUserAdded, selectedGroup);
       setAvaliationsAdded(responseNewGroupAdded.addedFeedbacks);
       setAvaliationsReceived(responseNewGroupReceived.receivedFeedbacks);
     } catch (error){
