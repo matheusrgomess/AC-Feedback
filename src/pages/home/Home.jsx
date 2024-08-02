@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from "react";
 import { Container, Heading, Button, Text, Spinner } from "@chakra-ui/react";
 import "react-toastify/dist/ReactToastify.css";

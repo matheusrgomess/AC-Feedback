@@ -1,11 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Container, Heading, Button, Spinner } from "@chakra-ui/react";
+
+import { Container, Heading, Button, Spinner, Box, Select } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ModalFilter from "./components/modalFilter";
-import ModalUserSelect from "./components/modalUserSelect";
+import ModalGroupSelect from "./components/modalGroupSelect";
 import { CalendarIcon } from "@chakra-ui/icons";
 import { getAddedFeedbacks, getReceivedFeedbacks } from "services/feedbacks";
+import { listUsers } from "services/users";
+import { formattingName } from "utils/formattingTexts";
 
 export default function Feedbacks() {
   const [avaliationsAdded, setAvaliationsAdded] = useState();
@@ -14,21 +16,10 @@ export default function Feedbacks() {
   const [openFilters, setOpenFilters] = useState(false);
   const [openUserFilter, setOpenUserFilter] = useState(false);
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
-  const [selectedUser, setSelectedUser] = useState(user.name);
   const [loading, setLoading] = useState(true);
-
-  const fetchFeedbacks = useCallback(async (selectedUser) => {
-    try {
-      const responseAdded = selectedUser && (await getAddedFeedbacks(selectedUser));
-      const responseReceived = selectedUser && (await getReceivedFeedbacks(selectedUser));
-      setAvaliationsAdded(responseAdded.addedFeedbacks);
-      setAvaliationsReceived(responseReceived.receivedFeedbacks);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const [users, setUsers] = useState([]);
+  const [selectUserAdded, setSelectUserAdded] = useState("");
+  const [selectUserReceived, setSelectUserReceived] = useState("");
 
   const handleOpenUserFilter = () => {
     setOpenUserFilter(true);
@@ -47,8 +38,57 @@ export default function Feedbacks() {
   };
 
   useEffect(() => {
-    fetchFeedbacks(selectedUser);
-  }, [selectedUser]);
+    const findParticipants = async () => {
+      try {
+        const response = await listUsers();
+        setUsers(response);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    findParticipants();
+  }, []);
+
+  useEffect(() => {
+    userFeedbacksReceived(user.name);
+    userFeedbacksAdded(user.name);
+  }, []);
+
+  const userFeedbacksAdded = async (selectedUserAdded) => {
+    try {
+      const responseAdded = selectedUserAdded && (await getAddedFeedbacks(selectedUserAdded));
+      setAvaliationsAdded(responseAdded.addedFeedbacks)
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const userFeedbacksReceived = async (selectedUserReceived) => {
+    try {
+      const responseReceived = selectedUserReceived && (await getReceivedFeedbacks(selectedUserReceived));
+      setAvaliationsReceived(responseReceived.receivedFeedbacks)
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const newGroupFiltred = async (selectedGroup) => {
+    try {
+      const responseNewGroupAdded = await getAddedFeedbacks(selectUserAdded === "" ? user.name : selectUserAdded, selectedGroup);
+      const responseNewGroupReceived = await getReceivedFeedbacks(selectUserReceived, selectedGroup);
+      setAvaliationsAdded(responseNewGroupAdded.addedFeedbacks);
+      setAvaliationsReceived(responseNewGroupReceived.receivedFeedbacks);
+    } catch (error){
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div
@@ -73,13 +113,13 @@ export default function Feedbacks() {
             _hover={{}}
             _active={{ background: "rgba(0, 0, 0, 0.26)" }}
           >
-            Filtrar por usuário
+            Filtrar por grupo
           </Button>
-          <ModalUserSelect
+          <ModalGroupSelect
             isOpen={openUserFilter}
             onClose={handleCloseUserFilter}
-            setSelectedUser={setSelectedUser}
             setLoading={setLoading}
+            newGroupFiltred={newGroupFiltred}
           />
         </>
       ) : null}
@@ -95,39 +135,58 @@ export default function Feedbacks() {
             color='#700e17' />
         </Container>
         :
-        avaliationsAdded && avaliationsAdded.length > 0 ? (
+
+        <Container
+          maxH="300px"
+          borderRadius="20px"
+          padding="0px"
+          position="relative"
+          bottom="50"
+          _after={{
+            content: '""',
+            position: "absolute",
+            top: 300,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            width: "95%",
+            height: "75px",
+            background:
+              "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
+            borderBottomRadius: "20px",
+            pointerEvents: "none",
+          }}
+        >
           <Container
-            maxH="300px"
-            borderRadius="20px"
-            padding="0px"
-            position="relative"
-            bottom="50"
-            _after={{
-              content: '""',
-              position: "absolute",
-              top: 300,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              width: "95%",
-              height: "75px",
-              background:
-                "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
-              borderBottomRadius: "20px",
-              pointerEvents: "none",
-            }}
+            bgColor="#700e17"
+            padding="5px"
+            minW="100%"
+            borderTopRadius="10px"
+            borderBottomRadius="4px"
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
           >
-            <Container
-              bgColor="#700e17"
-              padding="5px"
-              minW="100%"
-              borderTopRadius="10px"
-              borderBottomRadius="4px"
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Heading>Avaliações criadas:</Heading>
+            <Heading fontSize="30px">Avaliações criadas:</Heading>
+            <Box display="flex" minWidth="40%">
+              <Select marginRight="20px" value={selectUserAdded} onChange={(e) => { setSelectUserAdded(e.target.value); userFeedbacksAdded(e.target.value) }}>
+                <option
+                  key={user.name}
+                  value={user.name}
+                  style={{ color: "black" }}
+                >
+                  Você
+                </option>
+                {users.map((user) => (
+                  <option
+                    key={user.name}
+                    value={user.name}
+                    style={{ color: "black" }}
+                  >
+                    {formattingName(user.name)}
+                  </option>
+                ))}
+              </Select>
               <Button
                 variant="outline"
                 colorScheme="white"
@@ -136,42 +195,45 @@ export default function Feedbacks() {
               >
                 <CalendarIcon />
               </Button>
-            </Container>
-            <Container padding="8px">
-              <Container
-                className="scrollbar"
-                padding="10px"
-                paddingBottom="50px"
-                paddingTop="15px"
-                maxW="100%"
-                maxH="306px"
-                overflow="hidden"
-                overflowY="auto"
-              >
+            </Box>
+
+          </Container>
+          <Container padding="8px">
+            <Container
+              className="scrollbar"
+              padding="10px"
+              paddingBottom="50px"
+              paddingTop="15px"
+              maxW="100%"
+              maxH="306px"
+              overflow="hidden"
+              overflowY="auto"
+            >
+              {avaliationsAdded && avaliationsAdded.length > 0 ? (
                 <SubmittedAvaliation
                   avaliations={avaliationsAdded}
-                />
-              </Container>
+                />) : (
+                <Container>
+                  <Heading color="grey" marginTop="126px">Nenhum Feedback Criado</Heading>
+                </Container>)}
             </Container>
           </Container>
-        ) : (
-          <Container>
-            <Heading color="grey">Nenhum Feedback Criado</Heading>
-          </Container>
-        )}
-
-      {loading ?
-        <Container minHeight="320px" maxH="300px" display="flex" alignItems="center" justifyContent="center" position="relative" bottom="50">
-          <Spinner
-            thickness='5px'
-            width="75px"
-            height="75px"
-            speed='0.55s'
-            emptyColor='white'
-            color='#700e17' />
         </Container>
-        :
-        avaliationsReceived && avaliationsReceived.length > 0 ? (
+      }
+
+      {
+        loading ?
+          <Container minHeight="320px" maxH="300px" display="flex" alignItems="center" justifyContent="center" position="relative" bottom="50">
+            <Spinner
+              thickness='5px'
+              width="75px"
+              height="75px"
+              speed='0.55s'
+              emptyColor='white'
+              color='#700e17' />
+          </Container>
+          :
+
           <Container
             bg="#1c222b"
             maxH="300px"
@@ -205,15 +267,35 @@ export default function Feedbacks() {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Heading>Avaliações recebidas:</Heading>
-              <Button
-                variant="outline"
-                colorScheme="white"
-                onClick={handleOpenFilters}
-                padding="0px"
-              >
-                <CalendarIcon />
-              </Button>
+              <Heading fontSize="30px">Avaliações recebidas:</Heading>
+              <Box display="flex" minWidth="40%">
+                <Select marginRight="20px" value={selectUserReceived} onChange={(e) => { setSelectUserReceived(e.target.value); userFeedbacksReceived(e.target.value) }}>
+                  <option
+                    key={user.name}
+                    value={user.name}
+                    style={{ color: "black" }}
+                  >
+                    Você
+                  </option>
+                  {users.map((user) => (
+                    <option
+                      key={user.name}
+                      value={user.name}
+                      style={{ color: "black" }}
+                    >
+                      {formattingName(user.name)}
+                    </option>
+                  ))}
+                </Select>
+                <Button
+                  variant="outline"
+                  colorScheme="white"
+                  onClick={handleOpenFilters}
+                  padding="0px"
+                >
+                  <CalendarIcon />
+                </Button>
+              </Box>
             </Container>
             <Container padding="8px">
               <Container
@@ -225,18 +307,19 @@ export default function Feedbacks() {
                 maxH="306px"
                 overflow="hidden"
                 overflowY="auto"
-              >
+              >{avaliationsReceived && avaliationsReceived.length > 0 ? (
                 <SubmittedAvaliation avaliations={avaliationsReceived} />
+              ) : (
+                <Container>
+                  <Heading color="grey" marginTop="126px">Nenhum Feedback Recebido</Heading>
+                </Container>
+              )}
               </Container>
             </Container>
           </Container>
-        ) : (
-          <Container>
-            <Heading color="grey">Nenhum Feedback Recebido</Heading>
-          </Container>
-        )
+
       }
 
-    </div>
+    </div >
   );
 }

@@ -16,24 +16,23 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { formattingName } from "utils/formattingTexts";
-import { listUsers } from "services/users";
+import { printQuestionSet } from "services/questionsSet";
 
-export default function ModalUserSelect({ isOpen, onClose, setSelectedUser, setLoading }) {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const [selectedUserFilter, setSelectedUserFilter] = useState("");
-  const [participants, setParticipants] = useState([]);
+export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroupFiltred }) {
+  const [selectedIdGroupFilter, setSelectedIdGroupFilter] = useState("");
+  const [selectedNameGroupFilter, setSelectedNameGroupFilter] = useState("");
+  const [groups, setGroups] = useState([]);
 
   const handleCloseModal = () => {
-    onClose();
-    setSelectedUser(selectedUserFilter);
     setLoading(true);
+    newGroupFiltred(selectedIdGroupFilter);
+    onClose();
   };
 
   const fetchParticipants = async () => {
     try {
-      const response = await listUsers();
-      setParticipants(response);
+      const response = await printQuestionSet();
+      setGroups(response.questions);
     } catch (error) {
       console.error(error);
     }
@@ -50,10 +49,10 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser, setL
         <ModalContent background="#212121" color="white">
           <ModalHeader display="flex" justifyContent="space-between">
             <Heading>
-              Selecione um usuário
+              Selecione um grupo
               <Tooltip
-                label="Neste modal, você pode selecionar um usuário para ver seus feedbacks."
-                aria-label="tooltip explicando como funciona o filtro de usuários"
+                label="Neste modal, você pode selecionar um grupo para ver os seus feedbacks relacionados."
+                aria-label="tooltip explicando como funciona o filtro de grupo"
               >
                 <Icon
                   w={3}
@@ -68,32 +67,31 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser, setL
           <Container paddingLeft="15px" paddingRight="15px">
             <Divider borderColor="red" marginBottom="4px" />
             <Text>
-              Usuário selecionado neste momento:{" "}
-              <strong>{formattingName(selectedUserFilter || user.name)}</strong>
+              Grupo selecionado neste momento:{" "}
+              <strong>{selectedNameGroupFilter === "" ? "Todos" : selectedNameGroupFilter}</strong>
             </Text>
           </Container>
           <ModalBody padding="15px">
             <Text>
-              <strong>Usuário:</strong>
+              <strong>Grupos:</strong>
             </Text>
             <Select
-              value={selectedUserFilter}
-              onChange={(e) => setSelectedUserFilter(e.target.value)}
+              value={selectedIdGroupFilter}
+              onChange={(e) => setSelectedIdGroupFilter(e.target.value)}
             >
               <option
-                key={user.name}
-                value={user.name}
+                value={""}
                 style={{ color: "black" }}
               >
-                Você
+                Todos
               </option>
-              {participants.map((user) => (
+              {groups.map((group) => (
                 <option
-                  key={user.name}
-                  value={user.name}
+                  key={group.questionSetName}
+                  value={group.id}
                   style={{ color: "black" }}
                 >
-                  {formattingName(user.name)}
+                  {group.questionSetName}
                 </option>
               ))}
             </Select>
@@ -105,7 +103,6 @@ export default function ModalUserSelect({ isOpen, onClose, setSelectedUser, setL
             <Button
               onClick={handleCloseModal}
               colorScheme="red"
-              isDisabled={selectedUserFilter === ""}
             >
               Filtrar
             </Button>
