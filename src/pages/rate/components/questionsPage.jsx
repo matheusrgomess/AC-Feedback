@@ -10,6 +10,7 @@ export default function QuestionsPage({
   setRating,
   justification,
   setJustification,
+  numberOfStars
 }) {
   return (
     <div style={{ position: "relative" }}>
@@ -26,6 +27,7 @@ export default function QuestionsPage({
           setHover={setHover}
           rating={rating}
           setRating={setRating}
+          numberOfStars={numberOfStars}
         />
       </Container>
       <InputJustification

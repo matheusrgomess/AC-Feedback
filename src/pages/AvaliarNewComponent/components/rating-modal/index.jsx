@@ -58,6 +58,7 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
                 placeholder="Escolha o participante"
                 onChange={handleSelectChange}
                 value={selectedOption}
+                focusBorderColor="#971520"
               >
                 {participants.map((reviewer) => (
                   <option key={reviewer.name} value={reviewer.name}>

@@ -24,9 +24,9 @@ export default function Feedbacks() {
       setAvaliationsAdded(responseAdded.addedFeedbacks);
       setAvaliationsReceived(responseReceived.receivedFeedbacks);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }, []);
 

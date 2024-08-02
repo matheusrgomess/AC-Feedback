@@ -19,6 +19,7 @@ export default function RateParticipantScreen() {
   const user = JSON.parse(localStorage.getItem("user"));
   const [activatedGroup, setActivatedGroup] = useState();
   const [loading, setLoading] = useState(true);
+  const [numberOfStars, setNumberOfStars] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -29,6 +30,7 @@ export default function RateParticipantScreen() {
           if (b.questionType === "OBSERVATION") return -1;
           return 0;
         });
+        setNumberOfStars(group.numberOfStars);
         setActivatedGroup({ ...group, questions: sortedQuestions });
       } catch (error) {
         console.log(error);
@@ -121,6 +123,7 @@ export default function RateParticipantScreen() {
             justifyContent="space-between"
             flexDirection="column"
           >
+            <Text position="absolute" marginRight="415px" top="230px" color="#ffffff3d">Grupo de questões:{" "}{activatedGroup.questionSetName}</Text>
             <Container
               textAlign="center"
               display="flex"
@@ -157,6 +160,7 @@ export default function RateParticipantScreen() {
                       setRating={setRating}
                       justification={justification}
                       setJustification={setJustification}
+                      numberOfStars={numberOfStars}
                     />
                   ) : (
                     <ObservationsPage

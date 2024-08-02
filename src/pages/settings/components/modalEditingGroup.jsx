@@ -78,7 +78,6 @@ export default function ModalEditingGroup({
                             h="40px"
                             borderBottom="2px solid"
                             paddingBottom="10px"
-                            borderColor="#808080"
                             display="flex"
                             alignItems="center"
                             justifyContent="space-between"
@@ -86,7 +85,7 @@ export default function ModalEditingGroup({
                             marginBottom="15px"
                         >
                             <Text><strong>Título do grupo:</strong></Text>
-                            <Input maxWidth="60%" value={valueInputName} paddingLeft="5px" onChange={(event) => setValueInputName(event.target.value)} />
+                            <Input maxWidth="60%" value={valueInputName} paddingLeft="5px" onChange={(event) => setValueInputName(event.target.value)} focusBorderColor="#700e17" />
                         </Container>
                         <Container
                             margin="0px"
@@ -94,7 +93,6 @@ export default function ModalEditingGroup({
                             w="100%"
                             h="40px"
                             borderBottom="2px solid"
-                            borderColor="#808080"
                             display="flex"
                             alignItems="center"
                             justifyContent="space-between"
@@ -104,7 +102,7 @@ export default function ModalEditingGroup({
                             <Text>
                                 <strong>Quantidade de notas:</strong>
                             </Text>
-                            <NumberInput size='sm' maxWidth="65px" value={numberInputStars} min={1} max={10} onChange={(value) => setNumberInputStars(value)}>
+                            <NumberInput size='sm' maxWidth="65px" value={numberInputStars} min={1} max={10} onChange={(value) => setNumberInputStars(value)} focusBorderColor="#700e17">
                                 <NumberInputField readOnly cursor="default" />
                                 <NumberInputStepper>
                                     <NumberIncrementStepper color="white" />
@@ -196,9 +194,9 @@ export default function ModalEditingGroup({
                     </ModalHeader>
                     <ModalBody>
                         <Text fontSize={17}><strong>Título:</strong></Text>
-                        <Input marginBottom="20px" value={valueNewTitleQuestion} onChange={(event) => setValueNewTitleQuestion(event.target.value)} />
+                        <Input marginBottom="20px" value={valueNewTitleQuestion} onChange={(event) => setValueNewTitleQuestion(event.target.value)} focusBorderColor="#971520" />
                         <Text fontSize={17}><strong>Descrição:</strong></Text>
-                        <Input value={valueNewDescQuestion} placeholder="Digite a descrição da pergunta" onChange={(event) => setValueNewDescQuestion(event.target.value)} />
+                        <Input value={valueNewDescQuestion} placeholder="Digite a descrição da pergunta" onChange={(event) => setValueNewDescQuestion(event.target.value)} focusBorderColor="#971520" />
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="red" _hover={{ bg: "#680000" }} marginRight={5} onClick={handleRemoveQuestion}>Apagar Pergunta</Button>

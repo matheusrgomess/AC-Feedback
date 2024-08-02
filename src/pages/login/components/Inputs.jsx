@@ -28,11 +28,11 @@ export default function Inputs({ title, placeholder, type, value, onChange }) {
                     borderRightColor="transparent"
                     _hover={{}}
                     _focus={{
-                        borderColor: "#0d45ac",
+                        boxShadow: "none",
+                        borderColor: "red",
                         borderTopColor: "transparent",
                         borderLeftColor: "transparent",
                         borderRightColor: "transparent",
-                        boxShadow: "none"
                     }}
                     value={value}
                     onChange={onChange}

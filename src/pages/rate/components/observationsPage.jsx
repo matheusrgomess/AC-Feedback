@@ -87,6 +87,7 @@ export default function ObservationsPage({
         value={observation}
         onChange={modObservation}
         flexGrow={1}
+        focusBorderColor="#700e17"
       />
 
       <Container textAlign="center">

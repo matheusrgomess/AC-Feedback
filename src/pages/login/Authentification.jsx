@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Container, Text, Image, Button } from "@chakra-ui/react";
+import { Container, Text, Image, Button, Spinner } from "@chakra-ui/react";
 import Inputs from "./components/Inputs";
 import BackgroundImage from "../../assets/backgroundlogo.png";
 import Banner from "../../assets/bannerlogo.png";
@@ -11,6 +11,7 @@ export default function Authentification() {
   const navigate = useNavigate();
   const [valueEmail, setValueEmail] = useState("");
   const [valuePassword, setValuePassword] = useState("");
+  const [loadingLogin, setLoadingLogin] = useState(false);
   const user = {
     email: valueEmail,
     password: valuePassword
@@ -26,11 +27,14 @@ export default function Authentification() {
     } catch (error) {
       console.log(error);
       toast.error(error.message);
+    } finally {
+      setLoadingLogin(false);
     }
   }
 
   const handleClick = () => {
-    loginUser(user)
+    loginUser(user);
+    setLoadingLogin(true);
   };
 
   return (
@@ -83,14 +87,16 @@ export default function Authentification() {
               Entrar
             </Button>
           ) : (
-            <Button
+            <Container padding="0px" marginBottom="20px" display="flex" alignItems="center">
+              <Button
               onClick={handleClick}
-              marginBottom="20px"
               bg="transparent"
-              _hover={{ bg: "#2758c0", color: "#ffffff" }}
+              _hover={{ bg: "#971520", color: "#ffffff" }}
             >
               Entrar
             </Button>
+            {loadingLogin && <Spinner marginLeft="20px" color="red" size="sm"/>}
+            </Container>
           )}
         </Container>
         <Container padding="0px">
