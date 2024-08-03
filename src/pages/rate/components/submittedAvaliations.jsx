@@ -140,12 +140,15 @@ export default function SubmittedAvaliation({ avaliations }) {
                 overflow: "hidden",
                 WebkitLineClamp: 3,
               }}
+              marginBottom="5px"
             >
               <strong>Observação:</strong> {filteredQuestionsOBSERVATION && filteredQuestionsOBSERVATION[0]?.observation}
             </Text>
-            <br />
-            <Text color="white">
+            <Text color="white" marginBottom="5px">
               <strong>Média dos Ratings:</strong> {averageRating}
+            </Text>
+            <Text color="white">
+              <strong>Grupo da avaliação:</strong> {questionSetSelected?.questionSetName}
             </Text>
           </Container>
         </Container>

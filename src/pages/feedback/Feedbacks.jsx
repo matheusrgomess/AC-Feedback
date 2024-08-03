@@ -1,5 +1,5 @@
 
-import { Container, Heading, Button, Spinner, Box, Select } from "@chakra-ui/react";
+import { Container, Heading, Button, Spinner, Box, Select, border } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 import { useEffect, useState } from "react";
 import ModalFilter from "./components/modalFilter";
@@ -168,8 +168,8 @@ export default function Feedbacks() {
             justifyContent="space-between"
           >
             <Heading fontSize="30px">Avaliações criadas:</Heading>
-            <Box display="flex" minWidth="40%">
-              <Select marginRight="20px" value={selectUserAdded} onChange={(e) => { setSelectUserAdded(e.target.value); userFeedbacksAdded(e.target.value) }}>
+            {verifyAdm ? <Box display="flex" minWidth="40%">
+              <Select _focus={{ boxShadow: "none" }} focusBorderColor="white" marginRight="20px" value={selectUserAdded} onChange={(e) => { setSelectUserAdded(e.target.value); userFeedbacksAdded(e.target.value) }}>
                 <option
                   key={user.name}
                   value={user.name}
@@ -195,7 +195,15 @@ export default function Feedbacks() {
               >
                 <CalendarIcon />
               </Button>
-            </Box>
+            </Box> : <Button
+                variant="outline"
+                colorScheme="white"
+                onClick={handleOpenFilters}
+                padding="0px"
+              >
+                <CalendarIcon />
+              </Button>}
+            
 
           </Container>
           <Container padding="8px">
@@ -268,8 +276,8 @@ export default function Feedbacks() {
               justifyContent="space-between"
             >
               <Heading fontSize="30px">Avaliações recebidas:</Heading>
-              <Box display="flex" minWidth="40%">
-                <Select marginRight="20px" value={selectUserReceived} onChange={(e) => { setSelectUserReceived(e.target.value); userFeedbacksReceived(e.target.value) }}>
+              {verifyAdm ? <Box display="flex" minWidth="40%">
+                <Select _focus={{ boxShadow: "none" }} focusBorderColor="white" marginRight="20px" value={selectUserReceived} onChange={(e) => { setSelectUserReceived(e.target.value); userFeedbacksReceived(e.target.value) }}>
                   <option
                     key={user.name}
                     value={user.name}
@@ -295,7 +303,15 @@ export default function Feedbacks() {
                 >
                   <CalendarIcon />
                 </Button>
-              </Box>
+              </Box> : <Button
+                  variant="outline"
+                  colorScheme="white"
+                  onClick={handleOpenFilters}
+                  padding="0px"
+                >
+                  <CalendarIcon />
+                </Button>}
+              
             </Container>
             <Container padding="8px">
               <Container

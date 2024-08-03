@@ -85,7 +85,7 @@ export default function ModalEditingGroup({
                             marginBottom="15px"
                         >
                             <Text><strong>Título do grupo:</strong></Text>
-                            <Input maxWidth="60%" value={valueInputName} paddingLeft="5px" onChange={(event) => setValueInputName(event.target.value)} focusBorderColor="#700e17" />
+                            <Input disabled={selectedGroupValue?.writable === false} maxWidth="60%" value={valueInputName} paddingLeft="5px" onChange={(event) => setValueInputName(event.target.value)} focusBorderColor="#700e17" />
                         </Container>
                         <Container
                             margin="0px"
@@ -102,7 +102,7 @@ export default function ModalEditingGroup({
                             <Text>
                                 <strong>Quantidade de notas:</strong>
                             </Text>
-                            <NumberInput size='sm' maxWidth="65px" value={numberInputStars} min={1} max={10} onChange={(value) => setNumberInputStars(value)} focusBorderColor="#700e17">
+                            <NumberInput disabled={selectedGroupValue?.writable === false} size='sm' maxWidth="65px" value={numberInputStars} min={1} max={10} onChange={(value) => setNumberInputStars(value)} focusBorderColor="#700e17">
                                 <NumberInputField readOnly cursor="default" />
                                 <NumberInputStepper>
                                     <NumberIncrementStepper color="white" />
@@ -112,7 +112,7 @@ export default function ModalEditingGroup({
                         </Container>
                         <Container padding="10px" borderRadius="6px">
                             <Container padding="0px" width="100%" display="flex" alignItems="center" justifyContent="space-between">
-                                <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor="#ffffff" onClick={() => setShowADDQuestionsInput(!showADDQuestionsInput)}>
+                                <Button isDisabled={selectedGroupValue?.writable === false} _hover={{}} _active={{ bgColor: "#acacac" }} bgColor="#ffffff" onClick={() => setShowADDQuestionsInput(!showADDQuestionsInput)} disabled={selectedGroupValue?.writable === false}>
                                     Nova escala de avaliação
                                 </Button>
                             </Container>
@@ -165,7 +165,7 @@ export default function ModalEditingGroup({
                                         .filter(item => item.questionType !== "OBSERVATION")
                                         .map((item, index) => (
                                             <ListItem key={index} id="tasks" color="#ffffff" marginBottom="10px">
-                                                <Text _hover={{ cursor: "pointer" }} onClick={() => handleSelectedQuestionOpen(item)}>
+                                                <Text _hover={{ cursor: selectedGroupValue?.writable === true ? "pointer" : "not-allowed" }} userSelect="none" onClick={() => selectedGroupValue?.writable === true && handleSelectedQuestionOpen(item)}>
                                                     <strong>{item.questionName}</strong>
                                                     <EditIcon marginLeft="5px" />
                                                 </Text>
@@ -177,8 +177,8 @@ export default function ModalEditingGroup({
                         <Tooltip label="Excluir Grupo">
                             <Button marginTop="15px" colorScheme="red" onClick={() => handleDeleteGroup(selectedGroupValue)} _hover={{ bg: "#680000" }} padding="0px"><RiFolderCloseFill size={22.5} /></Button>
                         </Tooltip>
-                        <Tooltip label="Salvar Alterações">
-                            <Button onClick={handleSaveChanges} marginTop="15px" marginLeft="10px" bg="green" color="black" padding="0px" _hover={{ bg: "#005a00" }}><CheckIcon color="white" /></Button>
+                        <Tooltip label={selectedGroupValue?.writable === true ? "Salvar Alterações" : "Não é possível fazer alterações pois já se tem avaliações criadas com esse grupo"}>
+                            <Button isDisabled={selectedGroupValue?.writable === false} onClick={handleSaveChanges} marginTop="15px" marginLeft="10px" bg="green" color="black" padding="0px" _hover={{ bg: "#005a00" }}><CheckIcon color="white" /></Button>
                         </Tooltip>
                     </ModalBody>
                 </ModalContent>
