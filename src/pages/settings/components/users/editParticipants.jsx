@@ -14,13 +14,12 @@ import {
     Divider,
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
-import { createUser } from "services/users";
 import { FaUserCog } from "react-icons/fa";
-import { useState, useEffect } from "react";
 import { FaUserPlus } from "react-icons/fa6";
-import { listUsers } from "services/users";
+import { useState, useEffect } from "react";
+import { createUser, listUsers } from "services/users";
 import { formattingName, APIformattingName } from "utils/formattingTexts";
-import ModalEditingParticipant from "./modalEditingParticipant";
+import ModalEditingLogParticipant from "./modalEditingLogParticipant";
 import ModalCreatingUsers from "./modalCreatingUsers";
 
 export default function EditParticipants() {
@@ -132,7 +131,7 @@ export default function EditParticipants() {
                     </ModalBody>
                 </ModalContent>
             </Modal>
-            <ModalEditingParticipant
+            <ModalEditingLogParticipant
                 isOpenEditParticipantSelected={isOpenEditParticipantSelected}
                 infoSelectedParticipant={infoSelectedParticipant}
                 setInfoSelectedParticipant={setInfoSelectedParticipant}

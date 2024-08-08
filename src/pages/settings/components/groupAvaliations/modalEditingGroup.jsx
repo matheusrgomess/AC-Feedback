@@ -24,7 +24,8 @@ import {
     ModalFooter
 } from "@chakra-ui/react";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
-import { RiFolderCloseFill } from "react-icons/ri";
+import { RiFolderCloseFill, RiAlertFill } from "react-icons/ri";
+import { toast } from "react-toastify";
 
 export default function ModalEditingGroup({
     isModalOpen,
@@ -51,7 +52,10 @@ export default function ModalEditingGroup({
     valueNewDescQuestion,
     setValueNewDescQuestion,
     handleRemoveQuestion,
-    handleUpdateQuestion
+    handleUpdateQuestion,
+    isModalRemoveOpen,
+    setIsModalRemoveOpen,
+    handleModalRemoveClose
 }) {
     return (
         <>
@@ -175,12 +179,42 @@ export default function ModalEditingGroup({
                             </Container>
                         </Container>
                         <Tooltip label="Excluir Grupo">
-                            <Button marginTop="15px" colorScheme="red" onClick={() => handleDeleteGroup(selectedGroupValue)} _hover={{ bg: "#680000" }} padding="0px"><RiFolderCloseFill size={22.5} /></Button>
+                            <Button marginTop="15px" colorScheme="red" onClick={
+                                () => {
+                                    if (selectedGroupValue.activatedSet === true) {
+                                        toast.error("Não é possível excluir um grupo ativado");
+                                    } else {setIsModalRemoveOpen(true)}
+                                }}
+                                _hover={{ bg: "#680000" }}
+                                padding="0px">
+                                <RiFolderCloseFill size={22.5} />
+                            </Button>
                         </Tooltip>
                         <Tooltip label={selectedGroupValue?.writable === true ? "Salvar Alterações" : "Não é possível fazer alterações pois já se tem avaliações criadas com esse grupo"}>
                             <Button isDisabled={selectedGroupValue?.writable === false} onClick={handleSaveChanges} marginTop="15px" marginLeft="10px" bg="green" color="black" padding="0px" _hover={{ bg: "#005a00" }}><CheckIcon color="white" /></Button>
                         </Tooltip>
                     </ModalBody>
+                </ModalContent>
+            </Modal>
+            <Modal isOpen={isModalRemoveOpen} onClose={handleModalRemoveClose} isCentered>
+                <ModalOverlay />
+                <ModalContent bgColor="black" color="white">
+                    <ModalHeader display="flex" alignItems="center" justifyContent="space-between"><Heading>Aviso!</Heading><RiAlertFill size="36px" />
+                    </ModalHeader>
+                    <ModalBody>
+                        Você tem certeza que deseja <Text as="span" color="white" textDecoration="underline" textDecorationColor="red">excluir esse grupo de questões</Text>?
+                        <Text mt={4} color="red">
+                            <strong>Você perderá todos os dados referentes a este grupo!</strong>
+                        </Text>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button onClick={() => handleDeleteGroup(selectedGroupValue)} colorScheme="red">
+                            Sim
+                        </Button>
+                        <Button onClick={handleModalRemoveClose} ml={3}>
+                            Não
+                        </Button>
+                    </ModalFooter>
                 </ModalContent>
             </Modal>
             <Modal isOpen={openSelectedQuestion} onClose={handleSelectedQuestionClose} isCentered>

@@ -5,8 +5,8 @@ import {
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
 import PartConfig from "./components/partConfig";
-import EditParticipants from "./components/editParticipants";
-import CreatingGroupAvaliations from "./components/creatingGroupAvaliations";
+import EditParticipants from "./components/users/editParticipants";
+import CreatingGroupAvaliations from "./components/groupAvaliations/creatingGroupAvaliations";
 
 export default function Settings() {
     return (

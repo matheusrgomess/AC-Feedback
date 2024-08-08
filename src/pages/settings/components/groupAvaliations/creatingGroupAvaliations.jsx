@@ -33,6 +33,7 @@ export default function CreatingGroupAvaliations() {
     const [valueNewTitleQuestion, setValueNewTitleQuestion] = useState("");
     const [valueNewDescQuestion, setValueNewDescQuestion] = useState("");
     const [loading, setLoading] = useState(true);
+    const [isModalRemoveOpen, setIsModalRemoveOpen] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -106,18 +107,20 @@ export default function CreatingGroupAvaliations() {
     };
 
     const handleDeleteGroup = async (selectedGroup) => {
-        if (selectedGroup.activatedSet === false) {
-            try {
-                await deleteQuestionSet(selectedGroup.id);
-                fetchData();
-                handleClose();
-            } catch (error) {
-                console.log(error);
-            }
-        } else {
-            toast.error("Não é possível excluir um grupo ativado");
+        try {
+            await deleteQuestionSet(selectedGroup.id);
+            fetchData();
+            handleClose();
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsModalRemoveOpen(false);
         }
     };
+
+    const handleModalRemoveClose = () => {
+        setIsModalRemoveOpen(false);
+    }
 
     const handleSaveChanges = async () => {
         const changes = {
@@ -319,6 +322,9 @@ export default function CreatingGroupAvaliations() {
                 openSelectedQuestion={openSelectedQuestion}
                 handleRemoveQuestion={handleRemoveQuestion}
                 handleUpdateQuestion={handleUpdateQuestion}
+                isModalRemoveOpen={isModalRemoveOpen}
+                setIsModalRemoveOpen={setIsModalRemoveOpen}
+                handleModalRemoveClose={handleModalRemoveClose}
             />
         </>
     );

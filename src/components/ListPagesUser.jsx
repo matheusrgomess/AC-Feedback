@@ -29,9 +29,9 @@ export default function ListPagesUser({ title, navigate }) {
 
     return (
         <>
-            <ListItem>
+            <ListItem >
                 <Button
-                    isDisabled={isCurrentRoute} padding="0px" bg="transparent" _hover={{}} _active={{ bg: "rgba(0, 0, 0, 0.173)" }} onClick={navNewPage}>
+                    color="white" isDisabled={isCurrentRoute} disabled={{ cursor:"pointer" }} padding="0px" bg="transparent" _hover={{}} _active={{ bg: "rgba(0, 0, 0, 0.173)" }} onClick={navNewPage}>
                     {title}
                 </Button>
             </ListItem>
