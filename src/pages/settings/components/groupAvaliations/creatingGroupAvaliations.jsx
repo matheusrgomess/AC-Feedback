@@ -8,7 +8,8 @@ import {
     Container,
     Heading,
     Checkbox,
-    Spinner
+    Spinner,
+    useColorMode
 } from "@chakra-ui/react";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
@@ -34,6 +35,7 @@ export default function CreatingGroupAvaliations() {
     const [valueNewDescQuestion, setValueNewDescQuestion] = useState("");
     const [loading, setLoading] = useState(true);
     const [isModalRemoveOpen, setIsModalRemoveOpen] = useState(false);
+    const { colorMode } = useColorMode();
 
     const fetchData = async () => {
         try {
@@ -175,8 +177,8 @@ export default function CreatingGroupAvaliations() {
 
     return (
         <>
-            <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor="#ffffff" onClick={() => setShowInputGroup(!showInputGroup)} marginBottom="10px">
-                <Text marginRight="10px">
+            <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor={colorMode === "dark" ? "#ffffff" : "#000000"} onClick={() => setShowInputGroup(!showInputGroup)} marginBottom="10px">
+                <Text marginRight="10px" color={colorMode === "dark" ? "#000000" : "#ffffff"}>
                     Criar novo grupo de avaliações
                 </Text>
             </Button>
@@ -190,7 +192,8 @@ export default function CreatingGroupAvaliations() {
                             boxShadow: "none",
                             borderColor: "#ffffff",
                         }}
-                        color="white"
+                        borderColor={colorMode === "dark" ? "#ffffff" : "#000000"}
+                        color={colorMode === "dark" ? "#ffffff" : "#000000"}
                         value={nameGroupValue}
                         onChange={(event) => setNameGroupValue(event.target.value)}
                     />
@@ -202,7 +205,7 @@ export default function CreatingGroupAvaliations() {
                         bg="none"
                         border="none"
                         borderBottom="1px solid"
-                        borderColor="white"
+                        borderColor={colorMode === "dark" ? "#ffffff" : "#000000"}
                         borderRadius="none"
                     >
                         <IconButton
@@ -216,7 +219,7 @@ export default function CreatingGroupAvaliations() {
                             <CheckIcon
                                 style={{
                                     transition: "color 0.3s ease",
-                                    color: "white",
+                                    color: colorMode === "dark" ? "#ffffff" : "#000000",
                                 }}
                                 onMouseOver={(e) => e.currentTarget.style.color = "green"}
                                 onMouseOut={(e) => e.currentTarget.style.color = "white"}
@@ -232,7 +235,7 @@ export default function CreatingGroupAvaliations() {
                 </Container>
             ) : (
                 <Container
-                    bg="#14181E"
+                    bg={colorMode === "dark" ? "#14181E" : "#eeecea"}
                     className="scrollbar"
                     overflow="hidden"
                     overflowY="auto"
@@ -246,7 +249,7 @@ export default function CreatingGroupAvaliations() {
                     gap={4}
                 >
                     {questionsSet?.questions.map((group, index) => (
-                        <Container key={index} bgColor="#14181E" borderRadius="10px" border="1px solid" borderColor="white" minWidth="350px" maxWidth="350px">
+                        <Container key={index} bgColor="transparent" borderRadius="10px" border="1px solid" minWidth="350px" maxWidth="350px">
                             <Container padding="0px" display="flex" alignItems="center" justifyContent="space-between">
                                 <Heading display="flex" alignItems="center">
                                     <Checkbox
@@ -266,7 +269,7 @@ export default function CreatingGroupAvaliations() {
                                     </Heading>
                                 </Heading>
                                 <Button bg="transparent" padding="0px" _hover={{}} _active={{}} onClick={() => handleOpen(group)}>
-                                    <EditIcon color="white" transition="color 0.3s ease-in-out" _hover={{ color: "red", transition: "color 0.3s ease-in-out" }} boxSize={5} />
+                                    <EditIcon transition="color 0.3s ease-in-out" _hover={{ color: "red", transition: "color 0.3s ease-in-out" }} boxSize={5} />
                                 </Button>
                             </Container>
                             <Text paddingTop="5px" paddingBottom="10px" fontSize={17}>

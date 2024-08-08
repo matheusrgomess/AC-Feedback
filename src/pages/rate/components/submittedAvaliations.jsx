@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { parseISO, format } from "date-fns";
 import { ptBR } from 'date-fns/locale';
-import { Container, Heading, Button, Text, Tooltip } from "@chakra-ui/react";
+import { Container, Heading, Button, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
 import { ViewIcon, CalendarIcon } from "@chakra-ui/icons";
 import { formattingName } from "utils/formattingTexts";
 import { useLocation } from "react-router-dom";
@@ -15,6 +15,10 @@ export default function SubmittedAvaliation({ avaliations }) {
   const [questionSets, setQuestionSets] = useState([]);
   const [questionSetSelected, setQuestionSetSelected] = useState();
   const location = useLocation();
+
+  const bgColor = useColorModeValue("#ffffff", "#1c222b");
+  const borderColor = useColorModeValue("#1c222b", "#700e17");
+  const textColor = useColorModeValue("#000000", "#ffffff");
 
   useEffect(() => {
     async function fetchData() {
@@ -76,15 +80,14 @@ export default function SubmittedAvaliation({ avaliations }) {
         <Container
           key={avaliation.id}
           as="div"
-          bg="white"
+          bg={bgColor}
           w="95%"
           maxH="200px"
           border="2px solid"
-          borderColor="#700e17"
+          borderColor={borderColor}
           padding="10px"
           borderRadius="12px"
           marginBottom="15px"
-          bgColor="#1c222b"
         >
           <Container
             display="flex"
@@ -93,9 +96,9 @@ export default function SubmittedAvaliation({ avaliations }) {
             padding="0px"
             marginBottom="5px"
             borderBottom="2px solid"
-            borderColor="#ffffff"
+            borderColor={textColor}
             overflow="hidden"
-            color="#ffffff"
+            color={textColor}
           >
             <Heading>{formattingName(avaliation?.reviewer)}:</Heading>
             <Container
@@ -105,8 +108,8 @@ export default function SubmittedAvaliation({ avaliations }) {
               padding="0px"
               margin="0px"
             >
-              <CalendarIcon color="white" />
-              <Text paddingInline="8px" color="white">
+              <CalendarIcon color={textColor} />
+              <Text paddingInline="8px" color={textColor}>
                 {avaliation && format(parseISO(avaliation?.date), "dd/MM/yyyy, HH:mm", {
                   locale: ptBR,
                 })}
@@ -133,7 +136,7 @@ export default function SubmittedAvaliation({ avaliations }) {
           </Container>
           <Container padding="0px">
             <Text
-              color="white"
+              color={textColor}
               style={{
                 display: "-webkit-box",
                 WebkitBoxOrient: "vertical",
@@ -144,10 +147,10 @@ export default function SubmittedAvaliation({ avaliations }) {
             >
               <strong>Observação:</strong> {filteredQuestionsOBSERVATION && filteredQuestionsOBSERVATION[0]?.observation}
             </Text>
-            <Text color="white" marginBottom="5px">
+            <Text color={textColor} marginBottom="5px">
               <strong>Média dos Ratings:</strong> {averageRating}
             </Text>
-            <Text color="white">
+            <Text color={textColor}>
               <strong>Grupo da avaliação:</strong> {questionSetSelected?.questionSetName}
             </Text>
           </Container>

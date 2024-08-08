@@ -13,8 +13,6 @@ export default function Settings() {
         <div
             style={{
                 height: "inherit",
-                color: "white",
-                backgroundColor: "#1c222b",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",

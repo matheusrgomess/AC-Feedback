@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Authentification from "./pages/login/Authentification";
 import Home from "./pages/home/Home";
 import Feedbacks from "./pages/feedback/Feedbacks";
-import AvaliarNewComponent from "./pages/AvaliarNewComponent";
+import RateChooseUser from "./pages/rateChooseUser";
 import RateParticipantScreen from "./pages/rate";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
@@ -16,9 +16,7 @@ function App() {
       style={{
         overflow: "hidden",
         fontFamily: "Montserrat, sans-serif",
-        backgroundColor: "#1c222b",
         height: "100vh",
-        color: "black",
         maxWidth: "100vw",
       }}
     >
@@ -32,7 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Authentification />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/home/rate" element={<AvaliarNewComponent />} />
+          <Route path="/home/rate" element={<RateChooseUser />} />
           <Route
             path="/rate-participant/:participant"
             element={<RateParticipantScreen />}

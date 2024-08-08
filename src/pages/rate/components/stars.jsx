@@ -27,7 +27,6 @@ export default function Stars({ hover, setHover, rating, setRating, numberOfStar
               textAlign="center"
               position="relative"
               bottom="10px"
-              color="white"
             >
               <strong>{ratingValue}</strong>
             </Text>

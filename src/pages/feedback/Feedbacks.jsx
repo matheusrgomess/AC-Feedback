@@ -1,4 +1,4 @@
-import { Container, Heading, Button, Spinner, Box, Select } from "@chakra-ui/react";
+import { Container, Heading, Button, Box, Select, useColorMode } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 import { useEffect, useState } from "react";
 import ModalFilter from "./components/modalFilter";
@@ -7,6 +7,7 @@ import { CalendarIcon } from "@chakra-ui/icons";
 import { getAddedFeedbacks, getReceivedFeedbacks } from "services/feedbacks";
 import { listUsers } from "services/users";
 import { formattingName } from "utils/formattingTexts";
+import PrincipalSpinner from "components/Spinner";
 
 export default function Feedbacks() {
   const [avaliationsAdded, setAvaliationsAdded] = useState();
@@ -19,6 +20,11 @@ export default function Feedbacks() {
   const [users, setUsers] = useState([]);
   const [selectUserAdded, setSelectUserAdded] = useState("");
   const [selectUserReceived, setSelectUserReceived] = useState("");
+  const { colorMode } = useColorMode();
+
+  const colorGradientBackGround = colorMode === "dark" ?
+    "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)" :
+    "linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7), transparent)";
 
   const handleOpenUserFilter = () => {
     setOpenUserFilter(true);
@@ -82,7 +88,7 @@ export default function Feedbacks() {
       const responseNewGroupReceived = await getReceivedFeedbacks(selectUserReceived === "" ? user.name : selectUserAdded, selectedGroup);
       setAvaliationsAdded(responseNewGroupAdded.addedFeedbacks);
       setAvaliationsReceived(responseNewGroupReceived.receivedFeedbacks);
-    } catch (error){
+    } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
@@ -108,7 +114,6 @@ export default function Feedbacks() {
             onClick={handleOpenUserFilter}
             background="transparent"
             border="1px solid"
-            color="white"
             _hover={{}}
             _active={{ background: "rgba(0, 0, 0, 0.26)" }}
           >
@@ -125,16 +130,9 @@ export default function Feedbacks() {
       <ModalFilter isOpen={openFilters} onClose={handleCloseFilters} />
       {loading ?
         <Container minHeight="320px" maxH="300px" display="flex" alignItems="center" justifyContent="center" position="relative" bottom="50">
-          <Spinner
-            thickness='5px'
-            width="75px"
-            height="75px"
-            speed='0.55s'
-            emptyColor='white'
-            color='#700e17' />
+          <PrincipalSpinner/>
         </Container>
         :
-
         <Container
           maxH="300px"
           borderRadius="20px"
@@ -150,8 +148,7 @@ export default function Feedbacks() {
             right: 0,
             width: "95%",
             height: "75px",
-            background:
-              "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
+            background: colorGradientBackGround,
             borderBottomRadius: "20px",
             pointerEvents: "none",
           }}
@@ -168,7 +165,7 @@ export default function Feedbacks() {
           >
             <Heading fontSize="30px">Avaliações criadas:</Heading>
             {verifyAdm ? <Box display="flex" minWidth="40%">
-              <Select _focus={{ boxShadow: "none" }} focusBorderColor="white" marginRight="20px" value={selectUserAdded} onChange={(e) => { setSelectUserAdded(e.target.value); userFeedbacksAdded(e.target.value) }}>
+              <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} focusBorderColor="white" marginRight="20px" value={selectUserAdded} onChange={(e) => { setSelectUserAdded(e.target.value); userFeedbacksAdded(e.target.value) }}>
                 <option
                   key={user.name}
                   value={user.name}
@@ -195,14 +192,14 @@ export default function Feedbacks() {
                 <CalendarIcon />
               </Button>
             </Box> : <Button
-                variant="outline"
-                colorScheme="white"
-                onClick={handleOpenFilters}
-                padding="0px"
-              >
-                <CalendarIcon />
-              </Button>}
-            
+              variant="outline"
+              colorScheme="white"
+              onClick={handleOpenFilters}
+              padding="0px"
+            >
+              <CalendarIcon />
+            </Button>}
+
 
           </Container>
           <Container padding="8px">
@@ -218,7 +215,7 @@ export default function Feedbacks() {
             >
               {avaliationsAdded && avaliationsAdded.length > 0 ? (
                 <SubmittedAvaliation
-                  avaliations={avaliationsAdded}     
+                  avaliations={avaliationsAdded}
                 />) : (
                 <Container>
                   <Heading color="grey" marginTop="126px">Nenhum Feedback Criado</Heading>
@@ -231,18 +228,10 @@ export default function Feedbacks() {
       {
         loading ?
           <Container minHeight="320px" maxH="300px" display="flex" alignItems="center" justifyContent="center" position="relative" bottom="50">
-            <Spinner
-              thickness='5px'
-              width="75px"
-              height="75px"
-              speed='0.55s'
-              emptyColor='white'
-              color='#700e17' />
+            <PrincipalSpinner/>
           </Container>
           :
-
           <Container
-            bg="#1c222b"
             maxH="300px"
             borderRadius="20px"
             padding="0px"
@@ -258,8 +247,7 @@ export default function Feedbacks() {
               right: 0,
               width: "95%",
               height: "75px",
-              background:
-                "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)",
+              background: colorGradientBackGround,
               borderBottomRadius: "20px",
               pointerEvents: "none",
             }}
@@ -276,7 +264,7 @@ export default function Feedbacks() {
             >
               <Heading fontSize="30px">Avaliações recebidas:</Heading>
               {verifyAdm ? <Box display="flex" minWidth="40%">
-                <Select _focus={{ boxShadow: "none" }} focusBorderColor="white" marginRight="20px" value={selectUserReceived} onChange={(e) => { setSelectUserReceived(e.target.value); userFeedbacksReceived(e.target.value) }}>
+                <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} focusBorderColor="white" marginRight="20px" value={selectUserReceived} onChange={(e) => { setSelectUserReceived(e.target.value); userFeedbacksReceived(e.target.value) }}>
                   <option
                     key={user.name}
                     value={user.name}
@@ -303,14 +291,14 @@ export default function Feedbacks() {
                   <CalendarIcon />
                 </Button>
               </Box> : <Button
-                  variant="outline"
-                  colorScheme="white"
-                  onClick={handleOpenFilters}
-                  padding="0px"
-                >
-                  <CalendarIcon />
-                </Button>}
-              
+                variant="outline"
+                colorScheme="white"
+                onClick={handleOpenFilters}
+                padding="0px"
+              >
+                <CalendarIcon />
+              </Button>}
+
             </Container>
             <Container padding="8px">
               <Container

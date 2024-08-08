@@ -5,10 +5,10 @@ export default function AlertExitPage({ isOpen, onClose, onClickConfirm, onClick
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
-            <ModalContent bgColor="black" color="white">
+            <ModalContent>
                 <ModalHeader display="flex" alignItems="center" justifyContent="space-between"><Heading>Aviso!</Heading><RiAlertFill size="36px" /></ModalHeader>
                     <ModalBody>
-                        Você tem certeza que deseja <Text as="span" color="white" textDecoration="underline" textDecorationColor="red">sair da página atual</Text>?
+                        Você tem certeza que deseja <Text as="span" textDecoration="underline" textDecorationColor="red">sair da página atual</Text>?
                         <Text mt={4} color="red">
                             <strong>Você perderá toda a avaliação iniciada!</strong>
                         </Text>

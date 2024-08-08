@@ -13,6 +13,7 @@ import {
   Button,
   Progress,
   Textarea,
+  useColorMode
 } from "@chakra-ui/react";
 import {
   CalendarIcon,
@@ -35,6 +36,7 @@ export default function SeeMoreAvaliation({
   questionSetSelected
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const { colorMode } = useColorMode();
   const filteredQuestionsRATING = avaliation.questions.filter(
     (question) => question.questionType === "RATING"
   );
@@ -72,7 +74,6 @@ export default function SeeMoreAvaliation({
       <Modal isOpen={isOpen} onClose={handleClose} isCentered>
         <ModalOverlay>
           <ModalContent
-            bg="#1c222b"
             minW="600px"
             minH="500px"
             borderLeft="6px solid"
@@ -86,7 +87,6 @@ export default function SeeMoreAvaliation({
                 alignItems="center"
                 justifyContent="space-between"
                 borderTopRightRadius="8px"
-                color="white"
               >
                 <Text display="flex" gap="10px" fontWeight="400">
                   Avaliação feita por:<strong>{formattingName(avaliation.reviewer)}</strong>
@@ -97,11 +97,11 @@ export default function SeeMoreAvaliation({
                   _hover={{}}
                   _active={{}}
                 >
-                  <CloseIcon color="white" />
+                  <CloseIcon />
                 </IconButton>
               </Container>
             </ModalHeader>
-            <ModalBody color="#ffffff" padding="5px">
+            <ModalBody padding="5px">
               <Container
                 display="flex"
                 padding="0px"
@@ -205,7 +205,6 @@ export default function SeeMoreAvaliation({
                                 textAlign="center"
                                 position="relative"
                                 bottom="10px"
-                                color="white"
                               >
                                 <strong>{ratingValue}</strong>
                               </Text>
@@ -226,6 +225,7 @@ export default function SeeMoreAvaliation({
                         style={{
                           background: "#700e17",
                           width: "110px",
+                          color: "white",
                           paddingLeft: "4px",
                           borderTopLeftRadius: "2px",
                           borderTopRightRadius: "2px",
@@ -309,7 +309,7 @@ export default function SeeMoreAvaliation({
                       _active={{ bgColor: "#00000057" }}
                       onClick={clickPrevious}
                     >
-                      <ArrowLeftIcon color="#ffffff" />
+                      <ArrowLeftIcon />
                     </Button>
 
                     <Button
@@ -320,7 +320,7 @@ export default function SeeMoreAvaliation({
                       _active={{ bgColor: "#00000057" }}
                       onClick={clickNext}
                     >
-                      <ArrowRightIcon color="#ffffff" />
+                      <ArrowRightIcon />
                     </Button>
                   </Container>
                   <Container maxWidth="300px" margin="0px">
@@ -329,6 +329,7 @@ export default function SeeMoreAvaliation({
                       max={filteredQuestionsRATING.length - 1}
                       borderRadius="20px"
                       colorScheme="red"
+                      bgColor={colorMode === "dark" ? "#ffffff" : "#000000"}
                       size="xs"
                       maxWidth="300px"
                     />

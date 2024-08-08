@@ -44,6 +44,7 @@ export default function Authentification() {
         backgroundImage: `url(${BackgroundImage})`,
         minHeight: "100vh",
         display: "flex",
+        color:"black",
         alignItems: "center",
         justifyContent: "center",
       }}
@@ -83,7 +84,7 @@ export default function Authentification() {
             onChange={(event) => { setValuePassword(event.target.value) }}
           />
           {valueEmail === "" || valuePassword === "" ? (
-            <Button isDisabled marginBottom="20px" bg="transparent">
+            <Button isDisabled marginBottom="20px" bg="transparent" color="black">
               Entrar
             </Button>
           ) : (
@@ -91,6 +92,7 @@ export default function Authentification() {
               <Button
               onClick={handleClick}
               bg="transparent"
+              color="black"
               _hover={{ bg: "#971520", color: "#ffffff" }}
             >
               Entrar

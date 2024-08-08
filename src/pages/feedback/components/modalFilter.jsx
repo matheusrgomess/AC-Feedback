@@ -4,7 +4,7 @@ export default function ModalFilter({ isOpen, onClose }) {
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
-            <ModalContent bgColor="#26272d" color="white">
+            <ModalContent>
                 <ModalHeader display="flex" alignItems="center" justifyContent="space-between">
                     Filtrar Avaliações
                     <CloseButton onClick={onClose} />

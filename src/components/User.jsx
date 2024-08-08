@@ -11,7 +11,8 @@ import {
     Text,
     UnorderedList,
     Divider,
-    Box
+    Box,
+    useColorMode
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useNavigate, useLocation, matchPath } from "react-router-dom";
@@ -22,8 +23,8 @@ import { formattingName, formattingFirstName } from "../utils/formattingTexts";
 
 export default function User() {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isIconRotated, setIsIconRotated] = useState(false); // Estado para controlar a rotação do ícone
-
+    const [isIconRotated, setIsIconRotated] = useState(false);
+    const { colorMode, toggleColorMode } = useColorMode()
     const nav = useNavigate();
     const user = JSON.parse(localStorage.getItem("user"));
     const location = useLocation();
@@ -87,7 +88,7 @@ export default function User() {
                         </Text>
                     </Box>
                 </MenuButton>
-                <MenuList marginTop="6px" padding="0px" minHeight="120px" bgColor="#1c222b" border="none">
+                <MenuList marginTop="6px" padding="0px" minHeight="120px" border="none">
                     <Container bgColor="#700e17" borderTopRadius="6px" padding="5px">
                         <Text color="white">
                             <strong>
@@ -96,7 +97,7 @@ export default function User() {
                         </Text>
                     </Container>
                     <Container border="2px solid" borderColor="#700e17" borderBottomRadius="6px" paddingTop="10px" minH="84px" paddingLeft="0px">
-                        <Container borderLeft="1px solid" paddingLeft="5px" marginLeft="7px" color="white">
+                        <Container borderLeft="1px solid" paddingLeft="5px" marginLeft="7px">
                             <Text>
                                 <strong style={{ textTransform: "uppercase" }}>Páginas</strong>
                             </Text>
@@ -114,10 +115,17 @@ export default function User() {
                             </UnorderedList>
                         </Container>
                         <Container minWidth="100%" padding="0px" paddingLeft="15px">
-                            <Divider my={4} borderColor="#ffffff" />
+                            <Divider my={4} borderColor="" opacity="100%" />
                         </Container>
-                        <Container paddingLeft="15px" color="white"><Switch colorScheme="red" /> Tema escuro </Container>
-                        <MenuItem onClick={navLogout} bgColor="transparent" color="white"><MdLogout /><Text paddingLeft="5px">Sair</Text></MenuItem>
+                        <Container paddingLeft="15px" marginBottom="10px">
+                            <Switch
+                                colorScheme="red"
+                                isChecked={colorMode === "dark"}
+                                onChange={toggleColorMode}
+                            />
+                            Tema escuro
+                        </Container>
+                        <MenuItem paddingLeft="15px" onClick={navLogout} bgColor="transparent"><MdLogout /><Text paddingLeft="5px">Sair</Text></MenuItem>
                     </Container>
                 </MenuList>
             </Menu>

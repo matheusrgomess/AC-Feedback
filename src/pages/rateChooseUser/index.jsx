@@ -3,7 +3,7 @@ import { useState } from "react";
 import RatingModal from "./components/rating-modal";
 import { useNavigate } from "react-router-dom";
 
-export default function AvaliarNewComponent() {
+export default function RateChooseUser() {
   const [openRatingModal, setOpenRatingModal] = useState(false)
   const navigate = useNavigate()
 
@@ -24,7 +24,6 @@ export default function AvaliarNewComponent() {
     <>
       <div style={{
         height: 'inherit',
-        color: 'white',
         backgroundColor: '1c222b',
         display: 'flex',
         justifyContent: 'center',
@@ -33,7 +32,7 @@ export default function AvaliarNewComponent() {
 
         <RatingModal handleClose={handleClose} isOpen={openRatingModal} handleClick={handleChangeRoute} />
         <h1>
-          <Button variant="outline" colorScheme="whiteAlpha" onClick={handleOpen}>Iniciar avaliação</Button>
+          <Button variant="outline" borderColor="#700e17" onClick={handleOpen}>Iniciar avaliação</Button>
         </h1>
       </div>
     </>

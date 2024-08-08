@@ -40,7 +40,7 @@ export default function Inputs({ title, placeholder, type, value, onChange }) {
                 {type === "password" && (
                     <InputRightElement>
                         <Button h="1.75rem" size="sm" onClick={handleClick} bg="transparent" _hover={{ bg: "transparent" }}>
-                            {showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                            {showPassword ? <ViewOffIcon color="black" /> : <ViewIcon color="black" />}
                         </Button>
                     </InputRightElement>
                 )}

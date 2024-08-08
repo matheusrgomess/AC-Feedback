@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from "react";
-import { Container, Heading, Button, Text, Spinner } from "@chakra-ui/react";
+import { Container, Heading, Button, Text } from "@chakra-ui/react";
 import "react-toastify/dist/ReactToastify.css";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 import { useNavigate } from "react-router-dom";
 import { getAddedFeedbacks, getReceivedFeedbacks } from "services/feedbacks";
+import PrincipalSpinner from "components/Spinner";
 
 export default function Home() {
   const [avaliationsAdded, setAvaliationsAdded] = useState();
@@ -65,18 +66,10 @@ export default function Home() {
               position="relative"
               bottom="50"
             >
-              <Spinner
-                thickness="5px"
-                width="75px"
-                height="75px"
-                speed="0.55s"
-                emptyColor="white"
-                color="#700e17"
-              />
+              <PrincipalSpinner />
             </Container>
           ) : avaliationsAdded && avaliationsAdded.length > 0 ? (
             <Container
-              bg="#1c222b"
               maxH="300px"
               borderRadius="20px"
               padding="0px"
@@ -137,18 +130,10 @@ export default function Home() {
               position="relative"
               bottom="50"
             >
-              <Spinner
-                thickness="5px"
-                width="75px"
-                height="75px"
-                speed="0.55s"
-                emptyColor="white"
-                color="#700e17"
-              />
+              <PrincipalSpinner />
             </Container>
           ) : avaliationsReceived && avaliationsReceived.length > 0 ? (
             <Container
-              bg="#1c222b"
               maxH="300px"
               borderRadius="20px"
               padding="0px"

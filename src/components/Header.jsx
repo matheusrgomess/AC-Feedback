@@ -1,12 +1,14 @@
-import { Box, Container, Image } from "@chakra-ui/react";
+import { Box, Container, Image, useColorMode } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import ButtonPages from "./ButtonPages";
 import User from "./User";
-import AcDigitalLogo from '../assets/acdigital.png'
+import AcDigitalLogoWhite from "../assets/acdigitalwhite.png";
+import AcDigitalLogoBlack from "../assets/acdigitalblack.png";
 
 function Header() {
-  const location = useLocation()
+  const location = useLocation();
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
+  const { colorMode } = useColorMode();
 
   const getMaxWidth = () => {
     return verifyAdm ? "600px" : "400px";
@@ -32,11 +34,11 @@ function Header() {
   ]
 
   return <div>{!(location.pathname === '/') &&
-    <Box as="header" bg="#1c222b" padding="20px" display="flex" justifyContent="space-between" maxH="10vh" borderBottom="1px" borderBottomColor="white" alignItems="center" w="100%" style={{
+    <Box as="header" padding="20px" display="flex" justifyContent="space-between" maxH="10vh" borderBottom="1px" borderBottomColor="" alignItems="center" w="100%" style={{
       fontFamily: "Montserrat, sans-serif",
     }}>
       <Container padding="0px" margin="0px" maxH="65px" maxW="294px" >
-        <Image src={AcDigitalLogo} w="100%" h="100%" objectFit="contain" />
+        <Image src={colorMode === "dark" ? AcDigitalLogoWhite : AcDigitalLogoBlack} w="100%" h="100%" objectFit="contain" />
       </Container>
       <Container display="flex" justifyContent="space-between" alignItems="center" padding="0px" margin="0px" maxW={getMaxWidth()} >
         {routes.map((route, index) => (

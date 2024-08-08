@@ -46,7 +46,7 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent background="#212121" color="white">
+        <ModalContent>
           <ModalHeader display="flex" justifyContent="space-between">
             <Heading>
               Selecione um grupo

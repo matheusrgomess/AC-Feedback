@@ -154,7 +154,6 @@ export default function EditParticipants() {
             <Button
                 onClick={() => { setIsOpenPrincipalModal(!isOpenPrincipalModal) }}
                 padding="0px"
-                color="white"
                 variant="ghost"
                 bg="transparent"
                 _hover={{ bg: "rgba(0, 0, 0, 0.3)" }}

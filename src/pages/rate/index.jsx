@@ -85,7 +85,6 @@ export default function RateParticipantScreen() {
     <div
       style={{
         height: "100vh",
-        color: "white",
         alignItems: "center",
         justifyContent: "center",
       }}
@@ -123,7 +122,7 @@ export default function RateParticipantScreen() {
             justifyContent="space-between"
             flexDirection="column"
           >
-            <Text position="absolute" color="#ffffff3d">Grupo de questões:{" "}{activatedGroup.questionSetName}</Text>
+            <Text position="absolute">Grupo de questões:{" "}{activatedGroup.questionSetName}</Text>
             <Container
               textAlign="center"
               display="flex"
@@ -186,7 +185,7 @@ export default function RateParticipantScreen() {
                 handlePreviousQuestion={handlePreviousQuestion}
                 rating={rating}
               />
-              <Text color="#ffffff3d" fontSize="15px" as="span">
+              <Text fontSize="15px" as="span">
                 {formattingName(participant)}
               </Text>
             </Container>
