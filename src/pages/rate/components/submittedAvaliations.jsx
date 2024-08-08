@@ -33,7 +33,7 @@ export default function SubmittedAvaliation({ avaliations }) {
   };
 
   const getLastRating = () => {
-    return avaliations[avaliations.length - 1];
+    return avaliations[0];
   };
 
   const getAverageRating = (numbersArray) => {

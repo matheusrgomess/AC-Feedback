@@ -179,7 +179,7 @@ export default function SeeMoreAvaliation({
                       <div style={{ display: "flex" }}>
                         {[
                           ...Array(
-                            parseInt(questionSetSelected.numberOfStars)
+                            parseInt(questionSetSelected?.numberOfStars)
                           ),
                         ].map((_, i) => {
                           const ratingValue = i + 1;

@@ -18,7 +18,7 @@ export default function PartConfig(props) {
             <Text>
                 <strong>{props.title}</strong>
             </Text>
-            <Switch isDisabled defaultChecked />
+            <Switch isDisabled defaultChecked colorScheme="red"/>
         </Container>
     )
 }

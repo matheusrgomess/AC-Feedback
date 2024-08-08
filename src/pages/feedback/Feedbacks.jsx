@@ -1,5 +1,4 @@
-
-import { Container, Heading, Button, Spinner, Box, Select, border } from "@chakra-ui/react";
+import { Container, Heading, Button, Spinner, Box, Select } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 import { useEffect, useState } from "react";
 import ModalFilter from "./components/modalFilter";
@@ -53,7 +52,7 @@ export default function Feedbacks() {
   useEffect(() => {
     userFeedbacksReceived(user.name);
     userFeedbacksAdded(user.name);
-  }, []);
+  }, [user.name]);
 
   const userFeedbacksAdded = async (selectedUserAdded) => {
     try {
@@ -219,7 +218,7 @@ export default function Feedbacks() {
             >
               {avaliationsAdded && avaliationsAdded.length > 0 ? (
                 <SubmittedAvaliation
-                  avaliations={avaliationsAdded}
+                  avaliations={avaliationsAdded}     
                 />) : (
                 <Container>
                   <Heading color="grey" marginTop="126px">Nenhum Feedback Criado</Heading>

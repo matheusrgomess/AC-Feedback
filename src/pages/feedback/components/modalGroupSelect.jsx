@@ -20,7 +20,7 @@ import { printQuestionSet } from "services/questionsSet";
 
 export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroupFiltred }) {
   const [selectedIdGroupFilter, setSelectedIdGroupFilter] = useState("");
-  const [selectedNameGroupFilter, setSelectedNameGroupFilter] = useState("");
+  const selectedNameGroupFilter = "";
   const [groups, setGroups] = useState([]);
 
   const handleCloseModal = () => {
@@ -29,7 +29,7 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
     onClose();
   };
 
-  const fetchParticipants = async () => {
+  const fetchGroups = async () => {
     try {
       const response = await printQuestionSet();
       setGroups(response.questions);
@@ -39,7 +39,7 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
   };
 
   useEffect(() => {
-    fetchParticipants();
+    fetchGroups();
   }, []);
 
   return (

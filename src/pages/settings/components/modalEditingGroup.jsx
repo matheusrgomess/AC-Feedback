@@ -164,8 +164,8 @@ export default function ModalEditingGroup({
                                     {questionsInput
                                         .filter(item => item.questionType !== "OBSERVATION")
                                         .map((item, index) => (
-                                            <ListItem key={index} id="tasks" color="#ffffff" marginBottom="10px">
-                                                <Text _hover={{ cursor: selectedGroupValue?.writable === true ? "pointer" : "not-allowed" }} userSelect="none" onClick={() => selectedGroupValue?.writable === true && handleSelectedQuestionOpen(item)}>
+                                            <ListItem key={index} id="tasks" color="white" marginBottom="10px" >
+                                                <Text _hover={{ cursor: selectedGroupValue?.writable === true ? "pointer" : "not-allowed" }} color={selectedGroupValue?.writable === false ? "#777a80" : "white"} userSelect="none" onClick={() => selectedGroupValue?.writable === true && handleSelectedQuestionOpen(item)}>
                                                     <strong>{item.questionName}</strong>
                                                     <EditIcon marginLeft="5px" />
                                                 </Text>
@@ -185,22 +185,28 @@ export default function ModalEditingGroup({
             </Modal>
             <Modal isOpen={openSelectedQuestion} onClose={handleSelectedQuestionClose} isCentered>
                 <ModalOverlay />
-                <ModalContent>
+                <ModalContent bgColor="#1c222b">
                     <ModalHeader display="flex" alignItems="center" justifyContent="space-between">
-                        <Heading>
-                            {selectedQuestion.questionName}
+                        <Heading color="white">
+                            <Heading minWidth="340px" maxWidth="340px" style={{
+                                whiteSpace: "nowrap",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis"
+                            }}>
+                                {selectedQuestion.questionName}
+                            </Heading>
                         </Heading>
-                        <CloseButton onClick={handleSelectedQuestionClose} />
+                        <CloseButton color="white" onClick={handleSelectedQuestionClose} />
                     </ModalHeader>
                     <ModalBody>
-                        <Text fontSize={17}><strong>Título:</strong></Text>
-                        <Input marginBottom="20px" value={valueNewTitleQuestion} onChange={(event) => setValueNewTitleQuestion(event.target.value)} focusBorderColor="#971520" />
-                        <Text fontSize={17}><strong>Descrição:</strong></Text>
-                        <Input value={valueNewDescQuestion} placeholder="Digite a descrição da pergunta" onChange={(event) => setValueNewDescQuestion(event.target.value)} focusBorderColor="#971520" />
+                        <Text fontSize={17} color="white"><strong>Título:</strong></Text>
+                        <Input color="white" marginBottom="20px" value={valueNewTitleQuestion} onChange={(event) => setValueNewTitleQuestion(event.target.value)} focusBorderColor="#971520" />
+                        <Text fontSize={17} color="white"><strong>Descrição:</strong></Text>
+                        <Input color="white" value={valueNewDescQuestion} placeholder="Digite a descrição da pergunta" onChange={(event) => setValueNewDescQuestion(event.target.value)} focusBorderColor="#971520" />
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="red" _hover={{ bg: "#680000" }} marginRight={5} onClick={handleRemoveQuestion}>Apagar Pergunta</Button>
-                        <Button bg="black" color="white" _hover={{ bg: "rgba(0, 0, 0, 0.801)" }} onClick={handleUpdateQuestion}>Salvar Alterações</Button>
+                        <Button bg="green" color="white" _hover={{ bg: "#005a00" }} onClick={handleUpdateQuestion}>Salvar Alterações</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

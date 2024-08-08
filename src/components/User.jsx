@@ -98,7 +98,7 @@ export default function User() {
                         <Container minWidth="100%" padding="0px" paddingLeft="15px">
                             <Divider my={4} borderColor="#000000" />
                         </Container>
-                        <Container paddingLeft="10px"><Switch /> Tema escuro </Container>
+                        <Container paddingLeft="10px"><Switch colorScheme="red"/> Tema escuro </Container>
                         <MenuItem onClick={navLogout}><MdLogout /><Text paddingLeft="5px">Sair</Text></MenuItem>
                     </Container>
                 </MenuList>

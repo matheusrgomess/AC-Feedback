@@ -123,7 +123,7 @@ export default function RateParticipantScreen() {
             justifyContent="space-between"
             flexDirection="column"
           >
-            <Text position="absolute" marginRight="415px" top="230px" color="#ffffff3d">Grupo de questões:{" "}{activatedGroup.questionSetName}</Text>
+            <Text position="absolute" color="#ffffff3d">Grupo de questões:{" "}{activatedGroup.questionSetName}</Text>
             <Container
               textAlign="center"
               display="flex"
