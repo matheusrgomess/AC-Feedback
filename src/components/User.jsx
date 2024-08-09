@@ -20,6 +20,7 @@ import { MdLogout } from "react-icons/md";
 import AlertExitPage from "./AlertExitPage";
 import ListPagesUser from "./ListPagesUser";
 import { formattingName, formattingFirstName } from "../utils/formattingTexts";
+import { IoMdMoon, IoMdSunny } from "react-icons/io";
 
 export default function User() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -117,13 +118,14 @@ export default function User() {
                         <Container minWidth="100%" padding="0px" paddingLeft="15px">
                             <Divider my={4} borderColor="" opacity="100%" />
                         </Container>
-                        <Container paddingLeft="15px" marginBottom="10px">
+                        <Container paddingLeft="15px" marginBottom="10px" display="flex" alignItems="center" justifyContent="space-between">
                             <Switch
                                 colorScheme="red"
                                 isChecked={colorMode === "dark"}
                                 onChange={toggleColorMode}
                             />
-                            Tema escuro
+                            Tema {colorMode === "dark" ? "escuro" : "claro"}
+                            {colorMode === "dark" ? <IoMdMoon size={22} /> : <IoMdSunny size={22} />}
                         </Container>
                         <MenuItem paddingLeft="15px" onClick={navLogout} bgColor="transparent"><MdLogout /><Text paddingLeft="5px">Sair</Text></MenuItem>
                     </Container>

@@ -190,7 +190,7 @@ export default function CreatingGroupAvaliations() {
                         variant="flushed"
                         _focus={{
                             boxShadow: "none",
-                            borderColor: "#ffffff",
+                            borderColor: colorMode === "dark" ? "#ffffff" : "#000000",
                         }}
                         borderColor={colorMode === "dark" ? "#ffffff" : "#000000"}
                         color={colorMode === "dark" ? "#ffffff" : "#000000"}
@@ -217,12 +217,13 @@ export default function CreatingGroupAvaliations() {
                             isDisabled={nameGroupValue === ''}
                         >
                             <CheckIcon
+                                color={colorMode === "dark" ? "#ffffff" : "#000000"}
                                 style={{
                                     transition: "color 0.3s ease",
                                     color: colorMode === "dark" ? "#ffffff" : "#000000",
                                 }}
                                 onMouseOver={(e) => e.currentTarget.style.color = "green"}
-                                onMouseOut={(e) => e.currentTarget.style.color = "white"}
+                                onMouseOut={(e) => e.currentTarget.style.color = colorMode === "dark" ? "white" : "black"}
                             />
                         </IconButton>
                     </InputRightAddon>
@@ -235,7 +236,7 @@ export default function CreatingGroupAvaliations() {
                 </Container>
             ) : (
                 <Container
-                    bg={colorMode === "dark" ? "#14181E" : "#eeecea"}
+                    bg={colorMode === "dark" ? "#14181E" : "#14181e47"}
                     className="scrollbar"
                     overflow="hidden"
                     overflowY="auto"

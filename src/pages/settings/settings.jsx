@@ -2,6 +2,7 @@ import {
     Text,
     Container,
     Heading,
+    useColorMode
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
 import PartConfig from "./components/partConfig";
@@ -9,6 +10,7 @@ import EditParticipants from "./components/users/editParticipants";
 import CreatingGroupAvaliations from "./components/groupAvaliations/creatingGroupAvaliations";
 
 export default function Settings() {
+    const {colorMode} = useColorMode();
     return (
         <div
             style={{
@@ -39,7 +41,7 @@ export default function Settings() {
                     w="70%"
                     h="45px"
                     borderBottom="2px solid"
-                    borderColor="#ffffff"
+                    borderColor={colorMode === "dark"? "#ffffff" : "#000000"}
                     display="flex"
                     alignItems="center"
                     justifyContent="space-between"

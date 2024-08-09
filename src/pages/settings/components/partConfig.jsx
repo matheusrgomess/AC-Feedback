@@ -1,6 +1,7 @@
-import { Container, Text, Switch } from "@chakra-ui/react";
+import { Container, Text, Switch, useColorMode } from "@chakra-ui/react";
 
 export default function PartConfig(props) {
+    const {colorMode} = useColorMode();
     return (
         <Container
             margin="0px"
@@ -8,7 +9,7 @@ export default function PartConfig(props) {
             w="70%"
             h="40px"
             borderBottom="2px solid"
-            borderColor="white"
+            borderColor={colorMode === "dark"? "#ffffff" : "#000000" }
             display="flex"
             alignItems="center"
             justifyContent="space-between"
