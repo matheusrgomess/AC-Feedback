@@ -132,7 +132,7 @@ export default function Feedbacks() {
       <ModalFilter isOpen={openFilters} onClose={handleCloseFilters} />
       {loading ?
         <Container minHeight="320px" maxH="300px" display="flex" alignItems="center" justifyContent="center" position="relative" bottom="50">
-          <PrincipalSpinner/>
+          <PrincipalSpinner />
         </Container>
         :
         <Container
@@ -171,7 +171,7 @@ export default function Feedbacks() {
                 <option
                   key={user.name}
                   value={user.name}
-                  style={{ color: "black" }}
+                  style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}
                 >
                   Você
                 </option>
@@ -179,7 +179,7 @@ export default function Feedbacks() {
                   <option
                     key={user.name}
                     value={user.name}
-                    style={{ color: "black" }}
+                    style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}
                   >
                     {formattingName(user.name)}
                   </option>
@@ -220,7 +220,7 @@ export default function Feedbacks() {
                   avaliations={avaliationsAdded}
                 />) : (
                 <Container>
-                  <Heading color="grey" marginTop="126px">Nenhum Feedback Criado</Heading>
+                  <Heading color="grey" marginTop="126px" position="relative" bottom="75px">Nenhum Feedback Criado</Heading>
                 </Container>)}
             </Container>
           </Container>
@@ -230,7 +230,7 @@ export default function Feedbacks() {
       {
         loading ?
           <Container minHeight="320px" maxH="300px" display="flex" alignItems="center" justifyContent="center" position="relative" bottom="50">
-            <PrincipalSpinner/>
+            <PrincipalSpinner />
           </Container>
           :
           <Container
@@ -270,7 +270,7 @@ export default function Feedbacks() {
                   <option
                     key={user.name}
                     value={user.name}
-                    style={{ color: "black" }}
+                    style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}
                   >
                     Você
                   </option>
@@ -278,7 +278,7 @@ export default function Feedbacks() {
                     <option
                       key={user.name}
                       value={user.name}
-                      style={{ color: "black" }}
+                      style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}
                     >
                       {formattingName(user.name)}
                     </option>
@@ -315,7 +315,7 @@ export default function Feedbacks() {
               >{avaliationsReceived && avaliationsReceived.length > 0 ? (
                 <SubmittedAvaliation avaliations={avaliationsReceived} />
               ) : (
-                <Container>
+                <Container position="relative" bottom="75px">
                   <Heading color="grey" marginTop="126px">Nenhum Feedback Recebido</Heading>
                 </Container>
               )}

@@ -88,7 +88,7 @@ export default function ObservationsPage({
         onChange={modObservation}
         flexGrow={1}
         borderColor="#3f454c"
-        _hover={{ borderColor: "#52575e" }}
+        _hover={{}}
         focusBorderColor="#700e17"
       />
 

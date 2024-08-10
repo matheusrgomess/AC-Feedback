@@ -14,18 +14,21 @@ import {
   Tooltip,
   Icon,
   Heading,
+  useColorMode,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { printQuestionSet } from "services/questionsSet";
 
 export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroupFiltred }) {
-  const [selectedIdGroupFilter, setSelectedIdGroupFilter] = useState("");
-  const selectedNameGroupFilter = "";
+  const [selectedGroup, setSelectedGroup] = useState({ id: "", name: "" });
   const [groups, setGroups] = useState([]);
+  const [finalSelected, setFinalSelected] = useState();
+  const { colorMode } = useColorMode();
 
   const handleCloseModal = () => {
+    setFinalSelected(selectedGroup.name)
     setLoading(true);
-    newGroupFiltred(selectedIdGroupFilter);
+    newGroupFiltred(selectedGroup.id);
     onClose();
   };
 
@@ -68,7 +71,7 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
             <Divider borderColor="red" marginBottom="4px" />
             <Text>
               Grupo selecionado neste momento:{" "}
-              <strong>{selectedNameGroupFilter === "" ? "Todos" : selectedNameGroupFilter}</strong>
+              <strong>{finalSelected ? finalSelected === "" ? "Todos" : finalSelected : "Todos"}</strong>
             </Text>
           </Container>
           <ModalBody padding="15px">
@@ -76,23 +79,26 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
               <strong>Grupos:</strong>
             </Text>
             <Select
-              value={selectedIdGroupFilter}
-              onChange={(e) => setSelectedIdGroupFilter(e.target.value)}
+              value={selectedGroup.id}
+              onChange={(e) => {
+                const selectedOption = groups.find(group => group.id === e.target.value);
+                setSelectedGroup({
+                  id: e.target.value,
+                  name: selectedOption ? selectedOption.questionSetName : ""
+                });
+              }}
               focusBorderColor="#FF0000"
               borderColor="#777a80"
               _hover={{}}
             >
-              <option
-                value={""}
-                style={{ color: "black" }}
-              >
+              <option value="" style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}>
                 Todos
               </option>
               {groups.map((group) => (
                 <option
-                  key={group.questionSetName}
+                  key={group.id}
                   value={group.id}
-                  style={{ color: "black" }}
+                  style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}
                 >
                   {group.questionSetName}
                 </option>

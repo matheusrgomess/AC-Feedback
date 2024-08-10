@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Heading, Progress, Text, Spinner, useColorMode } from "@chakra-ui/react";
+import { Container, Heading, Progress, Text, useColorMode } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ObservationsPage from "./components/observationsPage";
@@ -8,6 +8,7 @@ import ButtonRate from "./components/buttonRate";
 import { formattingName } from "utils/formattingTexts";
 import { getActivatedGroup } from "services/questionsSet";
 import { postFeedback } from "services/feedbacks";
+import PrincipalSpinner from "components/Spinner";
 
 export default function RateParticipantScreen() {
   const { participant } = useParams();
@@ -100,14 +101,7 @@ export default function RateParticipantScreen() {
         minWidth="100%"
       >
         {loading ?
-          <Spinner
-            thickness="5px"
-            width="75px"
-            height="75px"
-            speed="0.55s"
-            emptyColor="white"
-            color="#700e17"
-          />
+          <PrincipalSpinner />
           :
           <Container
             border="1px solid"
