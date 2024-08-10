@@ -1,11 +1,12 @@
-import { Container, Button } from "@chakra-ui/react";
+import { Container, Button, useColorMode } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import { getActivatedGroup } from "services/questionsSet";
 
 export default function ButtonRate({ currentQuestion, handleNextQuestion, handlePreviousQuestion, rating }) {
-    const [activatedGroup, setActivatedGroup] = useState()
+    const [activatedGroup, setActivatedGroup] = useState();
+    const { colorMode } = useColorMode();
 
     useEffect(() => {
         async function fetchData() {
@@ -31,11 +32,11 @@ export default function ButtonRate({ currentQuestion, handleNextQuestion, handle
                 padding="0px"
                 isDisabled={currentQuestion === 0}
                 bg="transparent"
-                _hover={{ border: "1px solid", borderColor: "#ffffff" }}
+                _hover={{ border: "1px solid", borderColor: colorMode === "dark" ? "white" : "#1c222b" }}
                 _active={{ bgColor: "#00000057" }}
                 onClick={handlePreviousQuestion}
             >
-                <ArrowLeftIcon color="#ffffff" />
+                <ArrowLeftIcon color={colorMode === "dark" ? "white" : "#1c222b"} />
             </Button>
             {currentQuestion !== activatedGroup?.questions?.length - 1 && (rating === null || rating === 0) ?
                 <Button
@@ -55,11 +56,11 @@ export default function ButtonRate({ currentQuestion, handleNextQuestion, handle
                     padding="0px"
                     isDisabled={currentQuestion === activatedGroup?.questions?.length - 1}
                     bg="transparent"
-                    _hover={{ border: "1px solid", borderColor: "#ffffff" }}
+                    _hover={{ border: "1px solid", borderColor: colorMode === "dark" ? "white" : "#1c222b" }}
                     _active={{ bgColor: "#00000057" }}
                     onClick={handleNextQuestion}
                 >
-                    <ArrowRightIcon color="#ffffff" />
+                    <ArrowRightIcon color={colorMode === "dark" ? "white" : "#1c222b"} />
                 </Button>
             }
         </Container>

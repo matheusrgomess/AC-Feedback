@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Heading, Progress, Text, Spinner } from "@chakra-ui/react";
+import { Container, Heading, Progress, Text, Spinner, useColorMode } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ObservationsPage from "./components/observationsPage";
@@ -20,6 +20,7 @@ export default function RateParticipantScreen() {
   const [activatedGroup, setActivatedGroup] = useState();
   const [loading, setLoading] = useState(true);
   const [numberOfStars, setNumberOfStars] = useState();
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
     async function fetchData() {
@@ -141,7 +142,7 @@ export default function RateParticipantScreen() {
               >
                 <Container>
                   {questions[currentQuestion] && (
-                    <span style={{ color: "#ffffff2b" }}>
+                    <span style={{ color: "#42474f" }}>
                       Essa foi a sua pontução anterior:{" "}
                       {questions[currentQuestion].rating}
                     </span>
@@ -207,6 +208,7 @@ export default function RateParticipantScreen() {
               borderRadius="20px"
               colorScheme="red"
               size="xs"
+              bgColor={colorMode === "dark" ? "#ffffff" : "#1c222b"}
             />
           </Container>
         </Container>

@@ -3,7 +3,7 @@
 }
 
 ::-webkit-scrollbar {
-  background-color: rgb(255, 255, 255);
+  background-color: var(--scrollbar-bg);
   border-radius: 10px;
   width: 7px;
 }

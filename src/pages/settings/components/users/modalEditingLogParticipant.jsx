@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Button, Text, ModalBody, Heading, ModalFooter, Flex, Container, Tooltip, Input, Select } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Button, Text, ModalBody, Heading, ModalFooter, Flex, Container, Tooltip, Input, Select, useColorMode } from "@chakra-ui/react";
 import { formattingName, APIformattingName } from "utils/formattingTexts";
 import { CheckIcon } from "@chakra-ui/icons";
 import { FaUserEdit, FaUserSlash } from "react-icons/fa";
@@ -12,6 +12,7 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
     const [newValueEmail, setNewValueEmail] = useState("");
     const [newUserType, setNewUserType] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { colorMode } = useColorMode();
 
     useEffect(() => {
         if (infoSelectedParticipant) {
@@ -67,22 +68,21 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
         <>
             <Modal isOpen={isOpenEditParticipantSelected} onClose={handleCloseEditParticipantSelected} isCentered>
                 <ModalOverlay />
-                <ModalContent bgColor="#1c222b">
+                <ModalContent>
                     <ModalHeader>
-                        <Heading color="white">
+                        <Heading>
                             {infoSelectedParticipant && formattingName(infoSelectedParticipant.name)}
                         </Heading>
-                        <ModalCloseButton color="white" onClick={handleCloseEditParticipantSelected} />
+                        <ModalCloseButton onClick={handleCloseEditParticipantSelected} />
                     </ModalHeader>
                     <ModalBody fontSize={18} minHeight="150px" display="flex" alignItems="center" paddingLeft="40px" >
                         <Flex direction="column" alignItems="start" display="flex" justify="space-between" minH="100px" width="100%">
                             <Container padding="0px" marginBottom="10px">
-                                <Text textColor="white"><strong>Nome:</strong></Text>
+                                <Text><strong>Nome:</strong></Text>
                                 {showButtonConfirm === false ?
-                                    <Text color="white">{infoSelectedParticipant && formattingName(infoSelectedParticipant.name)}</Text>
+                                    <Text>{infoSelectedParticipant && formattingName(infoSelectedParticipant.name)}</Text>
                                     :
                                     <Input
-                                        color="white"
                                         maxWidth="90%"
                                         padding="0px"
                                         value={newValueName}
@@ -104,12 +104,11 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
 
                             </Container>
                             <Container padding="0px" marginBottom="10px" >
-                                <Text textColor="white"><strong>Email:</strong></Text>
+                                <Text><strong>Email:</strong></Text>
                                 {showButtonConfirm === false ?
-                                    <Text color="white">{infoSelectedParticipant && infoSelectedParticipant.email}</Text>
+                                    <Text>{infoSelectedParticipant && infoSelectedParticipant.email}</Text>
                                     :
                                     <Input maxWidth="90%" padding="0px" value={newValueEmail} onChange={(event) => setNewValueEmail(event.target.value)} border="none"
-                                        color="white"
                                         borderBottom="1px solid"
                                         borderRadius="none"
                                         _hover={{}}
@@ -125,11 +124,11 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
                                 }
                             </Container>
                             <Container padding="0px" marginBottom="10px">
-                                <Text textColor="white"><strong>Modelo:</strong> </Text>
+                                <Text><strong>Modelo:</strong> </Text>
                                 {showButtonConfirm === false ?
-                                    <Text color="white">{infoSelectedParticipant && infoSelectedParticipant.userType === "PARTICIPANT" ? "Participante" : "Administrador"}</Text>
+                                    <Text>{infoSelectedParticipant && infoSelectedParticipant.userType === "PARTICIPANT" ? "Participante" : "Administrador"}</Text>
                                     :
-                                    <Select value={newUserType} onChange={(event) => setNewUserType(event.target.value)} focusBorderColor="#FF0000" color="white">
+                                    <Select borderColor="#3f454c" _hover={{}} value={newUserType} onChange={(event) => setNewUserType(event.target.value)} focusBorderColor="#FF0000">
                                         <option style={{ color: "black" }} value="PARTICIPANT">Participante</option>
                                         <option style={{ color: "black" }} value="ADMIN">Administrador</option>
                                     </Select>
@@ -140,10 +139,10 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
                     <ModalFooter>
                         <Container>
                             <Tooltip label="Excluir usuário">
-                                <Button colorScheme="red" marginRight={5} _hover={{ bg: "#680000" }} onClick={() => setIsModalOpen(true)} padding="0px"><FaUserSlash size={22.5} /></Button>
+                                <Button colorScheme="red" color="white" marginRight={5} _hover={{ bg: "#680000" }} onClick={() => setIsModalOpen(true)} padding="0px"><FaUserSlash size={22.5} /></Button>
                             </Tooltip>
                             <Tooltip label="Editar usuário">
-                                <Button color="black" _hover={{ bg: "#b1b1b1" }} marginRight={5} padding="0px" onClick={handleClickEdit}><FaUserEdit size={22.5} /></Button>
+                                <Button color="black" bgColor="white" _hover={{ bg: "#b1b1b1" }} marginRight={5} padding="0px" onClick={handleClickEdit}><FaUserEdit size={22.5} /></Button>
                             </Tooltip>
                         </Container>
                         {showButtonConfirm &&
@@ -156,11 +155,11 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
             </Modal>
             <Modal isOpen={isModalOpen} onClose={handleModalClose} isCentered>
                 <ModalOverlay />
-                <ModalContent bgColor="black" color="white">
+                <ModalContent>
                     <ModalHeader display="flex" alignItems="center" justifyContent="space-between"><Heading>Aviso!</Heading><RiAlertFill size="36px" />
                     </ModalHeader>
                     <ModalBody>
-                        Você tem certeza que deseja <Text as="span" color="white" textDecoration="underline" textDecorationColor="red">excluir esse usuário</Text>?
+                        Você tem certeza que deseja <Text as="span" textDecoration="underline" textDecorationColor="red">excluir esse usuário</Text>?
                         <Text mt={4} color="red">
                             <strong>Você perderá todas as avaliações referentes a este usuário!</strong>
                         </Text>
@@ -169,7 +168,7 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
                         <Button onClick={() => participantId && deleteParticipantSelected(participantId)} colorScheme="red">
                             Sim
                         </Button>
-                        <Button onClick={handleModalClose} ml={3}>
+                        <Button bgColor={colorMode === "dark" ? "white" : "#1c222b"} color={colorMode === "dark" ? "#1c222b" : "white"} _hover={{}} _active={{}} onClick={handleModalClose} ml={3}>
                             Não
                         </Button>
                     </ModalFooter>

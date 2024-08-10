@@ -79,6 +79,8 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
               value={selectedIdGroupFilter}
               onChange={(e) => setSelectedIdGroupFilter(e.target.value)}
               focusBorderColor="#FF0000"
+              borderColor="#777a80"
+              _hover={{}}
             >
               <option
                 value={""}

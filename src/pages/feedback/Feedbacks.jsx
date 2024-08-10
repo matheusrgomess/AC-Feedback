@@ -114,6 +114,8 @@ export default function Feedbacks() {
             onClick={handleOpenUserFilter}
             background="transparent"
             border="1px solid"
+            borderColor={colorMode === "dark" ? "white" : "#1c222b"}
+            color={colorMode === "dark" ? "white" : "#1c222b"}
             _hover={{}}
             _active={{ background: "rgba(0, 0, 0, 0.26)" }}
           >

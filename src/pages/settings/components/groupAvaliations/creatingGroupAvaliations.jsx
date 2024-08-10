@@ -177,8 +177,8 @@ export default function CreatingGroupAvaliations() {
 
     return (
         <>
-            <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor={colorMode === "dark" ? "#ffffff" : "#000000"} onClick={() => setShowInputGroup(!showInputGroup)} marginBottom="10px">
-                <Text marginRight="10px" color={colorMode === "dark" ? "#000000" : "#ffffff"}>
+            <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor={colorMode === "dark" ? "#ffffff" : "#1c222b"} onClick={() => setShowInputGroup(!showInputGroup)} marginBottom="10px">
+                <Text marginRight="10px" color={colorMode === "dark" ? "#1c222b" : "#ffffff"}>
                     Criar novo grupo de avaliações
                 </Text>
             </Button>
@@ -190,10 +190,10 @@ export default function CreatingGroupAvaliations() {
                         variant="flushed"
                         _focus={{
                             boxShadow: "none",
-                            borderColor: colorMode === "dark" ? "#ffffff" : "#000000",
+                            borderColor: colorMode === "dark" ? "#ffffff" : "#1c222b",
                         }}
-                        borderColor={colorMode === "dark" ? "#ffffff" : "#000000"}
-                        color={colorMode === "dark" ? "#ffffff" : "#000000"}
+                        borderColor={colorMode === "dark" ? "#ffffff" : "#1c222b"}
+                        color={colorMode === "dark" ? "#ffffff" : "#1c222b"}
                         value={nameGroupValue}
                         onChange={(event) => setNameGroupValue(event.target.value)}
                     />
@@ -205,7 +205,7 @@ export default function CreatingGroupAvaliations() {
                         bg="none"
                         border="none"
                         borderBottom="1px solid"
-                        borderColor={colorMode === "dark" ? "#ffffff" : "#000000"}
+                        borderColor={colorMode === "dark" ? "#ffffff" : "#1c222b"}
                         borderRadius="none"
                     >
                         <IconButton
@@ -217,13 +217,13 @@ export default function CreatingGroupAvaliations() {
                             isDisabled={nameGroupValue === ''}
                         >
                             <CheckIcon
-                                color={colorMode === "dark" ? "#ffffff" : "#000000"}
+                                color={colorMode === "dark" ? "#ffffff" : "#1c222b"}
                                 style={{
                                     transition: "color 0.3s ease",
-                                    color: colorMode === "dark" ? "#ffffff" : "#000000",
+                                    color: colorMode === "dark" ? "#ffffff" : "#1c222b",
                                 }}
                                 onMouseOver={(e) => e.currentTarget.style.color = "green"}
-                                onMouseOut={(e) => e.currentTarget.style.color = colorMode === "dark" ? "white" : "black"}
+                                onMouseOut={(e) => e.currentTarget.style.color = colorMode === "dark" ? "white" : "#1c222b"}
                             />
                         </IconButton>
                     </InputRightAddon>
@@ -236,7 +236,7 @@ export default function CreatingGroupAvaliations() {
                 </Container>
             ) : (
                 <Container
-                    bg={colorMode === "dark" ? "#14181E" : "#14181e47"}
+                    bg="#14181E60"
                     className="scrollbar"
                     overflow="hidden"
                     overflowY="auto"

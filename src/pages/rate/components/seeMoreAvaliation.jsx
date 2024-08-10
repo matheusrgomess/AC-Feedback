@@ -197,7 +197,7 @@ export default function SeeMoreAvaliation({
                                 color={
                                   ratingValue <= rating
                                     ? "#700e17"
-                                    : "#ffffff2b"
+                                    : "#42474f"
                                 }
                                 size={50}
                               />
@@ -272,7 +272,9 @@ export default function SeeMoreAvaliation({
                       fontSize="20px"
                       height="200px"
                       marginTop="25px"
-                      focusBorderColor="#ffffff"
+                      focusBorderColor={colorMode === "dark" ? "white" : "#1c222b"}
+                      borderColor="#3f454c"
+                      _hover={{ borderColor: "#52575e" }}
                       overflow="hidden"
                       overflowY="auto"
                       defaultValue={filteredQuestionsOBSERVATION[0].observation}
@@ -329,7 +331,7 @@ export default function SeeMoreAvaliation({
                       max={filteredQuestionsRATING.length - 1}
                       borderRadius="20px"
                       colorScheme="red"
-                      bgColor={colorMode === "dark" ? "#ffffff" : "#000000"}
+                      bgColor={colorMode === "dark" ? "#ffffff" : "#1c222b"}
                       size="xs"
                       maxWidth="300px"
                     />

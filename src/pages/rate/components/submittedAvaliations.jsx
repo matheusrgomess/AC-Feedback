@@ -17,8 +17,7 @@ export default function SubmittedAvaliation({ avaliations }) {
   const location = useLocation();
 
   const bgColor = useColorModeValue("#ffffff", "#1c222b");
-  const borderColor = useColorModeValue("#1c222b", "#700e17");
-  const textColor = useColorModeValue("#000000", "#ffffff");
+  const textColor = useColorModeValue("#1c222b", "#ffffff");
 
   useEffect(() => {
     async function fetchData() {
@@ -84,7 +83,7 @@ export default function SubmittedAvaliation({ avaliations }) {
           w="95%"
           maxH="200px"
           border="2px solid"
-          borderColor={borderColor}
+          borderColor="#700e17"
           padding="10px"
           borderRadius="12px"
           marginBottom="15px"

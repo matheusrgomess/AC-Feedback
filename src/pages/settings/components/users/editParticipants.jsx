@@ -91,7 +91,7 @@ export default function EditParticipants() {
         <>
             <Modal isOpen={isOpenPrincipalModal} onClose={handleClosePrincipalModal} isCentered>
                 <ModalOverlay />
-                <ModalContent bg="#1c222b" color="white">
+                <ModalContent>
                     <ModalHeader>
                         <Heading>
                             Editar usuários
@@ -115,14 +115,14 @@ export default function EditParticipants() {
                                     {participants?.map(participant =>
                                         <ListItem key={participant.name} color="#ffffff" marginBottom="10px">
                                             <Button variant="ghost" _hover={{ bgColor: "rgba(0, 0, 0, 0.5)" }} onClick={() => handleOpenEditParticipantSelected(participant)}>
-                                                <Text textColor="white"><strong>{formattingName(participant.name)}</strong></Text>
+                                                <Text><strong>{formattingName(participant.name)}</strong></Text>
                                             </Button>
                                         </ListItem>)}
                                 </UnorderedList>
                             </Container>
                         </Container>
                         <Divider marginTop="20px"/>
-                        <Button marginTop="10px" onClick={handleOpenModalCreateParticipant} bg="transparent" color="white" borderRadius="none" _hover={{}} _active={{ bgColor: "rgba(0,0,0,0.1)" }}>
+                        <Button marginTop="10px" onClick={handleOpenModalCreateParticipant} bg="transparent" borderRadius="none" _hover={{}} _active={{ bgColor: "rgba(0,0,0,0.1)" }}>
                             <Text marginRight="10px">
                                 Criar novo usuário
                             </Text>

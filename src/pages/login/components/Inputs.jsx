@@ -26,6 +26,7 @@ export default function Inputs({ title, placeholder, type, value, onChange }) {
                     borderTopColor="transparent"
                     borderLeftColor="transparent"
                     borderRightColor="transparent"
+                    _placeholder={{ color: "gray.500" }}
                     _hover={{}}
                     _focus={{
                         boxShadow: "none",

@@ -13,11 +13,11 @@ export default function ModalFilter({ isOpen, onClose }) {
                     <Box p={4}>
                         <HStack spacing={8}>
                             <FormControl>
-                                <FormLabel fontSize="lg" color="white">Desde o dia</FormLabel>
+                                <FormLabel fontSize="lg">Desde o dia</FormLabel>
                                 <Input variant="flushed" placeholder="DD/MM/YYYY" />
                             </FormControl>
                             <FormControl>
-                                <FormLabel fontSize="lg" color="white">Até o dia</FormLabel>
+                                <FormLabel fontSize="lg">Até o dia</FormLabel>
                                 <Input variant="flushed" placeholder="DD/MM/YYYY" />
                             </FormControl>
                         </HStack>

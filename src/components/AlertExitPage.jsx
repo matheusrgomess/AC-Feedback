@@ -10,7 +10,7 @@ export default function AlertExitPage({ isOpen, onClose, onClickConfirm, onClick
                     <ModalBody>
                         Você tem certeza que deseja <Text as="span" textDecoration="underline" textDecorationColor="red">sair da página atual</Text>?
                         <Text mt={4} color="red">
-                            <strong>Você perderá toda a avaliação iniciada!</strong>
+                            <strong>Se possuir uma avaliação pendente, perderá toda ela!</strong>
                         </Text>
                     </ModalBody>
                     <ModalFooter>

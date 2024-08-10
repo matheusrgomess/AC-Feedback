@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "@chakra-ui/react";
+import { Button, useColorMode } from "@chakra-ui/react";
 import { useNavigate, useLocation, matchPath } from "react-router-dom";
 import AlertExitPage from "./AlertExitPage";
 
@@ -7,6 +7,8 @@ export default function ButtonPages({ title, navigate, isActualRoute }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const nav = useNavigate();
   const location = useLocation();
+  const { colorMode } = useColorMode();
+
 
   const navNewPage = () => {
     if (matchPath("/rate-participant/:participant", location.pathname)) {
@@ -33,7 +35,7 @@ export default function ButtonPages({ title, navigate, isActualRoute }) {
         _hover={{}}
         _active={{ bg: "rgba(0, 0, 0, 0.473)" }}
         css={{
-          color: isActualRoute ? "#700e17" : "",
+          color: isActualRoute ? "#700e17" : colorMode === "dark" ? "white" : "#1c222b",
           textDecoration: "none",
           textTransform: "uppercase",
           padding: "0px",

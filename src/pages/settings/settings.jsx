@@ -41,7 +41,7 @@ export default function Settings() {
                     w="70%"
                     h="45px"
                     borderBottom="2px solid"
-                    borderColor={colorMode === "dark"? "#ffffff" : "#000000"}
+                    borderColor={colorMode === "dark"? "#ffffff" : "#1c222b"}
                     display="flex"
                     alignItems="center"
                     justifyContent="space-between"
