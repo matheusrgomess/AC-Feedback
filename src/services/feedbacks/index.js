@@ -1,6 +1,6 @@
 import { api } from "../../api";
 
-export async function getAddedFeedbacks(participantName, questionSetId, limit, reviewedParticipantName) {
+export async function getAddedFeedbacks(participantName, questionSetId, reviewedParticipantName, limit) {
   const response = await api.get("/list-added-feedbacks", {
     params: {
       participantName: participantName,

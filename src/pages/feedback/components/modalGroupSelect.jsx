@@ -14,7 +14,6 @@ import {
   Tooltip,
   Icon,
   Heading,
-  useColorMode,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { printQuestionSet } from "services/questionsSet";
@@ -23,7 +22,6 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
   const [selectedGroup, setSelectedGroup] = useState({ id: "", name: "" });
   const [groups, setGroups] = useState([]);
   const [finalSelected, setFinalSelected] = useState();
-  const { colorMode } = useColorMode();
 
   const handleCloseModal = () => {
     setFinalSelected(selectedGroup.name)
@@ -91,14 +89,13 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
               borderColor="#777a80"
               _hover={{}}
             >
-              <option value="" style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}>
+              <option value="" >
                 Todos
               </option>
               {groups.map((group) => (
                 <option
                   key={group.id}
                   value={group.id}
-                  style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}
                 >
                   {group.questionSetName}
                 </option>

@@ -21,6 +21,8 @@ export default function Feedbacks() {
   const [selectUserAdded, setSelectUserAdded] = useState("");
   const [selectUserReceived, setSelectUserReceived] = useState("");
   const { colorMode } = useColorMode();
+  const [selectedUserReviewed, setSelectedUserReviewed] = useState("");
+  const [newSelectedGroup, setNewSelectedGroup] = useState("")
 
   const colorGradientBackGround = colorMode === "dark" ?
     "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)" :
@@ -62,8 +64,8 @@ export default function Feedbacks() {
 
   const userFeedbacksAdded = async (selectedUserAdded) => {
     try {
-      const responseAdded = selectedUserAdded && (await getAddedFeedbacks(selectedUserAdded));
-      setAvaliationsAdded(responseAdded.addedFeedbacks)
+      const responseAdded = selectedUserAdded && (await getAddedFeedbacks(selectedUserAdded, newSelectedGroup));
+      setAvaliationsAdded(responseAdded.addedFeedbacks);
     } catch (error) {
       console.log(error);
     } finally {
@@ -73,7 +75,7 @@ export default function Feedbacks() {
 
   const userFeedbacksReceived = async (selectedUserReceived) => {
     try {
-      const responseReceived = selectedUserReceived && (await getReceivedFeedbacks(selectedUserReceived));
+      const responseReceived = selectedUserReceived && (await getReceivedFeedbacks(selectedUserReceived, newSelectedGroup));
       setAvaliationsReceived(responseReceived.receivedFeedbacks)
     } catch (error) {
       console.log(error);
@@ -85,9 +87,21 @@ export default function Feedbacks() {
   const newGroupFiltred = async (selectedGroup) => {
     try {
       const responseNewGroupAdded = await getAddedFeedbacks(selectUserAdded === "" ? user.name : selectUserAdded, selectedGroup);
-      const responseNewGroupReceived = await getReceivedFeedbacks(selectUserReceived === "" ? user.name : selectUserAdded, selectedGroup);
+      const responseNewGroupReceived = await getReceivedFeedbacks(selectUserReceived === "" ? user.name : selectUserReceived, selectedGroup);
       setAvaliationsAdded(responseNewGroupAdded.addedFeedbacks);
       setAvaliationsReceived(responseNewGroupReceived.receivedFeedbacks);
+      setNewSelectedGroup(selectedGroup)
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const filtringParticipantReviewed = async (selectedParticipantReviewed) => {
+    try {
+      const responseNewParticipantReviewed = await getAddedFeedbacks(user.name, null, selectedParticipantReviewed && selectedParticipantReviewed)
+      setAvaliationsAdded(responseNewParticipantReviewed.addedFeedbacks)
     } catch (error) {
       console.log(error);
     } finally {
@@ -171,7 +185,7 @@ export default function Feedbacks() {
                 <option
                   key={user.name}
                   value={user.name}
-                  style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}
+                  style={{ color: colorMode === "dark" ? "white" : "black" }}
                 >
                   Você
                 </option>
@@ -179,7 +193,7 @@ export default function Feedbacks() {
                   <option
                     key={user.name}
                     value={user.name}
-                    style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}
+                    style={{ color: colorMode === "dark" ? "white" : "black" }}
                   >
                     {formattingName(user.name)}
                   </option>
@@ -193,15 +207,35 @@ export default function Feedbacks() {
               >
                 <CalendarIcon />
               </Button>
-            </Box> : <Button
-              variant="outline"
-              colorScheme="white"
-              onClick={handleOpenFilters}
-              padding="0px"
-            >
-              <CalendarIcon />
-            </Button>}
-
+            </Box> :
+              <Box display="flex" minWidth="40%">
+                <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} value={selectedUserReviewed} onChange={(e) => {setSelectedUserReviewed(e.target.value); filtringParticipantReviewed(e.target.value)}} focusBorderColor="white" marginRight="20px">
+                  <option
+                    value={""}
+                    style={{ color: colorMode === "dark" ? "white" : "black" }}
+                  >
+                    Todos
+                  </option>
+                  {users.map((user) => (
+                    <option
+                      key={user.name}
+                      value={user.name}
+                      style={{ color: colorMode === "dark" ? "white" : "black" }}
+                    >
+                      {formattingName(user.name)}
+                    </option>
+                  ))}
+                </Select>
+                <Button
+                  variant="outline"
+                  colorScheme="white"
+                  onClick={handleOpenFilters}
+                  padding="0px"
+                >
+                  <CalendarIcon />
+                </Button>
+              </Box>
+            }
 
           </Container>
           <Container padding="8px">
@@ -270,7 +304,7 @@ export default function Feedbacks() {
                   <option
                     key={user.name}
                     value={user.name}
-                    style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}
+                    style={{ color: colorMode === "dark" ? "white" : "black" }}
                   >
                     Você
                   </option>
@@ -278,7 +312,7 @@ export default function Feedbacks() {
                     <option
                       key={user.name}
                       value={user.name}
-                      style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }}
+                      style={{ color: colorMode === "dark" ? "white" : "black" }}
                     >
                       {formattingName(user.name)}
                     </option>

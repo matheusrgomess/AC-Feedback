@@ -10,7 +10,6 @@ import {
   Button,
   Container,
   Select,
-  useColorMode
 } from "@chakra-ui/react";
 import { formattingName } from "utils/formattingTexts";
 import { listUsers } from "services/users";
@@ -18,7 +17,6 @@ import { listUsers } from "services/users";
 export default function RatingModal({ isOpen, handleClose, handleClick }) {
   const [selectedOption, setSelectedOption] = useState("");
   const [participants, setParticipants] = useState([]);
-  const { colorMode } = useColorMode();
 
   const fetchParticipants = async () => {
     try {
@@ -63,7 +61,7 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
                 focusBorderColor="#971520"
               >
                 {participants.map((reviewer) => (
-                  <option style={{ backgroundColor: colorMode === "dark" ? "#1c222b" : "white", color: colorMode === "dark" ? "white" : "black" }} key={reviewer.name} value={reviewer.name}>
+                  <option>
                     {formattingName(reviewer.name)}
                   </option>
                 ))}

@@ -54,8 +54,8 @@ export default function ModalCreatingUsers({ handleCloseModalCreateParticipant, 
                         <Container padding="0px" marginBottom="10px">
                             <Text><strong>Modelo:</strong> </Text>
                             <Select value={userType} onChange={(event) => setUserType(event.target.value)} borderColor="#3f454c" _hover={{}} focusBorderColor="#971520">
-                                <option style={{ color: "black" }} value="PARTICIPANT">Participante</option>
-                                <option style={{ color: "black" }} value="ADMIN">Administrador</option>
+                                <option value="PARTICIPANT">Participante</option>
+                                <option value="ADMIN">Administrador</option>
                             </Select>
                         </Container>
                     </Flex>

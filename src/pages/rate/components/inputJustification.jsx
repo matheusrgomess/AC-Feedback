@@ -1,11 +1,11 @@
-import { Input } from "@chakra-ui/react";
+import { Input, useColorMode } from "@chakra-ui/react";
 
 export default function InputJustification({
   rating,
   justification,
   setJustification,
 }) {
-
+  const { colorMode } = useColorMode();
   return (
     <>
       <Input
@@ -17,7 +17,7 @@ export default function InputJustification({
         value={justification}
         isDisabled={rating === null || rating === 0}
         borderColor={rating === null || rating === 0 ? "#971520" : ""}
-        focusBorderColor="white"
+        focusBorderColor={colorMode === "dark" ? "white" : "black"}
         _hover={{}}
       />
     </>

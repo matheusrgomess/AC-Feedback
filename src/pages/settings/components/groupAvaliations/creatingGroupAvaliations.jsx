@@ -52,6 +52,8 @@ export default function CreatingGroupAvaliations() {
     }, []);
 
     const handleCreatingNewGroup = async () => {
+        setNameGroupValue("");
+        setShowInputGroup(false);
         try {
             const newGroup = {
                 questionSetName: nameGroupValue,
@@ -66,8 +68,6 @@ export default function CreatingGroupAvaliations() {
             };
             const response = await createQuestionSet(newGroup);
             fetchData();
-            setNameGroupValue("");
-            setShowInputGroup(false);
             return response.data;
         } catch (error) {
             console.log(error);
@@ -183,7 +183,7 @@ export default function CreatingGroupAvaliations() {
                 </Text>
             </Button>
             {showInputGroup && (
-                <InputGroup size="sm" marginTop="15px">
+                <InputGroup size="sm" marginBottom="15px">
                     <Input
                         placeholder="Digite aqui o nome do novo agrupamento de avaliações"
                         marginBottom="10px"

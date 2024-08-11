@@ -129,8 +129,8 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
                                     <Text>{infoSelectedParticipant && infoSelectedParticipant.userType === "PARTICIPANT" ? "Participante" : "Administrador"}</Text>
                                     :
                                     <Select borderColor="#3f454c" _hover={{}} value={newUserType} onChange={(event) => setNewUserType(event.target.value)} focusBorderColor="#FF0000">
-                                        <option style={{ color: "black" }} value="PARTICIPANT">Participante</option>
-                                        <option style={{ color: "black" }} value="ADMIN">Administrador</option>
+                                        <option value="PARTICIPANT">Participante</option>
+                                        <option value="ADMIN">Administrador</option>
                                     </Select>
                                 }
                             </Container>
