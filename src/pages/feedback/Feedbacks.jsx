@@ -1,4 +1,4 @@
-import { Container, Heading, Button, Box, Select, useColorMode } from "@chakra-ui/react";
+import { Container, Heading, Button, Box, Select, useColorMode, Tooltip, Icon } from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 import { useEffect, useState } from "react";
 import ModalFilter from "./components/modalFilter";
@@ -181,40 +181,14 @@ export default function Feedbacks() {
           >
             <Heading fontSize="30px">Avaliações criadas:</Heading>
             {verifyAdm ? <Box display="flex" minWidth="40%">
-              <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} focusBorderColor="white" marginRight="20px" value={selectUserAdded} onChange={(e) => { setSelectUserAdded(e.target.value); userFeedbacksAdded(e.target.value) }}>
-                <option
-                  key={user.name}
-                  value={user.name}
-                  style={{ color: colorMode === "dark" ? "white" : "black" }}
-                >
-                  Você
-                </option>
-                {users.map((user) => (
+              <Box display="flex" alignItems="center" marginRight="20px">
+                <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} focusBorderColor="white" value={selectUserAdded} onChange={(e) => { setSelectUserAdded(e.target.value); userFeedbacksAdded(e.target.value) }} marginRight="2px">
                   <option
                     key={user.name}
                     value={user.name}
                     style={{ color: colorMode === "dark" ? "white" : "black" }}
                   >
-                    {formattingName(user.name)}
-                  </option>
-                ))}
-              </Select>
-              <Button
-                variant="outline"
-                colorScheme="white"
-                onClick={handleOpenFilters}
-                padding="0px"
-              >
-                <CalendarIcon />
-              </Button>
-            </Box> :
-              <Box display="flex" minWidth="40%">
-                <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} value={selectedUserReviewed} onChange={(e) => {setSelectedUserReviewed(e.target.value); filtringParticipantReviewed(e.target.value)}} focusBorderColor="white" marginRight="20px">
-                  <option
-                    value={""}
-                    style={{ color: colorMode === "dark" ? "white" : "black" }}
-                  >
-                    Todos
+                    Você
                   </option>
                   {users.map((user) => (
                     <option
@@ -226,6 +200,58 @@ export default function Feedbacks() {
                     </option>
                   ))}
                 </Select>
+                <Tooltip
+                  label="Filtro que você filtra o participante que criou as avaliações"
+                  aria-label="tooltip explicando como funciona o filtro de avaliações criadas"
+                >
+                  <Icon
+                    w={3}
+                    position="relative"
+                    bottom="10px"
+                    _hover={{ cursor: "pointer" }}
+                  />
+                </Tooltip>
+              </Box>
+              <Button
+                variant="outline"
+                colorScheme="white"
+                onClick={handleOpenFilters}
+                padding="0px"
+              >
+                <CalendarIcon />
+              </Button>
+            </Box> :
+              <Box display="flex" minWidth="40%">
+                <Box display="flex" alignItems="center" marginRight="20px">
+                  <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} value={selectedUserReviewed} onChange={(e) => { setSelectedUserReviewed(e.target.value); filtringParticipantReviewed(e.target.value) }} focusBorderColor="white" marginRight="2px">
+                    <option
+                      value={""}
+                      style={{ color: colorMode === "dark" ? "white" : "black" }}
+                    >
+                      Todos
+                    </option>
+                    {users.map((user) => (
+                      <option
+                        key={user.name}
+                        value={user.name}
+                        style={{ color: colorMode === "dark" ? "white" : "black" }}
+                      >
+                        {formattingName(user.name)}
+                      </option>
+                    ))}
+                  </Select>
+                  <Tooltip
+                    label="Filtro que você filtra o participante que recebeu suas avaliações"
+                    aria-label="tooltip explicando como funciona o filtro de avaliações criadas"
+                  >
+                    <Icon
+                      w={3}
+                      position="relative"
+                      bottom="10px"
+                      _hover={{ cursor: "pointer" }}
+                    />
+                  </Tooltip>
+                </Box>
                 <Button
                   variant="outline"
                   colorScheme="white"
@@ -300,24 +326,37 @@ export default function Feedbacks() {
             >
               <Heading fontSize="30px">Avaliações recebidas:</Heading>
               {verifyAdm ? <Box display="flex" minWidth="40%">
-                <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} focusBorderColor="white" marginRight="20px" value={selectUserReceived} onChange={(e) => { setSelectUserReceived(e.target.value); userFeedbacksReceived(e.target.value) }}>
-                  <option
-                    key={user.name}
-                    value={user.name}
-                    style={{ color: colorMode === "dark" ? "white" : "black" }}
-                  >
-                    Você
-                  </option>
-                  {users.map((user) => (
+                <Box display="flex" alignItems="center" marginRight="20px">
+                  <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} focusBorderColor="white" marginRight="2px" value={selectUserReceived} onChange={(e) => { setSelectUserReceived(e.target.value); userFeedbacksReceived(e.target.value) }}>
                     <option
                       key={user.name}
                       value={user.name}
                       style={{ color: colorMode === "dark" ? "white" : "black" }}
                     >
-                      {formattingName(user.name)}
+                      Você
                     </option>
-                  ))}
-                </Select>
+                    {users.map((user) => (
+                      <option
+                        key={user.name}
+                        value={user.name}
+                        style={{ color: colorMode === "dark" ? "white" : "black" }}
+                      >
+                        {formattingName(user.name)}
+                      </option>
+                    ))}
+                  </Select>
+                  <Tooltip
+                    label="Filtro que você filtra as avaliações que certo participante recebeu"
+                    aria-label="tooltip explicando como funciona o filtro de avaliações criadas"
+                  >
+                    <Icon
+                      w={3}
+                      position="relative"
+                      bottom="10px"
+                      _hover={{ cursor: "pointer" }}
+                    />
+                  </Tooltip>
+                </Box>
                 <Button
                   variant="outline"
                   colorScheme="white"

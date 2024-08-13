@@ -12,6 +12,7 @@ import {
     Heading,
     Container,
     Divider,
+    useColorMode
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 import { FaUserCog } from "react-icons/fa";
@@ -32,6 +33,7 @@ export default function EditParticipants() {
     const [userType, setUserType] = useState("PARTICIPANT");
     const [infoSelectedParticipant, setInfoSelectedParticipant] = useState();
     const [showButtonConfirm, setShowButtonConfirm] = useState(false);
+    const {colorMode} = useColorMode();
 
     const fetchParticipants = async () => {
         const participantsList = await listUsers();
@@ -108,7 +110,8 @@ export default function EditParticipants() {
                                 maxH="306px"
                                 overflow="hidden"
                                 overflowY="auto"
-                                bgColor="#14181e60"
+                                bgColor={colorMode === "dark" ? "#14181e60" : "transparent"}
+                                border={colorMode === "dark" ? "none" : "1px solid black"}
                                 borderRadius="10px"
                             >
                                 <UnorderedList listStyleType="none">

@@ -6,6 +6,22 @@ const theme = extendTheme({
     useSystemColorMode: false
   },
 
+  colors: {
+    red: {
+      50: "#FF0000",
+      100: "#FF0000",
+      200: "#FF0000",
+      300: "#FF0000",
+      400: "#FF0000",
+      500: "#FF0000",
+      600: "#FF0000",
+      700: "#FF0000",
+      800: "#FF0000",
+      900: "#FF0000",
+    }
+  },
+
+
   styles: {
     global: (props) => ({
       body: {

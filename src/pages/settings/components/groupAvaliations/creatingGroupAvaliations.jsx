@@ -238,7 +238,8 @@ export default function CreatingGroupAvaliations() {
                 </Container>
             ) : (
                 <Container
-                    bg="#14181E60"
+                    bg={colorMode === "dark" ? "#14181E60" : "transparent"}
+                    border={colorMode === "dark" ? "none" : "1px solid black"}
                     className="scrollbar"
                     overflow="hidden"
                     overflowY="auto"
@@ -260,6 +261,7 @@ export default function CreatingGroupAvaliations() {
                                         isChecked={group.activatedSet}
                                         onChange={() => handleCheckboxChange(group)}
                                         colorScheme="red"
+                                        iconColor="white"
                                     />
                                     <Heading
                                         maxWidth="250px"

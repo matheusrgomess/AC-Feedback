@@ -7,7 +7,7 @@ import RateParticipantScreen from "./pages/rate";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
 import Settings from "pages/settings/settings";
-import './index.css'
+import "./index.css";
 
 function App() {
   return (
