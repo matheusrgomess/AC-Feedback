@@ -68,6 +68,7 @@ export default function CreatingGroupAvaliations() {
             };
             const response = await createQuestionSet(newGroup);
             fetchData();
+            toast.success("Grupo de avaliações criado com sucesso!");
             return response.data;
         } catch (error) {
             console.log(error);
@@ -113,6 +114,7 @@ export default function CreatingGroupAvaliations() {
             await deleteQuestionSet(selectedGroup.id);
             fetchData();
             handleClose();
+            toast.success("Grupo de avaliações excluído com sucesso!");
         } catch (error) {
             console.log(error);
         } finally {

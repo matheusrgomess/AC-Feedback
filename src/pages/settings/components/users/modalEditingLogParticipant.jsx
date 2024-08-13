@@ -5,6 +5,7 @@ import { FaUserEdit, FaUserSlash } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { listUsers, editUser, deleteUser } from "services/users";
 import { RiAlertFill } from "react-icons/ri";
+import { toast } from "react-toastify";
 
 export default function ModalEditingLogParticipant({ isOpenEditParticipantSelected, handleCloseEditParticipantSelected, infoSelectedParticipant, setParticipants, showButtonConfirm, setShowButtonConfirm }) {
     const participantId = infoSelectedParticipant?.id;
@@ -28,7 +29,7 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
             handleCloseEditParticipantSelected();
             const participantsList = await listUsers();
             setParticipants(participantsList);
-
+            toast.success("Usuário apagado com sucesso!");
         } catch (error) {
             console.log(error);
         } finally {
