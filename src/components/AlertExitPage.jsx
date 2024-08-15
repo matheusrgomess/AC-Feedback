@@ -14,7 +14,7 @@ export default function AlertExitPage({ isOpen, onClose, onClickConfirm, onClick
                     </Text>
                 </ModalBody>
                 <ModalFooter>
-                    <Button onClick={onClickConfirm} colorScheme="red">
+                    <Button onClick={onClickConfirm} colorScheme="red" color="white">
                         Sim
                     </Button>
                     <Button onClick={onClickClose} ml={3}>

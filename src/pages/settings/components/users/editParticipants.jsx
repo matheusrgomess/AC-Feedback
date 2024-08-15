@@ -124,7 +124,7 @@ export default function EditParticipants() {
                                 </UnorderedList>
                             </Container>
                         </Container>
-                        <Divider marginTop="20px"/>
+                        <Divider marginTop="20px" borderColor="" opacity="100%"/>
                         <Button marginTop="10px" onClick={handleOpenModalCreateParticipant} bg="transparent" borderRadius="none" _hover={{}} _active={{ bgColor: "rgba(0,0,0,0.1)" }}>
                             <Text marginRight="10px">
                                 Criar novo usuário

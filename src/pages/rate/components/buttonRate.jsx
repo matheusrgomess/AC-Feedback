@@ -42,15 +42,12 @@ export default function ButtonRate({ currentQuestion, handleNextQuestion, handle
                 <Button
                     padding="0px"
                     bg="transparent"
-                    _hover={{ border: "1px solid", borderColor: "#777a80", cursor: "not-allowed" }}
+                    _hover={{ border: "1px solid", borderColor: colorMode === "dark" ? "white" : "#1c222b", cursor: "not-allowed" }}
                     _active={{ bgColor: "#00000057" }}
-                    onClick={() => {
-                        toast.error('É necessário uma avaliação sobre este item', {
-                            autoClose: 2500
-                        });
-                    }}
+                    onClick={() => toast.error("É necessário uma avaliação sobre este item")}
+                    opacity="0.4"
                 >
-                    <ArrowRightIcon color="#777a80" />
+                    <ArrowRightIcon color={colorMode === "dark" ? "white" : "#1c222b"} />
                 </Button> :
                 <Button
                     padding="0px"

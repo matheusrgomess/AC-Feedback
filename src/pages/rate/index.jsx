@@ -1,11 +1,9 @@
-import React from "react";
 import { Container, Heading, Progress, Text, useColorMode } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ObservationsPage from "./components/observationsPage";
 import QuestionsPage from "./components/questionsPage";
 import ButtonRate from "./components/buttonRate";
-import { formattingName } from "utils/formattingTexts";
 import { getActivatedGroup } from "services/questionsSet";
 import { postFeedback } from "services/feedbacks";
 import PrincipalSpinner from "components/Spinner";
@@ -181,7 +179,7 @@ export default function RateParticipantScreen() {
                 rating={rating}
               />
               <Text fontSize="15px" as="span">
-                {formattingName(participant)}
+                {participant}
               </Text>
             </Container>
           </Container>

@@ -147,7 +147,7 @@ export default function User() {
                             </Text>
                         </ModalBody>
                         <ModalFooter>
-                            <Button onClick={handleModalConfirm} colorScheme="red">
+                            <Button onClick={handleModalConfirm} colorScheme="red" color="white">
                                 Sim
                             </Button>
                             <Button onClick={handleModalClose} ml={3}>

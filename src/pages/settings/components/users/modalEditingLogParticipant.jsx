@@ -140,7 +140,7 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
                     <ModalFooter>
                         <Container>
                             <Tooltip label="Excluir usuário">
-                                <Button colorScheme="brand" color="white" marginRight={5} _hover={{ bg: "#680000" }} onClick={() => setIsModalOpen(true)} padding="0px"><FaUserSlash size={22.5} /></Button>
+                                <Button colorScheme="brand" color="white" bgColor="red" marginRight={5} _hover={{ bg: "#680000" }} onClick={() => setIsModalOpen(true)} padding="0px"><FaUserSlash size={22.5} /></Button>
                             </Tooltip>
                             <Tooltip label="Editar usuário">
                                 <Button color="black" bgColor="white" _hover={{ bg: "#b1b1b1" }} marginRight={5} padding="0px" onClick={handleClickEdit}><FaUserEdit size={22.5} /></Button>
@@ -166,7 +166,7 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
                         </Text>
                     </ModalBody>
                     <ModalFooter>
-                        <Button onClick={() => participantId && deleteParticipantSelected(participantId)} colorScheme="brand">
+                        <Button onClick={() => participantId && deleteParticipantSelected(participantId)} colorScheme="red" color="white">
                             Sim
                         </Button>
                         <Button bgColor={colorMode === "dark" ? "white" : "#1c222b"} color={colorMode === "dark" ? "#1c222b" : "white"} _hover={{}} _active={{}} onClick={handleModalClose} ml={3}>

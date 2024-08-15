@@ -76,6 +76,7 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
               onClick={handleExecuteClick}
               colorScheme="red"
               isDisabled={selectedOption === ""}
+              color="white"
             >
               Começar
             </Button>

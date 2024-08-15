@@ -8,6 +8,7 @@ import { getAddedFeedbacks, getReceivedFeedbacks } from "services/feedbacks";
 import { listUsers } from "services/users";
 import { formattingName } from "utils/formattingTexts";
 import PrincipalSpinner from "components/Spinner";
+import { toast } from "react-toastify";
 
 export default function Feedbacks() {
   const [avaliationsAdded, setAvaliationsAdded] = useState();
@@ -212,14 +213,18 @@ export default function Feedbacks() {
                   />
                 </Tooltip>
               </Box>
-              <Button
-                variant="outline"
-                colorScheme="white"
-                onClick={handleOpenFilters}
-                padding="0px"
-              >
-                <CalendarIcon />
-              </Button>
+              <Box cursor="not-allowed" onClick={() => toast.error("Desabilitado")}>
+                <Button
+                  pointerEvents="none"
+                  isDisabled
+                  variant="outline"
+                  colorScheme="white"
+                  onClick={handleOpenFilters}
+                  padding="0px"
+                >
+                  <CalendarIcon />
+                </Button>
+              </Box>
             </Box> :
               <Box display="flex" minWidth="40%">
                 <Box display="flex" alignItems="center" marginRight="20px">
@@ -252,14 +257,18 @@ export default function Feedbacks() {
                     />
                   </Tooltip>
                 </Box>
-                <Button
-                  variant="outline"
-                  colorScheme="white"
-                  onClick={handleOpenFilters}
-                  padding="0px"
-                >
-                  <CalendarIcon />
-                </Button>
+                <Box cursor="not-allowed" onClick={() => toast.error("Desabilitado")}>
+                  <Button
+                    pointerEvents="none"
+                    isDisabled
+                    variant="outline"
+                    colorScheme="white"
+                    onClick={handleOpenFilters}
+                    padding="0px"
+                  >
+                    <CalendarIcon />
+                  </Button>
+                </Box>
               </Box>
             }
 
@@ -357,23 +366,32 @@ export default function Feedbacks() {
                     />
                   </Tooltip>
                 </Box>
-                <Button
-                  variant="outline"
-                  colorScheme="white"
-                  onClick={handleOpenFilters}
-                  padding="0px"
-                >
-                  <CalendarIcon />
-                </Button>
-              </Box> : <Button
-                variant="outline"
-                colorScheme="white"
-                onClick={handleOpenFilters}
-                padding="0px"
-              >
-                <CalendarIcon />
-              </Button>}
-
+                <Box cursor="not-allowed" onClick={() => toast.error("Desabilitado")}>
+                  <Button
+                    pointerEvents="none"
+                    isDisabled
+                    variant="outline"
+                    colorScheme="white"
+                    onClick={handleOpenFilters}
+                    padding="0px"
+                  >
+                    <CalendarIcon />
+                  </Button>
+                </Box>
+              </Box> :
+                <Box cursor="not-allowed" onClick={() => toast.error("Desabilitado")}>
+                  <Button
+                    pointerEvents="none"
+                    isDisabled
+                    variant="outline"
+                    colorScheme="white"
+                    onClick={handleOpenFilters}
+                    padding="0px"
+                  >
+                    <CalendarIcon />
+                  </Button>
+                </Box>
+              }
             </Container>
             <Container padding="8px">
               <Container

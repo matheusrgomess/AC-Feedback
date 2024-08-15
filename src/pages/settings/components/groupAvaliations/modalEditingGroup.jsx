@@ -181,7 +181,7 @@ export default function ModalEditingGroup({
                             </Container>
                         </Container>
                         <Tooltip label="Excluir Grupo">
-                            <Button marginTop="15px" colorScheme="red" onClick={
+                            <Button marginTop="15px" colorScheme="red" color="white" onClick={
                                 () => {
                                     if (selectedGroupValue.activatedSet === true) {
                                         toast.error("Não é possível excluir um grupo ativado");
@@ -193,7 +193,7 @@ export default function ModalEditingGroup({
                             </Button>
                         </Tooltip>
                         <Tooltip label={selectedGroupValue?.writable === true ? "Salvar Alterações" : "Não é possível fazer alterações pois já se tem avaliações criadas com esse grupo"}>
-                            <Button isDisabled={selectedGroupValue?.writable === false} onClick={handleSaveChanges} marginTop="15px" marginLeft="10px" bg="green" color="black" padding="0px" _hover={{ bg: "#005a00" }}><CheckIcon color={colorMode === "dark" ? "#1c222b" : "white"} /></Button>
+                            <Button color="white" isDisabled={selectedGroupValue?.writable === false} onClick={handleSaveChanges} marginTop="15px" marginLeft="10px" bg="green" padding="0px" _hover={{ bg: "#005a00" }}><CheckIcon /></Button>
                         </Tooltip>
                     </ModalBody>
                 </ModalContent>
@@ -210,7 +210,7 @@ export default function ModalEditingGroup({
                         </Text>
                     </ModalBody>
                     <ModalFooter>
-                        <Button onClick={() => handleDeleteGroup(selectedGroupValue)} colorScheme="red">
+                        <Button onClick={() => handleDeleteGroup(selectedGroupValue)} colorScheme="red" color="white">
                             Sim
                         </Button>
                         <Button onClick={handleModalRemoveClose} bgColor={colorMode === "dark" ? "white" : "#1c222b"} color={colorMode === "dark" ? "#1c222b" : "white"} _hover={{}} _active={{}} ml={3}>

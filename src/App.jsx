@@ -7,9 +7,11 @@ import RateParticipantScreen from "./pages/rate";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
 import Settings from "pages/settings/settings";
+import { useColorMode } from "@chakra-ui/react";
 import "./index.css";
 
 function App() {
+  const {colorMode} = useColorMode();
   return (
     <div
       className="App"
@@ -41,9 +43,10 @@ function App() {
         <ToastContainer
           position="top-center"
           pauseOnHover={false}
-          theme="dark"
+          theme={colorMode === "dark" ? "dark" : "light"}
           progressStyle={{ background: "#ff0000" }}
           limit={2}
+          autoClose={2500}
         />
       </div>
     </div>
