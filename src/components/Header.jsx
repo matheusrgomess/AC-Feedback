@@ -35,7 +35,7 @@ function Header() {
 
   return (
     <div>
-      {!(location.pathname === '/') &&
+      {!(location.pathname === "/") &&
         <Box as="header" padding="20px" display="flex" justifyContent="space-between" maxH="10vh" borderBottom="1px" alignItems="center" w="100%">
           <Container padding="0px" margin="0px" maxH="65px" maxW="294px" >
             <Image src={colorMode === "dark" ? AcDigitalLogoWhite : AcDigitalLogoBlack} w="100%" h="100%" objectFit="contain" />

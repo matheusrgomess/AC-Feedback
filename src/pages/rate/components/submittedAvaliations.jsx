@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { parseISO, format } from "date-fns";
-import { ptBR } from 'date-fns/locale';
+import { ptBR } from "date-fns/locale";
 import { Container, Heading, Button, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
 import { ViewIcon, CalendarIcon } from "@chakra-ui/icons";
 import { formattingName } from "utils/formattingTexts";

@@ -1,7 +1,7 @@
 import React from "react";
-import Stars from "./stars";
 import InputJustification from "./inputJustification";
 import { Container } from "@chakra-ui/react";
+import { StarsForQuestionsPage } from "components/Stars";
 
 export default function QuestionsPage({
   hover,
@@ -22,7 +22,7 @@ export default function QuestionsPage({
         position="relative"
         bottom="20px"
       >
-        <Stars
+        <StarsForQuestionsPage
           hover={hover}
           setHover={setHover}
           rating={rating}

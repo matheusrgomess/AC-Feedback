@@ -15,15 +15,18 @@ import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import ModalEditingGroup from "./modalEditingGroup";
-import { TiStar } from "react-icons/ti";
 import { printQuestionSet, createQuestionSet, editQuestionSet, deleteQuestionSet, postActivateGroup } from "services/questionsSet";
+import { StarsNumberOfStars } from "components/Stars";
 
 export default function CreatingGroupAvaliations() {
+    const { colorMode } = useColorMode();
+    const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalRemoveOpen, setIsModalRemoveOpen] = useState(false);
     const [selectedGroupValue, setSelectedGroupValue] = useState(null);
     const [nameGroupValue, setNameGroupValue] = useState("");
     const [questionsInput, setQuestionsInput] = useState([]);
     const [showInputGroup, setShowInputGroup] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [showADDQuestionsInput, setShowADDQuestionsInput] = useState(false);
     const [inputQuestionsValue, setInputQuestionsValue] = useState("");
     const [questionsSet, setQuestionsSet] = useState();
@@ -33,9 +36,6 @@ export default function CreatingGroupAvaliations() {
     const [selectedQuestion, setSelectedQuestion] = useState({});
     const [valueNewTitleQuestion, setValueNewTitleQuestion] = useState("");
     const [valueNewDescQuestion, setValueNewDescQuestion] = useState("");
-    const [loading, setLoading] = useState(true);
-    const [isModalRemoveOpen, setIsModalRemoveOpen] = useState(false);
-    const { colorMode } = useColorMode();
 
     const fetchData = async () => {
         try {
@@ -51,6 +51,7 @@ export default function CreatingGroupAvaliations() {
         fetchData();
     }, []);
 
+    //Criando novo grupo
     const handleCreatingNewGroup = async () => {
         setNameGroupValue("");
         setShowInputGroup(false);
@@ -75,40 +76,7 @@ export default function CreatingGroupAvaliations() {
         }
     };
 
-    const handleOpen = (group) => {
-        setIsModalOpen(true);
-        setSelectedGroupValue(group);
-        setQuestionsInput(group.questions || []);
-        setValueInputName(group.questionSetName);
-        setNumberInputStars(group.numberOfStars);
-    };
-
-    const handleClose = () => {
-        setIsModalOpen(false);
-        setQuestionsInput([]);
-        setSelectedGroupValue(null);
-    };
-
-    const handleQuestionToGroup = () => {
-        if (inputQuestionsValue.trim() !== "") {
-            const newQuestion = {
-                questionType: "RATING",
-                questionName: inputQuestionsValue,
-                questionDescription: ""
-            };
-            const updatedQuestions = [...questionsInput, newQuestion];
-            setQuestionsInput(updatedQuestions);
-            setInputQuestionsValue("");
-            setShowADDQuestionsInput(false);
-        } else {
-            alert('Digite Algo no input para ser salvo!');
-        }
-    };
-
-    const handleCheckboxChange = (selectedGroup) => {
-        postActivateGroup(selectedGroup.questionSetName).then(() => fetchData());
-    };
-
+    //Removendo um grupo
     const handleDeleteGroup = async (selectedGroup) => {
         try {
             await deleteQuestionSet(selectedGroup.id);
@@ -122,45 +90,36 @@ export default function CreatingGroupAvaliations() {
         }
     };
 
-    const handleModalRemoveClose = () => {
-        setIsModalRemoveOpen(false);
-    }
+    //Ativando um grupo
+    const handleCheckboxChange = (selectedGroup) => {
+        postActivateGroup(selectedGroup.questionSetName).then(() => fetchData());
+    };
 
-    const handleSaveChanges = async () => {
-        const changes = {
-            questionSet: {
-                numberOfStars: Number(numberInputStars),
-                questionSetName: valueInputName,
-                questions: questionsInput
-            }
-        };
-        try {
-            await editQuestionSet(selectedGroupValue.id, changes);
+    //Criando uma questão
+    const handleQuestionToGroup = () => {
+        if (inputQuestionsValue.trim() !== "") {
+            const newQuestion = {
+                questionType: "RATING",
+                questionName: inputQuestionsValue,
+                questionDescription: ""
+            };
+            const updatedQuestions = [...questionsInput, newQuestion];
+            setQuestionsInput(updatedQuestions);
+            setInputQuestionsValue("");
             setShowADDQuestionsInput(false);
-            handleClose();
-            fetchData();
-        } catch (error) {
-            console.log(error);
+        } else {
+            alert("Digite Algo no input para ser salvo!");
         }
     };
 
-    const handleSelectedQuestionOpen = (item) => {
-        setOpenSelectedQuestion(true);
-        setSelectedQuestion(item);
-        setValueNewTitleQuestion(item.questionName || "");
-        setValueNewDescQuestion(item.questionDescription || "");
-    };
-
-    const handleSelectedQuestionClose = () => {
-        setOpenSelectedQuestion(false);
-    };
-
+    //Removendo uma questão
     const handleRemoveQuestion = () => {
         const updatedQuestions = questionsInput.filter(question => question !== selectedQuestion);
         setQuestionsInput(updatedQuestions);
         setOpenSelectedQuestion(false);
     };
 
+    //Atualizando uma questão
     const handleUpdateQuestion = async () => {
         const updatedQuestions = questionsInput.map(question => {
             if (question === selectedQuestion) {
@@ -175,6 +134,57 @@ export default function CreatingGroupAvaliations() {
             return question;
         });
         setQuestionsInput(updatedQuestions);
+    };
+
+    //Salvando todas as alterações
+    const handleSaveChanges = async () => {
+        const changes = {
+            questionSet: {
+                numberOfStars: Number(numberInputStars),
+                questionSetName: valueInputName,
+                questions: questionsInput
+            }
+        };
+        try {
+            await editQuestionSet(selectedGroupValue.id, changes);
+            setShowADDQuestionsInput(false);
+            handleClose();
+            fetchData();
+            toast.success("Alterações efetuadas com sucesso!");
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleModalRemoveClose = () => {
+        setIsModalRemoveOpen(false);
+    }
+
+    //Controlando a abertura do modal geral do grupo
+    const handleOpen = (group) => {
+        setIsModalOpen(true);
+        setSelectedGroupValue(group);
+        setQuestionsInput(group.questions || []);
+        setValueInputName(group.questionSetName);
+        setNumberInputStars(group.numberOfStars);
+    };
+
+    const handleClose = () => {
+        setIsModalOpen(false);
+        setQuestionsInput([]);
+        setSelectedGroupValue(null);
+    };
+
+    //Controlando a abertura do modal das questões selecionadas
+    const handleSelectedQuestionOpen = (item) => {
+        setOpenSelectedQuestion(true);
+        setSelectedQuestion(item);
+        setValueNewTitleQuestion(item.questionName || "");
+        setValueNewDescQuestion(item.questionDescription || "");
+    };
+
+    const handleSelectedQuestionClose = () => {
+        setOpenSelectedQuestion(false);
     };
 
     return (
@@ -216,7 +226,7 @@ export default function CreatingGroupAvaliations() {
                             _active={{}}
                             boxSize={1}
                             onClick={handleCreatingNewGroup}
-                            isDisabled={nameGroupValue === ''}
+                            isDisabled={nameGroupValue === ""}
                         >
                             <CheckIcon
                                 color={colorMode === "dark" ? "#ffffff" : "#1c222b"}
@@ -283,22 +293,7 @@ export default function CreatingGroupAvaliations() {
                             <Text fontSize={17}>
                                 <strong>Quantidade de estrelas: {group.numberOfStars}</strong>
                             </Text>
-                            <div style={{ display: "flex", position: "relative", right: "3px", bottom: "5px", padding: "0px", alignItems: "center", height: "25px", maxWidth: "85%" }}>
-                                {[
-                                    ...Array(
-                                        parseInt(group.numberOfStars)
-                                    ),
-                                ].map((_) => {
-                                    return (
-                                        <TiStar
-                                            className="star"
-                                            color="#971520"
-                                            style={{ margin: "0", padding: "0" }}
-                                            size={25}
-                                        />
-                                    );
-                                })}
-                            </div>
+                            <StarsNumberOfStars numberOfStars={group.numberOfStars} />
                         </Container>
                     ))}
                 </Container>

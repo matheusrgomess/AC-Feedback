@@ -68,7 +68,7 @@ export default function User() {
         <>
             <Menu onOpen={handleMenuToggle} onClose={handleMenuToggle}>
                 <MenuButton
-                    bg='#700e17'
+                    bg="#700e17"
                     as={Button}
                     rightIcon={
                         <ChevronDownIcon

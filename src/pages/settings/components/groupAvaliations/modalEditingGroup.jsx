@@ -108,7 +108,7 @@ export default function ModalEditingGroup({
                             <Text>
                                 <strong>Quantidade de notas:</strong>
                             </Text>
-                            <NumberInput disabled={selectedGroupValue?.writable === false} size='sm' maxWidth="65px" value={numberInputStars} min={1} max={10} onChange={(value) => setNumberInputStars(value)} focusBorderColor="#700e17" borderColor="#777a80" _hover={{}}>
+                            <NumberInput disabled={selectedGroupValue?.writable === false} size="sm" maxWidth="65px" value={numberInputStars} min={1} max={10} onChange={(value) => setNumberInputStars(value)} focusBorderColor="#700e17" borderColor="#777a80" _hover={{}}>
                                 <NumberInputField readOnly cursor="default" borderColor="#777a80" _hover={{}} />
                                 <NumberInputStepper borderColor="#777a80" _hover={{}}>
                                     <NumberIncrementStepper borderColor="#777a80" _hover={{}} />

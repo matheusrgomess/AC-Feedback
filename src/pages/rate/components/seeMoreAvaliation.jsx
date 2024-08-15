@@ -25,7 +25,7 @@ import { formattingName } from "../../../utils/formattingTexts";
 import { useState } from "react";
 import { TiStar } from "react-icons/ti";
 import { parseISO, format } from "date-fns";
-import { ptBR } from 'date-fns/locale';
+import { ptBR } from "date-fns/locale";
 
 export default function SeeMoreAvaliation({
   isOpen,
@@ -35,7 +35,7 @@ export default function SeeMoreAvaliation({
   filterValidRatings,
   questionSetSelected
 }) {
-  const {colorMode} = useColorMode();
+  const { colorMode } = useColorMode();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const filteredQuestionsRATING = avaliation.questions.filter(
     (question) => question.questionType === "RATING"
@@ -274,9 +274,9 @@ export default function SeeMoreAvaliation({
                       fontSize="20px"
                       height="200px"
                       marginTop="25px"
+                      borderColor={colorMode === "dark" ? "white" : "#1c222b"}
+                      _hover={{}}
                       focusBorderColor={colorMode === "dark" ? "white" : "#1c222b"}
-                      borderColor="#3f454c"
-                      _hover={{ borderColor: "#52575e" }}
                       overflow="hidden"
                       overflowY="auto"
                       defaultValue={filteredQuestionsOBSERVATION[0].observation}
