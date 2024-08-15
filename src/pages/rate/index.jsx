@@ -7,6 +7,7 @@ import ButtonRate from "./components/buttonRate";
 import { getActivatedGroup } from "services/questionsSet";
 import { postFeedback } from "services/feedbacks";
 import PrincipalSpinner from "components/Spinner";
+import { APIformattingName } from "utils/formattingTexts";
 
 export default function RateParticipantScreen() {
   const { participant } = useParams();
@@ -42,8 +43,8 @@ export default function RateParticipantScreen() {
   }, []);
 
   const avaliation = {
-    reviewer: user.name || "",
-    reviewed: participant,
+    reviewer: user.name,
+    reviewed: APIformattingName(participant),
     questions: questions,
   };
 

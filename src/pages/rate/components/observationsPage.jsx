@@ -13,7 +13,6 @@ export default function ObservationsPage({
   saveAvaliation,
 }) {
   const [activatedGroup, setActivatedGroup] = useState()
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -34,7 +33,11 @@ export default function ObservationsPage({
     const updatedAvaliation = {
       ...avaliation,
       questions: updatedQuestions,
-      questionSetId: activatedGroup.id
+      questionSetGroup: {
+        id: activatedGroup.id,
+        name: activatedGroup.questionSetName
+      }
+      
     };
     saveAvaliation(updatedAvaliation);
     navigate("/home");
@@ -95,6 +98,7 @@ export default function ObservationsPage({
       <Container textAlign="center">
         <Button
           colorScheme="red"
+          color="white"
           size="lg"
           onClick={handleClick}
           isDisabled={!observation}

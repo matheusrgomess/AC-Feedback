@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from "react";
 import { Container, Heading, Button, Text } from "@chakra-ui/react";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,6 +5,7 @@ import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 import { useNavigate } from "react-router-dom";
 import { getAddedFeedbacks, getReceivedFeedbacks } from "services/feedbacks";
 import PrincipalSpinner from "components/Spinner";
+import { printQuestionSet } from "services/questionsSet";
 
 export default function Home() {
   const [avaliationsAdded, setAvaliationsAdded] = useState();
@@ -13,20 +13,23 @@ export default function Home() {
   const user = JSON.parse(localStorage.getItem("user"));
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
   const [loading, setLoading] = useState(true);
+  const [questionSets, setQuestionSets] = useState([]);
   const nav = useNavigate();
 
   const fetchFeedbacks = useCallback(async () => {
     try {
-   const responseAdded = await getAddedFeedbacks(user.name);
-    const responseReceived = await getReceivedFeedbacks(user.name)
-    setAvaliationsAdded(responseAdded.addedFeedbacks);
-    setAvaliationsReceived(responseReceived.receivedFeedbacks);   
+      const groups = await printQuestionSet();
+      const responseAdded = await getAddedFeedbacks(user.name);
+      const responseReceived = await getReceivedFeedbacks(user.name);
+      setQuestionSets(groups);
+      setAvaliationsAdded(responseAdded.addedFeedbacks);
+      setAvaliationsReceived(responseReceived.receivedFeedbacks);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [user.name]);
 
 
   useEffect(() => {
@@ -98,7 +101,7 @@ export default function Home() {
                   overflow="hidden"
                   overflowY="auto"
                 >
-                  <SubmittedAvaliation avaliations={avaliationsAdded} />
+                  <SubmittedAvaliation avaliations={avaliationsAdded} questionSets={questionSets} />
                   <Button
                     marginLeft="14px"
                     bgColor="#700e17"
@@ -162,7 +165,7 @@ export default function Home() {
                   overflow="hidden"
                   overflowY="auto"
                 >
-                  <SubmittedAvaliation avaliations={avaliationsReceived} />
+                  <SubmittedAvaliation avaliations={avaliationsReceived} questionSets={questionSets} />
                   <Button
                     marginLeft="14px"
                     bgColor="#700e17"

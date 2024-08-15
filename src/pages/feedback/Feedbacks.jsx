@@ -9,6 +9,7 @@ import { listUsers } from "services/users";
 import { formattingName } from "utils/formattingTexts";
 import PrincipalSpinner from "components/Spinner";
 import { toast } from "react-toastify";
+import { printQuestionSet } from "services/questionsSet";
 
 export default function Feedbacks() {
   const [avaliationsAdded, setAvaliationsAdded] = useState();
@@ -23,7 +24,8 @@ export default function Feedbacks() {
   const [selectUserReceived, setSelectUserReceived] = useState("");
   const { colorMode } = useColorMode();
   const [selectedUserReviewed, setSelectedUserReviewed] = useState("");
-  const [newSelectedGroup, setNewSelectedGroup] = useState("")
+  const [newSelectedGroup, setNewSelectedGroup] = useState("");
+  const [questionSets, setQuestionSets] = useState([]);
 
   const colorGradientBackGround = colorMode === "dark" ?
     "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)" :
@@ -45,25 +47,25 @@ export default function Feedbacks() {
     setOpenFilters(false);
   };
 
-  useEffect(() => {
-    const findParticipants = async () => {
-      try {
-        const response = await listUsers();
-        setUsers(response);
-
-      } catch (error) {
-        console.log(error);
-      }
+  async function findParticipants() {
+    try {
+      const response = await listUsers();
+      setUsers(response);
+    } catch (error) {
+      console.log(error);
     }
-    findParticipants();
-  }, []);
+  }
 
-  useEffect(() => {
-    userFeedbacksReceived(user.name);
-    userFeedbacksAdded(user.name);
-  }, [user.name]);
+  async function fetchData() {
+    try {
+      const groups = await printQuestionSet();
+      setQuestionSets(groups);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  const userFeedbacksAdded = async (selectedUserAdded) => {
+  async function userFeedbacksAdded(selectedUserAdded) {
     try {
       const responseAdded = selectedUserAdded && (await getAddedFeedbacks(selectedUserAdded, newSelectedGroup));
       setAvaliationsAdded(responseAdded.addedFeedbacks);
@@ -74,7 +76,7 @@ export default function Feedbacks() {
     }
   }
 
-  const userFeedbacksReceived = async (selectedUserReceived) => {
+  async function userFeedbacksReceived(selectedUserReceived) {
     try {
       const responseReceived = selectedUserReceived && (await getReceivedFeedbacks(selectedUserReceived, newSelectedGroup));
       setAvaliationsReceived(responseReceived.receivedFeedbacks)
@@ -84,6 +86,21 @@ export default function Feedbacks() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    const initializeData = async () => {
+      try {
+        await fetchData();
+        await findParticipants();
+
+        userFeedbacksReceived(user.name);
+        userFeedbacksAdded(user.name);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    initializeData();
+  }, [user.name]);
 
   const newGroupFiltred = async (selectedGroup) => {
     try {
@@ -213,10 +230,9 @@ export default function Feedbacks() {
                   />
                 </Tooltip>
               </Box>
-              <Box cursor="not-allowed" onClick={() => toast.error("Desabilitado")}>
+              <Box cursor="pointer" onClick={() => toast.error("Esta funcionalidade está em construção")}>
                 <Button
                   pointerEvents="none"
-                  isDisabled
                   variant="outline"
                   colorScheme="white"
                   onClick={handleOpenFilters}
@@ -257,10 +273,9 @@ export default function Feedbacks() {
                     />
                   </Tooltip>
                 </Box>
-                <Box cursor="not-allowed" onClick={() => toast.error("Desabilitado")}>
+                <Box cursor="pointer" onClick={() => toast.error("Desabilitado")}>
                   <Button
                     pointerEvents="none"
-                    isDisabled
                     variant="outline"
                     colorScheme="white"
                     onClick={handleOpenFilters}
@@ -287,6 +302,7 @@ export default function Feedbacks() {
               {avaliationsAdded && avaliationsAdded.length > 0 ? (
                 <SubmittedAvaliation
                   avaliations={avaliationsAdded}
+                  questionSets={questionSets}
                 />) : (
                 <Container>
                   <Heading color="grey" marginTop="126px" position="relative" bottom="75px">Nenhum Feedback Criado</Heading>
@@ -366,10 +382,9 @@ export default function Feedbacks() {
                     />
                   </Tooltip>
                 </Box>
-                <Box cursor="not-allowed" onClick={() => toast.error("Desabilitado")}>
+                <Box cursor="pointer" onClick={() => toast.error("Esta funcionalidade está em construção")}>
                   <Button
                     pointerEvents="none"
-                    isDisabled
                     variant="outline"
                     colorScheme="white"
                     onClick={handleOpenFilters}
@@ -379,7 +394,7 @@ export default function Feedbacks() {
                   </Button>
                 </Box>
               </Box> :
-                <Box cursor="not-allowed" onClick={() => toast.error("Desabilitado")}>
+                <Box cursor="not-allowed" onClick={() => toast.error("Esta funcionalidade está em construção")}>
                   <Button
                     pointerEvents="none"
                     isDisabled
@@ -404,7 +419,7 @@ export default function Feedbacks() {
                 overflow="hidden"
                 overflowY="auto"
               >{avaliationsReceived && avaliationsReceived.length > 0 ? (
-                <SubmittedAvaliation avaliations={avaliationsReceived} />
+                <SubmittedAvaliation avaliations={avaliationsReceived} questionSets={questionSets} />
               ) : (
                 <Container position="relative" bottom="75px">
                   <Heading color="grey" marginTop="126px">Nenhum Feedback Recebido</Heading>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { parseISO, format } from "date-fns";
 import { ptBR } from 'date-fns/locale';
 import { Container, Heading, Button, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
@@ -6,30 +6,15 @@ import { ViewIcon, CalendarIcon } from "@chakra-ui/icons";
 import { formattingName } from "utils/formattingTexts";
 import { useLocation } from "react-router-dom";
 import SeeMoreAvaliation from "./seeMoreAvaliation";
-import { printQuestionSet } from "services/questionsSet";
 
-export default function SubmittedAvaliation({ avaliations }) {
+export default function SubmittedAvaliation({ avaliations, questionSets }) {
   const [selectedAvaliation, setSelectedAvaliation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [stars, setStars] = useState();
-  const [questionSets, setQuestionSets] = useState([]);
   const [questionSetSelected, setQuestionSetSelected] = useState();
   const location = useLocation();
 
   const bgColor = useColorModeValue("#ffffff", "#1c222b");
   const textColor = useColorModeValue("#1c222b", "#ffffff");
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const groups = await printQuestionSet();
-        setQuestionSets(groups);
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData();
-  }, []);
 
   const checkIfIsHomeScreen = () => {
     return location.pathname === "/home";
@@ -50,10 +35,9 @@ export default function SubmittedAvaliation({ avaliations }) {
       .map((question) => parseFloat(question.rating));
   };
 
-  const handleOpenModal = (avaliation, numStars, questionSetSelected) => {
+  const handleOpenModal = (avaliation, questionSetSelected) => {
     setIsModalOpen(true);
     setSelectedAvaliation(avaliation);
-    setStars(numStars);
     setQuestionSetSelected(questionSetSelected)
   };
 
@@ -126,7 +110,7 @@ export default function SubmittedAvaliation({ avaliations }) {
                   size="sm"
                   margin="5px"
                   marginLeft="10px"
-                  onClick={() => handleOpenModal(avaliation, numStars, questionSetSelected)}
+                  onClick={() => handleOpenModal(avaliation, questionSetSelected)}
                 >
                   <ViewIcon />
                 </Button>
@@ -150,7 +134,7 @@ export default function SubmittedAvaliation({ avaliations }) {
               <strong>Média dos Ratings:</strong> {averageRating}
             </Text>
             <Text color={textColor}>
-              <strong>Grupo da avaliação:</strong> {questionSetSelected?.questionSetName}
+              <strong>Grupo da avaliação:</strong> {avaliation.questionSetName}
             </Text>
           </Container>
         </Container>
@@ -171,7 +155,6 @@ export default function SubmittedAvaliation({ avaliations }) {
           avaliation={selectedAvaliation}
           getAverageRating={getAverageRating}
           filterValidRatings={filterValidRatings}
-          stars={stars}
           questionSetSelected={questionSetSelected}
         />
       )}

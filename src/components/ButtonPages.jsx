@@ -33,7 +33,7 @@ export default function ButtonPages({ title, navigate, isActualRoute }) {
         bg="transparent"
         onClick={navNewPage}
         _hover={{}}
-        _active={{ bg: "rgba(0, 0, 0, 0.473)" }}
+        _active={{ bg: "rgba(0, 0, 0, 0.2)" }}
         css={{
           color: isActualRoute ? "#700e17" : colorMode === "dark" ? "white" : "#1c222b",
           textDecoration: "none",
