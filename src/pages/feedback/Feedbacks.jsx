@@ -12,40 +12,25 @@ import { toast } from "react-toastify";
 import { printQuestionSet } from "services/questionsSet";
 
 export default function Feedbacks() {
-  const [avaliationsAdded, setAvaliationsAdded] = useState();
-  const [avaliationsReceived, setAvaliationsReceived] = useState();
-  const user = JSON.parse(localStorage.getItem("user"));
-  const [openFilters, setOpenFilters] = useState(false);
-  const [openUserFilter, setOpenUserFilter] = useState(false);
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const { colorMode } = useColorMode();
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
+  const [questionSets, setQuestionSets] = useState([]);
+  const [openFilters, setOpenFilters] = useState(false);
+  const [openGroupFilter, setOpenGroupFilter] = useState(false);
+  const [avaliationsAdded, setAvaliationsAdded] = useState();
+  const [avaliationsReceived, setAvaliationsReceived] = useState();
   const [selectUserAdded, setSelectUserAdded] = useState("");
   const [selectUserReceived, setSelectUserReceived] = useState("");
-  const { colorMode } = useColorMode();
   const [selectedUserReviewed, setSelectedUserReviewed] = useState("");
   const [newSelectedGroup, setNewSelectedGroup] = useState("");
-  const [questionSets, setQuestionSets] = useState([]);
 
+  //Gradiente das cores nos temas
   const colorGradientBackGround = colorMode === "dark" ?
     "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)" :
     "linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7), transparent)";
-
-  const handleOpenUserFilter = () => {
-    setOpenUserFilter(true);
-  };
-
-  const handleCloseUserFilter = () => {
-    setOpenUserFilter(false);
-  };
-
-  const handleOpenFilters = () => {
-    setOpenFilters(true);
-  };
-
-  const handleCloseFilters = () => {
-    setOpenFilters(false);
-  };
 
   async function findParticipants() {
     try {
@@ -87,6 +72,20 @@ export default function Feedbacks() {
     }
   }
 
+  const newGroupFiltred = async (selectedGroup) => {
+    try {
+      const responseNewGroupAdded = await getAddedFeedbacks(selectUserAdded === "" ? user.name : selectUserAdded, selectedGroup);
+      const responseNewGroupReceived = await getReceivedFeedbacks(selectUserReceived === "" ? user.name : selectUserReceived, selectedGroup);
+      setAvaliationsAdded(responseNewGroupAdded.addedFeedbacks);
+      setAvaliationsReceived(responseNewGroupReceived.receivedFeedbacks);
+      setNewSelectedGroup(selectedGroup)
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     const initializeData = async () => {
       try {
@@ -102,19 +101,19 @@ export default function Feedbacks() {
     initializeData();
   }, [user.name]);
 
-  const newGroupFiltred = async (selectedGroup) => {
-    try {
-      const responseNewGroupAdded = await getAddedFeedbacks(selectUserAdded === "" ? user.name : selectUserAdded, selectedGroup);
-      const responseNewGroupReceived = await getReceivedFeedbacks(selectUserReceived === "" ? user.name : selectUserReceived, selectedGroup);
-      setAvaliationsAdded(responseNewGroupAdded.addedFeedbacks);
-      setAvaliationsReceived(responseNewGroupReceived.receivedFeedbacks);
-      setNewSelectedGroup(selectedGroup)
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  //Função controlando a fechura do filtro de grupos
+  const handleCloseGroupFilter = () => {
+    setOpenGroupFilter(false);
+  };
+
+  //Funções controlando a abertura e fechura do filtro por data
+  const handleOpenFilters = () => {
+    setOpenFilters(true);
+  };
+
+  const handleCloseFilters = () => {
+    setOpenFilters(false);
+  };
 
   const filtringParticipantReviewed = async (selectedParticipantReviewed) => {
     try {
@@ -143,7 +142,7 @@ export default function Feedbacks() {
           <Button
             pos="absolute"
             top="200px"
-            onClick={handleOpenUserFilter}
+            onClick={() => setOpenGroupFilter(true)}
             background="transparent"
             border="1px solid"
             borderColor={colorMode === "dark" ? "white" : "#1c222b"}
@@ -154,8 +153,8 @@ export default function Feedbacks() {
             Filtrar por grupo
           </Button>
           <ModalGroupSelect
-            isOpen={openUserFilter}
-            onClose={handleCloseUserFilter}
+            isOpen={openGroupFilter}
+            onClose={handleCloseGroupFilter}
             setLoading={setLoading}
             newGroupFiltred={newGroupFiltred}
           />
@@ -273,7 +272,7 @@ export default function Feedbacks() {
                     />
                   </Tooltip>
                 </Box>
-                <Box cursor="pointer" onClick={() => toast.error("Desabilitado")}>
+                <Box cursor="pointer" onClick={() => toast.error("Esta funcionalidade está em construção")}>
                   <Button
                     pointerEvents="none"
                     variant="outline"
@@ -394,10 +393,9 @@ export default function Feedbacks() {
                   </Button>
                 </Box>
               </Box> :
-                <Box cursor="not-allowed" onClick={() => toast.error("Esta funcionalidade está em construção")}>
+                <Box cursor="pointer" onClick={() => toast.error("Esta funcionalidade está em construção")}>
                   <Button
                     pointerEvents="none"
-                    isDisabled
                     variant="outline"
                     colorScheme="white"
                     onClick={handleOpenFilters}
@@ -428,9 +426,7 @@ export default function Feedbacks() {
               </Container>
             </Container>
           </Container>
-
       }
-
-    </div >
+    </div>
   );
 }

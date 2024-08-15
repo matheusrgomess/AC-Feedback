@@ -24,6 +24,7 @@ import ModalEditingLogParticipant from "./modalEditingLogParticipant";
 import ModalCreatingUsers from "./modalCreatingUsers";
 
 export default function EditParticipants() {
+    const { colorMode } = useColorMode();
     const [isOpenPrincipalModal, setIsOpenPrincipalModal] = useState(false);
     const [isOpenModalCreateParticipant, setIsOpenModalCreateParticipant] = useState(false);
     const [isOpenEditParticipantSelected, setIsOpenEditParticipantSelected] = useState(false);
@@ -33,7 +34,6 @@ export default function EditParticipants() {
     const [userType, setUserType] = useState("PARTICIPANT");
     const [infoSelectedParticipant, setInfoSelectedParticipant] = useState();
     const [showButtonConfirm, setShowButtonConfirm] = useState(false);
-    const {colorMode} = useColorMode();
 
     const fetchParticipants = async () => {
         const participantsList = await listUsers();
@@ -44,27 +44,12 @@ export default function EditParticipants() {
         fetchParticipants();
     }, []);
 
-    const handleClosePrincipalModal = () => {
-        setIsOpenPrincipalModal(false);
-    }
-
-    const handleCloseEditParticipantSelected = () => {
-        setIsOpenEditParticipantSelected(false);
-        setShowButtonConfirm(false);
-    }
-
-    const handleOpenEditParticipantSelected = (participant) => {
-        setIsOpenEditParticipantSelected(true);
-        setInfoSelectedParticipant(participant);
-    }
-
     const saveUser = async () => {
         const user = {
             email: valueEmail,
             name: APIformattingName(valueName),
             userType: userType,
         };
-
         try {
             await createUser({ user: user });
             await fetchParticipants()
@@ -79,6 +64,15 @@ export default function EditParticipants() {
         }
     };
 
+    const handleClosePrincipalModal = () => {
+        setIsOpenPrincipalModal(false);
+    }
+
+    //Controlando abertura e fechura do Modal de criação de um usuário
+    const handleOpenModalCreateParticipant = () => {
+        setIsOpenModalCreateParticipant(true);
+    }
+
     const handleCloseModalCreateParticipant = () => {
         setIsOpenModalCreateParticipant(false);
         setValueName("");
@@ -86,9 +80,17 @@ export default function EditParticipants() {
         setUserType("PARTICIPANT");
     }
 
-    const handleOpenModalCreateParticipant = () => {
-        setIsOpenModalCreateParticipant(true);
+    //Controlando abertura e fechura do Modal de edição de um usuário
+    const handleOpenEditParticipantSelected = (participant) => {
+        setIsOpenEditParticipantSelected(true);
+        setInfoSelectedParticipant(participant);
     }
+
+    const handleCloseEditParticipantSelected = () => {
+        setIsOpenEditParticipantSelected(false);
+        setShowButtonConfirm(false);
+    }
+
     return (
         <>
             <Modal isOpen={isOpenPrincipalModal} onClose={handleClosePrincipalModal} isCentered>
@@ -124,7 +126,7 @@ export default function EditParticipants() {
                                 </UnorderedList>
                             </Container>
                         </Container>
-                        <Divider marginTop="20px" borderColor="" opacity="100%"/>
+                        <Divider marginTop="20px" borderColor="" opacity="100%" />
                         <Button marginTop="10px" onClick={handleOpenModalCreateParticipant} bg="transparent" borderRadius="none" _hover={{}} _active={{ bgColor: "rgba(0,0,0,0.1)" }}>
                             <Text marginRight="10px">
                                 Criar novo usuário

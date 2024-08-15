@@ -36,13 +36,13 @@ export default function RatingModal({ isOpen, handleClose, handleClick }) {
     setSelectedOption(selectedValue);
   };
 
+  const handleExecuteClick = () => {
+    handleClick(selectedOption);
+  };
+
   const handleCloseModal = () => {
     setSelectedOption("");
     handleClose();
-  };
-
-  const handleExecuteClick = () => {
-    handleClick(selectedOption);
   };
 
   return (

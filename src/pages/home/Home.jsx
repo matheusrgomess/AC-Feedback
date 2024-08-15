@@ -8,13 +8,13 @@ import PrincipalSpinner from "components/Spinner";
 import { printQuestionSet } from "services/questionsSet";
 
 export default function Home() {
-  const [avaliationsAdded, setAvaliationsAdded] = useState();
-  const [avaliationsReceived, setAvaliationsReceived] = useState();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const nav = useNavigate();
   const verifyAdm = localStorage.getItem("isAdmin") === "true";
+  const user = JSON.parse(localStorage.getItem("user"));
   const [loading, setLoading] = useState(true);
   const [questionSets, setQuestionSets] = useState([]);
-  const nav = useNavigate();
+  const [avaliationsAdded, setAvaliationsAdded] = useState();
+  const [avaliationsReceived, setAvaliationsReceived] = useState();
 
   const fetchFeedbacks = useCallback(async () => {
     try {
@@ -30,7 +30,6 @@ export default function Home() {
       setLoading(false);
     }
   }, [user.name]);
-
 
   useEffect(() => {
     fetchFeedbacks();
@@ -89,7 +88,7 @@ export default function Home() {
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <Heading color="white">Últimas avaliações criadas:</Heading>
+                <Heading color="white">Última avaliação criada:</Heading>
               </Container>
               <Container padding="8px">
                 <Container
@@ -153,7 +152,7 @@ export default function Home() {
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <Heading color="white">Últimas avaliações recebidas:</Heading>
+                <Heading color="white">Última avaliação recebida:</Heading>
               </Container>
               <Container padding="8px">
                 <Container

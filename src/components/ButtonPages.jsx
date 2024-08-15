@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, useColorMode } from "@chakra-ui/react";
 import { useNavigate, useLocation, matchPath } from "react-router-dom";
 import AlertExitPage from "./AlertExitPage";
 
 export default function ButtonPages({ title, navigate, isActualRoute }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const nav = useNavigate();
   const location = useLocation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { colorMode } = useColorMode();
 
 
@@ -16,16 +16,16 @@ export default function ButtonPages({ title, navigate, isActualRoute }) {
     } else {
       nav(navigate);
     }
-  };
+  }
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-  };
+  }
 
   const handleModalConfirm = () => {
     setIsModalOpen(false);
     nav(navigate);
-  };
+  }
 
   return (
     <>
@@ -36,11 +36,9 @@ export default function ButtonPages({ title, navigate, isActualRoute }) {
         _active={{ bg: "rgba(0, 0, 0, 0.2)" }}
         css={{
           color: isActualRoute ? "#700e17" : colorMode === "dark" ? "white" : "#1c222b",
-          textDecoration: "none",
           textTransform: "uppercase",
           padding: "0px",
           fontSize: "14pt",
-          fontFamily: "Montserrat",
           fontWeight: "700",
           "&:hover::after": {
             width: isActualRoute ? "0%" : "110%",

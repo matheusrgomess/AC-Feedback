@@ -23,13 +23,6 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
   const [groups, setGroups] = useState([]);
   const [finalSelected, setFinalSelected] = useState();
 
-  const handleCloseModal = () => {
-    setFinalSelected(selectedGroup.name)
-    setLoading(true);
-    newGroupFiltred(selectedGroup.id);
-    onClose();
-  };
-
   const fetchGroups = async () => {
     try {
       const response = await printQuestionSet();
@@ -37,11 +30,18 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
     } catch (error) {
       console.error(error);
     }
-  };
+  }
 
   useEffect(() => {
     fetchGroups();
-  }, []);
+  }, [])
+
+  const handleCloseModal = () => {
+    setFinalSelected(selectedGroup.name)
+    setLoading(true);
+    newGroupFiltred(selectedGroup.id);
+    onClose();
+  }
 
   return (
     <>
@@ -109,6 +109,7 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
             <Button
               onClick={handleCloseModal}
               colorScheme="red"
+              color="white"
             >
               Filtrar
             </Button>

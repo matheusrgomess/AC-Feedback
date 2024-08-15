@@ -8,7 +8,7 @@ import { authentifyUser } from "services/users";
 import { toast } from "react-toastify";
 
 export default function Authentification() {
-  const navigate = useNavigate();
+  const nav = useNavigate();
   const [valueEmail, setValueEmail] = useState("");
   const [valuePassword, setValuePassword] = useState("");
   const [loadingLogin, setLoadingLogin] = useState(false);
@@ -17,13 +17,18 @@ export default function Authentification() {
     password: valuePassword
   }
 
+  const handleClick = () => {
+    loginUser(user);
+    setLoadingLogin(true);
+  };
+
   const loginUser = async (user) => {
     try {
       const response = await authentifyUser({ user: user });
-      localStorage.setItem('user', JSON.stringify(response.data))
+      localStorage.setItem("user", JSON.stringify(response.data));
       const responseParse = JSON.parse(JSON.stringify(response.data))
       localStorage.setItem("isAdmin", responseParse.role === "ADMIN");
-      navigate("/home");
+      nav("/home");
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -31,11 +36,6 @@ export default function Authentification() {
       setLoadingLogin(false);
     }
   }
-
-  const handleClick = () => {
-    loginUser(user);
-    setLoadingLogin(true);
-  };
 
   return (
     <div

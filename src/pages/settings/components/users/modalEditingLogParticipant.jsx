@@ -8,12 +8,12 @@ import { RiAlertFill } from "react-icons/ri";
 import { toast } from "react-toastify";
 
 export default function ModalEditingLogParticipant({ isOpenEditParticipantSelected, handleCloseEditParticipantSelected, infoSelectedParticipant, setParticipants, showButtonConfirm, setShowButtonConfirm }) {
-    const participantId = infoSelectedParticipant?.id;
+    const { colorMode } = useColorMode();
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [newValueName, setNewValueName] = useState("");
     const [newValueEmail, setNewValueEmail] = useState("");
     const [newUserType, setNewUserType] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const { colorMode } = useColorMode();
+    const participantId = infoSelectedParticipant?.id;
 
     useEffect(() => {
         if (infoSelectedParticipant) {
@@ -23,6 +23,25 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
         }
     }, [infoSelectedParticipant]);
 
+    //Atualizando informações do usuário selecionado
+    const sendNewInfoUser = async () => {
+        const data = {
+            email: newValueEmail,
+            name: APIformattingName(newValueName),
+            userType: newUserType
+        }
+        try {
+            await editUser(infoSelectedParticipant.id, data);
+            handleCloseEditParticipantSelected();
+            const participantsList = await listUsers();
+            setParticipants(participantsList);
+        } catch (error) {
+            console.log(error)
+        }
+        setShowButtonConfirm(false)
+    }
+
+    //Deletando usuário selecionado
     const deleteParticipantSelected = async (id) => {
         try {
             await deleteUser(id);
@@ -42,23 +61,6 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
         setNewValueName(formattingName(infoSelectedParticipant.name));
         setNewValueEmail(infoSelectedParticipant.email);
         setNewUserType(infoSelectedParticipant.userType);
-    }
-
-    const sendNewInfoUser = async () => {
-        const data = {
-            email: newValueEmail,
-            name: APIformattingName(newValueName),
-            userType: newUserType
-        }
-        try {
-            await editUser(infoSelectedParticipant.id, data);
-            handleCloseEditParticipantSelected();
-            const participantsList = await listUsers();
-            setParticipants(participantsList);
-        } catch (error) {
-            console.log(error)
-        }
-        setShowButtonConfirm(false)
     }
 
     const handleModalClose = () => {

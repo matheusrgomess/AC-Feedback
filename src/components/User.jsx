@@ -30,38 +30,39 @@ import { IoMdMoon, IoMdSunny } from "react-icons/io";
 import { RiAlertFill } from "react-icons/ri";
 
 export default function User() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isIconRotated, setIsIconRotated] = useState(false);
-    const { colorMode, toggleColorMode } = useColorMode()
     const nav = useNavigate();
-    const user = JSON.parse(localStorage.getItem("user"));
     const location = useLocation();
     const verifyAdm = localStorage.getItem("isAdmin") === "true";
-
-    const navLogout = () => {
-        setIsModalOpen(true);
-    }
-
-    const handleModalClose = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleModalConfirm = () => {
-        setIsModalOpen(false);
-        localStorage.removeItem("user");
-        nav("/");
-    };
+    const user = JSON.parse(localStorage.getItem("user"));
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isIconRotated, setIsIconRotated] = useState(false);
+    const { colorMode, toggleColorMode } = useColorMode();
 
     const handleMenuToggle = () => {
         setIsIconRotated(!isIconRotated);
-    };
+    }
 
     const routes = [
         { name: "Home", path: "/home" },
         { name: "Avaliar", path: "/home/rate" },
         { name: "Feedbacks", path: "/home/feedbacks" },
         { name: "Configurações", path: "/home/settings" }
-    ];
+    ]
+
+    //funções para realizar o processo de validação do logout
+    const navLogout = () => {
+        setIsModalOpen(true);
+    }
+
+    const handleModalConfirm = () => {
+        setIsModalOpen(false);
+        localStorage.removeItem("user");
+        nav("/");
+    }
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+    }
 
     return (
         <>

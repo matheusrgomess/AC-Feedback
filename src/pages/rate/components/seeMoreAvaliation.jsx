@@ -35,15 +35,14 @@ export default function SeeMoreAvaliation({
   filterValidRatings,
   questionSetSelected
 }) {
+  const {colorMode} = useColorMode();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const { colorMode } = useColorMode();
   const filteredQuestionsRATING = avaliation.questions.filter(
     (question) => question.questionType === "RATING"
   );
   const filteredQuestionsOBSERVATION = avaliation.questions.filter(
     (question) => question.questionType === "OBSERVATION"
   );
-
   const [
     alternanceObservationandQuestions,
     setAlternanceObservationandQuestions,
@@ -51,6 +50,7 @@ export default function SeeMoreAvaliation({
   const rating = avaliation.questions[currentQuestion].rating;
   const justification = avaliation.questions[currentQuestion].justification;
 
+  //Controlando a passagem das questões
   const clickNext = () => {
     setCurrentQuestion((prev) => prev + 1);
   };
@@ -59,10 +59,12 @@ export default function SeeMoreAvaliation({
     setCurrentQuestion((prev) => prev - 1);
   };
 
+  //Mostrando apenas a observação
   const showObservations = () => {
     setAlternanceObservationandQuestions(!alternanceObservationandQuestions);
   };
 
+  //Função controlando a fechura do modal
   const handleClose = () => {
     onClose();
     setCurrentQuestion(0);

@@ -4,7 +4,6 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export default function Inputs({ title, placeholder, type, value, onChange }) {
     const [showPassword, setShowPassword] = useState(false);
-
     const handleClick = () => setShowPassword(!showPassword);
 
     return (

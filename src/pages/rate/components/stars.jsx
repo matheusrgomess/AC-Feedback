@@ -2,7 +2,6 @@ import { Text } from "@chakra-ui/react";
 import { TiStar } from "react-icons/ti";
 
 export default function Stars({ hover, setHover, rating, setRating, numberOfStars }) {
-
   return (
     <div style={{ display: "flex" }}>
       {[...Array(numberOfStars)].map((_, i) => {

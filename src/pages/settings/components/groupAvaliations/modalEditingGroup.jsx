@@ -58,7 +58,7 @@ export default function ModalEditingGroup({
     setIsModalRemoveOpen,
     handleModalRemoveClose
 }) {
-    const { colorMode } = useColorMode();
+    const {colorMode} = useColorMode();
     return (
         <>
             <Modal isOpen={isModalOpen} onClose={handleClose} isCentered>

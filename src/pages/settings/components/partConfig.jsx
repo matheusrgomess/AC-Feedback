@@ -9,7 +9,7 @@ export default function PartConfig(props) {
             w="70%"
             h="40px"
             borderBottom="2px solid"
-            borderColor={colorMode === "dark"? "#ffffff" : "#1c222b" }
+            borderColor={colorMode === "dark" ? "#ffffff" : "#1c222b" }
             display="flex"
             alignItems="center"
             justifyContent="space-between"

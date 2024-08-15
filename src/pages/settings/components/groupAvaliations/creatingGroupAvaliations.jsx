@@ -288,7 +288,7 @@ export default function CreatingGroupAvaliations() {
                                     ...Array(
                                         parseInt(group.numberOfStars)
                                     ),
-                                ].map((_, i) => {
+                                ].map((_) => {
                                     return (
                                         <TiStar
                                             className="star"

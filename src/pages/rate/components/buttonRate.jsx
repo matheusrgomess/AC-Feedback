@@ -6,7 +6,7 @@ import { getActivatedGroup } from "services/questionsSet";
 
 export default function ButtonRate({ currentQuestion, handleNextQuestion, handlePreviousQuestion, rating }) {
     const [activatedGroup, setActivatedGroup] = useState();
-    const { colorMode } = useColorMode();
+    const {colorMode} = useColorMode();
 
     useEffect(() => {
         async function fetchData() {

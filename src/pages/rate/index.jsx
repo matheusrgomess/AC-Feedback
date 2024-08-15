@@ -10,17 +10,17 @@ import PrincipalSpinner from "components/Spinner";
 import { APIformattingName } from "utils/formattingTexts";
 
 export default function RateParticipantScreen() {
-  const { participant } = useParams();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const {colorMode} = useColorMode();
+  const {participant} = useParams();
+  const [loading, setLoading] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [rating, setRating] = useState(null);
-  const [justification, setJustification] = useState("");
   const [hover, setHover] = useState(null);
+  const [justification, setJustification] = useState("");
   const [questions, setQuestions] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"));
-  const [activatedGroup, setActivatedGroup] = useState();
-  const [loading, setLoading] = useState(true);
   const [numberOfStars, setNumberOfStars] = useState();
-  const { colorMode } = useColorMode();
+  const [activatedGroup, setActivatedGroup] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -42,25 +42,6 @@ export default function RateParticipantScreen() {
     fetchData();
   }, []);
 
-  const avaliation = {
-    reviewer: user.name,
-    reviewed: APIformattingName(participant),
-    questions: questions,
-  };
-
-  const handleNextQuestion = () => {
-    setCurrentQuestion((prev) => prev + 1);
-    handleAvaliation(rating);
-    setRating(null);
-    setJustification("");
-  };
-
-  const handlePreviousQuestion = () => {
-    setCurrentQuestion((prev) => prev - 1);
-    setRating(questions[currentQuestion - 1]?.rating || 0);
-    setJustification(questions[currentQuestion - 1]?.justification || "");
-  };
-
   const handleAvaliation = (rating) => {
     const newQuestion = {
       questionName: activatedGroup.questions[currentQuestion].questionName,
@@ -77,9 +58,29 @@ export default function RateParticipantScreen() {
     });
   };
 
+  const avaliation = {
+    reviewer: user.name,
+    reviewed: APIformattingName(participant),
+    questions: questions,
+  };
+
   const saveAvaliation = (finalAvaliation) => {
     postFeedback(finalAvaliation)
     setQuestions([]);
+  };
+
+  //Funções controlando a passagem de questões
+  const handleNextQuestion = () => {
+    setCurrentQuestion((prev) => prev + 1);
+    handleAvaliation(rating);
+    setRating(null);
+    setJustification("");
+  };
+
+  const handlePreviousQuestion = () => {
+    setCurrentQuestion((prev) => prev - 1);
+    setRating(questions[currentQuestion - 1]?.rating || 0);
+    setJustification(questions[currentQuestion - 1]?.justification || "");
   };
 
   return (
@@ -96,7 +97,7 @@ export default function RateParticipantScreen() {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        flexDirection={"column"}
+        flexDirection="column"
         minWidth="100%"
       >
         {loading ?

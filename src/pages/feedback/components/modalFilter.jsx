@@ -1,4 +1,18 @@
-import { Container, CloseButton, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Checkbox, Box, HStack, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { 
+    Container,
+    CloseButton,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalHeader,
+    ModalOverlay,
+    Checkbox,
+    Box,
+    HStack,
+    FormControl,
+    FormLabel,
+    Input
+} from "@chakra-ui/react";
 
 export default function ModalFilter({ isOpen, onClose }) {
     return (

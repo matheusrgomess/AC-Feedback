@@ -5,7 +5,8 @@ export default function InputJustification({
   justification,
   setJustification,
 }) {
-  const { colorMode } = useColorMode();
+  const {colorMode} = useColorMode();
+
   return (
     <>
       <Input

@@ -8,11 +8,10 @@ import { useLocation } from "react-router-dom";
 import SeeMoreAvaliation from "./seeMoreAvaliation";
 
 export default function SubmittedAvaliation({ avaliations, questionSets }) {
-  const [selectedAvaliation, setSelectedAvaliation] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [questionSetSelected, setQuestionSetSelected] = useState();
   const location = useLocation();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAvaliation, setSelectedAvaliation] = useState(null);
+  const [questionSetSelected, setQuestionSetSelected] = useState();
   const bgColor = useColorModeValue("#ffffff", "#1c222b");
   const textColor = useColorModeValue("#1c222b", "#ffffff");
 
@@ -24,17 +23,20 @@ export default function SubmittedAvaliation({ avaliations, questionSets }) {
     return avaliations[0];
   };
 
+  //Fazendo a média das notas
   const getAverageRating = (numbersArray) => {
     const average =
       numbersArray?.reduce((acc, val) => acc + val, 0) / numbersArray?.length;
     return parseFloat(average.toFixed(1));
   };
 
+  //Filtrando apenas questões com rating
   const filterValidRatings = (questions) => {
     return questions?.filter((question) => typeof question.rating === "number")
       .map((question) => parseFloat(question.rating));
   };
 
+  //Controlando a abertura e fechura do modal
   const handleOpenModal = (avaliation, questionSetSelected) => {
     setIsModalOpen(true);
     setSelectedAvaliation(avaliation);
@@ -50,7 +52,6 @@ export default function SubmittedAvaliation({ avaliations, questionSets }) {
       (group) => group.id === avaliation.questionSetId
     );
     const questions = avaliation?.questions;
-    const numStars = questionSetSelected?.numberOfStars;
     const filteredValidRatings = filterValidRatings(questions);
     const averageRating = getAverageRating(filteredValidRatings);
 

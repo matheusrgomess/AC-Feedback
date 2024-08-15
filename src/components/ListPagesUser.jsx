@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, ListItem } from "@chakra-ui/react";
 import { useNavigate, useLocation, matchPath } from "react-router-dom";
 import AlertExitPage from './AlertExitPage';
 
 export default function ListPagesUser({ title, navigate }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const nav = useNavigate();
     const location = useLocation();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const navNewPage = () => {
         if (matchPath("/rate-participant/:participant", location.pathname)) {
@@ -16,6 +16,7 @@ export default function ListPagesUser({ title, navigate }) {
         }
     }
 
+    //Handles para o Modal
     const handleModalClose = () => {
         setIsModalOpen(false);
     }
