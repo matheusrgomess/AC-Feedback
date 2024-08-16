@@ -13,12 +13,17 @@ import {
   Select,
   Tooltip,
   Icon,
-  Heading,
+  Heading
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { printQuestionSet } from "services/questionsSet";
 
-export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroupFiltred }) {
+export default function ModalGroupSelect({
+  isOpen,
+  onClose,
+  setLoading,
+  newGroupFiltred
+}) {
   const [selectedGroup, setSelectedGroup] = useState({ id: "", name: "" });
   const [groups, setGroups] = useState([]);
   const [finalSelected, setFinalSelected] = useState();
@@ -30,18 +35,18 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchGroups();
-  }, [])
+  }, []);
 
   const handleCloseModal = () => {
-    setFinalSelected(selectedGroup.name)
+    setFinalSelected(selectedGroup.name);
     setLoading(true);
     newGroupFiltred(selectedGroup.id);
     onClose();
-  }
+  };
 
   return (
     <>
@@ -69,7 +74,13 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
             <Divider borderColor="red" marginBottom="4px" />
             <Text>
               Grupo selecionado neste momento:{" "}
-              <strong>{finalSelected ? finalSelected === "" ? "Todos" : finalSelected : "Todos"}</strong>
+              <strong>
+                {finalSelected
+                  ? finalSelected === ""
+                    ? "Todos"
+                    : finalSelected
+                  : "Todos"}
+              </strong>
             </Text>
           </Container>
           <ModalBody padding="15px">
@@ -79,7 +90,9 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
             <Select
               value={selectedGroup.id}
               onChange={(e) => {
-                const selectedOption = groups.find(group => group.id === e.target.value);
+                const selectedOption = groups.find(
+                  (group) => group.id === e.target.value
+                );
                 setSelectedGroup({
                   id: e.target.value,
                   name: selectedOption ? selectedOption.questionSetName : ""
@@ -89,14 +102,9 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
               borderColor="#777a80"
               _hover={{}}
             >
-              <option value="" >
-                Todos
-              </option>
+              <option value="">Todos</option>
               {groups.map((group) => (
-                <option
-                  key={group.id}
-                  value={group.id}
-                >
+                <option key={group.id} value={group.id}>
                   {group.questionSetName}
                 </option>
               ))}
@@ -106,11 +114,7 @@ export default function ModalGroupSelect({ isOpen, onClose, setLoading, newGroup
             <Button mr={3} onClick={onClose}>
               Cancelar
             </Button>
-            <Button
-              onClick={handleCloseModal}
-              colorScheme="red"
-              color="white"
-            >
+            <Button onClick={handleCloseModal} colorScheme="red" color="white">
               Filtrar
             </Button>
           </ModalFooter>

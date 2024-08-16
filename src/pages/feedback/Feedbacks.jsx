@@ -1,4 +1,13 @@
-import { Container, Heading, Button, Box, Select, useColorMode, Tooltip, Icon } from "@chakra-ui/react";
+import {
+  Container,
+  Heading,
+  Button,
+  Box,
+  Select,
+  useColorMode,
+  Tooltip,
+  Icon
+} from "@chakra-ui/react";
 import SubmittedAvaliation from "../rate/components/submittedAvaliations";
 import { useEffect, useState } from "react";
 import ModalFilter from "./components/modalFilter";
@@ -12,8 +21,8 @@ import { toast } from "react-toastify";
 import { printQuestionSet } from "services/questionsSet";
 
 export default function Feedbacks() {
-  const verifyAdm = localStorage.getItem("isAdmin") === "true";
   const user = JSON.parse(localStorage.getItem("user"));
+  const verifyAdm = user?.role === "ADMIN";
   const { colorMode } = useColorMode();
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
@@ -28,9 +37,10 @@ export default function Feedbacks() {
   const [newSelectedGroup, setNewSelectedGroup] = useState("");
 
   //Gradiente das cores nos temas
-  const colorGradientBackGround = colorMode === "dark" ?
-    "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)" :
-    "linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7), transparent)";
+  const colorGradientBackGround =
+    colorMode === "dark"
+      ? "linear-gradient(to top, #1c222b, rgba(28, 34, 43, 0.85), rgba(28, 34, 43, 0.7), transparent)"
+      : "linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7), transparent)";
 
   async function findParticipants() {
     try {
@@ -46,13 +56,15 @@ export default function Feedbacks() {
       const groups = await printQuestionSet();
       setQuestionSets(groups);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   async function userFeedbacksAdded(selectedUserAdded) {
     try {
-      const responseAdded = selectedUserAdded && (await getAddedFeedbacks(selectedUserAdded, newSelectedGroup));
+      const responseAdded =
+        selectedUserAdded &&
+        (await getAddedFeedbacks(selectedUserAdded, newSelectedGroup));
       setAvaliationsAdded(responseAdded.addedFeedbacks);
     } catch (error) {
       console.log(error);
@@ -63,8 +75,10 @@ export default function Feedbacks() {
 
   async function userFeedbacksReceived(selectedUserReceived) {
     try {
-      const responseReceived = selectedUserReceived && (await getReceivedFeedbacks(selectedUserReceived, newSelectedGroup));
-      setAvaliationsReceived(responseReceived.receivedFeedbacks)
+      const responseReceived =
+        selectedUserReceived &&
+        (await getReceivedFeedbacks(selectedUserReceived, newSelectedGroup));
+      setAvaliationsReceived(responseReceived.receivedFeedbacks);
     } catch (error) {
       console.log(error);
     } finally {
@@ -74,17 +88,23 @@ export default function Feedbacks() {
 
   const newGroupFiltred = async (selectedGroup) => {
     try {
-      const responseNewGroupAdded = await getAddedFeedbacks(selectUserAdded === "" ? user.name : selectUserAdded, selectedGroup);
-      const responseNewGroupReceived = await getReceivedFeedbacks(selectUserReceived === "" ? user.name : selectUserReceived, selectedGroup);
+      const responseNewGroupAdded = await getAddedFeedbacks(
+        selectUserAdded === "" ? user.name : selectUserAdded,
+        selectedGroup
+      );
+      const responseNewGroupReceived = await getReceivedFeedbacks(
+        selectUserReceived === "" ? user.name : selectUserReceived,
+        selectedGroup
+      );
       setAvaliationsAdded(responseNewGroupAdded.addedFeedbacks);
       setAvaliationsReceived(responseNewGroupReceived.receivedFeedbacks);
-      setNewSelectedGroup(selectedGroup)
+      setNewSelectedGroup(selectedGroup);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     const initializeData = async () => {
@@ -117,14 +137,18 @@ export default function Feedbacks() {
 
   const filtringParticipantReviewed = async (selectedParticipantReviewed) => {
     try {
-      const responseNewParticipantReviewed = await getAddedFeedbacks(user.name, null, selectedParticipantReviewed && selectedParticipantReviewed)
-      setAvaliationsAdded(responseNewParticipantReviewed.addedFeedbacks)
+      const responseNewParticipantReviewed = await getAddedFeedbacks(
+        user.name,
+        null,
+        selectedParticipantReviewed && selectedParticipantReviewed
+      );
+      setAvaliationsAdded(responseNewParticipantReviewed.addedFeedbacks);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
     <div
@@ -134,7 +158,7 @@ export default function Feedbacks() {
         backgroundColor: "1c222b",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "center"
       }}
     >
       {verifyAdm ? (
@@ -161,11 +185,19 @@ export default function Feedbacks() {
         </>
       ) : null}
       <ModalFilter isOpen={openFilters} onClose={handleCloseFilters} />
-      {loading ?
-        <Container minHeight="320px" maxH="300px" display="flex" alignItems="center" justifyContent="center" position="relative" bottom="50">
+      {loading ? (
+        <Container
+          minHeight="320px"
+          maxH="300px"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          position="relative"
+          bottom="50"
+        >
           <PrincipalSpinner />
         </Container>
-        :
+      ) : (
         <Container
           maxH="300px"
           borderRadius="20px"
@@ -183,7 +215,7 @@ export default function Feedbacks() {
             height: "75px",
             background: colorGradientBackGround,
             borderBottomRadius: "20px",
-            pointerEvents: "none",
+            pointerEvents: "none"
           }}
         >
           <Container
@@ -197,56 +229,91 @@ export default function Feedbacks() {
             justifyContent="space-between"
           >
             <Heading fontSize="30px">Avaliações criadas:</Heading>
-            {verifyAdm ? <Box display="flex" minWidth="40%">
-              <Box display="flex" alignItems="center" marginRight="20px">
-                <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} focusBorderColor="white" value={selectUserAdded} onChange={(e) => { setSelectUserAdded(e.target.value); userFeedbacksAdded(e.target.value) }} marginRight="2px">
-                  <option
-                    key={user.name}
-                    value={user.name}
-                    style={{ color: colorMode === "dark" ? "white" : "black" }}
+            {verifyAdm ? (
+              <Box display="flex" minWidth="40%">
+                <Box display="flex" alignItems="center" marginRight="20px">
+                  <Select
+                    _focus={{ boxShadow: "none" }}
+                    borderColor="transparent"
+                    _hover={{}}
+                    focusBorderColor="white"
+                    value={selectUserAdded}
+                    onChange={(e) => {
+                      setSelectUserAdded(e.target.value);
+                      userFeedbacksAdded(e.target.value);
+                    }}
+                    marginRight="2px"
                   >
-                    Você
-                  </option>
-                  {users.map((user) => (
                     <option
                       key={user.name}
                       value={user.name}
-                      style={{ color: colorMode === "dark" ? "white" : "black" }}
+                      style={{
+                        color: colorMode === "dark" ? "white" : "black"
+                      }}
                     >
-                      {formattingName(user.name)}
+                      Você
                     </option>
-                  ))}
-                </Select>
-                <Tooltip
-                  label="Filtro que você filtra o participante que criou as avaliações"
-                  aria-label="tooltip explicando como funciona o filtro de avaliações criadas"
+                    {users.map((user) => (
+                      <option
+                        key={user.name}
+                        value={user.name}
+                        style={{
+                          color: colorMode === "dark" ? "white" : "black"
+                        }}
+                      >
+                        {formattingName(user.name)}
+                      </option>
+                    ))}
+                  </Select>
+                  <Tooltip
+                    label="Filtro que você filtra o participante que criou as avaliações"
+                    aria-label="tooltip explicando como funciona o filtro de avaliações criadas"
+                  >
+                    <Icon
+                      w={3}
+                      position="relative"
+                      bottom="10px"
+                      _hover={{ cursor: "pointer" }}
+                    />
+                  </Tooltip>
+                </Box>
+                <Box
+                  cursor="pointer"
+                  onClick={() =>
+                    toast.error("Esta funcionalidade está em construção")
+                  }
                 >
-                  <Icon
-                    w={3}
-                    position="relative"
-                    bottom="10px"
-                    _hover={{ cursor: "pointer" }}
-                  />
-                </Tooltip>
+                  <Button
+                    pointerEvents="none"
+                    variant="outline"
+                    colorScheme="white"
+                    onClick={handleOpenFilters}
+                    padding="0px"
+                  >
+                    <CalendarIcon />
+                  </Button>
+                </Box>
               </Box>
-              <Box cursor="pointer" onClick={() => toast.error("Esta funcionalidade está em construção")}>
-                <Button
-                  pointerEvents="none"
-                  variant="outline"
-                  colorScheme="white"
-                  onClick={handleOpenFilters}
-                  padding="0px"
-                >
-                  <CalendarIcon />
-                </Button>
-              </Box>
-            </Box> :
+            ) : (
               <Box display="flex" minWidth="40%">
                 <Box display="flex" alignItems="center" marginRight="20px">
-                  <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} value={selectedUserReviewed} onChange={(e) => { setSelectedUserReviewed(e.target.value); filtringParticipantReviewed(e.target.value) }} focusBorderColor="white" marginRight="2px">
+                  <Select
+                    _focus={{ boxShadow: "none" }}
+                    borderColor="transparent"
+                    _hover={{}}
+                    value={selectedUserReviewed}
+                    onChange={(e) => {
+                      setSelectedUserReviewed(e.target.value);
+                      filtringParticipantReviewed(e.target.value);
+                    }}
+                    focusBorderColor="white"
+                    marginRight="2px"
+                  >
                     <option
                       value={""}
-                      style={{ color: colorMode === "dark" ? "white" : "black" }}
+                      style={{
+                        color: colorMode === "dark" ? "white" : "black"
+                      }}
                     >
                       Todos
                     </option>
@@ -254,7 +321,9 @@ export default function Feedbacks() {
                       <option
                         key={user.name}
                         value={user.name}
-                        style={{ color: colorMode === "dark" ? "white" : "black" }}
+                        style={{
+                          color: colorMode === "dark" ? "white" : "black"
+                        }}
                       >
                         {formattingName(user.name)}
                       </option>
@@ -272,7 +341,12 @@ export default function Feedbacks() {
                     />
                   </Tooltip>
                 </Box>
-                <Box cursor="pointer" onClick={() => toast.error("Esta funcionalidade está em construção")}>
+                <Box
+                  cursor="pointer"
+                  onClick={() =>
+                    toast.error("Esta funcionalidade está em construção")
+                  }
+                >
                   <Button
                     pointerEvents="none"
                     variant="outline"
@@ -284,8 +358,7 @@ export default function Feedbacks() {
                   </Button>
                 </Box>
               </Box>
-            }
-
+            )}
           </Container>
           <Container padding="8px">
             <Container
@@ -302,60 +375,90 @@ export default function Feedbacks() {
                 <SubmittedAvaliation
                   avaliations={avaliationsAdded}
                   questionSets={questionSets}
-                />) : (
+                />
+              ) : (
                 <Container>
-                  <Heading color="grey" marginTop="126px" position="relative" bottom="75px">Nenhum Feedback Criado</Heading>
-                </Container>)}
+                  <Heading
+                    color="grey"
+                    marginTop="126px"
+                    position="relative"
+                    bottom="75px"
+                  >
+                    Nenhum Feedback Criado
+                  </Heading>
+                </Container>
+              )}
             </Container>
           </Container>
         </Container>
-      }
+      )}
 
-      {
-        loading ?
-          <Container minHeight="320px" maxH="300px" display="flex" alignItems="center" justifyContent="center" position="relative" bottom="50">
-            <PrincipalSpinner />
-          </Container>
-          :
+      {loading ? (
+        <Container
+          minHeight="320px"
+          maxH="300px"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          position="relative"
+          bottom="50"
+        >
+          <PrincipalSpinner />
+        </Container>
+      ) : (
+        <Container
+          maxH="300px"
+          borderRadius="20px"
+          padding="0px"
+          position="relative"
+          pos="relative"
+          bottom="50"
+          _after={{
+            content: '""',
+            position: "absolute",
+            top: 300,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            width: "95%",
+            height: "75px",
+            background: colorGradientBackGround,
+            borderBottomRadius: "20px",
+            pointerEvents: "none"
+          }}
+        >
           <Container
-            maxH="300px"
-            borderRadius="20px"
-            padding="0px"
-            position="relative"
-            pos="relative"
-            bottom="50"
-            _after={{
-              content: '""',
-              position: "absolute",
-              top: 300,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              width: "95%",
-              height: "75px",
-              background: colorGradientBackGround,
-              borderBottomRadius: "20px",
-              pointerEvents: "none",
-            }}
+            bgColor="#700e17"
+            padding="5px"
+            minW="100%"
+            borderTopRadius="10px"
+            borderBottomRadius="4px"
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
           >
-            <Container
-              bgColor="#700e17"
-              padding="5px"
-              minW="100%"
-              borderTopRadius="10px"
-              borderBottomRadius="4px"
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Heading fontSize="30px">Avaliações recebidas:</Heading>
-              {verifyAdm ? <Box display="flex" minWidth="40%">
+            <Heading fontSize="30px">Avaliações recebidas:</Heading>
+            {verifyAdm ? (
+              <Box display="flex" minWidth="40%">
                 <Box display="flex" alignItems="center" marginRight="20px">
-                  <Select _focus={{ boxShadow: "none" }} borderColor="transparent" _hover={{}} focusBorderColor="white" marginRight="2px" value={selectUserReceived} onChange={(e) => { setSelectUserReceived(e.target.value); userFeedbacksReceived(e.target.value) }}>
+                  <Select
+                    _focus={{ boxShadow: "none" }}
+                    borderColor="transparent"
+                    _hover={{}}
+                    focusBorderColor="white"
+                    marginRight="2px"
+                    value={selectUserReceived}
+                    onChange={(e) => {
+                      setSelectUserReceived(e.target.value);
+                      userFeedbacksReceived(e.target.value);
+                    }}
+                  >
                     <option
                       key={user.name}
                       value={user.name}
-                      style={{ color: colorMode === "dark" ? "white" : "black" }}
+                      style={{
+                        color: colorMode === "dark" ? "white" : "black"
+                      }}
                     >
                       Você
                     </option>
@@ -363,7 +466,9 @@ export default function Feedbacks() {
                       <option
                         key={user.name}
                         value={user.name}
-                        style={{ color: colorMode === "dark" ? "white" : "black" }}
+                        style={{
+                          color: colorMode === "dark" ? "white" : "black"
+                        }}
                       >
                         {formattingName(user.name)}
                       </option>
@@ -381,7 +486,12 @@ export default function Feedbacks() {
                     />
                   </Tooltip>
                 </Box>
-                <Box cursor="pointer" onClick={() => toast.error("Esta funcionalidade está em construção")}>
+                <Box
+                  cursor="pointer"
+                  onClick={() =>
+                    toast.error("Esta funcionalidade está em construção")
+                  }
+                >
                   <Button
                     pointerEvents="none"
                     variant="outline"
@@ -392,41 +502,53 @@ export default function Feedbacks() {
                     <CalendarIcon />
                   </Button>
                 </Box>
-              </Box> :
-                <Box cursor="pointer" onClick={() => toast.error("Esta funcionalidade está em construção")}>
-                  <Button
-                    pointerEvents="none"
-                    variant="outline"
-                    colorScheme="white"
-                    onClick={handleOpenFilters}
-                    padding="0px"
-                  >
-                    <CalendarIcon />
-                  </Button>
-                </Box>
-              }
-            </Container>
-            <Container padding="8px">
-              <Container
-                className="scrollbar"
-                padding="10px"
-                paddingTop="15px"
-                paddingBottom="50px"
-                maxW="100%"
-                maxH="306px"
-                overflow="hidden"
-                overflowY="auto"
-              >{avaliationsReceived && avaliationsReceived.length > 0 ? (
-                <SubmittedAvaliation avaliations={avaliationsReceived} questionSets={questionSets} />
+              </Box>
+            ) : (
+              <Box
+                cursor="pointer"
+                onClick={() =>
+                  toast.error("Esta funcionalidade está em construção")
+                }
+              >
+                <Button
+                  pointerEvents="none"
+                  variant="outline"
+                  colorScheme="white"
+                  onClick={handleOpenFilters}
+                  padding="0px"
+                >
+                  <CalendarIcon />
+                </Button>
+              </Box>
+            )}
+          </Container>
+          <Container padding="8px">
+            <Container
+              className="scrollbar"
+              padding="10px"
+              paddingTop="15px"
+              paddingBottom="50px"
+              maxW="100%"
+              maxH="306px"
+              overflow="hidden"
+              overflowY="auto"
+            >
+              {avaliationsReceived && avaliationsReceived.length > 0 ? (
+                <SubmittedAvaliation
+                  avaliations={avaliationsReceived}
+                  questionSets={questionSets}
+                />
               ) : (
                 <Container position="relative" bottom="75px">
-                  <Heading color="grey" marginTop="126px">Nenhum Feedback Recebido</Heading>
+                  <Heading color="grey" marginTop="126px">
+                    Nenhum Feedback Recebido
+                  </Heading>
                 </Container>
               )}
-              </Container>
             </Container>
           </Container>
-      }
+        </Container>
+      )}
     </div>
   );
 }

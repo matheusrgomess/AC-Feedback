@@ -9,8 +9,8 @@ import { printQuestionSet } from "services/questionsSet";
 
 export default function Home() {
   const nav = useNavigate();
-  const verifyAdm = localStorage.getItem("isAdmin") === "true";
   const user = JSON.parse(localStorage.getItem("user"));
+  const verifyAdm = user?.role === "ADMIN";
   const [loading, setLoading] = useState(true);
   const [questionSets, setQuestionSets] = useState([]);
   const [avaliationsAdded, setAvaliationsAdded] = useState();
@@ -43,7 +43,7 @@ export default function Home() {
         backgroundColor: "1c222b",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "center"
       }}
     >
       {verifyAdm ? (
@@ -100,7 +100,10 @@ export default function Home() {
                   overflow="hidden"
                   overflowY="auto"
                 >
-                  <SubmittedAvaliation avaliations={avaliationsAdded} questionSets={questionSets} />
+                  <SubmittedAvaliation
+                    avaliations={avaliationsAdded}
+                    questionSets={questionSets}
+                  />
                   <Button
                     marginLeft="14px"
                     bgColor="#700e17"
@@ -164,7 +167,10 @@ export default function Home() {
                   overflow="hidden"
                   overflowY="auto"
                 >
-                  <SubmittedAvaliation avaliations={avaliationsReceived} questionSets={questionSets} />
+                  <SubmittedAvaliation
+                    avaliations={avaliationsReceived}
+                    questionSets={questionSets}
+                  />
                   <Button
                     marginLeft="14px"
                     bgColor="#700e17"
