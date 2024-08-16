@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import Authentification from "./pages/login/Authentification";
+
+import Authentication from "./pages/login/Authentification";
 import Home from "./pages/home/Home";
 import Feedbacks from "./pages/feedback/Feedbacks";
 import RateChooseUser from "./pages/rateChooseUser";
@@ -9,9 +10,10 @@ import { ToastContainer } from "react-toastify";
 import Settings from "pages/settings/settings";
 import { useColorMode } from "@chakra-ui/react";
 import "./index.css";
+import Register from "pages/register/register";
 
 function App() {
-  const {colorMode} = useColorMode();
+  const { colorMode } = useColorMode();
   return (
     <div
       className="App"
@@ -19,18 +21,18 @@ function App() {
         overflow: "hidden",
         fontFamily: "Montserrat, sans-serif",
         height: "100vh",
-        maxWidth: "100vw",
+        maxWidth: "100vw"
       }}
     >
       <div
         style={{
-          height: "100%",
+          height: "100%"
         }}
       >
         <Header />
 
         <Routes>
-          <Route path="/" element={<Authentification />} />
+          <Route path="/" element={<Authentication />} />
           <Route path="/home" element={<Home />} />
           <Route path="/home/rate" element={<RateChooseUser />} />
           <Route
@@ -39,6 +41,7 @@ function App() {
           />
           <Route path="/home/feedbacks" element={<Feedbacks />} />
           <Route path="/home/settings" element={<Settings />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
         <ToastContainer
           position="top-center"

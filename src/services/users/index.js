@@ -12,12 +12,12 @@ export async function createUser(body) {
 }
 
 export async function editUser(userId, newValues) {
-  const response = await api.put(`/user/${userId}`, newValues);
+  const response = await api.put(`/admin/user/${userId}`, newValues);
   return response.data;
 }
 
 export async function deleteUser(userId) {
-  const response = await api.delete(`/user/${userId}`);
+  const response = await api.delete(`/admin/user/${userId}`);
   return response.data;
 }
 
@@ -27,6 +27,11 @@ export async function listAllUsers() {
 }
 
 export async function authentifyUser(loginUser) {
-  const response = api.post("/login-user", loginUser);
+  const response = await api.post("/login-user", loginUser);
   return response;
+}
+
+export async function registerUser(registerUser){
+  const response = await api.post("/register", registerUser);
+  return response
 }

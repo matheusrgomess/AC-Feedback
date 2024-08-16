@@ -19,13 +19,14 @@ import {
   CalendarIcon,
   CloseIcon,
   ArrowLeftIcon,
-  ArrowRightIcon,
+  ArrowRightIcon
 } from "@chakra-ui/icons";
 import { formattingName } from "../../../utils/formattingTexts";
 import { useState } from "react";
 import { TiStar } from "react-icons/ti";
 import { parseISO, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { SeeMoreStars } from "components/Stars";
 
 export default function SeeMoreAvaliation({
   isOpen,
@@ -45,7 +46,7 @@ export default function SeeMoreAvaliation({
   );
   const [
     alternanceObservationandQuestions,
-    setAlternanceObservationandQuestions,
+    setAlternanceObservationandQuestions
   ] = useState(false);
   const rating = avaliation.questions[currentQuestion].rating;
   const justification = avaliation.questions[currentQuestion].justification;
@@ -68,7 +69,7 @@ export default function SeeMoreAvaliation({
   const handleClose = () => {
     onClose();
     setCurrentQuestion(0);
-    setAlternanceObservationandQuestions(false)
+    setAlternanceObservationandQuestions(false);
   };
 
   return (
@@ -91,7 +92,8 @@ export default function SeeMoreAvaliation({
                 borderTopRightRadius="8px"
               >
                 <Text display="flex" gap="10px" fontWeight="400">
-                  Avaliação feita por:<strong>{formattingName(avaliation.reviewer)}</strong>
+                  Avaliação feita por:
+                  <strong>{formattingName(avaliation.reviewer)}</strong>
                 </Text>
                 <IconButton
                   onClick={handleClose}
@@ -138,9 +140,11 @@ export default function SeeMoreAvaliation({
                     <Flex alignItems="center" fontSize="20px">
                       <CalendarIcon marginRight="5px" />
                       <strong>
-                        <Text>{format(parseISO(avaliation.date), "dd/MM/yyyy", {
-                          locale: ptBR,
-                        })}</Text>
+                        <Text>
+                          {format(parseISO(avaliation.date), "dd/MM/yyyy", {
+                            locale: ptBR
+                          })}
+                        </Text>
                       </strong>
                     </Flex>
                     <strong>
@@ -172,48 +176,22 @@ export default function SeeMoreAvaliation({
                     >
                       <Container textAlign="center">
                         <Heading fontSize="40px">
-                          {filteredQuestionsRATING[currentQuestion]?.questionName}
+                          {
+                            filteredQuestionsRATING[currentQuestion]
+                              ?.questionName
+                          }
                         </Heading>
                         <Text fontSize="22px">
-                          {filteredQuestionsRATING[currentQuestion]?.questionDescription}
+                          {
+                            filteredQuestionsRATING[currentQuestion]
+                              ?.questionDescription
+                          }
                         </Text>
                       </Container>
-                      <div style={{ display: "flex" }}>
-                        {[
-                          ...Array(
-                            parseInt(questionSetSelected?.numberOfStars)
-                          ),
-                        ].map((_, i) => {
-                          const ratingValue = i + 1;
-
-                          return (
-                            <label key={ratingValue}>
-                              <input
-                                type="radio"
-                                style={{ opacity: "0" }}
-                                name="rating"
-                                value={ratingValue}
-                              />
-                              <TiStar
-                                className="star"
-                                color={
-                                  ratingValue <= rating
-                                    ? "#700e17"
-                                    : "#42474f"
-                                }
-                                size={50}
-                              />
-                              <Text
-                                textAlign="center"
-                                position="relative"
-                                bottom="10px"
-                              >
-                                <strong>{ratingValue}</strong>
-                              </Text>
-                            </label>
-                          );
-                        })}
-                      </div>
+                      <SeeMoreStars
+                        numStars={questionSetSelected?.numberOfStars}
+                        rating={rating}
+                      />
                     </Container>
                     <Container
                       padding="0px"
@@ -230,7 +208,7 @@ export default function SeeMoreAvaliation({
                           color: "white",
                           paddingLeft: "4px",
                           borderTopLeftRadius: "2px",
-                          borderTopRightRadius: "2px",
+                          borderTopRightRadius: "2px"
                         }}
                       >
                         <strong>Justificativa</strong>
@@ -247,7 +225,7 @@ export default function SeeMoreAvaliation({
                           borderRadius: "6px",
                           borderTopLeftRadius: "0px",
                           outline: "none",
-                          overflowY: "scroll",
+                          overflowY: "scroll"
                         }}
                         required
                         readOnly
@@ -276,7 +254,9 @@ export default function SeeMoreAvaliation({
                       marginTop="25px"
                       borderColor={colorMode === "dark" ? "white" : "#1c222b"}
                       _hover={{}}
-                      focusBorderColor={colorMode === "dark" ? "white" : "#1c222b"}
+                      focusBorderColor={
+                        colorMode === "dark" ? "white" : "#1c222b"
+                      }
                       overflow="hidden"
                       overflowY="auto"
                       defaultValue={filteredQuestionsOBSERVATION[0].observation}
@@ -318,7 +298,9 @@ export default function SeeMoreAvaliation({
 
                     <Button
                       padding="0px"
-                      isDisabled={currentQuestion === filteredQuestionsRATING.length - 1}
+                      isDisabled={
+                        currentQuestion === filteredQuestionsRATING.length - 1
+                      }
                       bg="transparent"
                       _hover={{ border: "1px solid", borderColor: "#ffffff" }}
                       _active={{ bgColor: "#00000057" }}
