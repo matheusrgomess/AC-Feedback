@@ -28,6 +28,7 @@ import ListPagesUser from "./ListPagesUser";
 import { formattingName, formattingFirstName } from "../utils/formattingTexts";
 import { IoMdMoon, IoMdSunny } from "react-icons/io";
 import { RiAlertFill } from "react-icons/ri";
+import { logoutUser } from "services/users";
 
 export default function User() {
     const nav = useNavigate();
@@ -50,12 +51,13 @@ export default function User() {
     ]
 
     //funções para realizar o processo de validação do logout
-    const navLogout = () => {
+    const handleLogout = () => {
         setIsModalOpen(true);
     }
 
-    const handleModalConfirm = () => {
+    const handleModalConfirm = async () => {
         setIsModalOpen(false);
+        await logoutUser()
         localStorage.removeItem("user");
         nav("/");
     }
@@ -131,7 +133,7 @@ export default function User() {
                             Tema {colorMode === "dark" ? "escuro" : "claro"}
                             {colorMode === "dark" ? <IoMdMoon size={22} /> : <IoMdSunny size={22} />}
                         </Container>
-                        <MenuItem paddingLeft="15px" onClick={navLogout} bgColor="transparent"><MdLogout /><Text paddingLeft="5px">Sair</Text></MenuItem>
+                        <MenuItem paddingLeft="15px" onClick={handleLogout} bgColor="transparent"><MdLogout /><Text paddingLeft="5px">Sair</Text></MenuItem>
                     </Container>
                 </MenuList>
             </Menu>

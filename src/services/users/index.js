@@ -31,7 +31,12 @@ export async function authentifyUser(loginUser) {
   return response;
 }
 
-export async function registerUser(registerUser){
+export async function registerUser(registerUser) {
   const response = await api.post("/register", registerUser);
+  return response
+}
+
+export async function logoutUser() {
+  const response = await api.post('/sign-out')
   return response
 }
