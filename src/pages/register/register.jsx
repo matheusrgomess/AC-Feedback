@@ -1,4 +1,5 @@
-import { Button, Container, Spinner, Text } from "@chakra-ui/react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { Box, Button, Container, Spinner, Text, useColorMode } from "@chakra-ui/react";
 import Inputs from "pages/login/components/Inputs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ import { APIformattingName } from "utils/formattingTexts";
 
 export default function Register() {
   const nav = useNavigate();
+  const { colorMode } = useColorMode();
   const [valueEmail, setValueEmail] = useState("");
   const [valuePassword, setValuePassword] = useState("");
   const [valueName, setValueName] = useState("");
@@ -39,7 +41,7 @@ export default function Register() {
       h="100vh"
     >
       <Container
-        bg="#ffffff"
+        bg={colorMode === "dark" ? "white" : "#1c222b"}
         maxH="500px"
         maxW="500px"
         padding="50px"
@@ -48,11 +50,23 @@ export default function Register() {
         flexDirection="column"
         justifyContent="space-between"
       >
+        <Box
+          position="absolute"
+          color={colorMode === "dark" ? "#1c222b" : "white"}
+          textDecoration="underline"
+          _hover={{ cursor: "pointer", color: "#971520" }}
+          onClick={() => nav("/")}
+          transition="color 0.2s ease-in-out"
+          top="230px"
+          left="730px"
+        >
+          <ArrowBackIcon /><strong>Voltar</strong>
+        </Box>
         <Container display="flex" flexDir="column" textAlign="center">
-          <Text color="black" fontWeight="bold" fontSize="2rem">
+          <Text color={colorMode === "dark" ? "#1c222b" : "white"} fontWeight="bold" fontSize="2rem">
             Registrar
           </Text>
-          <Text color="black">
+          <Text color={colorMode === "dark" ? "#1c222b" : "white"}>
             Insira os dados da sua conta para realizar o cadastro
           </Text>
         </Container>
@@ -66,6 +80,7 @@ export default function Register() {
         >
           <Inputs
             title="Nome"
+            placeholder="Nome do colaborador"
             type="text"
             value={valueName}
             onChange={(event) => {

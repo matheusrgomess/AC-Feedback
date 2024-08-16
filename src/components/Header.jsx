@@ -7,7 +7,8 @@ import AcDigitalLogoBlack from "../assets/acdigitalblack.png";
 
 function Header() {
   const location = useLocation();
-  const verifyAdm = localStorage.getItem("isAdmin") === "true";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const verifyAdm = user.role === "ADMIN";
   const { colorMode } = useColorMode();
 
   const getMaxWidth = () => {

@@ -5,27 +5,33 @@ import {
   InputGroup,
   InputRightElement,
   Button,
-  Container
+  Container,
+  useColorMode
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export default function Inputs({ title, placeholder, type, value, onChange }) {
   const [showPassword, setShowPassword] = useState(false);
   const handleClick = () => setShowPassword(!showPassword);
+  const {colorMode} = useColorMode();
 
   return (
     <>
       <Container padding="0px">
-        <Text color="black">
+        <Text color={colorMode === "dark" ? "#1c222b" : "white"}>
           <strong>{title}:</strong>
         </Text>
         <InputGroup marginBottom="10px">
           <Input
-            color="black"
+            color={colorMode === "dark" ? "#1c222b" : "white"}
             paddingY="20px"
-            border="1px solid #971520"
+            border={colorMode === "dark" ? "1px solid #1c222b" : "1px solid white"}
+            focusBorderColor="#971520"
             borderRadius="5px"
+            bgColor="transparent"
+            _hover={{}}
             placeholder={placeholder}
+            _placeholder={{ color: colorMode === "dark" ? "gray.400" : "gray.200" }}
             type={type === "password" && showPassword ? "text" : type}
             paddingRight={type === "password" ? "2.5rem" : "0px"}
             variant="filled"
@@ -42,9 +48,9 @@ export default function Inputs({ title, placeholder, type, value, onChange }) {
                 _hover={{ bg: "transparent" }}
               >
                 {showPassword ? (
-                  <ViewOffIcon color="black" />
+                  <ViewOffIcon color={colorMode === "dark" ? "#1c222b" : "white"} />
                 ) : (
-                  <ViewIcon color="black" />
+                  <ViewIcon color={colorMode === "dark" ? "#1c222b" : "white"} />
                 )}
               </Button>
             </InputRightElement>
