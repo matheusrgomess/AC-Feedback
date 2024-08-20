@@ -19,9 +19,10 @@ import { formattingName } from "utils/formattingTexts";
 import PrincipalSpinner from "components/Spinner";
 import { toast } from "react-toastify";
 import { printQuestionSet } from "services/questionsSet";
+import { getUser } from "storage/get-user";
 
 export default function Feedbacks() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = getUser();
   const verifyAdm = user?.role === "ADMIN";
   const { colorMode } = useColorMode();
   const [loading, setLoading] = useState(true);

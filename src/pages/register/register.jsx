@@ -4,7 +4,7 @@ import Inputs from "pages/login/components/Inputs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { authentifyUser, registerUser } from "services/users";
+import { registerUser } from "services/users";
 import { APIformattingName } from "utils/formattingTexts";
 
 export default function Register() {

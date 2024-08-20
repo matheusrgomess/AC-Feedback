@@ -1,5 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { Container, Text, Image, Button, Spinner, useColorMode } from "@chakra-ui/react";
+import {
+  Container,
+  Text,
+  Image,
+  Button,
+  Spinner,
+  useColorMode
+} from "@chakra-ui/react";
 import Inputs from "./components/Inputs";
 import BannerBlack from "../../assets/bannerlogoblack.png";
 import BannerWhite from "../../assets/bannerlogowhite.png";
@@ -66,8 +73,15 @@ export default function Authentication() {
           flexDirection="column"
           textAlign="center"
         >
-          <Image src={colorMode === "dark" ? BannerWhite : BannerBlack} maxH="150px" />
-          <Text fontSize="30px" fontWeight="bold" color={colorMode === "dark" ? "white" : "black"}>
+          <Image
+            src={colorMode === "dark" ? BannerWhite : BannerBlack}
+            maxH="150px"
+          />
+          <Text
+            fontSize="30px"
+            fontWeight="bold"
+            color={colorMode === "dark" ? "white" : "black"}
+          >
             Acesse sua conta para começar a avaliar os membros da sua equipe
           </Text>
         </Container>
@@ -136,7 +150,9 @@ export default function Authentication() {
                   justifyContent="center"
                   alignItems="center"
                 >
-                  <Text color={colorMode === "dark" ? "#1c222b" : "white"}>Você não possui uma conta?</Text>
+                  <Text color={colorMode === "dark" ? "#1c222b" : "white"}>
+                    Você não possui uma conta?
+                  </Text>
                   <Button
                     bg="transparent"
                     color="#971520"

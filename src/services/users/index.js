@@ -1,7 +1,8 @@
+import { getUser } from "storage/get-user";
 import { api } from "../../api";
 
 export async function listUsers() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = getUser();
   const response = await api.get(`/list-participants?email=${user.email}`);
   return response.data.participants;
 }
@@ -33,10 +34,5 @@ export async function authentifyUser(loginUser) {
 
 export async function registerUser(registerUser) {
   const response = await api.post("/register", registerUser);
-  return response
-}
-
-export async function logoutUser() {
-  const response = await api.post('/sign-out')
   return response
 }

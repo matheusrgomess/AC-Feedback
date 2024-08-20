@@ -8,9 +8,10 @@ import { getActivatedGroup } from "services/questionsSet";
 import { postFeedback } from "services/feedbacks";
 import PrincipalSpinner from "components/Spinner";
 import { APIformattingName } from "utils/formattingTexts";
+import { getUser } from "storage/get-user";
 
 export default function RateParticipantScreen() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = getUser();
   const {colorMode} = useColorMode();
   const {participant} = useParams();
   const [loading, setLoading] = useState(true);

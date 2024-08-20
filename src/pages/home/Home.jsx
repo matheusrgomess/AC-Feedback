@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { getAddedFeedbacks, getReceivedFeedbacks } from "services/feedbacks";
 import PrincipalSpinner from "components/Spinner";
 import { printQuestionSet } from "services/questionsSet";
+import { getUser } from "storage/get-user";
 
 export default function Home() {
   const nav = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = getUser();
   const verifyAdm = user?.role === "ADMIN";
   const [loading, setLoading] = useState(true);
   const [questionSets, setQuestionSets] = useState([]);

@@ -11,6 +11,7 @@ import Settings from "pages/settings/settings";
 import { useColorMode } from "@chakra-ui/react";
 import "./index.css";
 import Register from "pages/register/register";
+import { getUser } from "storage/get-user";
 
 function App() {
   const { colorMode } = useColorMode();
@@ -29,7 +30,7 @@ function App() {
           height: "100%"
         }}
       >
-        <Header />
+        {getUser() && <Header />}
 
         <Routes>
           <Route path="/" element={<Authentication />} />
