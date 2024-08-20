@@ -37,7 +37,6 @@ function Header() {
 
   return (
     <div>
-      {location.pathname.includes("home") && (
         <Box
           as="header"
           padding="20px"
@@ -88,7 +87,6 @@ function Header() {
             <User />
           </Container>
         </Box>
-      )}
     </div>
   );
 }

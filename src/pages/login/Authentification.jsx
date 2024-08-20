@@ -13,6 +13,7 @@ import BannerWhite from "../../assets/bannerlogowhite.png";
 import { useState } from "react";
 import { authentifyUser } from "services/users";
 import { toast } from "react-toastify";
+import AlternanceTheme from "components/AlternanceTheme";
 
 export default function Authentication() {
   const nav = useNavigate();
@@ -47,22 +48,11 @@ export default function Authentication() {
   };
 
   return (
-    <div
-      className="body"
-      style={{
-        height: "100vh",
-        width: "100vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-      }}
-    >
       <Container
         display="grid"
         gridTemplateColumns="repeat(2, 1fr)"
         gridTemplateRows="1fr"
-        gridColumnGap="0px"
-        gridRowGap="0px"
+        padding="0px"
         maxW="100%"
         h="100%"
       >
@@ -169,7 +159,7 @@ export default function Authentication() {
             </Container>
           </Container>
         </Container>
+        <AlternanceTheme/>
       </Container>
-    </div>
   );
 }

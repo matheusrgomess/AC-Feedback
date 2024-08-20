@@ -2,7 +2,6 @@ import { Text } from "@chakra-ui/react";
 import { TiStar } from "react-icons/ti";
 
 export const SeeMoreStars = ({ numStars, rating }) => {
-  console.log(numStars);
   return (
     <div style={{ display: "flex" }}>
       {[...Array(parseInt(numStars))].map((_, i) => {

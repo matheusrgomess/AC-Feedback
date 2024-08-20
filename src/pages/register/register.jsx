@@ -1,11 +1,12 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Box, Button, Container, Spinner, Text, useColorMode } from "@chakra-ui/react";
+import AlternanceTheme from "components/AlternanceTheme";
 import Inputs from "pages/login/components/Inputs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { registerUser } from "services/users";
-import { APIformattingName } from "utils/formattingTexts";
+import { APIformattingName, formattingName } from "utils/formattingTexts";
 
 export default function Register() {
   const nav = useNavigate();
@@ -29,6 +30,7 @@ export default function Register() {
       toast.error(error.message);
     } finally {
       setLoading(false);
+      toast.success("Usuário " + formattingName(user.name) + " criado com sucesso!")
     }
   };
 
@@ -132,6 +134,7 @@ export default function Register() {
           </Container>
         </Container>
       </Container>
+      <AlternanceTheme />
     </Container>
   );
 }

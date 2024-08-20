@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Button, ListItem } from "@chakra-ui/react";
+import { Button, ListItem, useColorMode } from "@chakra-ui/react";
 import { useNavigate, useLocation, matchPath } from "react-router-dom";
 import AlertExitPage from "./AlertExitPage";
 
 export default function ListPagesUser({ title, navigate }) {
     const nav = useNavigate();
     const location = useLocation();
+    const colorMode = useColorMode();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const navNewPage = () => {
@@ -32,7 +33,7 @@ export default function ListPagesUser({ title, navigate }) {
         <>
             <ListItem >
                 <Button
-                    isDisabled={isCurrentRoute} padding="0px" bg="transparent" _hover={{}} _active={{ bg: "rgba(0, 0, 0, 0.173)" }} onClick={navNewPage}>
+                    isDisabled={isCurrentRoute} color={isCurrentRoute ? "#971520" : ""} padding="0px" bg="transparent" _hover={{}} _active={{ bg: "rgba(0, 0, 0, 0.173)" }} onClick={navNewPage}>
                     {title}
                 </Button>
             </ListItem>

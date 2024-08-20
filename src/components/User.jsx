@@ -33,8 +33,8 @@ import { getUser } from "storage/get-user";
 export default function User() {
   const nav = useNavigate();
   const location = useLocation();
-  const verifyAdm = localStorage.getItem("isAdmin") === "true";
   const user = getUser();
+  const verifyAdm = user?.role === "ADMIN";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isIconRotated, setIsIconRotated] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();

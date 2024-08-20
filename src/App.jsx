@@ -12,9 +12,11 @@ import { useColorMode } from "@chakra-ui/react";
 import "./index.css";
 import Register from "pages/register/register";
 import { getUser } from "storage/get-user";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const { colorMode } = useColorMode();
+  const location = useLocation();
   return (
     <div
       className="App"
@@ -30,7 +32,7 @@ function App() {
           height: "100%"
         }}
       >
-        {getUser() && <Header />}
+        {location.pathname !== "/" || location.pathname !== "/register" ? getUser() && <Header /> : null}
 
         <Routes>
           <Route path="/" element={<Authentication />} />

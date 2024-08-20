@@ -23,7 +23,6 @@ import {
 } from "@chakra-ui/icons";
 import { formattingName } from "../../../utils/formattingTexts";
 import { useState } from "react";
-import { TiStar } from "react-icons/ti";
 import { parseISO, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { SeeMoreStars } from "components/Stars";
