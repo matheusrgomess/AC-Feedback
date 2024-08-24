@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# AC Feedbacks
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3a18737c-58fb-483c-97c5-489d1a29e8bc" width="45%" />
+  <img src="https://github.com/user-attachments/assets/1edc8527-72d6-449d-b233-8daf43aa4d5d" width="45%" />
+</p>
 
-## Available Scripts
+Esse projeto tem como auxiliar a avaliação de uma equipe de pessoas. Usando a tecnologia React, este sistema auxiliará o time a avaliar seus contribuintes, podendo ser feitos análises com base nas respostas. Tendo diferentes tipos de usuários (participante ou administrador), esse projeto foi utilizado como base para o meu programa de jovem aprendiz, dentro do time de desenvolvimento da AC Digital.
 
-In the project directory, you can run:
+## Tecnologias utilizadas
 
-### `npm start`
+**Front-end:** React
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Back-end:** Typescript, ElysiaJS, MongoDB
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Libs Utilizadas
+- [X]  Chakra-Ui
+- [X]  React-Toastify
+- [X]  React Router DOM
+- [X]  React Icons
+##
 
-### `npm test`
+<details>
+  <summary><strong>Screenshots</strong></summary>
+  
+  <p align="center">
+    <h4>Página Home:</h4>
+    <img src="https://github.com/user-attachments/assets/3a18737c-58fb-483c-97c5-489d1a29e8bc" width="45%" />
+    <img src="https://github.com/user-attachments/assets/1edc8527-72d6-449d-b233-8daf43aa4d5d" width="45%" />
+  </p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  <p align="center">
+    <h4>Página Feedbacks:</h4>
+    <img src="https://github.com/user-attachments/assets/6f6e6880-4be6-4f81-877b-f20cb19a33b3" width="45%" />
+    <img src="https://github.com/user-attachments/assets/9fb95c3d-13f3-4358-bd53-009592ef38a9" width="45%" />
+  </p>
 
-### `npm run build`
+  <p align="center">
+    <h4>Criando um feedback:</h4>
+    <img src="https://github.com/user-attachments/assets/4c33af55-b245-45df-b191-0e64f3152af0" width="45%" />
+    <img src="https://github.com/user-attachments/assets/45becb7b-2840-4d82-8998-6ff0b0ce3e16" width="45%" />
+  </p>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  <p align="center">
+    <h4>Login:</h4>
+    <img src="https://github.com/user-attachments/assets/b2cc11d3-7866-4fd3-86a2-a21f565466ae" width="45%" />
+    <img src="https://github.com/user-attachments/assets/d0c56a78-80b5-4921-8710-0a5a9fb048d7" width="45%" />
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  </p>
+</details>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+##
 
-### `npm run eject`
+## Rodando o projeto localmente
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<strong>Clone o projeto:</strong>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+  git clone https://github.com/matheusrgomess/AC-Feedback.git
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<strong>Entre na pasta do projeto:</strong>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+  cd AC-Feedback
+```
 
-## Learn More
+<strong>Instale as dependências:</strong>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+  npm i
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<strong>Inicie a aplicação:</strong>
 
-### Code Splitting
+```bash
+  npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Links
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Backend](https://github.com/matheusrgomess/feedbacks-api) |
+[Layout](https://www.figma.com/design/692w3StVcuVoVlQuAWg2R8/AC-Feedbacks-Prot%C3%B3tipo?node-id=0-1&t=OImadYPcSuuymruc-1)
