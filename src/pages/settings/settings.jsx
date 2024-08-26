@@ -2,15 +2,12 @@ import {
     Text,
     Container,
     Heading,
-    useColorMode
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
-import PartConfig from "./components/partConfig";
 import EditParticipants from "./components/users/editParticipants";
 import CreatingGroupAvaliations from "./components/groupAvaliations/creatingGroupAvaliations";
 
 export default function Settings() {
-    const {colorMode} = useColorMode();
     return (
         <div
             style={{
@@ -32,20 +29,17 @@ export default function Settings() {
                     <SettingsIcon marginRight="5px" />
                     Configurações do formulários
                 </Heading>
-                <Text fontSize="16px" color="#808080" marginLeft="42px">Edite o que você quer que apareça no formulário</Text>
-                <PartConfig title="Título:" />
-                <PartConfig title="Descrição:" />
+                <Text fontSize="16px" color="#808080" marginLeft="42px">Configure aqui o grupos de avaliações e todos os usuários</Text>
                 <Container
                     margin="0px"
                     padding="0px"
                     w="70%"
                     h="45px"
-                    borderBottom="2px solid"
-                    borderColor={colorMode === "dark"? "#ffffff" : "#1c222b"}
                     display="flex"
                     alignItems="center"
                     justifyContent="space-between"
                     paddingRight="6px"
+                    marginTop="20px"
                     paddingBottom="5px"
                     marginBottom="15px"
                 >

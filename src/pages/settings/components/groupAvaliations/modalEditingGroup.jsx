@@ -162,9 +162,9 @@ export default function ModalEditingGroup({
                   _active={{ bgColor: "#acacac" }}
                   color={colorMode === "dark" ? "#1c222b" : "white"}
                   bgColor={colorMode === "dark" ? "white" : "#1c222b"}
-                  onClick={() =>
-                    setShowADDQuestionsInput(!showADDQuestionsInput)
-                  }
+                  onClick={() => {
+                    setShowADDQuestionsInput(!showADDQuestionsInput); showADDQuestionsInput === false && setInputQuestionsValue("");
+                  }}
                   disabled={selectedGroupValue?.writable === false}
                 >
                   Nova escala de avaliação
@@ -174,6 +174,7 @@ export default function ModalEditingGroup({
                 <InputGroup size="sm" marginTop="15px">
                   <Input
                     marginBottom="10px"
+                    placeholder="Digite aqui o nome da nova pergunta"
                     variant="flushed"
                     borderColor={colorMode === "dark" ? "white" : "#1c222b"}
                     _focus={{
@@ -410,6 +411,7 @@ export default function ModalEditingGroup({
           <ModalFooter>
             <Button
               colorScheme="red"
+              color="white"
               _hover={{ bg: "#680000" }}
               marginRight={5}
               onClick={handleRemoveQuestion}
@@ -418,7 +420,7 @@ export default function ModalEditingGroup({
             </Button>
             <Button
               bg="green"
-              color={colorMode === "dark" ? "#1c222b" : "white"}
+              color="white"
               _hover={{ bg: "#005a00" }}
               onClick={handleUpdateQuestion}
             >

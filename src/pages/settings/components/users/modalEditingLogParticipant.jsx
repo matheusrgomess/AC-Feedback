@@ -35,6 +35,7 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
             handleCloseEditParticipantSelected();
             const participantsList = await listUsers();
             setParticipants(participantsList);
+            toast.success("Alterações efetuadas com sucesso!")
         } catch (error) {
             console.log(error)
         }
@@ -45,14 +46,13 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
     const deleteParticipantSelected = async (id) => {
         try {
             await deleteUser(id);
+            setIsModalOpen(false);
             handleCloseEditParticipantSelected();
             const participantsList = await listUsers();
             setParticipants(participantsList);
             toast.success("Usuário apagado com sucesso!");
         } catch (error) {
             console.log(error);
-        } finally {
-            setIsModalOpen(false);
         }
     }
 
@@ -150,7 +150,7 @@ export default function ModalEditingLogParticipant({ isOpenEditParticipantSelect
                         </Container>
                         {showButtonConfirm &&
                             <Tooltip label="Salvar alterações">
-                                <Button bg="green" padding="0px" _hover={{ bg: "#ffffffe2" }} onClick={sendNewInfoUser}><CheckIcon color="white" /></Button>
+                                <Button bg="green" padding="0px" _hover={{ bg: "#005a00" }} onClick={sendNewInfoUser}><CheckIcon color="white" /></Button>
                             </Tooltip>
                         }
                     </ModalFooter>

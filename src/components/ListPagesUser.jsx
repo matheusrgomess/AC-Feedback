@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Button, ListItem, useColorMode } from "@chakra-ui/react";
+import { Button, ListItem } from "@chakra-ui/react";
 import { useNavigate, useLocation, matchPath } from "react-router-dom";
 import AlertExitPage from "./AlertExitPage";
 
 export default function ListPagesUser({ title, navigate }) {
     const nav = useNavigate();
     const location = useLocation();
-    const colorMode = useColorMode();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const navNewPage = () => {

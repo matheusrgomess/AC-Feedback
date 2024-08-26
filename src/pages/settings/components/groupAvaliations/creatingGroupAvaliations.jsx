@@ -171,6 +171,7 @@ export default function CreatingGroupAvaliations() {
 
     const handleClose = () => {
         setIsModalOpen(false);
+        setShowADDQuestionsInput(false);
         setQuestionsInput([]);
         setSelectedGroupValue(null);
     };
@@ -189,7 +190,7 @@ export default function CreatingGroupAvaliations() {
 
     return (
         <>
-            <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor={colorMode === "dark" ? "#ffffff" : "#1c222b"} onClick={() => setShowInputGroup(!showInputGroup)} marginBottom="10px">
+            <Button _hover={{}} _active={{ bgColor: "#acacac" }} bgColor={colorMode === "dark" ? "#ffffff" : "#1c222b"} onClick={() => {setShowInputGroup(!showInputGroup); showInputGroup === false && setNameGroupValue("")}} marginBottom="10px">
                 <Text marginRight="10px" color={colorMode === "dark" ? "#1c222b" : "#ffffff"}>
                     Criar novo grupo de avaliações
                 </Text>
