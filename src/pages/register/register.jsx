@@ -60,7 +60,7 @@ export default function Register() {
           onClick={() => nav("/")}
           transition="color 0.2s ease-in-out"
           top="230px"
-          left="730px"
+          left="680px"
         >
           <ArrowBackIcon /><strong>Voltar</strong>
         </Box>

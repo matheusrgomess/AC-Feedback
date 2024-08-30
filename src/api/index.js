@@ -8,7 +8,7 @@ export const api = axios.create({
 const whiteListURLs = ['/login-user', '/register']
 
 api.interceptors.request.use(request => {
-  const token = JSON.parse(localStorage.getItem('user'))?.token_access
+  const token = JSON.parse(sessionStorage.getItem('user'))?.token_access
   const isWhiteList = !whiteListURLs.includes(request.url)
   if (token && isWhiteList) {
     request.headers = {

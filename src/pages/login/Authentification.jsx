@@ -38,7 +38,7 @@ export default function Authentication() {
   const loginUser = async (user) => {
     try {
       const response = await authentifyUser({ user: user });
-      localStorage.setItem("user", JSON.stringify(response.data));
+      sessionStorage.setItem("user", JSON.stringify(response.data));
       nav("/home");
     } catch (error) {
       toast.error(error.message);

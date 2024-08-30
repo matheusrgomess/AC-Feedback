@@ -57,7 +57,7 @@ export default function User() {
 
   const handleModalConfirm = async () => {
     setIsModalOpen(false);
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     nav("/");
   };
 
