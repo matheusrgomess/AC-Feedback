@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-
+import Analytics from "pages/analytics/Analytics";
 import Authentication from "./pages/login/Authentification";
 import Home from "./pages/home/Home";
 import Feedbacks from "./pages/feedback/Feedbacks";
@@ -44,6 +44,7 @@ function App() {
           />
           <Route path="/home/feedbacks" element={<Feedbacks />} />
           <Route path="/home/settings" element={<Settings />} />
+          <Route path="/home/analytics" element={<Analytics />} />
           <Route path="/register" element={<Register />} />
         </Routes>
         <ToastContainer

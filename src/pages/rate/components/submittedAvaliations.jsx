@@ -100,7 +100,7 @@ export default function SubmittedAvaliation({ avaliations, questionSets }) {
               </Text>
               <Tooltip
                 label="Ver avaliação completa"
-                aria-label="tooltip para botão de visualizar"
+                aria-label="Tooltip para botão de visualizar"
               >
                 <Button
                   bg="#700e17"

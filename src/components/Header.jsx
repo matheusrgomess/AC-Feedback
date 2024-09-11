@@ -13,7 +13,7 @@ function Header() {
   const { colorMode } = useColorMode();
 
   const getMaxWidth = () => {
-    return verifyAdm ? "600px" : "400px";
+    return verifyAdm ? "800px" : "400px";
   };
 
   const routes = [
@@ -28,6 +28,10 @@ function Header() {
     {
       name: "Feedbacks",
       path: "/home/feedbacks"
+    },
+    {
+      name: "Análises",
+      path: "/home/analytics"
     },
     {
       name: "Configurações",
@@ -65,7 +69,7 @@ function Header() {
             maxW={getMaxWidth()}
           >
             {routes.map((route, index) =>
-              route.name === "Configurações" && !verifyAdm ? null : (
+              (route.name === "Configurações" || route.name === "Análises") && !verifyAdm ? null : (
                 <ButtonPages
                   title={route.name}
                   navigate={route.path}

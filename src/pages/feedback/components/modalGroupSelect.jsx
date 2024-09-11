@@ -58,7 +58,7 @@ export default function ModalGroupSelect({
               Selecione um grupo
               <Tooltip
                 label="Neste modal, você pode selecionar um grupo para ver os seus feedbacks relacionados."
-                aria-label="tooltip explicando como funciona o filtro de grupo"
+                aria-label="Tooltip explicando como funciona o filtro de grupo"
               >
                 <Icon
                   w={3}

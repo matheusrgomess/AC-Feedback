@@ -2,12 +2,10 @@ import {
     Text,
     Container,
     Heading,
-    Divider,
 } from "@chakra-ui/react";
 import { SettingsIcon } from "@chakra-ui/icons";
 import EditParticipants from "./components/users/editParticipants";
 import CreatingGroupAvaliations from "./components/groupAvaliations/creatingGroupAvaliations";
-import AnalyticsUsers from "./components/analytics/analyticsUsers";
 
 export default function Settings() {
     return (
@@ -37,14 +35,12 @@ export default function Settings() {
                     gap="10px"
                     padding="0px"
                     w="22%"
-                    h="90px"
+                    h="45px"
                     display="grid"
                     marginTop="20px"
-                    marginBottom="30px"
+                    marginBottom="10px"
                 >
                     <EditParticipants />
-                    <Divider borderColor="" opacity="100%"/>
-                    <AnalyticsUsers />
                 </Container>
                 <CreatingGroupAvaliations />
             </Container>

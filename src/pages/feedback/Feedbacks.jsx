@@ -268,7 +268,7 @@ export default function Feedbacks() {
                   </Select>
                   <Tooltip
                     label="Filtro que você filtra o participante que criou as avaliações"
-                    aria-label="tooltip explicando como funciona o filtro de avaliações criadas"
+                    aria-label="Tooltip explicando como funciona o filtro de avaliações criadas"
                   >
                     <Icon
                       w={3}
@@ -332,7 +332,7 @@ export default function Feedbacks() {
                   </Select>
                   <Tooltip
                     label="Filtro que você filtra o participante que recebeu suas avaliações"
-                    aria-label="tooltip explicando como funciona o filtro de avaliações criadas"
+                    aria-label="Tooltip explicando como funciona o filtro de avaliações criadas"
                   >
                     <Icon
                       w={3}
@@ -477,7 +477,7 @@ export default function Feedbacks() {
                   </Select>
                   <Tooltip
                     label="Filtro que você filtra as avaliações que certo participante recebeu"
-                    aria-label="tooltip explicando como funciona o filtro de avaliações criadas"
+                    aria-label="Tooltip explicando como funciona o filtro de avaliações criadas"
                   >
                     <Icon
                       w={3}
