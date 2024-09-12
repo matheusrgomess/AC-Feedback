@@ -79,7 +79,7 @@ export default function AnalyticsUsers() {
                 bg="transparent"
                 _hover={{ bg: "rgba(0, 0, 0, 0.3)" }}
             >
-                <Text display="flex" marginRight="10px"><strong>Ver análises</strong></Text>
+                <Text display="flex" marginRight="10px"><strong>Métricas individuais</strong></Text>
                 <PiLineSegmentsFill size={22.5} />
             </Button>
             <Modal isOpen={openMainAnalytics} onClose={handleClosePrincipalModalAnalytics} isCentered>
