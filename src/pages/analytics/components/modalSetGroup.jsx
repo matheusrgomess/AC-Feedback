@@ -21,7 +21,8 @@ import { printQuestionSet } from "services/questionsSet";
 export default function ModalSetGroup({
   isOpen,
   onClose,
-  newGroupFiltred
+  newGroupFiltred,
+  groupSelected
 }) {
   const [selectedGroup, setSelectedGroup] = useState({ id: "", name: "" });
   const [groups, setGroups] = useState([]);
@@ -38,7 +39,8 @@ export default function ModalSetGroup({
 
   useEffect(() => {
     fetchGroups();
-  }, []);
+    groupSelected && setSelectedGroup({ id: groupSelected.id, name: groupSelected.questionSetName })
+  }, [groupSelected]);
 
   const handleModalClose = () => {
     setFinalSelected(selectedGroup.name);
@@ -73,7 +75,7 @@ export default function ModalSetGroup({
             <Text>
               Grupo selecionado neste momento:{" "}
               <strong>
-                {finalSelected && finalSelected}
+                {finalSelected ? finalSelected : selectedGroup && selectedGroup.name}
               </strong>
             </Text>
           </Container>

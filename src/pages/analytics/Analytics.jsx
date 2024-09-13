@@ -3,31 +3,52 @@ import { useState, useEffect } from "react";
 import ModalSetGroup from "./components/modalSetGroup";
 import { printQuestionSet } from "services/questionsSet";
 import AnalyticsUsers from "./components/analyticsUsers";
-import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, ResponsiveContainer } from 'recharts';
+import { getAddedFeedbacks } from "services/feedbacks";
 
 export default function Analytics() {
     const { colorMode } = useColorMode();
     const [isOpenSelectGroup, setIsOpenSelectGroup] = useState(false);
     const [groupSelected, setGroupSelected] = useState(null);
-    const [feedbacks, setFeedbacks] = useState([]);
-
-    const fetchGroups = async () => {
-        try {
-            const response = await printQuestionSet();
-            console.log(response.questions)
-            const activatedGroup = response.questions.find(
-                (group) => group.activatedSet === true
-            );
-            setGroupSelected(activatedGroup);
-            setFeedbacks(activatedGroup.questions);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    const [allFeedbacks, setAllFeedbacks] = useState([]);
+    const [filtredFeedbacks, setFiltredFeedbacks] = useState([]);
 
     useEffect(() => {
+        const fetchGroups = async () => {
+            try {
+                const response = await printQuestionSet();
+                const activatedGroup = response.questions.find(
+                    (group) => group.activatedSet === true
+                );
+                setGroupSelected(activatedGroup);
+            } catch (error) {
+                console.error(error);
+            }
+        };
         fetchGroups();
     }, []);
+
+    useEffect(() => {
+        const fetchFeedbacks = async () => {
+            try {
+                const response = await getAddedFeedbacks();
+                setAllFeedbacks(response.addedFeedbacks);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchFeedbacks();
+    }, []);
+
+    useEffect(() => {
+        if (groupSelected && allFeedbacks.length > 0) {
+            const filtring = allFeedbacks.filter(
+                (feedback) => feedback.questionSetName === groupSelected.questionSetName
+            );
+            setFiltredFeedbacks(filtring);
+            console.log(filtring);
+        }
+    }, [groupSelected, allFeedbacks]);
 
     const newGroupFiltred = async (selectedGroup) => {
         try {
@@ -37,7 +58,6 @@ export default function Analytics() {
             );
             if (filtringFeedbacks) {
                 setGroupSelected(filtringFeedbacks);
-                setFeedbacks(filtringFeedbacks.questions);
             }
         } catch (error) {
             console.error(error);
@@ -67,7 +87,7 @@ export default function Analytics() {
                 paddingBottom: "100px"
             }}
         >
-            <Container minWidth="65%" minHeight="400px" bgColor="#14181E60" borderRadius="12px" padding="0px">
+            <Container minWidth="75%" minHeight="500px" bgColor="#14181E60" borderRadius="12px" padding="0px">
                 <Container minHeight="70px" minWidth="100%" display="flex" alignItems="center">
                     <Button
                         background="transparent"
@@ -87,9 +107,9 @@ export default function Analytics() {
                         {groupSelected && groupSelected.questionSetName}
                     </Text>
                 </Container>
-                <Container minHeight="260px" minWidth="100%" display="flex" justifyContent="space-between">
+                <Container minHeight="360px" minWidth="100%" display="flex" justifyContent="space-between">
                     <Container>
-                        <Text fontSize="1.2rem">Feedbacks criados no grupo: {feedbacks.length !== 0 ? feedbacks.length + " feedback(s)" : "Nenhum Feedback"}</Text>
+                        <Text fontSize="1.2rem">Feedbacks criados no grupo: <strong>{filtredFeedbacks.length !== 0 ? filtredFeedbacks.length + " feedback(s)" : "Nenhum Feedback"}</strong></Text>
                         <Text fontSize="1.2rem">Média de todas as notas do grupo:</Text>
                         <Text fontSize="1.2rem">Usuários que já foram avaliados:</Text>
                         <Container bgColor="#2b3442" borderRadius="12px" minHeight="150px"></Container>
@@ -107,7 +127,6 @@ export default function Analytics() {
                                     fill="#971520"
                                     label
                                 />
-                                <Tooltip />
                             </PieChart>
                         </ResponsiveContainer>
                     </Container>
@@ -120,6 +139,7 @@ export default function Analytics() {
                 isOpen={isOpenSelectGroup}
                 onClose={onCloseSelectGroup}
                 newGroupFiltred={newGroupFiltred}
+                groupSelected={groupSelected}
             />
         </div>
     )
