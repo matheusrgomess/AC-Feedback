@@ -96,7 +96,7 @@ export default function AnalyticsUsers() {
                                 <Box display="flex" alignItems="center">
                                     <Heading>Análises de usuários</Heading>
                                     <Tooltip
-                                        label="Neste modal, você vê análises de todos os usuários"
+                                        label="Neste modal, você vê análises dos usuários individualmente"
                                         aria-label="Tooltip explicando como funciona as análises"
                                     >
                                         <Icon
