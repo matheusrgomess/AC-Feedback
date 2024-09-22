@@ -47,6 +47,7 @@ export default function User() {
     { name: "Home", path: "/home" },
     { name: "Avaliar", path: "/home/rate" },
     { name: "Feedbacks", path: "/home/feedbacks" },
+    { name: "Análises", path: "/home/analytics" },
     { name: "Configurações", path: "/home/settings" }
   ];
 
@@ -118,7 +119,7 @@ export default function User() {
               </Text>
               <UnorderedList styleType="'- '" position="relative" right="5px">
                 {routes.map((route, index) =>
-                  route.name === "Configurações" && !verifyAdm ? null : (
+                  (route.name === "Configurações" || route.name === "Análises") && !verifyAdm ? null : (
                     <ListPagesUser
                       title={route.name}
                       navigate={route.path}
