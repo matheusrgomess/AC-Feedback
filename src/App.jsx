@@ -23,15 +23,10 @@ function App() {
       style={{
         overflow: "hidden",
         fontFamily: "Montserrat, sans-serif",
-        height: "100vh",
+        minHeight:"100vh",
         maxWidth: "100vw"
       }}
     >
-      <div
-        style={{
-          height: "100%"
-        }}
-      >
         {location.pathname !== "/" || location.pathname !== "/register" ? getUser() && <Header /> : null}
 
         <Routes>
@@ -55,7 +50,6 @@ function App() {
           limit={2}
           autoClose={2500}
         />
-      </div>
     </div>
   );
 }

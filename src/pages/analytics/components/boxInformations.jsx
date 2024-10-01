@@ -1,4 +1,4 @@
-import { Box, Text, Container, useColorMode } from "@chakra-ui/react";
+import { Box, Text, Container, useColorMode, Flex } from "@chakra-ui/react";
 import { formattingName } from "utils/formattingTexts";
 
 export function BoxInfoNumbers({ title, number, detailText }) {
@@ -14,13 +14,13 @@ export function BoxInfoNumbers({ title, number, detailText }) {
       border="1px solid"
       borderColor={colorMode === "dark" ? "transparent" : "black"}
     >
-      <Text fontSize="1rem" textColor={colorMode === "dark" ? "white" : "black"} fontWeight="500" marginBottom="10px">
+      <Text fontSize="1.1rem" textColor={colorMode === "dark" ? "white" : "black"} fontWeight="500" marginBottom="10px">
         {title}
       </Text>
       <Text fontSize="3rem" textColor={colorMode === "dark" ? "white" : "black"} fontWeight="bold">
         {number}
       </Text>
-      <Text fontSize="1rem" textColor={colorMode === "dark" ? "white" : "black"} fontWeight="500">
+      <Text fontSize="1.1rem" textColor={colorMode === "dark" ? "white" : "black"} fontWeight="500">
         {detailText}
       </Text>
     </Box>
@@ -51,7 +51,7 @@ export function BoxAverage({ average }) {
           {average}
         </Text>
         <Text
-          fontSize="1rem"
+          fontSize="1.1rem"
           fontWeight="500"
           textColor={colorMode === "dark" ? "white" : "black"}
         >
@@ -71,6 +71,7 @@ export function BoxInfoLists({ users }) {
       borderRadius="12px"
       margin="0px"
       padding="0px"
+      marginRight="18px"
       paddingRight="5px"
       minHeight="200px"
       maxHeight="200px"
@@ -80,7 +81,7 @@ export function BoxInfoLists({ users }) {
       paddingBottom="210px"
     >
       <Container padding="0px">
-        <Text fontSize="1.4rem" margin="0px">
+        <Text fontSize="1.4rem" margin="0px" marginLeft="10px">
           <strong>Usuários que foram avaliados:</strong>
         </Text>
       </Container>
@@ -93,9 +94,21 @@ export function BoxInfoLists({ users }) {
         borderRadius="12px"
       >
         {users.map((user) => (
-          <Text fontSize="18px" key={user.id}>
-            {formattingName(user.name)}
-          </Text>
+          <Flex
+            justifyContent="space-between"
+            fontSize="18px"
+            key={user.id}
+            padding="5px 0"
+            borderBottom="1px solid"
+            borderColor={colorMode === "dark" ? "#3a3f4a" : "#ccc"}
+          >
+            <Box>
+              {formattingName(user.name)}
+            </Box>
+            <Box>
+              {user.solved}
+            </Box>
+          </Flex>
         ))}
       </Container>
     </Container>
