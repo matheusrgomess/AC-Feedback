@@ -15,10 +15,9 @@ import {
     ModalFooter,
     Container
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PiLineSegmentsFill } from "react-icons/pi";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
-import { useEffect } from "react";
 import { listUsers } from "services/users";
 import { formattingName } from "utils/formattingTexts";
 
@@ -47,7 +46,7 @@ export default function AnalyticsUsers() {
 
     useEffect(() => {
         findParticipants();
-    });
+    }, []);
 
     const handleClosePrincipalModalAnalytics = () => {
         setOpenMainAnalytics(false);

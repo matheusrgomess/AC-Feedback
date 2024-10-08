@@ -43,6 +43,7 @@ export default function Home() {
         color: "white",
         backgroundColor: "1c222b",
         display: "flex",
+        minHeight: "90vh",
         justifyContent: "center",
         alignItems: "center"
       }}

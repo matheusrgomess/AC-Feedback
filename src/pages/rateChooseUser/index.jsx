@@ -21,6 +21,7 @@ export default function RateChooseUser() {
       <div style={{
         height: "inherit",
         display: "flex",
+        minHeight: "90vh",
         justifyContent: "center",
         alignItems: "center",
       }}>

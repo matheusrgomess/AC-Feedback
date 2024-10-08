@@ -157,6 +157,7 @@ export default function Feedbacks() {
       style={{
         height: "inherit",
         color: "white",
+        minHeight: "90vh",
         backgroundColor: "1c222b",
         display: "flex",
         justifyContent: "center",

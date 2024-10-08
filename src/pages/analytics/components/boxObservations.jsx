@@ -1,12 +1,15 @@
-import { Container, Heading, Text } from "@chakra-ui/react";
+import { Container, Heading, Text, useColorMode } from "@chakra-ui/react";
 
 export default function BoxObservations() {
+ const { colorMode } = useColorMode()
+
   return (
     <Container
       bgColor="#2b3442"
       width="400px"
       height="180px"
-      border="1px solid #ccc"
+      border="1px solid"
+      borderColor={colorMode === "dark" ? "#3a3f4a" : "#ccc"}
       borderRadius="8px"
       display="flex"
       flexDirection="column"

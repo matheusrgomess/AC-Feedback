@@ -13,6 +13,7 @@ export default function Settings() {
             style={{
                 height: "inherit",
                 display: "flex",
+                minHeight: "90vh",
                 justifyContent: "center",
                 alignItems: "center",
                 paddingBottom: "100px"

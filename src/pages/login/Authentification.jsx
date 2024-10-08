@@ -54,7 +54,7 @@ export default function Authentication() {
         gridTemplateRows="1fr"
         padding="0px"
         maxW="100%"
-        h="100%"
+        h="100vh"
       >
         <Container
           display="flex"

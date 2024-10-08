@@ -87,7 +87,7 @@ export default function RateParticipantScreen() {
   return (
     <div
       style={{
-        height: "100vh",
+        height: "90vh",
         alignItems: "center",
         justifyContent: "center",
       }}

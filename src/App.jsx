@@ -23,11 +23,13 @@ function App() {
       style={{
         overflow: "hidden",
         fontFamily: "Montserrat, sans-serif",
-        minHeight:"100vh",
-        maxWidth: "100vw"
+        minHeight: "100vh",
+        maxWidth: "100vw",
       }}
     >
-        {location.pathname !== "/" || location.pathname !== "/register" ? getUser() && <Header /> : null}
+        {location.pathname !== "/" || location.pathname !== "/register"
+          ? getUser() && <Header />
+          : null}
 
         <Routes>
           <Route path="/" element={<Authentication />} />
@@ -42,14 +44,15 @@ function App() {
           <Route path="/home/analytics" element={<Analytics />} />
           <Route path="/register" element={<Register />} />
         </Routes>
-        <ToastContainer
-          position="top-center"
-          pauseOnHover={false}
-          theme={colorMode === "dark" ? "dark" : "light"}
-          progressStyle={{ background: "#ff0000" }}
-          limit={2}
-          autoClose={2500}
-        />
+
+      <ToastContainer
+        position="top-center"
+        pauseOnHover={false}
+        theme={colorMode === "dark" ? "dark" : "light"}
+        progressStyle={{ background: "#ff0000" }}
+        limit={2}
+        autoClose={2500}
+      />
     </div>
   );
 }

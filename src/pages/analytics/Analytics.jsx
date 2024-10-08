@@ -1,16 +1,9 @@
-import {
-  Container,
-  Heading,
-  Text,
-  Input,
-  Select,
-} from "@chakra-ui/react";
+import { Container, Heading, Text, Input, Select } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { printQuestionSet } from "services/questionsSet";
 import AnalyticsUsers from "./components/analyticsUsers";
 import { getAddedFeedbacks } from "services/feedbacks";
 import PrincipalSpinner from "components/Spinner";
-import { listUsers } from "services/users";
 import {
   BoxAverage,
   BoxInfoLists,
@@ -64,6 +57,13 @@ export default function Analytics() {
       );
       setFiltredFeedbacks(filtring);
       console.log(filtring);
+
+      function listUsersReviewed() {
+        const usersReviewed = filtring.map((feedback) => feedback.reviewed).flat();
+        const uniqueUsers = [...new Set(usersReviewed)];
+        setUsers(uniqueUsers);
+      }
+
       function averageAvaliationsFeedbacks() {
         let ratings = 0;
         let questions = 0;
@@ -73,23 +73,15 @@ export default function Analytics() {
             ratings += question.rating;
             questions++;
           });
+          questions--;
         });
 
         setAverage(questions > 0 ? (ratings / questions).toFixed(2) : 0);
       }
+      listUsersReviewed();
       averageAvaliationsFeedbacks();
+      setLoading(false);
     }
-    async function findParticipants() {
-      try {
-        const response = await listUsers();
-        setUsers(response);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    findParticipants();
   }, [groupSelected, allFeedbacks]);
 
   const newGroupFiltred = async (selectedGroupId) => {
@@ -110,8 +102,7 @@ export default function Analytics() {
     <>
       {loading ? (
         <Container
-          minWidth="100%"
-          minHeight="100%"
+          minHeight="90vh"
           display="flex"
           justifyContent="center"
           alignItems="center"
@@ -215,11 +206,18 @@ export default function Analytics() {
               </Container>
             </Container>
           </Container>
-          <Container minWidth="100%" height="400px" padding="0px" marginTop="45px">
+          <Container
+            minWidth="100%"
+            height="fit-content"
+            padding="0px"
+            marginTop="45px"
+            marginBottom="20px"
+          >
             <Container
               minWidth="100%"
               maxHeight="fit-content"
               padding="0px"
+              paddingLeft="5px"
               marginBottom="15px"
             >
               <Heading>Comentários:</Heading>
@@ -227,8 +225,11 @@ export default function Analytics() {
             <Container
               minWidth="100%"
               minHeight="90%"
-              display="flex"
+              display="grid"
+              gridTemplateColumns="repeat(3, 1fr)"
+              gap="20px"
             >
+              <BoxObservations />
               <BoxObservations />
               <BoxObservations />
               <BoxObservations />

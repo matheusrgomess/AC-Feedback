@@ -93,7 +93,7 @@ export function BoxInfoLists({ users }) {
         minWidth="100%"
         borderRadius="12px"
       >
-        {users.map((user) => (
+        {users?.map((user) => (
           <Flex
             justifyContent="space-between"
             fontSize="18px"
@@ -103,7 +103,7 @@ export function BoxInfoLists({ users }) {
             borderColor={colorMode === "dark" ? "#3a3f4a" : "#ccc"}
           >
             <Box>
-              {formattingName(user.name)}
+              {formattingName(user)}
             </Box>
             <Box>
               {user.solved}
