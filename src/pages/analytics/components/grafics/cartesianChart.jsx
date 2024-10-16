@@ -58,7 +58,7 @@ export default function CartesianChart() {
   ];
 
   return (
-    <ResponsiveContainer width="80%" height="80%">
+    <ResponsiveContainer width="120%" height="100%">
       <LineChart
         width={500}
         height={200}

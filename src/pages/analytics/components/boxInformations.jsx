@@ -1,4 +1,5 @@
-import { Box, Text, Container, useColorMode, Flex } from "@chakra-ui/react";
+import { Box, Text, Container, useColorMode, Flex, Button } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { formattingName } from "utils/formattingTexts";
 
 export function BoxInfoNumbers({ title, number, detailText }) {
@@ -62,8 +63,20 @@ export function BoxAverage({ average }) {
   );
 }
 
-export function BoxInfoLists({ users }) {
+export function BoxInfoLists({ users, filtredFeedbacks, groupSelected }) {
   const { colorMode } = useColorMode();
+  const navigate = useNavigate();
+
+  const handleUserClick = (user) => {
+    // Navega para a página do usuário clicado, passando o user, filtredFeedbacks, e groupSelected
+    navigate(`/home/analytics/${user}`, {
+      state: {
+        user,
+        filtredFeedbacks,
+        groupSelected,
+      },
+    });
+  };
 
   return (
     <Container
@@ -103,7 +116,13 @@ export function BoxInfoLists({ users }) {
             borderColor={colorMode === "dark" ? "#3a3f4a" : "#ccc"}
           >
             <Box>
-              {formattingName(user)}
+              <Button
+                variant="link"
+                color={colorMode === "dark" ? "white" : "black"}
+                onClick={() => handleUserClick(user)}
+              >
+                {formattingName(user)}
+              </Button>
             </Box>
             <Box>
               {user.solved}

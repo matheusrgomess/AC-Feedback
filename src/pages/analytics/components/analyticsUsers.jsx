@@ -128,7 +128,7 @@ export default function AnalyticsUsers() {
                                         maxHeight="283px"
                                         borderRadius="10px"
                                         padding="0px"
-
+                                        paddingBottom="10px"
                                     >
                                         {users.map(user => (
                                             <Button

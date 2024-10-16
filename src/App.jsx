@@ -13,6 +13,7 @@ import "./index.css";
 import Register from "pages/register/register";
 import { getUser } from "storage/get-user";
 import { useLocation } from "react-router-dom";
+import AnalyticsUserSelect from "pages/analyticsUserSelect";
 
 function App() {
   const { colorMode } = useColorMode();
@@ -42,6 +43,7 @@ function App() {
           <Route path="/home/feedbacks" element={<Feedbacks />} />
           <Route path="/home/settings" element={<Settings />} />
           <Route path="/home/analytics" element={<Analytics />} />
+          <Route path="/home/analytics/:user" element={<AnalyticsUserSelect />} />
           <Route path="/register" element={<Register />} />
         </Routes>
 

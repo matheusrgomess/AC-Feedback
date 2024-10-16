@@ -30,7 +30,7 @@ export default function ListPagesUser({ title, navigate }) {
 
     return (
         <>
-            <ListItem >
+            <ListItem>
                 <Button
                     isDisabled={isCurrentRoute} color={isCurrentRoute ? "#971520" : ""} padding="0px" bg="transparent" _hover={{}} _active={{ bg: "rgba(0, 0, 0, 0.173)" }} onClick={navNewPage}>
                     {title}

@@ -1,7 +1,13 @@
-import { Container, Heading, Text, Input, Select } from "@chakra-ui/react";
+import {
+  Container,
+  Heading,
+  Text,
+  Input,
+  Select,
+  useColorMode,
+} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { printQuestionSet } from "services/questionsSet";
-import AnalyticsUsers from "./components/analyticsUsers";
 import { getAddedFeedbacks } from "services/feedbacks";
 import PrincipalSpinner from "components/Spinner";
 import {
@@ -21,6 +27,7 @@ export default function Analytics() {
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
   const [average, setAverage] = useState();
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -56,10 +63,11 @@ export default function Analytics() {
         (feedback) => feedback.questionSetName === groupSelected.questionSetName
       );
       setFiltredFeedbacks(filtring);
-      console.log(filtring);
 
       function listUsersReviewed() {
-        const usersReviewed = filtring.map((feedback) => feedback.reviewed).flat();
+        const usersReviewed = filtring
+          .map((feedback) => feedback.reviewed)
+          .flat();
         const uniqueUsers = [...new Set(usersReviewed)];
         setUsers(uniqueUsers);
       }
@@ -138,12 +146,16 @@ export default function Analytics() {
               </Select>
             </Heading>
             <Container display="flex" alignItems="center" w="fit-content">
-              <Text fontWeight="bold" whiteSpace="nowrap" mr="10px">
+              <Text
+                fontWeight="bold"
+                whiteSpace="nowrap"
+                mr="10px"
+                fontSize="18px"
+              >
                 Período dos dados:
               </Text>
               <Input type="date" variant="flushed" focusBorderColor="#971520" />
             </Container>
-            <AnalyticsUsers />
           </Container>
           <Container
             padding="0px"
@@ -154,26 +166,28 @@ export default function Analytics() {
             display="flex"
             justifyContent="space-between"
           >
-            <>
-              <BoxInfoNumbers
-                title={
-                  groupSelected &&
-                  "Feedbacks criados no " + groupSelected.questionSetName
-                }
-                number={filtredFeedbacks.length}
-                detailText={
-                  filtredFeedbacks.length !== 0
-                    ? filtredFeedbacks.length === 1
-                      ? "Feedback"
-                      : "Feedbacks"
-                    : "Nenhum Feedback"
-                }
-              />
-              <BoxAverage
-                average={average + " de " + groupSelected?.numberOfStars}
-              />
-              <BoxInfoLists users={users} />
-            </>
+            <BoxInfoNumbers
+              title={
+                groupSelected &&
+                "Feedbacks criados no " + groupSelected.questionSetName
+              }
+              number={filtredFeedbacks.length}
+              detailText={
+                filtredFeedbacks.length !== 0
+                  ? filtredFeedbacks.length === 1
+                    ? "Feedback"
+                    : "Feedbacks"
+                  : "Nenhum Feedback"
+              }
+            />
+            <BoxAverage
+              average={average + " de " + groupSelected?.numberOfStars}
+            />
+            <BoxInfoLists
+              users={users}
+              filtredFeedbacks={filtredFeedbacks}
+              groupSelected={groupSelected}
+            />
           </Container>
           <Container
             marginTop="30px"
@@ -217,22 +231,14 @@ export default function Analytics() {
               minWidth="100%"
               maxHeight="fit-content"
               padding="0px"
-              paddingLeft="5px"
+              paddingLeft="15px"
+              paddingRight="15px"
               marginBottom="15px"
             >
               <Heading>Comentários:</Heading>
             </Container>
-            <Container
-              minWidth="100%"
-              minHeight="90%"
-              display="grid"
-              gridTemplateColumns="repeat(3, 1fr)"
-              gap="20px"
-            >
-              <BoxObservations />
-              <BoxObservations />
-              <BoxObservations />
-              <BoxObservations />
+            <Container minWidth="100%" minHeight="90%" gap="20px">
+              <BoxObservations feedbacks={filtredFeedbacks} />
             </Container>
           </Container>
         </>
